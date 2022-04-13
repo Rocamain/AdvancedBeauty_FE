@@ -14,9 +14,10 @@ const filterUniqueLinks = (dropdown_links, rootURL) => {
 };
 
 const sanitizeData = (data) => {
-  const { links } = data.menu.data.attributes;
+  const { links, logo } = data.menu.data.attributes;
+  const { alternativeText, url } = logo.data.attributes;
 
-  return links.reduce(function (allLinks, navLink) {
+  const formattedLinks = links.reduce(function (allLinks, navLink) {
     const hasDropdownLink = navLink?.dropdown_link?.data?.attributes?.links
       ? true
       : false;
@@ -32,6 +33,7 @@ const sanitizeData = (data) => {
 
     return [...allLinks, link];
   }, []);
+  return { alternativeText, url, formattedLinks };
 };
 
 export default sanitizeData;

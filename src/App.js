@@ -23,14 +23,14 @@ function App() {
     return <h1>`Error! ${err.message}`</h1>;
   }
 
-  const formattedLinksData = navLinksFormtr(data);
+  const { formattedLinks, ...logoData } = navLinksFormtr(data);
 
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<Body />}>
-            {formattedLinksData.map((link, index) => {
+            {formattedLinks.map((link, index) => {
               const hasDropdownLinks =
                 link?.dropdownLinks?.length > 0 ? true : false;
 

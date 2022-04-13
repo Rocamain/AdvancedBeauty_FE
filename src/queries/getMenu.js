@@ -31,6 +31,15 @@ const GETMENU = gql`
               }
             }
           }
+          logo {
+            data {
+              attributes {
+                alternativeText
+                url
+                formats
+              }
+            }
+          }
         }
       }
     }
