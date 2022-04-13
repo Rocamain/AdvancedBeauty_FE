@@ -1,85 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import navLinksFormtr from './utils/navLinksFormtr';
+// query
 
-//  page and layout imports
+import GETMENU from '../src/queries/getMenu';
+
+// Page and layout imports
 
 import Body from '../src/components/Body';
-import ComponentSelector from '../src/components/main/ComponentSelector';
-
-//  graphql query  get Menu
-
-const MENU = gql`
-  query getMenu {
-    menu {
-      data {
-        id
-        attributes {
-          links {
-            ... on ComponentMenuLink {
-              name
-              url
-            }
-            ... on ComponentMenuDropdown {
-              name
-              url
-              style
-              dropdown_link {
-                ... on MenuSectionEntityResponse {
-                  data {
-                    attributes {
-                      links {
-                        name
-                        url
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-//  Due to the level of nesting, decide to create some functions to sanitize and format the object received.
-// https://forum.strapi.io/t/discussion-regarding-the-complex-response-structure-for-rest-graphql-developer-experience/13400/35
-//  To be move to a  utils file
-
-const filterUniqueLinks = (dropdown_links, rootURL) => {
-  return dropdown_links.filter((dropdownLink) => {
-    const isUnique = !dropdownLink.url.includes(`#`);
-
-    if (isUnique) {
-      const { name, url } = dropdownLink;
-      return { name, url };
-    }
-  });
-};
-
-const sanitizeData = (links) =>
-  links.reduce(function (allLinks, navLink) {
-    const hasDropdownLink = navLink?.dropdown_link?.data?.attributes?.links
-      ? true
-      : false;
-    const dropdownLinks = navLink?.dropdown_link?.data?.attributes?.links;
-
-    const link = hasDropdownLink
-      ? {
-          name: navLink.name,
-          url: navLink.url,
-          dropdownLinks: filterUniqueLinks(dropdownLinks, navLink.url),
-        }
-      : { name: navLink.name, url: navLink.url };
-
-    return [...allLinks, link];
-  }, []);
+import ComponentSelector from './components/pages/main/ComponentSelector';
 
 // Component
 
 function App() {
-  const { err, data, loading } = useQuery(MENU);
+  const { err, data, loading } = useQuery(GETMENU);
 
   if (loading) {
     return <h1>loading</h1>;
@@ -89,8 +23,7 @@ function App() {
     return <h1>`Error! ${err.message}`</h1>;
   }
 
-  const { links } = data.menu.data.attributes;
-  const formattedLinksData = sanitizeData(links);
+  const formattedLinksData = navLinksFormtr(data);
 
   return (
     <div className="App">
