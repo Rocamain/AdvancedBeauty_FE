@@ -37,11 +37,11 @@ const StyledImg = styled('img')(({ theme }) => ({
 
 const Container = styled('div')(({ theme }) => ({
   width: '90%',
+  height: 'inherit',
   margin: '0 auto',
   justifyContent: 'space-between',
   alignItems: 'center',
   display: 'flex',
-  padding: '0.4em 0',
 
   [theme.breakpoints.up('sm')]: {
     width: '85%',

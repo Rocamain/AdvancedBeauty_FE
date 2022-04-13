@@ -2,18 +2,21 @@
 // https://forum.strapi.io/t/discussion-regarding-the-complex-response-structure-for-rest-graphql-developer-experience/13400/35
 //  To be move to a  utils file
 
-const filterUniqueLinks = (dropdown_links, rootURL) => {
+const filterUniqueLinks = (dropdown_links, rootURL, isFilterUnique) => {
   return dropdown_links.filter((dropdownLink) => {
-    const isUnique = !dropdownLink.url.includes(`#`);
+    const { name, url } = dropdownLink;
+    if (isFilterUnique) {
+      const filterUniquePath = !dropdownLink.url.includes(`#`);
 
-    if (isUnique) {
-      const { name, url } = dropdownLink;
-      return { name, url };
+      if (filterUniquePath) {
+        return { name, url };
+      }
     }
+    return { name, url };
   });
 };
 
-const sanitizeData = (data) => {
+const sanitizeData = (data, filterUnique) => {
   const { links, logo } = data.menu.data.attributes;
   const { alternativeText, url } = logo.data.attributes;
 
@@ -27,7 +30,11 @@ const sanitizeData = (data) => {
       ? {
           name: navLink.name,
           url: navLink.url,
-          dropdownLinks: filterUniqueLinks(dropdownLinks, navLink.url),
+          dropdownLinks: filterUniqueLinks(
+            dropdownLinks,
+            navLink.url,
+            filterUnique
+          ),
         }
       : { name: navLink.name, url: navLink.url };
 

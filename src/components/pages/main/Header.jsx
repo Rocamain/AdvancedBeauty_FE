@@ -5,6 +5,7 @@ import { useState, useRef } from 'react';
 import { useMediaQuery, IconButton, Popover, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+
 import { StyledHeader, StyledImg, Container } from './HeaderStyled/index';
 import StyledNavList from '../../organisms/NavList';
 // query data context
@@ -16,11 +17,13 @@ import GETMENU from '../../../../src/queries/getMenu';
 export default function Header() {
   const { err, data, loading } = useQuery(GETMENU);
 
-  const navBarData = navLinksFormtr(data);
+  const navBarData = navLinksFormtr(data, false);
 
   const theme = useTheme();
   const ref = useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const [selectedIndex, setSelectedIndex] = useState('Home');
 
   const handleOpen = () => {
     setAnchorEl(ref.current);
@@ -92,6 +95,8 @@ export default function Header() {
       >
         <StyledNavList
           links={navBarData.formattedLinks}
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
           onClose={handleClose}
         />
       </Popover>

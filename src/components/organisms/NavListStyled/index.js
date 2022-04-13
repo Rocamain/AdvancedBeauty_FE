@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles';
 
 import { List } from '@mui/material';
 
-const StyledNavList = styled(List)(({ theme }) => ({
+const StyledNavMenu = styled(List)(({ theme }) => ({
   width: '85vw',
   margin: '0 auto',
   ariaLabel: 'navigation menu',
@@ -14,9 +14,8 @@ const StyledNavList = styled(List)(({ theme }) => ({
     alignItems: 'center',
     borderTop: 'none',
     flexDirection: 'row',
-
     width: 'auto',
   },
 }));
 
-export { StyledNavList };
+export { StyledNavMenu };

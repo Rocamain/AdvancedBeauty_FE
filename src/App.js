@@ -23,7 +23,7 @@ function App() {
     return <h1>`Error! ${err.message}`</h1>;
   }
 
-  const { formattedLinks, ...logoData } = navLinksFormtr(data);
+  const { formattedLinks, ...logoData } = navLinksFormtr(data, true);
 
   return (
     <div className="App">
