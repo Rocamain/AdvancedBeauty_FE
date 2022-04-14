@@ -1,23 +1,24 @@
+// Hook and data formatter
 import { useState, useRef } from 'react';
+import useFetchData from '../../../hooks/useFetchData';
+import filterNavigationLinks from '../../pages/main/HeaderUtils/filterNavigationLinks';
 
 //// components, layouts and style hooks imports
 
-import { useMediaQuery, IconButton, Popover, Box } from '@mui/material';
+import { useMediaQuery, IconButton, Popover } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import { StyledHeader, StyledImg, Container } from './HeaderStyled/index';
 import StyledNavList from '../../organisms/NavList';
-// query data context
-
-import { useQuery } from '@apollo/client';
-import navLinksFormtr from '../../../utils/navLinksFormtr';
-import GETMENU from '../../../../src/queries/getMenu';
 
 export default function Header() {
-  const { err, data, loading } = useQuery(GETMENU);
+  const { data, loading } = useFetchData('menu');
 
-  const navBarData = navLinksFormtr(data, false);
+  let navigationLinks = data?.data?.links
+    ? filterNavigationLinks(data.data.links, false)
+    : false;
+
+  let logo = data?.data?.logo ? data?.data?.logo : false;
 
   const theme = useTheme();
   const ref = useRef(null);
@@ -36,70 +37,64 @@ export default function Header() {
     noSsr: true,
   });
 
-  if (loading) {
-    return <h1>loading</h1>;
-  }
-
-  if (err) {
-    return <h1>`Error! ${err.message}`</h1>;
-  }
-
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <>
-      <StyledHeader ref={ref}>
-        <Container>
-          <StyledImg
-            component="img"
-            src={navBarData.url}
-            alt={navBarData.alternativeText}
-          />
+    !loading && (
+      <>
+        <StyledHeader ref={ref}>
+          <Container>
+            <StyledImg
+              component="img"
+              src={logo.url}
+              alt={logo.alternativeText}
+            />
 
-          <IconButton
-            aria-describedby={id}
-            aria-label="menu burger button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleOpen}
-            sx={{
-              display: {
-                md: 'none',
-              },
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Container>
-      </StyledHeader>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        sx={{
-          display: {
-            md: 'none',
-          },
-        }}
-      >
-        <StyledNavList
-          links={navBarData.formattedLinks}
-          selectedIndex={selectedIndex}
-          setSelectedIndex={setSelectedIndex}
+            <IconButton
+              aria-describedby={id}
+              aria-label="menu burger button"
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleOpen}
+              sx={{
+                display: {
+                  md: 'none',
+                },
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Container>
+        </StyledHeader>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
           onClose={handleClose}
-        />
-      </Popover>
-    </>
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          sx={{
+            display: {
+              md: 'none',
+            },
+          }}
+        >
+          <StyledNavList
+            links={navigationLinks}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+            onClose={handleClose}
+          />
+        </Popover>
+      </>
+    )
   );
 }
