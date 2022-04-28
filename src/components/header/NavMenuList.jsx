@@ -1,32 +1,40 @@
-import { StyledNavMenu } from './NavListStyled';
+import { MenuList } from './styled/index';
 import { MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getMainLink } from '../../hooks/utils/index';
 
-function NavList({ links, onClose, setSelectedIndex, selectedIndex }) {
-  const handleListItemClick = (index) => {
+export default function NavMenuList({
+  links,
+  onClose,
+  setSelectedIndex,
+  selectedIndex,
+}) {
+  const handleClick = (index) => {
     if (onClose) {
       onClose();
     }
     setSelectedIndex(index.target.textContent);
   };
 
+  const isMainLink = (link) => getMainLink(link);
+
   return (
-    <StyledNavMenu>
+    <MenuList>
       {links.map((link, index) => {
-        console.log(link);
         return (
           <MenuItem
             key={index}
-            onClick={handleListItemClick}
+            onClick={handleClick}
             selected={link.name === selectedIndex}
             sx={{
-              px: link.hasOwnProperty('__component') ? '1.3em' : '2em',
+              px: isMainLink(link) ? '1.3em' : '2em',
             }}
           >
             <Link
               style={{
                 textDecoration: 'none',
                 color: 'black',
+                width: '100%',
               }}
               to={link.url}
             >
@@ -35,8 +43,6 @@ function NavList({ links, onClose, setSelectedIndex, selectedIndex }) {
           </MenuItem>
         );
       })}
-    </StyledNavMenu>
+    </MenuList>
   );
 }
-
-export default NavList;

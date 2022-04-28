@@ -1,32 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import filterNavigationLinks from './components/pages/main/HeaderUtils/filterNavigationLinks.js';
 import useFetchData from './hooks/useFetchData';
-
-// Page and layout imports
-import { Error, Loading } from './components/index';
-
-import Body from '../src/components/Body';
-import ComponentSelector from './components/pages/main/ComponentSelector';
-
-// Component
+import { Error, Loading } from './components/shared/index';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Body from './components/Body';
+import ComponentSelector from './components/ComponentSelector';
 
 function App() {
-  const { error, loading, data } = useFetchData('menu');
-
-  // if the data has links store false or the links.
-  let navigationLinks = data?.data?.links
-    ? filterNavigationLinks(data.data.links, true)
-    : false;
+  const { error, loading, data } = useFetchData('menu', 'routes');
 
   return (
     <div className="App">
       {loading && <Loading />}
       {error && <Error />}
-      {navigationLinks && (
+      {data?.links && (
         <Router>
           <Routes>
             <Route path="/" element={<Body />}>
-              {navigationLinks.map((navLink, index) => (
+              {data.links.map((navLink, index) => (
                 <Route
                   key={index}
                   index={navLink.url === '/' ? true : false}
