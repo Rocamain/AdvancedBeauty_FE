@@ -2,19 +2,48 @@ const qs = require('qs');
 
 const querySelector = {
   menu: ['links', 'link.dropdown_link', 'links.dropdown_link.links', 'logo'],
+  carousel: [
+    'carousel',
+    'carousel.variantTitle',
+    'carousel.variantSubtitle',
+    'carousel.background.media',
+    'carousel.cards.photo.media',
+  ],
 };
 
 const makeQuery = (path) => {
-  const query = qs.stringify(
-    {
-      populate: [...querySelector[path]],
-    },
-    {
-      encodeValuesOnly: true,
-    }
-  );
-  const queryString = `${path}?${query}`;
+  if (path === 'menu') {
+    const query = qs.stringify(
+      {
+        populate: [...querySelector[path]],
+      },
+      {
+        encodeValuesOnly: true,
+      }
+    );
+    const queryString = `${path}?${query}`;
+    return queryString;
+  }
+
+  const queryString = `${path}?populate=*`;
+
   return queryString;
 };
 
-export default makeQuery;
+const nestedQuery = (path, component) => {
+  if (component) {
+    const query = qs.stringify(
+      {
+        populate: [...querySelector[component]],
+      },
+      {
+        encodeValuesOnly: true,
+      }
+    );
+    const queryString = `${path}?${query}`;
+
+    return queryString;
+  }
+};
+
+export { makeQuery, nestedQuery };

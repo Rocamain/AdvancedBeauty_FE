@@ -1,4 +1,5 @@
 import useFetchData from './hooks/useFetchData';
+
 import { Error, Loading } from './components/shared/index';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Body from './components/Body';

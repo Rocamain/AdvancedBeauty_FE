@@ -71,7 +71,24 @@ theme = createTheme(theme, {
     },
 
     //  Variants
+    carouselTitle: {
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      fontWeight: 700,
+      fontSize: '4rem',
+      color: '#00BCCC !important',
+      letterSpacing: '-0.017em',
+      textAlign: 'center',
+      textShadow: '0em 0em 0.3em #ffffff',
+    },
 
+    carouselSubtitle: {
+      color: '#666',
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      fontWeight: 600,
+      textAlign: 'center',
+      fontSize: '1.9rem',
+      textShadow: '-17em 7em 0.3em #ffffff',
+    },
     // Components override.
 
     MuiTypography: {
