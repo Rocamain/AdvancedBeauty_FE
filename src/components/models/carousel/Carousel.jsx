@@ -5,11 +5,14 @@ import {
   CarouselContainer,
   CarouselHero,
   SlideContainer,
+  SlideShowWrapper,
+  ChevronButton,
 } from './styled/index';
 import { Typography } from '@mui/material';
 
 export default function Carousel({ path }) {
   const { data } = useFetchData(path, 'carousel');
+  console.log(data);
   const [slide, setSlide] = useState(0);
 
   return (
@@ -28,7 +31,13 @@ export default function Carousel({ path }) {
             {data.carousel.subtitle}
           </Typography>
         </CarouselHero>
-        <SlideContainer />
+
+        <SlideContainer>
+          <SlideShowWrapper>
+            {/* <ChevronButton value="left" /> */}
+            {/* <ChevronButton value="right" /> */}
+          </SlideShowWrapper>
+        </SlideContainer>
       </CarouselContainer>
     )
   );

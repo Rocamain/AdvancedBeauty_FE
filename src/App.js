@@ -6,7 +6,7 @@ import Body from './components/Body';
 import ComponentSelector from './components/ComponentSelector';
 
 function App() {
-  const { error, loading, data } = useFetchData('menu', 'routes');
+  const { error, loading, data } = useFetchData('menu');
 
   return (
     <div className="App">
@@ -15,17 +15,20 @@ function App() {
       {data?.links && (
         <Router>
           <Routes>
-            <Route path="/" element={<Body />}>
-              {data.links.map((navLink, index) => (
+            <Route
+              path="/"
+              element={<Body links={data.links} logo={data.logo[0]} />}
+            >
+              {/* {data.links.map((navLink, index) => (
                 <Route
                   key={index}
                   index={navLink.url === '/' ? true : false}
                   path={navLink.url}
                   element={<ComponentSelector name={navLink.name} />}
                 />
-              ))}
+              ))} */}
 
-              <Route path={'*'} element={<h1> Not found!!</h1>} />
+              <Route path="*" element={<h1> Not found!!</h1>} />
             </Route>
           </Routes>
         </Router>

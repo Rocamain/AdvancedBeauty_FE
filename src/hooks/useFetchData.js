@@ -12,6 +12,8 @@ const FORMATEDDATA = {
 };
 
 export default function useFetchData(path, format) {
+  console.log(path, format);
+
   const [data, setData] = useState({
     loading: true,
     data: false,
@@ -24,22 +26,25 @@ export default function useFetchData(path, format) {
     const getData = async () => {
       setData({ loading: true, data: false, error: false });
       try {
-        const queryString =
-          path !== 'menu' && format
-            ? nestedQuery(path, format)
-            : makeQuery(path);
+        const queryString = format
+          ? nestedQuery(path, format)
+          : makeQuery(path);
+        console.log(queryString);
 
         const res = await fetch(`http://localhost:1337/api/${queryString}`);
 
         const { data } = await res.json();
-
+        console.log('FETCH', data);
         const formattedData =
           path === 'menu'
             ? FORMATEDDATA[path][format](data)
             : FORMATEDDATA[path](data);
 
-        setData({ data: formattedData, error: false, loading: false });
+        console.log('FORMAT', formattedData);
+
+        // setData({ data: formattedData, error: false, loading: false });
       } catch (err) {
+        console.log(err);
         setData({ error: err.message, data: false, loading: false });
       }
     };

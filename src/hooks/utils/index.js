@@ -19,21 +19,38 @@ const getMobileNavLinks = (data) => {
 //  return an array of unique route links.
 
 const getRoutesLinks = ({ links, ...rest }) => {
-  const formattedRouteLinks = links.reduce((storage, link) => {
-    const { id, name, url, __component } = link;
+  console.log(links, rest);
+  const filterUniquePaths = links.map((link) => {
+    const hasDropdownLinks = link.__component === 'menu.dropdown-links';
 
-    const mainRouteLink = { id, name, url, __component };
+    if (hasDropdownLinks) {
+      const uniquePathLinks = link.dropdown_link.filter(
+        (dropdownLink, index) => !dropdownLink.url.includes(`#`)
+      );
+      return { link, ...uniquePathLinks };
+    }
 
-    const routeLinks = link?.dropdown_link?.links?.filter(
-      (dropdownLink) => !dropdownLink.url.includes(`#`)
-    );
+    return link;
+  });
 
-    return routeLinks
-      ? [...storage, mainRouteLink, ...routeLinks]
-      : [...storage, mainRouteLink];
-  }, []);
+  console.log(filterUniquePaths);
+  return filterUniquePaths;
 
-  return { links: formattedRouteLinks, ...rest };
+  // const formattedRouteLinks = links.reduce((storage, link) => {
+  //   const { id, name, url, __component } = link;
+
+  //   const mainRouteLink = { id, name, url, __component };
+
+  //   const routeLinks = link?.dropdown_link?.links?.filter(
+  //     (dropdownLink) => !dropdownLink.url.includes(`#`)
+  //   );
+
+  //   return routeLinks
+  //     ? [...storage, mainRouteLink, ...routeLinks]
+  //     : [...storage, mainRouteLink];
+  // }, []);
+
+  // return { links: formattedRouteLinks, ...rest };
 };
 
 const getMainLink = (link) => link.hasOwnProperty('__component');

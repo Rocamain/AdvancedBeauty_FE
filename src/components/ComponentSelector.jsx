@@ -16,7 +16,7 @@ function ComponentSelector({ name }) {
     return models;
   };
 
-  return <main> {renderModelComponents(data)}</main>;
+  return <main> hello</main>;
 }
 
 export default ComponentSelector;

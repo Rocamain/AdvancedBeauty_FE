@@ -17,39 +17,39 @@ import {
 import NavMenu from './NavMenu';
 import NavMenuList from './NavMenuList';
 
-export default function Header() {
+export default function Header(links) {
   // states and hooks
+  console.log(links);
 
   const [selectedIndex, setSelectedIndex] = useState('Home');
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const theme = useTheme();
-  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
-    noSsr: true,
-  });
+  // const theme = useTheme();
+  // const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
+  //   noSsr: true,
+  // });
+  // const screenFormat = matchesBigScreens ? 'bigScreens' : 'mobile';
+  // const { data, loading } = useFetchData('menu', screenFormat);
+  // const data = 'das';
+  // const ref = useRef(null);
 
-  const screenFormat = matchesBigScreens ? 'bigScreens' : 'mobile';
-  const { data, loading } = useFetchData('menu', screenFormat);
+  // const navigationLinks = data?.links ? data?.links : null;
+  // const logo = data?.logo ? data?.logo : null;
 
-  const ref = useRef(null);
+  // const open = Boolean(anchorEl);
+  // const id = open ? 'simple-popover' : undefined;
 
-  const navigationLinks = data?.links ? data?.links : null;
-  const logo = data?.logo ? data?.logo : null;
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
-  const handleOpen = () => {
-    setAnchorEl(ref.current);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleOpen = () => {
+  //   setAnchorEl(ref.current);
+  // };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
 
   return (
-    !loading && (
+    false && (
       <>
-        <HeaderContainer ref={ref}>
+        {/* <HeaderContainer ref={ref}>
           <Wrapper fixed>
             <Logo src={logo.url} alt={logo.alternativeText} />
 
@@ -83,7 +83,7 @@ export default function Header() {
             setSelectedIndex={setSelectedIndex}
             onClose={handleClose}
           />
-        </PopoverMenu>
+        </PopoverMenu> */}
       </>
     )
   );

@@ -1,4 +1,5 @@
-import { Box, styled } from '@mui/material';
+import { Box, IconButton, styled } from '@mui/material';
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
 const CarouselContainer = styled((props) => <Box {...props} />)(
   ({ theme }) => ({
@@ -7,7 +8,6 @@ const CarouselContainer = styled((props) => <Box {...props} />)(
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // ,
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -44,4 +44,45 @@ const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
   backgroundImage: theme.palette.background.primary,
 }));
 
-export { CarouselContainer, CarouselHero, SlideContainer };
+const SlideShowWrapper = styled((props) => <Box {...props} />)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'stretch',
+  justifyContent: 'space-between',
+  marginTop: '-1.5em',
+  [theme.breakpoints.up('md')]: {
+    justifyContent: 'flex-end',
+  },
+}));
+
+const ChevronButton = styled((props) => {
+  const { value } = props;
+
+  const ChevronIcon =
+    value === 'right' ? KeyboardArrowRight : KeyboardArrowLeft;
+
+  return (<Box
+    children={ChevronIcon}
+    aria-label={`carousel ${value} button`}
+    {...props}
+  />)(({ theme }) => ({
+    minWidth: '2.7em',
+    width: '6.5vw',
+    overflow: 'hidden',
+    [theme.breakpoints.up('md')]: {
+      minWidth: '6vw',
+      justifyContent: 'flex-end',
+    },
+    '&:hover ': {
+      background: 'transparent',
+    },
+  }));
+});
+export {
+  CarouselContainer,
+  CarouselHero,
+  SlideContainer,
+  SlideShowWrapper,
+  ChevronButton,
+};
