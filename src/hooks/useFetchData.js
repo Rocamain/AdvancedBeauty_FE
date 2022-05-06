@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react';
-import { makeQuery, nestedQuery } from '../queries/makeQuery';
-import { getMobileNavLinks, getRoutesLinks } from './utils/index';
+import { makeQuery, nestedQuery } from 'queries/makeQuery';
+import { formatMenu } from 'hooks/utils/index';
 
 const FORMATEDDATA = {
-  menu: {
-    routes: (jsonData) => getRoutesLinks(jsonData),
-    mobile: (jsonData) => getMobileNavLinks(jsonData),
-    bigScreens: (jsonData) => jsonData,
-  },
+  menu: (json) => formatMenu(json),
   home: ({ id, createdAt, updatedAt, publishedAt, ...data }) => data,
+  carousel: (json) => json,
+
+  singleCardA: ({ carousel }) => carousel,
 };
 
-export default function useFetchData(path, format) {
-  console.log(path, format);
-
+export default function useFetchData(path, nestedComponent = false) {
   const [data, setData] = useState({
     loading: true,
     data: false,
@@ -26,30 +23,24 @@ export default function useFetchData(path, format) {
     const getData = async () => {
       setData({ loading: true, data: false, error: false });
       try {
-        const queryString = format
-          ? nestedQuery(path, format)
+        const queryString = nestedComponent
+          ? nestedQuery(path, nestedComponent)
           : makeQuery(path);
-        console.log(queryString);
 
         const res = await fetch(`http://localhost:1337/api/${queryString}`);
 
         const { data } = await res.json();
-        console.log('FETCH', data);
-        const formattedData =
-          path === 'menu'
-            ? FORMATEDDATA[path][format](data)
-            : FORMATEDDATA[path](data);
 
-        console.log('FORMAT', formattedData);
+        const formattedData = FORMATEDDATA[path](data);
 
-        // setData({ data: formattedData, error: false, loading: false });
+        setData({ data: formattedData, error: false, loading: false });
       } catch (err) {
         console.log(err);
         setData({ error: err.message, data: false, loading: false });
       }
     };
     getData();
-  }, [path, format]);
+  }, [path, nestedComponent]);
 
   return data;
 }

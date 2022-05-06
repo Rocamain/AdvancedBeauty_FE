@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Button, MenuItem } from '@mui/material';
-import { DropDownMenu } from './styled';
+import { DropDownMenu } from 'components/header/styled/index';
+
 export default function MenuItemWithDropDown({
   link,
   selectedIndex,
@@ -55,9 +56,9 @@ export default function MenuItemWithDropDown({
             color: 'black',
             width: '100%',
           }}
-          to={link.url}
+          to={link.routePath}
         >
-          {link.name}
+          {link.route}
         </Link>
       </MenuItem>
 
@@ -71,20 +72,22 @@ export default function MenuItemWithDropDown({
         open={hoverTracker}
         onMouseOver={handleCloseModal}
       >
-        {link.dropdown_link.links.map((link, index) => (
-          <MenuItem key={index}>
-            <Link
-              style={{
-                textDecoration: 'none',
-                color: 'black',
-                width: '100%',
-              }}
-              to={link.url}
-            >
-              {link.name}
-            </Link>
-          </MenuItem>
-        ))}
+        {link.dropdown.links.map((link, index) => {
+          return (
+            <MenuItem key={index}>
+              <Link
+                style={{
+                  textDecoration: 'none',
+                  color: 'black',
+                  width: '100%',
+                }}
+                to={link.routePath}
+              >
+                {link.route}
+              </Link>
+            </MenuItem>
+          );
+        })}
       </DropDownMenu>
     </>
   );

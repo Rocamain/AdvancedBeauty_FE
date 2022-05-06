@@ -4,6 +4,7 @@ import { Error, Loading } from './components/shared/index';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Body from './components/Body';
 import ComponentSelector from './components/ComponentSelector';
+import { getRoutesLinks } from './hooks/utils';
 
 function App() {
   const { error, loading, data } = useFetchData('menu');
@@ -12,24 +13,23 @@ function App() {
     <div className="App">
       {loading && <Loading />}
       {error && <Error />}
-      {data?.links && (
+
+      {data && (
         <Router>
           <Routes>
-            <Route
-              path="/"
-              element={<Body links={data.links} logo={data.logo[0]} />}
-            >
-              {/* {data.links.map((navLink, index) => (
-                <Route
-                  key={index}
-                  index={navLink.url === '/' ? true : false}
-                  path={navLink.url}
-                  element={<ComponentSelector name={navLink.name} />}
-                />
-              ))} */}
-
-              <Route path="*" element={<h1> Not found!!</h1>} />
+            <Route path="/" element={<Body />}>
+              {getRoutesLinks(data).map((navLink, index) => {
+                return (
+                  <Route
+                    key={index}
+                    index={navLink.routePath === '/' ? true : false}
+                    path={navLink.routePath !== '/' && navLink.routePath}
+                    element={<ComponentSelector name={navLink.route} />}
+                  />
+                );
+              })}
             </Route>
+            <Route path="*" element={<h1>Notfound</h1>} />
           </Routes>
         </Router>
       )}

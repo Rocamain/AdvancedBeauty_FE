@@ -1,6 +1,6 @@
 // Hook and data formatter
 import { useState, useRef } from 'react';
-import useFetchData from '../../hooks/useFetchData';
+import useFetchData from 'hooks/useFetchData';
 
 //// components, layouts and style hooks imports
 
@@ -13,49 +13,43 @@ import {
   Wrapper,
   PopoverMenu,
   BurgerButton,
-} from './styled/index';
-import NavMenu from './NavMenu';
-import NavMenuList from './NavMenuList';
+} from 'components/header/styled/index';
+import NavMenu from 'components/header/NavMenu';
+import NavMenuList from 'components/header/NavMenuList';
 
-export default function Header(links) {
+export default function Header() {
   // states and hooks
-  console.log(links);
-
   const [selectedIndex, setSelectedIndex] = useState('Home');
   const [anchorEl, setAnchorEl] = useState(null);
+  const { data, loading } = useFetchData('menu');
 
-  // const theme = useTheme();
-  // const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
-  //   noSsr: true,
-  // });
-  // const screenFormat = matchesBigScreens ? 'bigScreens' : 'mobile';
-  // const { data, loading } = useFetchData('menu', screenFormat);
-  // const data = 'das';
-  // const ref = useRef(null);
+  const theme = useTheme();
+  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
+    noSsr: true,
+  });
 
-  // const navigationLinks = data?.links ? data?.links : null;
-  // const logo = data?.logo ? data?.logo : null;
+  const ref = useRef(null);
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
-  // const open = Boolean(anchorEl);
-  // const id = open ? 'simple-popover' : undefined;
+  const handleOpen = () => {
+    setAnchorEl(ref.current);
+  };
 
-  // const handleOpen = () => {
-  //   setAnchorEl(ref.current);
-  // };
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    false && (
+    data && (
       <>
-        {/* <HeaderContainer ref={ref}>
+        <HeaderContainer ref={ref}>
           <Wrapper fixed>
-            <Logo src={logo.url} alt={logo.alternativeText} />
+            <Logo src={data.logo.url} alt={data.logo.alternativeText} />
 
             {matchesBigScreens ? (
               <NavMenu
-                navigationLinks={navigationLinks}
+                links={data.links}
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
               />
@@ -78,12 +72,12 @@ export default function Header(links) {
           onClose={handleClose}
         >
           <NavMenuList
-            links={navigationLinks}
+            links={data.links}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
             onClose={handleClose}
           />
-        </PopoverMenu> */}
+        </PopoverMenu>
       </>
     )
   );

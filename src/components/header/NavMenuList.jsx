@@ -1,7 +1,7 @@
 import { MenuList } from './styled/index';
 import { MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { getMainLink } from '../../hooks/utils/index';
+import { getMobileNavLinks } from 'hooks/utils/index';
 
 export default function NavMenuList({
   links,
@@ -16,16 +16,16 @@ export default function NavMenuList({
     setSelectedIndex(index.target.textContent);
   };
 
-  const isMainLink = (link) => getMainLink(link);
+  const isMainLink = (link) => link.__component !== 'menu.dropdown-link';
 
   return (
     <MenuList>
-      {links.map((link, index) => {
+      {getMobileNavLinks(links).map((link, index) => {
         return (
           <MenuItem
             key={index}
             onClick={handleClick}
-            selected={link.name === selectedIndex}
+            selected={link.route === selectedIndex}
             sx={{
               px: isMainLink(link) ? '1.3em' : '2em',
             }}
@@ -36,9 +36,9 @@ export default function NavMenuList({
                 color: 'black',
                 width: '100%',
               }}
-              to={link.url}
+              to={link.routePath}
             >
-              {link.name}
+              {link.route}
             </Link>
           </MenuItem>
         );

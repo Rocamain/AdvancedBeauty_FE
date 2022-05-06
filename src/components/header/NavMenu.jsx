@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import { MenuList, Box as Nav, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import MenuItemWithDropDown from './MenuItemWithDropDown';
+import MenuItemWithDropDown from 'components/header/MenuItemWithDropDown';
 
-export default function NavMenu({
-  navigationLinks,
-  selectedIndex,
-  setSelectedIndex,
-}) {
+export default function NavMenu({ links, selectedIndex, setSelectedIndex }) {
   const [hoverTracker, setHoverTracker] = useState(null);
 
   const handleHover = (event) => {
@@ -20,43 +16,45 @@ export default function NavMenu({
     setSelectedIndex(event.target.textContent);
   };
 
-  const haspopup = (navLink) => navLink?.dropdown_link?.links;
+  const haspopup = (navLink) => navLink?.dropdown?.links;
 
   return (
-    <Nav component={'nav'} sx={{ display: 'flex' }}>
-      <MenuList sx={{ display: 'flex', gap: '1.5em', alignItems: 'center' }}>
-        {navigationLinks.map((navLink, index) =>
-          haspopup(navLink) ? (
-            <MenuItemWithDropDown
-              link={navLink}
-              handleHover={handleHover}
-              handleClick={handleClick}
-              key={index}
-              selectedIndex={navLink.name === selectedIndex}
-              hoverTracker={navLink.name === hoverTracker}
-            />
-          ) : (
-            <MenuItem
-              key={index}
-              onMouseOver={handleHover}
-              onClick={handleClick}
-              selected={navLink.name === selectedIndex}
-              sx={{ padding: 3 }}
-            >
-              <Link
-                style={{
-                  textDecoration: 'none',
-                  color: 'black',
-                  width: '100%',
-                }}
-                to={navLink.url}
+    links && (
+      <Nav component={'nav'} sx={{ display: 'flex' }}>
+        <MenuList sx={{ display: 'flex', gap: '1.5em', alignItems: 'center' }}>
+          {links.map((navLink, index) =>
+            haspopup(navLink) ? (
+              <MenuItemWithDropDown
+                link={navLink}
+                handleHover={handleHover}
+                handleClick={handleClick}
+                key={index}
+                selectedIndex={navLink.route === selectedIndex}
+                hoverTracker={navLink.route === hoverTracker}
+              />
+            ) : (
+              <MenuItem
+                key={index}
+                onMouseOver={handleHover}
+                onClick={handleClick}
+                selected={navLink.route === selectedIndex}
+                sx={{ padding: 3 }}
               >
-                {navLink.name}
-              </Link>
-            </MenuItem>
-          )
-        )}
-      </MenuList>
-    </Nav>
+                <Link
+                  style={{
+                    textDecoration: 'none',
+                    color: 'black',
+                    width: '100%',
+                  }}
+                  to={navLink.routePath}
+                >
+                  {navLink.route}
+                </Link>
+              </MenuItem>
+            )
+          )}
+        </MenuList>
+      </Nav>
+    )
   );
 }

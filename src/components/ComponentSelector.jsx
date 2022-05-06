@@ -1,7 +1,9 @@
-import useFetchData from '../hooks/useFetchData';
-import * as Models from '../components/models/index';
-
+import useFetchData from 'hooks/useFetchData';
+import * as Models from 'components/models/';
+import { useParams } from 'react-router-dom';
 function ComponentSelector({ name }) {
+  let params = useParams();
+
   const path = name.toLowerCase();
 
   const { error, loading, data } = useFetchData(path);
@@ -16,7 +18,11 @@ function ComponentSelector({ name }) {
     return models;
   };
 
-  return <main> hello</main>;
+  return (
+    <>
+      <main>{renderModelComponents(data)}</main>
+    </>
+  );
 }
 
 export default ComponentSelector;

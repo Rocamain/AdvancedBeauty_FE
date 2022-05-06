@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useFetchData from '../../../hooks/useFetchData';
+import useFetchData from 'hooks/useFetchData';
 
 import {
   CarouselContainer,
@@ -7,12 +7,12 @@ import {
   SlideContainer,
   SlideShowWrapper,
   ChevronButton,
-} from './styled/index';
+} from 'components/models/carousel/styled';
 import { Typography } from '@mui/material';
 
 export default function Carousel({ path }) {
   const { data } = useFetchData(path, 'carousel');
-  console.log(data);
+
   const [slide, setSlide] = useState(0);
 
   return (
