@@ -23,7 +23,7 @@ const makeQuery = (path) => {
     );
 
     const queryString = `${path}?${query}`;
-    console.log(queryString);
+
     return queryString;
   }
 

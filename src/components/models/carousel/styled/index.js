@@ -3,7 +3,9 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
 const CarouselContainer = styled((props) => <Box {...props} />)(
   ({ theme }) => ({
-    paddingBottom: theme.spacing(9),
+    overflow: 'hidden',
+    paddingTop: theme.spacing(16),
+    paddingBottom: theme.spacing(16),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -11,78 +13,72 @@ const CarouselContainer = styled((props) => <Box {...props} />)(
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    [theme.breakpoints.up('md')]: {},
-    [theme.breakpoints.up('lg')]: {
-      paddingBottom: theme.spacing(9),
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing(13),
+      paddingBottom: theme.spacing(30),
     },
+    [theme.breakpoints.up('lg')]: {},
   })
 );
 const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => ({
-  marginLeft: 'auto',
-  position: 'relative',
-  zIndex: 100,
-  marginTop: '1em',
-  top: 0,
-  [theme.breakpoints.between('md', 'lg')]: {
+  display: 'none',
+  [theme.breakpoints.up('sm')]: {
+    display: 'block',
+    marginLeft: 'auto',
+    position: 'relative',
+    zIndex: 100,
+    marginTop: '1em',
     width: '55.4%',
-    top: '3em',
-  },
-  [theme.breakpoints.between('lg', 'xl')]: {
-    width: '53%',
-    top: '3.3em',
-  },
-  [theme.breakpoints.up('xl')]: {
-    width: '53%',
-    top: '4em',
+    top: '0.5em',
   },
 }));
 
 const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
-  width: '100%',
-  height: '140px',
-  margin: '0 auto',
-  backgroundImage: theme.palette.background.primary,
-}));
-
-const SlideShowWrapper = styled((props) => <Box {...props} />)(({ theme }) => ({
-  width: '100%',
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'stretch',
   justifyContent: 'space-between',
-  marginTop: '-1.5em',
-  [theme.breakpoints.up('md')]: {
-    justifyContent: 'flex-end',
-  },
+  backgroundImage: theme.palette.background.primary,
 }));
 
 const ChevronButton = styled((props) => {
   const { value } = props;
+  const isRight = value === 'right';
+  const ChevronIcon = isRight ? KeyboardArrowRight : KeyboardArrowLeft;
 
-  const ChevronIcon =
-    value === 'right' ? KeyboardArrowRight : KeyboardArrowLeft;
-
-  return (<Box
-    children={ChevronIcon}
-    aria-label={`carousel ${value} button`}
-    {...props}
-  />)(({ theme }) => ({
-    minWidth: '2.7em',
-    width: '6.5vw',
+  return (
+    <IconButton
+      size={'big'}
+      edge={'end'}
+      children={<ChevronIcon fontSize={'large'} sx={{ flex: '1' }} />}
+      aria-label={`carousel ${value} button`}
+      {...props}
+    />
+  );
+})(({ theme, value }) => {
+  const isRight = value === 'right';
+  return {
+    flex: 1,
     overflow: 'hidden',
     [theme.breakpoints.up('md')]: {
-      minWidth: '6vw',
-      justifyContent: 'flex-end',
+      transform: isRight ? `translateX(3em)` : `translateX(-3em)`,
+      justifyContent: isRight ? 'center' : 'center',
     },
     '&:hover ': {
       background: 'transparent',
+      animation: `hoverChevron 1000ms ${theme.transitions.easing.easeInOut}`,
+      animationFillMode: 'both',
     },
-  }));
+
+    '@keyframes hoverChevron': {
+      from: {
+        transform: isRight ? `translateX(3em)` : `translateX(-3em)`,
+      },
+
+      to: {
+        transform: 'translateX(0)',
+      },
+    },
+  };
 });
-export {
-  CarouselContainer,
-  CarouselHero,
-  SlideContainer,
-  SlideShowWrapper,
-  ChevronButton,
-};
+
+export { CarouselContainer, CarouselHero, SlideContainer, ChevronButton };

@@ -87,7 +87,7 @@ theme = createTheme(theme, {
       fontWeight: 600,
       textAlign: 'center',
       fontSize: '1.9rem',
-      textShadow: '-17em 7em 0.3em #ffffff',
+      textShadow: '0em 0em 0.3em #ffffff',
     },
     // Components override.
 

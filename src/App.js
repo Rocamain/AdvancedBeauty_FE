@@ -3,8 +3,9 @@ import useFetchData from './hooks/useFetchData';
 import { Error, Loading } from './components/shared/index';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Body from './components/Body';
-import ComponentSelector from './components/ComponentSelector';
+import React from 'react';
 import { getRoutesLinks } from './hooks/utils';
+const LazyMain = React.lazy(() => import('./components/Main'));
 
 function App() {
   const { error, loading, data } = useFetchData('menu');
@@ -24,7 +25,11 @@ function App() {
                     key={index}
                     index={navLink.routePath === '/' ? true : false}
                     path={navLink.routePath !== '/' && navLink.routePath}
-                    element={<ComponentSelector name={navLink.route} />}
+                    element={
+                      <React.Suspense fallback={'loading...'}>
+                        <LazyMain routeName={navLink.route} />
+                      </React.Suspense>
+                    }
                   />
                 );
               })}
