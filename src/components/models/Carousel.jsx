@@ -12,8 +12,8 @@ import {
 import { Typography } from '@mui/material';
 import Card from 'components/shared/Card';
 
-export default function Carousel({ path }) {
-  const { data } = useFetchData(path, 'carousel');
+export default function Carousel({ path, data }) {
+  // const { data } = useFetchData(path, 'carousel');
 
   const [slide, setSlide] = useState(0);
 
@@ -23,49 +23,36 @@ export default function Carousel({ path }) {
   const { height, top } = useChildOverlap(overlapContainer, data);
 
   return (
-    data && (
-      <>
-        <CarouselContainer
+    <>
+      <CarouselContainer
+        sx={{
+          backgroundImage: `url(${data.background.url})`,
+          height: { height },
+        }}
+      >
+        <CarouselHero>
+          <Typography component="h1" variant={data.variantTitle.title}>
+            {data.title}
+          </Typography>
+          <Typography component="h4" variant={data.variantSubtitle.title}>
+            {data.subtitle}
+          </Typography>
+        </CarouselHero>
+        <SlideContainer
           sx={{
-            backgroundImage: `url(${data.carousel[0].background.url})`,
             height: { height },
           }}
         >
-          <CarouselHero>
-            <Typography
-              component="h1"
-              variant={data.carousel[0].variantTitle.title}
-            >
-              {data.carousel[0].title}
+          <ChevronButton value="left" />
+          <Card ref={overlapContainer} top={top}>
+            <Typography component="h4" variant={data.variantSubtitle.title}>
+              {data.cards[slide].title}
             </Typography>
-            <Typography
-              component="h4"
-              variant={data.carousel[0].variantSubtitle.title}
-            >
-              {data.carousel[0].subtitle}
-            </Typography>
-          </CarouselHero>
-          <SlideContainer
-            sx={{
-              height: { height },
-            }}
-          >
-            <ChevronButton value="left" />
-            <Card ref={overlapContainer} top={top}>
-              <Typography
-                component="h4"
-                variant={data.carousel[0].variantSubtitle.title}
-              >
-                {data.carousel[0].cards[slide].title}
-              </Typography>
-              <Typography component="p">
-                {data.carousel[0].cards[slide].content}
-              </Typography>
-            </Card>
-            <ChevronButton value="right" />
-          </SlideContainer>
-        </CarouselContainer>
-      </>
-    )
+            <Typography component="p">{data.cards[slide].content}</Typography>
+          </Card>
+          <ChevronButton value="right" />
+        </SlideContainer>
+      </CarouselContainer>
+    </>
   );
 }

@@ -34,6 +34,7 @@ const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => ({
 }));
 
 const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
+  width: '100%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',

@@ -4,8 +4,9 @@ import { formatMenu } from 'hooks/utils/index';
 
 const FORMATEDDATA = {
   menu: (json) => formatMenu(json),
-  home: ({ id, createdAt, updatedAt, publishedAt, ...data }) => data,
+  home: ({ components }) => components,
   carousel: (json) => json,
+  contact: ({ components }) => components,
 
   singleCardA: ({ carousel }) => carousel,
 };

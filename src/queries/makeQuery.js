@@ -9,6 +9,16 @@ const querySelector = {
     'carousel.background.media',
     'carousel.cards.photo.media',
   ],
+  home: [
+    'components',
+    'components.background.media',
+    'components.cards',
+    'components.cards.photo.media',
+    'components.photo.media',
+    'components.variantTitle',
+    'components.variantSubtitle',
+    'components.background.media',
+  ],
 };
 
 const makeQuery = (path) => {
@@ -27,7 +37,16 @@ const makeQuery = (path) => {
     return queryString;
   }
 
-  const queryString = `${path}?populate=*`;
+  const query = qs.stringify(
+    {
+      populate: [...querySelector[path]],
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  );
+
+  const queryString = `${path}?${query}`;
 
   return queryString;
 };
