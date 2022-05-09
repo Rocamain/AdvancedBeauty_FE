@@ -16,7 +16,7 @@ function Main({ routeName }) {
     return Component;
   }
 
-  const renderChildComponents = (components) => {
+  const renderChildrenComponents = (components) => {
     const componentsKey = Object.keys(components);
 
     const routeComponents = componentsKey.map((component, index) => {
@@ -35,7 +35,7 @@ function Main({ routeName }) {
 
   return (
     <>
-      <main>{renderChildComponents(data)}</main>
+      <main>{renderChildrenComponents(data)}</main>
     </>
   );
 }
