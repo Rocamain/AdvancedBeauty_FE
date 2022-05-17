@@ -6,6 +6,7 @@ theme = createTheme(theme, {
   palette: {
     primary: {
       main: '#75C9CC',
+      secondary: '#fff',
       contrastText: '#fff',
     },
     secondary: {
@@ -74,21 +75,36 @@ theme = createTheme(theme, {
     carouselTitle: {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 700,
-      fontSize: '4rem',
-      color: '#00BCCC !important',
+      fontSize: '6rem',
+      lineHeight: 0.8,
+      color: '#00BCCC',
       letterSpacing: '-0.017em',
-      textAlign: 'center',
-      textShadow: '0em 0em 0.3em #ffffff',
+      textShadow: '10px 0px 15px white',
     },
 
     carouselSubtitle: {
       color: '#666',
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      fontWeight: 600,
-      textAlign: 'center',
-      fontSize: '1.9rem',
-      textShadow: '0em 0em 0.3em #ffffff',
+      fontWeight: 500,
+      lineHeight: 1,
+      fontSize: '2.4rem',
     },
+    cardTitle: {
+      color: 'black',
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+      fontWeight: 400,
+      letterSpacing: '-0.017em',
+      lineHeight: 1.1,
+      fontSize: '1.9rem',
+    },
+    cardText: {
+      color: 'black',
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+      fontWeight: 300,
+      lineHeight: 1.1,
+      fontSize: '1.2rem',
+    },
+
     // Components override.
 
     MuiTypography: {

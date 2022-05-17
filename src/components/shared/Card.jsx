@@ -1,27 +1,53 @@
 import { forwardRef } from 'react';
-import clsx from 'clsx';
-import { Card as MuiCard, Paper, Box, IconButton, styled } from '@mui/material';
 
-const CardWrapper = styled((props) => <Box {...props} />)(({ theme }) => ({
-  height: 'fit-content',
-  margin: '0 auto',
-  padding: theme.spacing(5, 3),
-  boxSizing: 'border-box',
-  position: 'relative',
-  backgroundColor: 'grey',
-  [theme.breakpoints.up('md')]: {
-    justifyContent: 'space-between',
-    padding: theme.spacing(7, 5),
-  },
-}));
+import { Typography, Box } from '@mui/material';
+import Button from 'components/shared/Button';
+import {
+  CarouselHero,
+  CardWrapper,
+  Photo,
+  CardPhotoContainer,
+} from 'components/models/carousel/styled';
 
-const Card = forwardRef(({ children, top }, ref) => {
+const Card = forwardRef(({ cards, animatedPhoto, slide }) => {
   return (
-    <div ref={ref} style={{ width: '80%' }}>
-      <CardWrapper raised sx={{ top }}>
-        {children}
-      </CardWrapper>
-    </div>
+    <>
+      <Box
+        sx={{
+          display: 'inline-flex',
+          width: { xs: '80%', sm: '80%' },
+          marginRight: 'auto',
+          alignItems: 'center',
+          maxWidth: '1200px',
+        }}
+      >
+        <CardPhotoContainer>
+          <Photo
+            alt="woman face"
+            src={cards[slide].photo.url}
+            className={animatedPhoto}
+          />
+        </CardPhotoContainer>
+
+        <CardWrapper>
+          <CarouselHero />
+          <Box sx={{ paddingLeft: '2em' }}>
+            <Box sx={{ paddingBottom: '2em' }}>
+              <Typography component="h4" variant={'cardTitle'}>
+                {cards[slide].title}
+              </Typography>
+            </Box>
+            <Typography component="p" sx={{ paddingBottom: '2em' }}>
+              {cards[slide].content}
+            </Typography>
+            <Button
+              text={cards[slide].buttonText}
+              buttonTo={cards[slide].buttonTo}
+            />
+          </Box>
+        </CardWrapper>
+      </Box>
+    </>
   );
 });
 
