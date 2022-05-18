@@ -5,9 +5,9 @@ import { formatMenu } from 'hooks/utils/index';
 const FORMATEDDATA = {
   menu: (json) => formatMenu(json),
   home: ({ components }) => components,
+  'About-us': ({ components }) => components,
   carousel: (json) => json,
   contact: ({ components }) => components,
-
   singleCardA: ({ carousel }) => carousel,
 };
 
@@ -23,6 +23,7 @@ export default function useFetchData(path, nestedComponent = false) {
   useEffect(() => {
     const getData = async () => {
       setData({ loading: true, data: false, error: false });
+
       try {
         const queryString = nestedComponent
           ? nestedQuery(path, nestedComponent)
@@ -31,6 +32,7 @@ export default function useFetchData(path, nestedComponent = false) {
         const res = await fetch(`http://localhost:1337/api/${queryString}`);
 
         const { data } = await res.json();
+        console.log(queryString);
 
         const formattedData = FORMATEDDATA[path](data);
 

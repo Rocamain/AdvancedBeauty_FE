@@ -38,13 +38,14 @@ export default function NavMenu({ links, selectedIndex, setSelectedIndex }) {
                 onMouseOver={handleHover}
                 onClick={handleClick}
                 selected={navLink.route === selectedIndex}
-                sx={{ padding: 3 }}
+                sx={{ padding: 0, display: 'block' }}
               >
                 <Link
                   style={{
+                    display: 'block',
                     textDecoration: 'none',
                     color: 'black',
-                    width: '100%',
+                    padding: '1.5em',
                   }}
                   to={navLink.routePath}
                 >

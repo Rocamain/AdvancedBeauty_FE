@@ -21,7 +21,7 @@ const getMobileNavLinks = (links) => {
 
 //  return an array of unique route links.
 
-const underscoredLink = (route) => route.replaceAll(' ', '_');
+const underscoredLink = (route) => route.replaceAll(' ', '-');
 
 const getRoutesLinks = ({ links }) => {
   const linkList = links.map((link) => {
@@ -59,6 +59,7 @@ const formatMenu = ({ links, ...rest }) => {
 
     return link;
   });
+
   return { links: formattedLinks, ...rest };
 };
 

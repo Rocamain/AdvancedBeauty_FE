@@ -9,16 +9,17 @@ import {
   CardPhotoContainer,
 } from 'components/models/carousel/styled';
 
-const Card = forwardRef(({ cards, animatedPhoto, slide }) => {
+const Card = forwardRef(({ cards, animatedPhoto, cardAnimation, slide }) => {
   return (
     <>
       <Box
         sx={{
           display: 'inline-flex',
-          width: { xs: '80%', sm: '80%' },
-          marginRight: 'auto',
           alignItems: 'center',
+          width: { xs: '80%', sm: '80%' },
           maxWidth: '1200px',
+          marginRight: 'auto',
+          marginLeft: { sm: '-5%' },
         }}
       >
         <CardPhotoContainer>
@@ -29,7 +30,7 @@ const Card = forwardRef(({ cards, animatedPhoto, slide }) => {
           />
         </CardPhotoContainer>
 
-        <CardWrapper>
+        <CardWrapper className={cardAnimation}>
           <CarouselHero />
           <Box sx={{ paddingLeft: '2em' }}>
             <Box sx={{ paddingBottom: '2em' }}>

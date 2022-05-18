@@ -2,14 +2,17 @@ import useFetchData from 'hooks/useFetchData';
 import { lazy, Suspense } from 'react';
 import Loading from './shared/Loading';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 function Main({ routeName }) {
-  let params = useParams();
+  let { pathname, hash, ...rest } = useLocation();
 
-  const path = routeName.toLowerCase();
+  if (pathname === '/') {
+    pathname = 'home';
+  }
+  pathname = pathname.replace('/', '');
 
-  const { error, loading, data } = useFetchData(path);
+  const { error, loading, data } = useFetchData(pathname);
 
   function loadComponent(name) {
     const Component = lazy(() => import(`./models/${name}.jsx`));
@@ -17,27 +20,17 @@ function Main({ routeName }) {
   }
 
   const renderChildrenComponents = (components) => {
-    const componentsKey = Object.keys(components);
-
-    let routeComponents = componentsKey.map((component, index) => {
-      let componentName = component[0].toUpperCase() + component.slice(1);
-
-      let LazyComponent = loadComponent(componentName);
-
-      return (
-        <Suspense key={index} fallback={<Loading />}>
-          <LazyComponent data={component} path={path} />
-        </Suspense>
-      );
-    });
-
-    routeComponents = components.map((component, index) => {
+    let routeComponents = components.map((component, index) => {
       let componentName = component.componentName;
       let LazyComponent = loadComponent(componentName);
-
+      console.log(component.title);
       return (
         <Suspense key={index} fallback={<Loading />}>
-          <LazyComponent data={component} path={path} />
+          <LazyComponent
+            id={component.title}
+            data={component}
+            path={pathname}
+          />
         </Suspense>
       );
     });

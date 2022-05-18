@@ -12,12 +12,11 @@ const CarouselContainer = styled((props) => <Paper {...props} />)(
     backgroundSize: 'cover',
     overFlowY: 'visible',
     overFlowX: 'hidden',
-
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(14, 0),
     },
     [theme.breakpoints.up('lg')]: {
-      padding: theme.spacing(10, 0),
+      padding: theme.spacing(14, 0),
     },
   })
 );
@@ -84,9 +83,10 @@ const ChevronButton = styled((props) => {
   color: theme.palette.primary.contrastText,
   backgroundColor: 'transparent',
   borderRadius: 0,
+  minWidth: '10vw',
   padding: 0,
   flex: 1,
-  minWidth: '10vw',
+
   [theme.breakpoints.up('xl')]: {
     flex: value === 'left' ? 2 : 1,
   },
@@ -95,18 +95,16 @@ const ChevronButton = styled((props) => {
 const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
   ({ theme }) => ({
     position: 'relative',
-    backgroundColor: theme.palette.primary.contrastText,
+    height: 'inherit',
     maxWidth: '70vw',
     margin: '-6% 0',
-    height: 'inherit',
     padding: theme.spacing(3),
-    justifyContent: 'space-between',
+    borderRadius: '5px',
+    backgroundColor: theme.palette.primary.contrastText,
     [theme.breakpoints.up('sm')]: {
       width: '80%',
       margin: '-16% 0',
       marginLeft: 'auto',
-      alignItems: 'center',
-
       padding: theme.spacing(4),
     },
     [theme.breakpoints.up('md')]: {
@@ -116,7 +114,6 @@ const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
     },
     [theme.breakpoints.up('lg')]: {
       width: '60%',
-      // margin: ' 0',
       padding: theme.spacing(13, 7),
     },
   })
@@ -140,13 +137,14 @@ const CardPhotoContainer = styled((props) => {
 
 const Photo = styled((props) => <Box component="img" {...props} />)(
   ({ theme }) => ({
-    width: '100%',
-    height: 'auto',
-    margin: '0 auto',
-
     position: 'relative',
     left: '5%',
+    width: '100%',
     zIndex: 100,
+    height: 'auto',
+    margin: '0 auto',
+    borderRadius: '5px',
+
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

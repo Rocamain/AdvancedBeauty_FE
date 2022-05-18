@@ -19,6 +19,17 @@ const querySelector = {
     'components.variantSubtitle',
     'components.background.media',
   ],
+  'About-us': [
+    'components',
+    'components.background.media',
+    'components.cards',
+    'components.cards.photo.media',
+    'components.photo.media',
+    'components.variantTitle',
+    'components.variantSubtitle',
+    'components.background.media',
+  ],
+  'services-and-fares': ['*'],
 };
 
 const makeQuery = (path) => {

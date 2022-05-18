@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, MenuItem } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import { DropDownMenu } from 'components/header/styled/index';
 
 export default function MenuItemWithDropDown({
@@ -48,13 +48,14 @@ export default function MenuItemWithDropDown({
         onClick={handleClick}
         onMouseOver={handleOpen}
         selected={selectedIndex}
-        sx={{ padding: 3 }}
+        sx={{ padding: 0, display: 'block' }}
       >
         <Link
           style={{
+            display: 'block',
             textDecoration: 'none',
             color: 'black',
-            width: '100%',
+            padding: '1.5em',
           }}
           to={link.routePath}
         >
@@ -74,9 +75,10 @@ export default function MenuItemWithDropDown({
       >
         {link.dropdown.links.map((link, index) => {
           return (
-            <MenuItem key={index}>
+            <MenuItem key={index} sx={{ padding: 0 }}>
               <Link
                 style={{
+                  padding: '2em',
                   textDecoration: 'none',
                   color: 'black',
                   width: '100%',

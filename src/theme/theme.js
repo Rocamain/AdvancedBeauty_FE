@@ -104,6 +104,15 @@ theme = createTheme(theme, {
       lineHeight: 1.1,
       fontSize: '1.2rem',
     },
+    gridText: {
+      fontWeight: '400',
+      fontSize: '1rem',
+      color: '#666',
+      lineHeight: '1.35rem',
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      letterSpacing: '0.02rem',
+      marginBottom: '0.6em',
+    },
 
     // Components override.
 
