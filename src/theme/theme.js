@@ -1,6 +1,6 @@
 import { createTheme, responsiveFontSizes } from '@mui/material';
+
 let theme = createTheme();
-theme = createTheme(theme, {});
 
 theme = createTheme(theme, {
   palette: {
@@ -25,7 +25,6 @@ theme = createTheme(theme, {
   },
 
   typography: {
-    htmlFontSize: 16,
     fontFamily: ['Abel', 'Open Sans'].join(','),
 
     h1: {
@@ -65,8 +64,7 @@ theme = createTheme(theme, {
     },
     p: {
       fontWeight: '400',
-      fontSize: '0.9rem',
-      lineHeight: 0.9,
+      fontSize: '1.1rem',
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.007em',
     },
@@ -91,11 +89,10 @@ theme = createTheme(theme, {
     },
     cardTitle: {
       color: 'black',
-      fontFamily: ['Open Sans', 'Abel'].join(','),
-      fontWeight: 400,
-      letterSpacing: '-0.017em',
+      fontSize: '3rem',
       lineHeight: 1.1,
-      fontSize: '1.9rem',
+      fontWeight: 400,
+      fontFamily: ['Open Sans', 'Abel'].join(','),
     },
     cardText: {
       color: 'black',
@@ -104,14 +101,35 @@ theme = createTheme(theme, {
       lineHeight: 1.1,
       fontSize: '1.2rem',
     },
+
     gridText: {
       fontWeight: '400',
-      fontSize: '1rem',
+      fontSize: '1.15rem',
       color: '#666',
-      lineHeight: '1.35rem',
+      lineHeight: 1.2,
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      letterSpacing: '0.02rem',
-      marginBottom: '0.6em',
+    },
+
+    content: {
+      fontWeight: '400',
+      fontSize: '1.15rem',
+      color: '#666',
+      lineHeight: 1.2,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+    },
+    title: {
+      color: '#666',
+      fontSize: '1.9rem',
+      lineHeight: 1.1,
+      fontWeight: 400,
+
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '3rem',
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '4rem',
+      },
     },
 
     // Components override.
@@ -127,6 +145,16 @@ theme = createTheme(theme, {
   },
 });
 
-theme = responsiveFontSizes(theme);
+const responsiveTheme = responsiveFontSizes(theme, {
+  breakpoints: ['xs', 'xm', 'lg', 'xl'],
 
-export default theme;
+  variants: [
+    'carouselTitle',
+    'carouselSubtitle',
+    'cardTitle',
+    'cardText',
+    'gridText',
+  ],
+});
+
+export default responsiveTheme;
