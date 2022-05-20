@@ -62,20 +62,4 @@ const makeQuery = (path) => {
   return queryString;
 };
 
-const nestedQuery = (path, component) => {
-  if (component) {
-    const query = qs.stringify(
-      {
-        populate: [...querySelector[component]],
-      },
-      {
-        encodeValuesOnly: true,
-      }
-    );
-    const queryString = `${path}?${query}`;
-
-    return queryString;
-  }
-};
-
-export { makeQuery, nestedQuery };
+export { makeQuery };
