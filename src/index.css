@@ -6,12 +6,21 @@ body {
   /* overflowx: hidden; */
   margin: 0;
   height: 100%;
-  width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* prevent to hide the scroll bar , Mui component popover style the body with overflow: hidden and  add padding to image backround of carousel*/
+@media screen and (min-width: 900px) {
+  body {
+    overflow-y: auto !important;
+    width: 90vw;
+  }
 }
 
 code {
