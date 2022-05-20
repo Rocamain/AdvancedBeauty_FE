@@ -1,46 +1,43 @@
-import { useState, useEffect } from 'react';
+import useNearScreen from 'hooks/useNearScreen';
 import { Box, Typography, Grid } from '@mui/material';
+
 export default function GridA({ id, data }) {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    const onChange = (entries) => {
-      const el = entries[0];
-      console.log(el.isIntersecting);
-      if (el.isIntersecting) {
-        setShow(true);
-      }
-    };
-    const observer = new IntersectionObserver(onChange, {
-      rootMargin: '100px',
-    });
-    observer.observe(document.getElementById(id));
-  }, []);
+  const { fromRef, isNearScreen } = useNearScreen();
 
   return (
-    <Box id={id} component={'section'} style={{ marginBottom: '10vh' }}>
-      {show ? (
+    <Box
+      ref={fromRef}
+      component={'section'}
+      sx={{
+        marginBottom: '10vh',
+        // backgroundColor: '#75c9cc',
+      }}
+    >
+      {isNearScreen ? (
         <Box
           sx={{
-            backgroundColor: '#75C9CC',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            // maxHeight: 'calc(100% - 88px) !important',
+            // overflow: 'auto',
+            // display: 'block',
+            margin: '-16% auto!important',
           }}
         >
           <Grid
             container
             rowSpacing={{ xs: 2, sm: 2, md: '0' }}
-            columnSpacing={{ md: 3 }}
+            // columnSpacing={{ md: 3 }}
             direction={'row'}
-            spacing={24}
+            // spacing={10}
             component="div"
             sx={{
-              backgroundColor: 'pink',
-              position: 'relative',
-              margin: '-2em 0',
-              top: '-1em',
-              zIndex: 1000,
+              height: '100%',
+              backgroundImage:
+                'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important',
+              backgroundColor: 'lightblue',
+              // position: 'relative',
+
+              // top: '-1em',
+              // zIndex: 1000,
               maxWidth: '80vw',
               boxShadow: 'rgba(56, 21, 11, 0.09) 0px 50px 80px 0px',
             }}
@@ -80,46 +77,70 @@ const GridCards = ({ data }) => {
       sm={12}
       md={6}
       lg={6}
-      container
-      spacing={2}
+      container={true}
+      spacing={4}
     >
-      <Grid
-        item
-        component="div"
-        xs={12}
-        sm={6}
-        container
-        rowSpacing={{ xs: 3, md: 5 }}
-      >
+      <Grid item component="div" xs={12} sm={6} container={true} rowSpacing={3}>
         {data.cards.map(
           (card, index) =>
             index % 2 === 0 && (
               <Grid key={index} item>
-                <Typography component="h2" variant="" children={card.title} />
-                <Typography component="p" variant="" children={card.content} />
+                <Box
+                  // elevation={24}
+                  sx={{
+                    backgroundColor: 'lightgoldenrodyellow',
+                    padding: '2em',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  <Box sx={{ width: '5em' }}>
+                    <Box
+                      component="img"
+                      src={card.photo.url}
+                      sx={{ objectFit: 'cover', width: '100%' }}
+                    />
+                  </Box>
+                  <Typography component="h2" variant="" children={card.title} />
+                  <Typography
+                    component="p"
+                    variant=""
+                    children={card.content}
+                  />
+                </Box>
               </Grid>
             )
         )}
       </Grid>
-      <Grid
-        item
-        component="div"
-        xs={12}
-        sm={6}
-        container
-        alignContent="flex-start"
-        rowSpacing={{ xs: 3, md: 5 }}
-      >
+      <Grid item component="div" xs={12} sm={6} container={true} rowSpacing={3}>
         {data.cards.map(
-          (card, index, array) =>
+          (card, index) =>
             index % 2 !== 0 && (
               <Grid key={index} item>
-                <Typography component="h2" variant="" children={card.title} />
-                <Typography
-                  component="p"
-                  variant=""
-                  children={card.content}
-                />{' '}
+                <Box
+                  // elevation={24}
+                  sx={{
+                    backgroundColor: 'lightgoldenrodyellow',
+                    padding: '2em',
+                  }}
+                >
+                  <Box sx={{ width: '5em' }}>
+                    <Box
+                      component="img"
+                      src={card.photo.url}
+                      sx={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        alignItems: 'flex-start',
+                      }}
+                    />
+                  </Box>
+                  <Typography component="h2" variant="" children={card.title} />
+                  <Typography
+                    component="p"
+                    variant=""
+                    children={card.content}
+                  />
+                </Box>
               </Grid>
             )
         )}

@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useNearScreen from 'hooks/useNearScreen';
 import { Typography } from '@mui/material';
+
 import clsx from 'clsx';
 
 import {
@@ -13,9 +15,9 @@ import { slideCard, slidePhoto } from './carousel/styles.js';
 import Card from 'components/shared/Card';
 
 export default function Carousel({ path, data, id }) {
-  const [show, setShow] = useState(false);
   const [slide, setSlide] = useState(0);
   const [exit, setExit] = useState(false);
+  const { fromRef, isNearScreen } = useNearScreen();
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
@@ -29,18 +31,6 @@ export default function Carousel({ path, data, id }) {
       setExit(false);
     }, 500);
   };
-  useEffect(() => {
-    const onChange = (entries) => {
-      const el = entries[0];
-      if (el.isIntersecting) {
-        setShow(true);
-      }
-    };
-    const observer = new IntersectionObserver(onChange, {
-      rootMargin: '100px',
-    });
-    observer.observe(document.getElementById(id));
-  }, []);
 
   // ANIMATIONS
 
@@ -50,15 +40,14 @@ export default function Carousel({ path, data, id }) {
   let animatedPhoto = `${clsx(photoAnimationStyles.photoEntering, {
     [photoAnimationStyles.photoExiting]: exit,
   })}`;
-  console.log(photoAnimationStyles);
 
   let cardAnimation = `${clsx(cardAnimationStyles.cardEntering, {
     [cardAnimationStyles.cardExiting]: exit,
   })}`;
 
   return (
-    <div id={id} style={{ marginBottom: '30vw' }}>
-      {show ? (
+    <div ref={fromRef} style={{ marginBottom: '30vw' }}>
+      {isNearScreen ? (
         <CarouselContainer url={data.background.url}>
           <CarouselHero>
             <Typography variant={data.variantTitle.title}>
