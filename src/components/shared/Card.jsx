@@ -16,7 +16,7 @@ const Card = forwardRef(({ cards, animatedPhoto, cardAnimation, slide }) => {
         sx={{
           display: 'inline-flex',
           alignItems: 'center',
-          width: { xs: '80%', sm: '80%' },
+          width: { xs: '70%', sm: '80%' },
           maxWidth: '1200px',
           marginRight: 'auto',
           marginLeft: { sm: '-5%' },
@@ -34,7 +34,7 @@ const Card = forwardRef(({ cards, animatedPhoto, cardAnimation, slide }) => {
           <CarouselHero />
           <Box sx={{ paddingLeft: '2em' }}>
             <Box sx={{ paddingBottom: '2em' }}>
-              <Typography component="h4" variant={'cardTitle'}>
+              <Typography component="h4" variant="cardTitle">
                 {cards[slide].title}
               </Typography>
             </Box>
