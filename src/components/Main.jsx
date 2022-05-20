@@ -23,7 +23,7 @@ function Main({ routeName }) {
     let routeComponents = components.map((component, index) => {
       let componentName = component.componentName;
       let LazyComponent = loadComponent(componentName);
-
+      console.log(component.title);
       return (
         <Suspense key={index} fallback={<Loading />}>
           <LazyComponent
@@ -41,9 +41,7 @@ function Main({ routeName }) {
   return (
     data && (
       <>
-        <main style={{ marginBottom: '10vh' }}>
-          {renderChildrenComponents(data)}
-        </main>
+        <main>{renderChildrenComponents(data)}</main>
       </>
     )
   );

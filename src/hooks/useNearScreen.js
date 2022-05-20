@@ -15,8 +15,8 @@ export default function useNearScreen(distance = '100px') {
       }
     };
 
-    // In case the navigator does not support IntersectionObserver API,
-    // It will do a dynamic import of the polyfill intersection-observer
+    // in case the navigator does not support IntersectionObserver API,
+    // It will do a dynamic import  of the polyfill intersection-observer.disconnect()
 
     Promise.resolve(
       typeof IntersectionObserver !== 'undefined'
