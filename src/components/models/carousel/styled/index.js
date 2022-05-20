@@ -39,7 +39,7 @@ const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
   width: '100%',
   margin: '0 auto',
   backgroundColor: theme.palette.primary.main,
-  overFlowX: 'hidden',
+  overFlow: 'hidden',
   [theme.breakpoints.up('md')]: {
     '.chevronIcon-left': {
       transform: 'translate(-100%)',
@@ -67,7 +67,7 @@ const ChevronButton = styled((props) => {
 
   return (
     <IconButton
-      pointerEvents="auto"
+      // pointerEvents="auto"
       children={
         <ChevronIcon
           className={`chevronIcon-${value}`}
@@ -94,8 +94,8 @@ const ChevronButton = styled((props) => {
 
 const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
   ({ theme }) => ({
-    position: 'relative',
-    height: 'inherit',
+    // position: 'relative',
+    // height: 'inherit',
     maxWidth: '70vw',
     margin: '-6% 0',
     padding: theme.spacing(3),

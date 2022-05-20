@@ -19,7 +19,6 @@ body {
 @media screen and (min-width: 900px) {
   body {
     overflow-y: auto !important;
-    width: 90vw;
   }
 }
 
