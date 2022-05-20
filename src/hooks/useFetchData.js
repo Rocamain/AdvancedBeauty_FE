@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { makeQuery, nestedQuery } from 'queries/makeQuery';
+import { makeQuery } from 'strapi/makeQuery';
 import { formatMenu } from 'hooks/utils/index';
 
 const FORMATEDDATA = {
@@ -11,7 +11,7 @@ const FORMATEDDATA = {
   singleCardA: ({ carousel }) => carousel,
 };
 
-export default function useFetchData(path, nestedComponent = false) {
+export default function useFetchData(path) {
   const [data, setData] = useState({
     loading: true,
     data: false,
@@ -25,25 +25,25 @@ export default function useFetchData(path, nestedComponent = false) {
       setData({ loading: true, data: false, error: false });
 
       try {
-        const queryString = nestedComponent
-          ? nestedQuery(path, nestedComponent)
-          : makeQuery(path);
+        const queryString = makeQuery(path);
 
         const res = await fetch(`http://localhost:1337/api/${queryString}`);
+        // const res = await fetch(
+        //   `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`
+        // );
 
         const { data } = await res.json();
-        console.log(queryString);
 
         const formattedData = FORMATEDDATA[path](data);
 
         setData({ data: formattedData, error: false, loading: false });
       } catch (err) {
         console.log(err);
-        setData({ error: err.message, data: false, loading: false });
+        setData({ error: err, data: false, loading: false });
       }
     };
     getData();
-  }, [path, nestedComponent]);
+  }, [path]);
 
   return data;
 }
