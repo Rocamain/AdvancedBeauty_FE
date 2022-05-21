@@ -1,4 +1,4 @@
-import { Box, Grid as MuiGrid, styled } from '@mui/material';
+import { Box, Paper, Grid as MuiGrid, styled } from '@mui/material';
 
 const Container = styled((props) => <Box component="div" {...props} />)(
   ({ theme }) => ({
@@ -21,12 +21,19 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
   })
 );
 
-const Card = styled((props) => <Box component="div" {...props} />)(
-  ({ theme }) => ({
-    backgroundColor: 'white',
+const Card = styled((props) => <Box component="" {...props} />)(
+  ({ theme, isFirstCard }) => ({
     borderRadius: '5px',
     alignItems: 'flex-start',
-    padding: theme.spacing(1, 2),
+    padding: theme.spacing(3, 3),
+
+    textAlign: 'center',
+    background: isFirstCard
+      ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
+      : 'white',
+    boxShadow: isFirstCard
+      ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
+      : '0px 50px 80px 0px rgba(12,2,2,0.1)',
   })
 );
 const ImageContainer = styled((props) => (
@@ -34,7 +41,6 @@ const ImageContainer = styled((props) => (
     <Image {...props} />
   </Box>
 ))(({ theme }) => ({
-  width: '70%',
   maxWidth: '7em',
   margin: '0 auto',
   marginBottom: '1em',

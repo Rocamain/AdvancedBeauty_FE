@@ -3,7 +3,6 @@ import { KeyboardArrowRight } from '@mui/icons-material/';
 import { Link as LinkRouter } from 'react-router-dom';
 
 const MyButton = styled((props) => <MuiButton {...props} />)(({ theme }) => ({
-  // alignItems: 'base-line',
   '.MuiSvgIcon-root': {
     transform: 'translate(-20px)',
     width: 0,
@@ -11,9 +10,7 @@ const MyButton = styled((props) => <MuiButton {...props} />)(({ theme }) => ({
     opacity: 0,
     transition: 'all 1s',
   },
-  // '.MuiSvgIcon-root': { height: '20px' },
   ':hover  .MuiSvgIcon-root': {
-    // padding: '0',
     width: '20px',
     opacity: 1,
     transform: 'translate(0)',

@@ -50,7 +50,7 @@ theme = createTheme(theme, {
     },
     h4: {
       fontWeight: '600',
-      fontSize: '2rem',
+      fontSize: '1.7rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '-0.04rem',

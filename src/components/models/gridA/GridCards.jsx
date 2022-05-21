@@ -1,5 +1,6 @@
 import { Typography, Grid } from '@mui/material';
 import { Card, ImageContainer } from 'components/shared/styled/index.js';
+import { Link as LinkRouter } from 'react-router-dom';
 
 const GridCards = ({ cards }) => {
   return (
@@ -17,56 +18,79 @@ const GridCards = ({ cards }) => {
     >
       {/* FIRST COLUMN */}
       <Grid item component="div" xs={12} sm={6} container={true} rowSpacing={4}>
-        {cards.map(
-          (card, index) =>
+        {cards.map((card, index) => {
+          const isFirstCard = index === 0;
+
+          return (
             index % 2 === 0 && (
               <Grid key={index} item>
-                <Card>
-                  <ImageContainer src={card.photo.url} />
+                <Card isFirstCard={isFirstCard}>
+                  <LinkRouter
+                    style={{ textDecoration: 'none' }}
+                    to={`Services-and-Fares/#${card.title}`}
+                  >
+                    <ImageContainer src={card.photo.url} />
 
-                  <Typography
-                    component="h1"
-                    variant="h4"
-                    children={card.title}
-                    sx={{ marginBottom: '0.7em' }}
-                  />
-                  <Typography
-                    component="p"
-                    children={card.content}
-                    style={{ whiteSpace: 'pre-wrap' }}
-                  />
+                    <Typography
+                      component="h4"
+                      variant="h4"
+                      children={card.title}
+                      sx={{
+                        marginBottom: '0.7em',
+                        color: isFirstCard
+                          ? 'white !important'
+                          : '#8f5f25 !important',
+                      }}
+                    />
+                    <Typography
+                      component="p"
+                      variant="p"
+                      children={card.content}
+                      sx={{
+                        whiteSpace: 'pre-wrap',
+                        color: isFirstCard
+                          ? 'white !important'
+                          : '#666 !important',
+                      }}
+                    />
+                  </LinkRouter>
                 </Card>
               </Grid>
             )
-        )}
+          );
+        })}
       </Grid>
 
       {/* SECOND COLUMN */}
 
       <Grid item component="div" xs={12} sm={6} container={true} rowSpacing={4}>
-        {cards.map(
-          (card, index) =>
+        {cards.map((card, index) => {
+          return (
             index % 2 !== 0 && (
               <Grid key={index} item>
                 <Card>
                   <ImageContainer src={card.photo.url} />
 
                   <Typography
-                    component="h1"
+                    component="h4"
                     variant="h4"
                     children={card.title}
-                    sx={{ marginBottom: '0.7em', color: 'yellow' }}
+                    sx={{
+                      marginBottom: '0.7em',
+                      color: '#8f5f25',
+                    }}
                   />
                   <Typography
                     component="p"
-                    variant="content"
+                    variant="p"
                     children={card.content}
                     style={{ whiteSpace: 'pre-wrap' }}
                   />
                 </Card>
               </Grid>
             )
-        )}
+          );
+        })}
       </Grid>
     </Grid>
   );
