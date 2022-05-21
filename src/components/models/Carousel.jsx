@@ -46,7 +46,7 @@ export default function Carousel({ path, data, id }) {
   })}`;
 
   return (
-    <div ref={fromRef} style={{ marginBottom: '30vw' }}>
+    <div ref={fromRef} style={{ marginBottom: '14vw' }}>
       {isNearScreen ? (
         <CarouselContainer url={data.background.url}>
           <CarouselHero>

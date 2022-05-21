@@ -2,19 +2,20 @@ const qs = require('qs');
 
 const querySelector = {
   menu: ['links.dropdown.links', 'logo'],
-  carousel: [
-    'carousel',
-    'carousel.variantTitle',
-    'carousel.variantSubtitle',
-    'carousel.background.media',
-    'carousel.cards.photo.media',
-  ],
+  // carousel: [
+  //   'carousel',
+  //   'carousel.variantTitle',
+  //   'carousel.variantSubtitle',
+  //   'carousel.background.media',
+  //   'carousel.cards.photo.media',
+  // ],
   home: [
     'components',
     'components.background.media',
     'components.cards',
     'components.cards.photo.media',
     'components.photo.media',
+    'components.button',
     'components.variantTitle',
     'components.variantSubtitle',
     'components.background.media',
@@ -24,6 +25,7 @@ const querySelector = {
     'components.background.media',
     'components.cards',
     'components.cards.photo.media',
+    'components.button',
     'components.photo.media',
     'components.variantTitle',
     'components.variantSubtitle',
