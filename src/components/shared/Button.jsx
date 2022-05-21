@@ -21,7 +21,7 @@ const MyButton = styled((props) => <MuiButton {...props} />)(({ theme }) => ({
   },
 }));
 
-export default function Button({ text, buttonTo }) {
+export default function Button({ buttonText, buttonTo }) {
   return (
     <MyButton
       color="primary"
@@ -29,10 +29,10 @@ export default function Button({ text, buttonTo }) {
       disableRipple
       variant="contained"
       component={LinkRouter}
-      to={{}}
+      to={{ buttonTo }}
       endIcon={<KeyboardArrowRight />}
     >
-      {text}
+      {buttonText}
     </MyButton>
   );
 }

@@ -102,24 +102,9 @@ theme = createTheme(theme, {
       fontSize: '1.2rem',
     },
 
-    gridText: {
-      fontWeight: '400',
-      fontSize: '1.15rem',
-      color: '#666',
-      lineHeight: 1.2,
-      fontFamily: ['Abel', 'Open Sans'].join(','),
-    },
-
-    content: {
-      fontWeight: '400',
-      fontSize: '1.15rem',
-      color: '#666',
-      lineHeight: 1.2,
-      fontFamily: ['Abel', 'Open Sans'].join(','),
-    },
     title: {
       color: '#666',
-      fontSize: '1.9rem',
+      fontSize: '2rem',
       lineHeight: 1.1,
       fontWeight: 400,
 
@@ -130,6 +115,20 @@ theme = createTheme(theme, {
       [theme.breakpoints.up('lg')]: {
         fontSize: '4rem',
       },
+    },
+    content: {
+      fontWeight: '400',
+      fontSize: '1.15rem',
+      color: '#666',
+      lineHeight: 1.4,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+    },
+    gridText: {
+      fontWeight: '400',
+      fontSize: '1.15rem',
+      color: '#666',
+      lineHeight: 1.2,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
     },
 
     // Components override.

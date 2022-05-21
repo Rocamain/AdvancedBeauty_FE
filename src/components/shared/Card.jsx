@@ -42,7 +42,7 @@ const Card = forwardRef(({ cards, animatedPhoto, cardAnimation, slide }) => {
               {cards[slide].content}
             </Typography>
             <Button
-              text={cards[slide].buttonText}
+              buttonText={cards[slide].buttonText}
               buttonTo={cards[slide].buttonTo}
             />
           </Box>
