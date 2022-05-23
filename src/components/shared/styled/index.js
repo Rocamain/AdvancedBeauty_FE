@@ -34,6 +34,15 @@ const Card = styled((props) => <Box component="" {...props} />)(
     boxShadow: isFirstCard
       ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
       : '0px 50px 80px 0px rgba(12,2,2,0.1)',
+    color: isFirstCard ? 'white !important' : '#666 !important',
+    [theme.breakpoints.up('md')]: {
+      transform: 'scale(1)',
+      transition: 'transform 0.5s',
+    },
+    ':hover': {
+      transform: 'scale(1.03)',
+      transition: 'transform 0.5s',
+    },
   })
 );
 const ImageContainer = styled((props) => (

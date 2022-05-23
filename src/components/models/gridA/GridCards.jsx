@@ -24,11 +24,13 @@ const GridCards = ({ cards }) => {
           return (
             index % 2 === 0 && (
               <Grid key={index} item>
-                <Card isFirstCard={isFirstCard}>
-                  <LinkRouter
-                    style={{ textDecoration: 'none' }}
-                    to={`Services-and-Fares/#${card.title}`}
-                  >
+                <LinkRouter
+                  style={{
+                    textDecoration: 'none',
+                  }}
+                  to={`Services-and-Fares/#${card.title}`}
+                >
+                  <Card isFirstCard={isFirstCard}>
                     <ImageContainer src={card.photo.url} />
 
                     <Typography
@@ -46,15 +48,9 @@ const GridCards = ({ cards }) => {
                       component="p"
                       variant="p"
                       children={card.content}
-                      sx={{
-                        whiteSpace: 'pre-wrap',
-                        color: isFirstCard
-                          ? 'white !important'
-                          : '#666 !important',
-                      }}
                     />
-                  </LinkRouter>
-                </Card>
+                  </Card>
+                </LinkRouter>
               </Grid>
             )
           );
@@ -68,25 +64,29 @@ const GridCards = ({ cards }) => {
           return (
             index % 2 !== 0 && (
               <Grid key={index} item>
-                <Card>
-                  <ImageContainer src={card.photo.url} />
+                <LinkRouter
+                  style={{ textDecoration: 'none' }}
+                  to={`Services-and-Fares/#${card.title}`}
+                >
+                  <Card>
+                    <ImageContainer src={card.photo.url} />
 
-                  <Typography
-                    component="h4"
-                    variant="h4"
-                    children={card.title}
-                    sx={{
-                      marginBottom: '0.7em',
-                      color: '#8f5f25',
-                    }}
-                  />
-                  <Typography
-                    component="p"
-                    variant="p"
-                    children={card.content}
-                    style={{ whiteSpace: 'pre-wrap' }}
-                  />
-                </Card>
+                    <Typography
+                      component="h4"
+                      variant="h4"
+                      children={card.title}
+                      sx={{
+                        marginBottom: '0.7em',
+                        color: '#8f5f25 !important',
+                      }}
+                    />
+                    <Typography
+                      component="p"
+                      variant="p"
+                      children={card.content}
+                    />
+                  </Card>
+                </LinkRouter>
               </Grid>
             )
           );
