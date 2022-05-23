@@ -3,7 +3,7 @@ import Button from 'components/shared/Button';
 
 export default function GridText({ title, content, ...data }) {
   const { button } = data;
-  console.log(data, data.button);
+
   return (
     <Grid item component="div" xs={12} sm={12} md={5}>
       <Box

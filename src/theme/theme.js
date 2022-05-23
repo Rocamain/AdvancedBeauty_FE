@@ -138,6 +138,7 @@ theme = createTheme(theme, {
         root: {
           wordBreak: 'break-word',
           wordWrap: 'break-word',
+          whiteSpace: 'pre-wrap',
         },
       },
     },
