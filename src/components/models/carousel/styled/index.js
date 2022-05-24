@@ -1,38 +1,36 @@
 import { Box, Paper, IconButton, styled } from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
-const CarouselContainer = styled((props) => <Paper {...props} />)(
+const CarouselContainer = styled((props, ref) => <Paper {...ref} {...props} />)(
   ({ theme, url }) => ({
     width: '100vw',
-    paddingTop: theme.spacing(16),
-    paddingBottom: theme.spacing(16),
+    padding: theme.spacing(30, 0),
     backgroundImage: `url(${url})`,
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     overFlowY: 'visible',
     overFlowX: 'hidden',
-    [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(14, 0),
-    },
-    [theme.breakpoints.up('lg')]: {
-      padding: theme.spacing(14, 0),
-    },
+    [theme.breakpoints.up('md')]: {},
+    [theme.breakpoints.up('lg')]: {},
   })
 );
-const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => ({
-  display: 'none',
-  [theme.breakpoints.up('lg')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '70vw',
-    margin: '0 auto',
-    position: 'relative',
-    left: '35vw',
-    top: theme.spacing(3),
-    zIndex: 100,
-  },
-}));
+const CarouselHero = styled((props) => <Box {...props} />)(
+  ({ theme, left, top }) => {
+    return {
+      display: 'none',
+      [theme.breakpoints.up('lg')]: {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        left: left,
+        marginTop: theme.spacing(-20),
+        top: top,
+        zIndex: 100,
+      },
+    };
+  }
+);
 
 const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
   display: 'inline-flex',
@@ -95,35 +93,32 @@ const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
   ({ theme }) => ({
     maxWidth: '70vw',
     margin: '-6% 0',
-    padding: theme.spacing(3),
+    padding: theme.spacing(9, 7),
+
     borderRadius: '5px',
     backgroundColor: theme.palette.primary.contrastText,
     [theme.breakpoints.up('sm')]: {
+      margin: '-12% 0',
       width: '80%',
-      margin: '-16% 0',
+
       marginLeft: 'auto',
-      padding: theme.spacing(4),
     },
     [theme.breakpoints.up('md')]: {
       width: '60%',
-      margin: '-30% auto',
-      padding: theme.spacing(10, 5),
     },
-    [theme.breakpoints.up('lg')]: {
-      width: '60%',
-      padding: theme.spacing(13, 7),
-    },
+    [theme.breakpoints.up('lg')]: {},
   })
 );
 
 const CardPhotoContainer = styled((props) => {
   return <Box elevation={24} {...props} />;
 })(({ theme }) => ({
+  margin: '-10% auto',
   [theme.breakpoints.up('sm')]: {
     width: '50%',
-    margin: '-10% auto',
   },
   [theme.breakpoints.up('md')]: {
+    margin: '-13% auto',
     width: '30%',
   },
   [theme.breakpoints.up('lg')]: {
@@ -141,7 +136,7 @@ const Photo = styled((props) => <Box component="img" {...props} />)(
     height: 'auto',
     margin: '0 auto',
     borderRadius: '5px',
-
+    minWidth: '220px',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
@@ -150,12 +145,13 @@ const Photo = styled((props) => <Box component="img" {...props} />)(
       left: '8%',
     },
     [theme.breakpoints.up('lg')]: {
+      maxWidth: '400px',
       // display: 'none',
       left: '15%',
     },
     [theme.breakpoints.up('xl')]: {
       // display: 'none',
-      maxWidth: '400px',
+      maxWidth: '450px',
     },
   })
 );
