@@ -3,20 +3,19 @@ import { forwardRef } from 'react';
 import { Typography, Box } from '@mui/material';
 import Button from 'components/shared/Button';
 import {
-  CarouselHero,
   CardWrapper,
   Photo,
   CardPhotoContainer,
 } from 'components/models/carousel/styled';
 
-const Card = forwardRef(({ cards, animatedPhoto, cardAnimation, slide }) => {
-  return (
-    <>
+const Card = forwardRef(
+  ({ cards, animatedPhoto, cardAnimation, slide }, ref) => {
+    return (
       <Box
         sx={{
           display: 'inline-flex',
           alignItems: 'center',
-          width: { xs: '70%', sm: '80%' },
+          width: { xs: '70%', sm: '90%' },
           maxWidth: '1200px',
           marginRight: 'auto',
           marginLeft: { sm: '-5%' },
@@ -31,10 +30,9 @@ const Card = forwardRef(({ cards, animatedPhoto, cardAnimation, slide }) => {
         </CardPhotoContainer>
 
         <CardWrapper className={cardAnimation}>
-          <CarouselHero />
-          <Box sx={{ paddingLeft: '2em' }}>
-            <Box sx={{ paddingBottom: '2em' }}>
-              <Typography component="h4" variant="cardTitle">
+          <Box sx={{ paddingLeft: ['0em', '0em', '6em', '7em'] }}>
+            <Box sx={{ padding: '1.5em 0' }}>
+              <Typography ref={ref} component="h4" variant="cardTitle">
                 {cards[slide].title}
               </Typography>
             </Box>
@@ -48,8 +46,8 @@ const Card = forwardRef(({ cards, animatedPhoto, cardAnimation, slide }) => {
           </Box>
         </CardWrapper>
       </Box>
-    </>
-  );
-});
+    );
+  }
+);
 
 export default Card;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useNearScreen from 'hooks/useNearScreen';
+import useAlignTitle from 'hooks/useAlignTitle';
 import { Typography } from '@mui/material';
 
 import clsx from 'clsx';
@@ -18,6 +19,7 @@ export default function Carousel({ path, data, id }) {
   const [slide, setSlide] = useState(0);
   const [exit, setExit] = useState(false);
   const { fromRef, isNearScreen } = useNearScreen();
+  const { ref, coords } = useAlignTitle(isNearScreen);
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
@@ -45,42 +47,48 @@ export default function Carousel({ path, data, id }) {
     [cardAnimationStyles.cardExiting]: exit,
   })}`;
 
+  console.log(coords.top);
   return (
     <div ref={fromRef} style={{ marginBottom: '14vw' }}>
       {isNearScreen ? (
-        <CarouselContainer url={data.background.url}>
-          <CarouselHero>
-            <Typography variant={data.variantTitle.title}>
-              {data.title}
-            </Typography>
-            <Typography variant={data.variantSubtitle.title}>
-              {data.subtitle}
-            </Typography>
-          </CarouselHero>
-          <SlideContainer>
-            <ChevronButton
-              className="ChevronButton ChevronButton-left"
-              value="left"
-              disableRipple={true}
-              onClick={handleClick}
-            />
+        <>
+          {coords.top && (
+            <CarouselHero left={coords?.left} top={coords?.top}>
+              <Typography variant={data.variantTitle.title}>
+                {data.title}
+              </Typography>
+              <Typography variant={data.variantSubtitle.title}>
+                {data.subtitle}
+              </Typography>
+            </CarouselHero>
+          )}
+          <CarouselContainer url={data.background.url}>
+            <SlideContainer>
+              <ChevronButton
+                className="ChevronButton ChevronButton-left"
+                value="left"
+                disableRipple={true}
+                onClick={handleClick}
+              />
 
-            <Card
-              className="card"
-              cards={data.cards}
-              animatedPhoto={animatedPhoto}
-              cardAnimation={cardAnimation}
-              slide={slide}
-            />
+              <Card
+                ref={ref}
+                className="card"
+                cards={data.cards}
+                animatedPhoto={animatedPhoto}
+                cardAnimation={cardAnimation}
+                slide={slide}
+              />
 
-            <ChevronButton
-              className="ChevronButton ChevronButton-right"
-              value="right"
-              disableRipple={true}
-              onClick={handleClick}
-            />
-          </SlideContainer>
-        </CarouselContainer>
+              <ChevronButton
+                className="ChevronButton ChevronButton-right"
+                value="right"
+                disableRipple={true}
+                onClick={handleClick}
+              />
+            </SlideContainer>
+          </CarouselContainer>
+        </>
       ) : null}
     </div>
   );

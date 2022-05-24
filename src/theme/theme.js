@@ -50,7 +50,7 @@ theme = createTheme(theme, {
     },
     h4: {
       fontWeight: '600',
-      fontSize: '1.7rem',
+      fontSize: '1.5rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '-0.04rem',
@@ -73,7 +73,7 @@ theme = createTheme(theme, {
     carouselTitle: {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 700,
-      fontSize: '6rem',
+      fontSize: '6.5rem',
       lineHeight: 0.8,
       color: '#00BCCC',
       letterSpacing: '-0.017em',
@@ -85,11 +85,11 @@ theme = createTheme(theme, {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 500,
       lineHeight: 1,
-      fontSize: '2.4rem',
+      fontSize: '2.8rem',
     },
     cardTitle: {
       color: 'black',
-      fontSize: '3rem',
+      fontSize: '2.4rem',
       lineHeight: 1.1,
       fontWeight: 400,
       fontFamily: ['Open Sans', 'Abel'].join(','),
