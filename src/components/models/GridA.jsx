@@ -1,32 +1,41 @@
 import useNearScreen from 'hooks/useNearScreen';
 import { Box } from '@mui/material';
 
-import {
-  Container,
-  Wrapper,
-  Grid as GridMain,
-} from 'components/shared/styled/index.js';
+import { Container, Wrapper, Grid } from 'components/shared/styled/index.js';
 import GridCards from 'components/models/gridA/GridCards';
 import GridText from 'components/models/gridA/GridText';
+import GridPhoto from 'components/models/gridA/GridPhoto';
 
 export default function GridA({ id, data }) {
   const { fromRef, isNearScreen } = useNearScreen();
+
+  const { show, photoColumn, backgroundType, photo } = data;
 
   return (
     <Box
       ref={fromRef}
       component={'section'}
       sx={{
-        marginBottom: '22em',
+        margin: '12em auto',
       }}
     >
+      {/* LAZY LOAD */}
+
       {isNearScreen ? (
-        <Container>
-          <Wrapper>
-            <GridMain>
+        <Container background={backgroundType}>
+          <Wrapper background={backgroundType}>
+            <Grid
+              background={backgroundType}
+              show={show}
+              photoColumn={photoColumn}
+            >
               <GridText {...data} />
-              <GridCards {...data} />
-            </GridMain>
+              {show === 'cards' ? (
+                <GridCards {...data} />
+              ) : (
+                <GridPhoto {...{ photo }} />
+              )}
+            </Grid>
           </Wrapper>
         </Container>
       ) : null}
