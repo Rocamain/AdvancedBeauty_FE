@@ -17,39 +17,52 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
 );
 
 const Container = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, background }) => {
+  ({ theme, background, flex = false }) => {
     const backgroundSelector = {
       full: 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important',
       leaves: `url(${leavesBackground})`,
+      circles: `url(${leavesBackground})`,
       'mixed leaves and right': `url(${leavesBackground})`,
       none: null,
     };
 
-    return {
+    let styles = {
+      padding: theme.spacing(6),
       width: '100%',
-      margin: '0 auto',
       backgroundImage: backgroundSelector[background],
-      display: 'inline-block',
-      backgroundSize: 'cover',
+      backgroundSize: 'contain',
+      backgroundPosition: '40%',
       backgroundRepeat: 'no-repeat',
-
-      [theme.breakpoints.up('md')]: {},
-      [theme.breakpoints.up('lg')]: {},
     };
+
+    return { ...styles };
   }
 );
 const Wrapper = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, background }) => ({
-    width: '80%',
-    margin:
-      background === 'full'
-        ? theme.spacing(-7, 'auto')
-        : theme.spacing(0, 'auto'),
-    [theme.breakpoints.up('md')]: {},
-    [theme.breakpoints.up('lg')]: {
-      width: '65%',
-    },
-  })
+  ({ theme, background, flex = false }) => {
+    let styles = {
+      width: '80%',
+      margin: background === 'full' ? theme.spacing(-7, 'auto') : '0 auto',
+
+      [theme.breakpoints.up('lg')]: {
+        width: '65%',
+      },
+    };
+
+    const flexStyles = {
+      display: 'flex',
+      flexWrap: 'wrap',
+      [theme.breakpoints.up('md')]: {
+        flexWrap: 'nowrap',
+      },
+    };
+
+    if (flex) {
+      styles = { ...styles, ...flexStyles };
+    }
+
+    return { ...styles };
+  }
 );
 
 const Card = styled((props) => <Box component="div" {...props} />)(
