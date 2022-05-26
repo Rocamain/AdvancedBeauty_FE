@@ -34,8 +34,7 @@ const CarouselHero = styled((props) => <Box {...props} />)(
 
 const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
   display: 'inline-flex',
-  width: '100%',
-  margin: '0 auto',
+
   backgroundColor: theme.palette.primary.main,
 
   [theme.breakpoints.up('md')]: {
@@ -80,9 +79,11 @@ const ChevronButton = styled((props) => {
   color: theme.palette.primary.contrastText,
   backgroundColor: 'transparent',
   borderRadius: 0,
-  minWidth: '10vw',
   padding: 0,
   flex: 1,
+  [theme.breakpoints.up('sm')]: {
+    minWidth: '10vw',
+  },
 
   [theme.breakpoints.up('xl')]: {
     flex: value === 'left' ? 2 : 1,
@@ -91,8 +92,8 @@ const ChevronButton = styled((props) => {
 
 const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
   ({ theme }) => ({
-    maxWidth: '70vw',
     margin: '-6% 0',
+    boxSizing: 'border-box',
     padding: theme.spacing(9, 7),
 
     borderRadius: '5px',
@@ -100,11 +101,9 @@ const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
     [theme.breakpoints.up('sm')]: {
       margin: '-12% 0',
       width: '80%',
-
-      marginLeft: 'auto',
     },
     [theme.breakpoints.up('md')]: {
-      width: '60%',
+      width: '80%',
     },
     [theme.breakpoints.up('lg')]: {},
   })
@@ -136,7 +135,7 @@ const Photo = styled((props) => <Box component="img" {...props} />)(
     height: 'auto',
     margin: '0 auto',
     borderRadius: '5px',
-    minWidth: '220px',
+    minWidth: '60px',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

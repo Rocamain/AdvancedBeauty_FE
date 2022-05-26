@@ -47,9 +47,10 @@ export default function Carousel({ path, data, id }) {
     [cardAnimationStyles.cardExiting]: exit,
   })}`;
 
-  console.log(coords.top);
   return (
     <div ref={fromRef} style={{ marginBottom: '14vw' }}>
+      {/* LAZY LOAD */}
+
       {isNearScreen ? (
         <>
           {coords.top && (
