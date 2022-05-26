@@ -3,6 +3,8 @@ import { KeyboardArrowRight } from '@mui/icons-material/';
 import { Link as LinkRouter } from 'react-router-dom';
 
 const MyButton = styled((props) => <MuiButton {...props} />)(({ theme }) => ({
+  wordBreak: 'break-word',
+  wordWrap: 'break-word',
   '.MuiSvgIcon-root': {
     transform: 'translate(-20px)',
     width: 0,

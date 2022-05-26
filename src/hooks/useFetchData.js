@@ -28,6 +28,9 @@ export default function useFetchData(path) {
         const queryString = makeQuery(path);
 
         const res = await fetch(`http://localhost:1337/api/${queryString}`);
+
+        // For production
+
         // const res = await fetch(
         //   `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`
         // );
