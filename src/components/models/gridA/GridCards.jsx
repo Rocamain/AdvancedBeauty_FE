@@ -9,7 +9,7 @@ const GridCards = ({ cards }) => {
       component="div"
       xs={12}
       sm={12}
-      md={7}
+      md={6}
       container
       alignItems="flex-start"
       columnSpacing={4}

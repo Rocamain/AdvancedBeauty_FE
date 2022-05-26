@@ -2,13 +2,6 @@ const qs = require('qs');
 
 const querySelector = {
   menu: ['links.dropdown.links', 'logo'],
-  // carousel: [
-  //   'carousel',
-  //   'carousel.variantTitle',
-  //   'carousel.variantSubtitle',
-  //   'carousel.background.media',
-  //   'carousel.cards.photo.media',
-  // ],
   home: [
     'components',
     'components.background.media',
@@ -18,7 +11,6 @@ const querySelector = {
     'components.button',
     'components.variantTitle',
     'components.variantSubtitle',
-    'components.background.media',
   ],
   'About-us': [
     'components',
@@ -29,7 +21,6 @@ const querySelector = {
     'components.photo.media',
     'components.variantTitle',
     'components.variantSubtitle',
-    'components.background.media',
   ],
   'services-and-fares': ['*'],
 };

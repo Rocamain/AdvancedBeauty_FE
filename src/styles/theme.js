@@ -103,6 +103,8 @@ theme = createTheme(theme, {
     },
 
     title: {
+      wordBreak: 'break-word',
+      wordWrap: 'break-word',
       color: '#666',
       fontSize: '2rem',
       lineHeight: 1.1,
@@ -117,6 +119,8 @@ theme = createTheme(theme, {
       },
     },
     content: {
+      wordBreak: 'break-word',
+      wordWrap: 'break-word',
       fontWeight: '400',
       fontSize: '1.15rem',
       color: '#666',
