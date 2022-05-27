@@ -1,7 +1,7 @@
 const qs = require('qs');
 
 const querySelector = {
-  menu: ['links.dropdown.links', 'logo'],
+  menu: ['links', 'logo', 'links.dropdown_links.links'],
   home: [
     'components',
     'components.background.media',
@@ -9,20 +9,17 @@ const querySelector = {
     'components.cards.photo.media',
     'components.photo.media',
     'components.button',
-    'components.variantTitle',
-    'components.variantSubtitle',
   ],
   'About-us': [
     'components',
     'components.background.media',
     'components.cards',
     'components.cards.photo.media',
-    'components.button',
     'components.photo.media',
-    'components.variantTitle',
-    'components.variantSubtitle',
+    'components.button',
   ],
   'services-and-fares': ['*'],
+  contact: ['*'],
 };
 
 const makeQuery = (path) => {

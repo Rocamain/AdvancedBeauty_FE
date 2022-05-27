@@ -9,7 +9,7 @@ const LazyMain = React.lazy(() => import('./components/Main'));
 
 function App() {
   const { error, loading, data } = useFetchData('menu');
-
+  console.log(data);
   return (
     <div className="App">
       {loading && <Loading />}
@@ -20,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Body />}>
               {getRoutesLinks(data).map((navLink, index) => {
+                console.log(navLink.route, navLink.routePath);
                 return (
                   <Route
                     key={index}

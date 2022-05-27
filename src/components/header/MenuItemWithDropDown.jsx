@@ -73,7 +73,7 @@ export default function MenuItemWithDropDown({
         open={hoverTracker}
         onMouseOver={handleCloseModal}
       >
-        {link.dropdown.links.map((link, index) => {
+        {link.dropdown_links.links.map((link, index) => {
           return (
             <MenuItem key={index} sx={{ padding: 0 }}>
               <Link

@@ -16,7 +16,9 @@ export default function NavMenu({ links, selectedIndex, setSelectedIndex }) {
     setSelectedIndex(event.target.textContent);
   };
 
-  const haspopup = (navLink) => navLink?.dropdown?.links;
+  const haspopup = (navLink) => {
+    return navLink?.['dropdown_links'] ? true : false;
+  };
 
   return (
     links && (

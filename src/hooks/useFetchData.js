@@ -36,7 +36,7 @@ export default function useFetchData(path) {
         // );
 
         const { data } = await res.json();
-
+        console.log(data);
         const formattedData = FORMATEDDATA[path](data);
 
         setData({ data: formattedData, error: false, loading: false });

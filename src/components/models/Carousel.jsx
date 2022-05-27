@@ -55,10 +55,8 @@ export default function Carousel({ path, data, id }) {
         <>
           {coords.top && (
             <CarouselHero left={coords?.left} top={coords?.top}>
-              <Typography variant={data.variantTitle.title}>
-                {data.title}
-              </Typography>
-              <Typography variant={data.variantSubtitle.title}>
+              <Typography variant="carouselTitle">{data.title}</Typography>
+              <Typography variant="carouselSubtitle">
                 {data.subtitle}
               </Typography>
             </CarouselHero>
