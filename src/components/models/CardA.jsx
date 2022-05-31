@@ -8,7 +8,7 @@ import Button from 'components/shared/Button.jsx';
 export default function CardA({ data }) {
   const { content, title, button, photo } = data;
   const { fromRef, isNearScreen } = useNearScreen();
-  console.log(data.photo.url);
+
   return (
     <Box
       ref={fromRef}
