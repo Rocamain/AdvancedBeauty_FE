@@ -4,12 +4,12 @@ import { Error, Loading } from './components/shared/index';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Body from './components/Body';
 import React from 'react';
-import { getRoutesLinks } from './hooks/utils';
+import { getRoutesLinks } from './utils';
 const LazyMain = React.lazy(() => import('./components/Main'));
 
 function App() {
   const { error, loading, data } = useFetchData('menu');
-  console.log(data);
+
   return (
     <div className="App">
       {loading && <Loading />}

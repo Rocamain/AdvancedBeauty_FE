@@ -1,7 +1,8 @@
-import { getMarkdownText } from '../../../marked/markedParser';
 import { Typography, Grid, Box } from '@mui/material';
 import Button from 'components/shared/Button';
 import { Divider } from 'components/shared/styled';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 
 export default function GridText({ title, content, ...data }) {
   const { button, show, photoColumn } = data;
@@ -15,14 +16,19 @@ export default function GridText({ title, content, ...data }) {
         }}
       >
         <Typography component="h2" variant="title" children={title} />
+
         <Divider />
-        <Typography
-          component="div"
-          variant="content"
-          dangerouslySetInnerHTML={getMarkdownText(content)}
+
+        <ReactMarkdown
+          escapeHTML={true}
+          remarkPlugins={[gfm]}
+          children={content}
         />
       </Box>
-      <Button buttonText={button.buttonText} buttonTo={button.buttonTo} />
+
+      {button && (
+        <Button buttonText={button.buttonText} buttonTo={button.buttonTo} />
+      )}
     </Grid>
   );
 }
