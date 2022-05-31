@@ -1,7 +1,7 @@
 import { MenuList } from './styled/index';
 import { MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { getMobileNavLinks } from 'hooks/utils/index';
+import { getMobileNavLinks } from 'utils/index';
 
 export default function NavMenuList({
   links,

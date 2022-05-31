@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { makeQuery } from 'strapi/makeQuery';
-import { formatMenu } from 'hooks/utils/index';
+import { formatMenu } from 'utils/index';
 
 const FORMATEDDATA = {
   menu: (json) => formatMenu(json),
