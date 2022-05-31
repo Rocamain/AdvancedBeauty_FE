@@ -94,7 +94,7 @@ const ImageContainer = styled((props) => (
     <Image {...props} />
   </Box>
 ))(({ theme }) => ({
-  maxWidth: '7em',
+  maxWidth: '5em',
   margin: '0 auto',
   marginBottom: '1em',
   display: 'inline-block',
@@ -108,6 +108,7 @@ const Image = styled((props) => <Box component="img" {...props} />)(
     };
   }
 );
+
 const Grid = styled(({ show, photoColumn, ...props }) => {
   let spacing = show === 'cards' ? 3 : 3;
 

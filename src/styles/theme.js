@@ -10,7 +10,7 @@ theme = createTheme(theme, {
       contrastText: '#fff',
     },
     secondary: {
-      main: '#00BCCC',
+      main: '#ffd4a3',
       contrastText: '#fff',
     },
     text: {
