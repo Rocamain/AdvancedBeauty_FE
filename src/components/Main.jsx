@@ -12,7 +12,7 @@ function Main({ routeName }) {
   //  the data received is an array of objects, that each each objet represent a component.
 
   const { error, loading, data } = useFetchData(pathname);
-  console.log(pathname, data);
+
   function loadComponent(name) {
     const Component = lazy(() => import(`./models/${name}.jsx`));
     return Component;
@@ -24,6 +24,7 @@ function Main({ routeName }) {
   const renderChildrenComponents = (components) => {
     let routeComponents = components.map((component, index) => {
       let componentName = component.componentName;
+
       let LazyComponent = loadComponent(componentName);
 
       return (

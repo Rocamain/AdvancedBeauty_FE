@@ -18,26 +18,19 @@ const querySelector = {
     'components.photo.media',
     'components.button',
   ],
-  'services-and-fares': ['*'],
-  contact: ['*'],
+  'Services-and-Fares': [
+    'components',
+
+    'components.background.media',
+    'components.cards',
+    'components.cards.photo.media',
+    'components.photo.media',
+    'components.button',
+  ],
+  Contact: ['*'],
 };
 
 const makeQuery = (path) => {
-  if (path === 'menu') {
-    const query = qs.stringify(
-      {
-        populate: [...querySelector[path]],
-      },
-      {
-        encodeValuesOnly: true,
-      }
-    );
-
-    const queryString = `${path}?${query}`;
-
-    return queryString;
-  }
-
   const query = qs.stringify(
     {
       populate: [...querySelector[path]],
@@ -46,6 +39,7 @@ const makeQuery = (path) => {
       encodeValuesOnly: true,
     }
   );
+  if (path === 'Services-and-Fares') path = 'Services-and-Fare';
 
   const queryString = `${path}?${query}`;
 

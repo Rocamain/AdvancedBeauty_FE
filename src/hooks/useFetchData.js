@@ -1,15 +1,5 @@
 import { useEffect, useState } from 'react';
 import { makeQuery } from 'strapi/makeQuery';
-import { formatMenu } from 'hooks/utils/index';
-
-const FORMATEDDATA = {
-  menu: (json) => formatMenu(json),
-  home: ({ components }) => components,
-  'About-us': ({ components }) => components,
-  carousel: (json) => json,
-  contact: ({ components }) => components,
-  singleCardA: ({ carousel }) => carousel,
-};
 
 export default function useFetchData(path) {
   const [data, setData] = useState({
@@ -26,20 +16,19 @@ export default function useFetchData(path) {
 
       try {
         const queryString = makeQuery(path);
-
-        const res = await fetch(`http://localhost:1337/api/${queryString}`);
-
+        let res;
         // For production
 
-        // const res = await fetch(
-        //   `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`
-        // );
+        // if (process.env.NODE_ENV !== 'production') {
+        // res = await fetch(`http://localhost:1337/api/${queryString}`);
+        // }
 
-        const { data } = await res.json();
-        console.log(data);
-        const formattedData = FORMATEDDATA[path](data);
+        res = await fetch(
+          `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`
+        );
+        const { meta, data } = await res.json();
 
-        setData({ data: formattedData, error: false, loading: false });
+        setData({ data: data, error: false, loading: false });
       } catch (err) {
         console.log(err);
         setData({ error: err, data: false, loading: false });

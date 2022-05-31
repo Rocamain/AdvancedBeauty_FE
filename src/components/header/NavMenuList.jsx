@@ -16,7 +16,7 @@ export default function NavMenuList({
     setSelectedIndex(index.target.textContent);
   };
 
-  const isMainLink = (link) => link.__component !== 'menu.dropdown-link';
+  const isMainLink = (link) => link?.__component;
 
   return (
     <MenuList>
