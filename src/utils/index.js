@@ -2,12 +2,10 @@
 
 const getMobileNavLinks = (links) => {
   const navLinks = links.map((link) => {
-    const hasDropdownLinks = link?.dropdown;
-    if (hasDropdownLinks) {
-      const dropdownLinks = link.dropdown.links.map((navLink) => ({
-        ...navLink,
-      }));
+    const hasDropdownLinks = link?.dropdown_links;
 
+    if (hasDropdownLinks) {
+      const dropdownLinks = link.dropdown_links.links;
       const mainLink = { ...link };
 
       return [mainLink, ...dropdownLinks];
@@ -21,21 +19,16 @@ const getMobileNavLinks = (links) => {
 
 //  return an array of unique route links.
 
-const underscoredLink = (route) => route.replaceAll(' ', '-');
-
-const getRoutesLinks = ({ links }) => {
+const getRoutesLinks = (links) => {
   const linkList = links.map((link) => {
-    const hasDropdown = link?.dropdown?.links;
+    const hasDropdown = link?.dropdown_links;
     if (hasDropdown) {
-      const uniquePathLinks = link.dropdown.links.filter(
-        (dropdown_link) => !dropdown_link.isPathToID
+      const uniquePathDropdownLinks = link.dropdown_links.links.filter(
+        (dropdown_link) => !dropdown_link.isPathID
       );
-      const dropdownLinks = uniquePathLinks.map((dropdown_link) => ({
-        ...dropdown_link,
-      }));
 
       const mainLink = { ...link };
-      return [mainLink, ...dropdownLinks];
+      return [mainLink, ...uniquePathDropdownLinks];
     }
 
     return {
@@ -46,21 +39,4 @@ const getRoutesLinks = ({ links }) => {
   return [...linkList.flat()];
 };
 
-const formatMenu = ({ links, ...rest }) => {
-  const formattedLinks = links.map((link) => {
-    link.routePath = link.route === 'Home' ? '/' : underscoredLink(link.route);
-    if (link?.dropdown) {
-      link.dropdown.links.map((dropLink) => {
-        dropLink.routePath = dropLink.isPathToID
-          ? underscoredLink(`${link.route}/#${dropLink.route}`)
-          : underscoredLink(`${link.route}/${dropLink.route}`);
-      });
-    }
-
-    return link;
-  });
-
-  return { links: formattedLinks, ...rest };
-};
-
-export { getMobileNavLinks, getRoutesLinks, formatMenu };
+export { getMobileNavLinks, getRoutesLinks };

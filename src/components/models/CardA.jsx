@@ -8,7 +8,7 @@ import Button from 'components/shared/Button.jsx';
 export default function CardA({ data }) {
   const { content, title, button, photo } = data;
   const { fromRef, isNearScreen } = useNearScreen();
-
+  console.log(data.photo.url);
   return (
     <Box
       ref={fromRef}
@@ -60,7 +60,7 @@ export default function CardA({ data }) {
                 src={photo.url}
                 title="shop"
                 alt={photo.alternativeText}
-                srcSet={`${photo.formats.large.url} 1200w, ${photo.formats.medium.url} 980w, ${photo.formats.small.url} 480w`}
+                srcSet={`${photo.formats?.large?.url} 1200w, ${photo.formats?.medium?.url} 980w, ${photo.formats?.small?.url} 480w`}
                 sizes="(min-width: 0px) and (max-width: 480px) 85vw, (min-width: 481px) and (max-width: 980px) 95vw, (min-width: 981px) 60vw, 100vw"
               />
             </Box>

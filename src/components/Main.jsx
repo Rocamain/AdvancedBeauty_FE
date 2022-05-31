@@ -24,6 +24,7 @@ function Main({ routeName }) {
   const renderChildrenComponents = (components) => {
     let routeComponents = components.map((component, index) => {
       let componentName = component.componentName;
+
       let LazyComponent = loadComponent(componentName);
 
       return (

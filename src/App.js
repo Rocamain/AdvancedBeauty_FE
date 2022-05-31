@@ -20,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Body />}>
               {getRoutesLinks(data).map((navLink, index) => {
+                console.log(navLink.route, navLink.routePath);
                 return (
                   <Route
                     key={index}
