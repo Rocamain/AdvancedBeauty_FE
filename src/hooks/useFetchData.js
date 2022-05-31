@@ -20,12 +20,12 @@ export default function useFetchData(path) {
         // For production
 
         // if (process.env.NODE_ENV !== 'production') {
-        // res = await fetch(`http://localhost:1337/api/${queryString}`);
+        res = await fetch(`http://localhost:1337/api/${queryString}`);
         // }
 
-        res = await fetch(
-          `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`
-        );
+        // res = await fetch(
+        //   `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`
+        // );
         const { meta, data } = await res.json();
 
         setData({ data: data, error: false, loading: false });

@@ -19,7 +19,7 @@ const getMobileNavLinks = (links) => {
 
 //  return an array of unique route links.
 
-const getRoutesLinks = (links) => {
+const getRoutesLinks = ({ links }) => {
   const linkList = links.map((link) => {
     const hasDropdown = link?.dropdown_links;
     if (hasDropdown) {

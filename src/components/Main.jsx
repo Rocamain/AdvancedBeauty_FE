@@ -22,16 +22,16 @@ function Main({ routeName }) {
   // and it will imported be dynamically the component required.
 
   const renderChildrenComponents = (components) => {
-    let routeComponents = components.map((component, index) => {
-      let componentName = component.componentName;
+    let routeComponents = components.map((componentInfo, index) => {
+      let componentName = componentInfo.componentName;
 
       let LazyComponent = loadComponent(componentName);
-
+      console.log(componentInfo);
       return (
         <Suspense key={index} fallback={<Loading />}>
           <LazyComponent
-            id={component.title}
-            data={component}
+            id={componentInfo.title}
+            data={componentInfo}
             path={pathname}
           />
         </Suspense>

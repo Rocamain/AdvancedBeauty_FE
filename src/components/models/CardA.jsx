@@ -5,10 +5,10 @@ import { Card, Image } from './CardA/styled/index.js';
 import { Divider, Container, Wrapper } from 'components/shared/styled/index.js';
 import Button from 'components/shared/Button.jsx';
 
-export default function CardA({ data }) {
+export default function CardA({ data, id }) {
   const { content, title, button, photo } = data;
   const { fromRef, isNearScreen } = useNearScreen();
-  console.log(data.photo.url);
+
   return (
     <Box
       ref={fromRef}
