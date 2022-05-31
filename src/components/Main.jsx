@@ -26,7 +26,7 @@ function Main({ routeName }) {
       let componentName = componentInfo.componentName;
 
       let LazyComponent = loadComponent(componentName);
-      console.log(componentInfo);
+
       return (
         <Suspense key={index} fallback={<Loading />}>
           <LazyComponent
