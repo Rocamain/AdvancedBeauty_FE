@@ -93,8 +93,9 @@ const ImageContainer = styled((props) => (
   <Box component="div" {...props}>
     <Image {...props} />
   </Box>
-))(({ theme }) => ({
-  maxWidth: '5em',
+))(({ theme, size }) => ({
+  maxWidth: '100%',
+  height: size === 'Big' ? '6.5em' : '4.5em',
   margin: '0 auto',
   marginBottom: '1em',
   display: 'inline-block',
@@ -102,7 +103,7 @@ const ImageContainer = styled((props) => (
 const Image = styled((props) => <Box component="img" {...props} />)(
   ({ theme }) => {
     return {
-      objectFit: 'cover',
+      objectFit: 'contain',
       width: '100%',
       height: 'auto',
     };

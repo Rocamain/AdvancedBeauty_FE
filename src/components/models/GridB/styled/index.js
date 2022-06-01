@@ -20,6 +20,7 @@ const Card = styled((props) => <Box component="div" {...props} />)(
     return {
       flex: 1,
       maxWidth: 'calc(50% - (2em))',
+      minWidth: size === 'Big' ? '200px' : '150px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
