@@ -6,7 +6,7 @@ import { Divider, Container, Wrapper } from 'components/shared/styled/index.js';
 import Button from 'components/shared/Button.jsx';
 
 export default function CardA({ data, id }) {
-  const { content, title, button, photo } = data;
+  const { content, title, button, photo, background } = data;
   const { fromRef, isNearScreen } = useNearScreen();
 
   return (
@@ -14,13 +14,13 @@ export default function CardA({ data, id }) {
       ref={fromRef}
       component={'section'}
       sx={{
-        margin: '12em auto',
+        margin: '5em auto',
       }}
     >
       {/* LAZY LOAD */}
 
       {isNearScreen ? (
-        <Container background="circles">
+        <Container background={background}>
           <Wrapper flex>
             <Box
               sx={{
