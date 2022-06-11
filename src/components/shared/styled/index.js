@@ -8,11 +8,11 @@ import {
 import leavesBackground from 'assets/leaves-background.jpg';
 
 const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
-  ({ theme }) => ({
-    margin: '1.5em 0 2.5em -1em',
+  ({ theme, type }) => ({
+    margin: type === 'center' ? '0  auto 1em auto' : '1.5em  1em 2.5em -1em',
     borderColor: '#ffd4a3',
     borderBottomWidth: 'medium',
-    width: '60%',
+    width: type === 'center' ? '10%' : '60%',
   })
 );
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useNearScreen from 'hooks/useNearScreen';
 import useAlignTitle from 'hooks/useAlignTitle';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 import clsx from 'clsx';
 
@@ -53,15 +53,13 @@ export default function Carousel({ path, data, id }) {
 
       {isNearScreen ? (
         <>
-          {coords.top && (
-            <CarouselHero left={coords?.left} top={coords?.top}>
-              <Typography variant="carouselTitle">{data.title}</Typography>
+          <CarouselContainer url={data.background.url}>
+            <CarouselHero>
+              <Typography variant="carouselTitle">2U Aesthetics </Typography>
               <Typography variant="carouselSubtitle">
-                {data.subtitle}
+                Advanced Beauty
               </Typography>
             </CarouselHero>
-          )}
-          <CarouselContainer url={data.background.url}>
             <SlideContainer>
               <ChevronButton
                 className="ChevronButton ChevronButton-left"

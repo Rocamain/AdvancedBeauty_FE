@@ -1,6 +1,5 @@
 import {
   styled,
-  alpha,
   List,
   Container,
   Popover,
@@ -114,12 +113,7 @@ const DropDownMenu = styled((props) => (
       },
       '&MuiPopover-paper': {},
       '& .MuiMenuItem-root': {
-        '&:active': {
-          // backgroundColor: alpha(
-          //   theme.palette.primary.main,
-          //   theme.palette.action.selectedOpacity
-          // ),
-        },
+        '&:active': {},
       },
     },
   };

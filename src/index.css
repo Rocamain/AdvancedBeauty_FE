@@ -4,7 +4,7 @@ html: {
 
 body {
   /* overflowx: hidden; */
-  margin: 0;
+  margin: 0 auto;
   height: 100%;
   width: 100%;
   overflow-x: hidden;
