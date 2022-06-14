@@ -7,17 +7,29 @@ const GridCards = ({ cards }) => {
     <Grid
       item
       component="div"
-      xs={12}
+      xs={10}
       sm={12}
-      md={6}
+      md={5}
       container
       alignItems="flex-start"
-      columnSpacing={4}
-      rowSpacing={{ xs: 3, md: 5 }}
-      sx={{ marginBottom: '-14em' }}
+      sx={{
+        margin: ' 0 auto',
+        marginBottom: '-14em',
+        paddingTop: '2em',
+        gap: '2em',
+        justifyContent: 'center',
+      }}
     >
       {/* FIRST COLUMN */}
-      <Grid item component="div" xs={12} sm={6} container={true} rowSpacing={4}>
+      <Grid
+        item
+        component="div"
+        xs={10}
+        sm={5}
+        md={5}
+        container={true}
+        rowSpacing="2em"
+      >
         {cards.map((card, index) => {
           const isFirstCard = index === 0;
 
@@ -31,7 +43,7 @@ const GridCards = ({ cards }) => {
                   to={`Services-and-Fares/#${card.title}`}
                 >
                   <Card isFirstCard={isFirstCard}>
-                    <ImageContainer src={card.photo.url} />
+                    <ImageContainer src={card.photo.url} size="Big" />
 
                     <Typography
                       component="h4"
@@ -59,7 +71,15 @@ const GridCards = ({ cards }) => {
 
       {/* SECOND COLUMN */}
 
-      <Grid item component="div" xs={12} sm={6} container={true} rowSpacing={4}>
+      <Grid
+        item
+        component="div"
+        xs={10}
+        sm={5}
+        md={5}
+        container={true}
+        rowSpacing="2em"
+      >
         {cards.map((card, index) => {
           return (
             index % 2 !== 0 && (
@@ -69,8 +89,7 @@ const GridCards = ({ cards }) => {
                   to={`Services-and-Fares/#${card.title}`}
                 >
                   <Card>
-                    <ImageContainer src={card.photo.url} />
-
+                    <ImageContainer src={card.photo.url} size="Big" />
                     <Typography
                       component="h4"
                       variant="h4"
