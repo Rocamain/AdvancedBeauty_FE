@@ -8,31 +8,32 @@ import {
 import leavesBackground from 'assets/leaves-background.jpg';
 
 const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
-  ({ theme }) => ({
-    margin: '1.5em 0 2.5em -1em',
-    borderColor: '#ffd4a3',
-    borderBottomWidth: 'medium',
-    width: '60%',
-  })
+  ({ theme, type }) => {
+    return {
+      margin: type === 'center' ? '0  auto 1em auto' : '1.5em  1em 2.5em -1em',
+      borderColor: '#ffd4a3',
+      borderBottomWidth: 'medium',
+      width: type === 'center' ? '10%' : '60%',
+      marginBottom: type === 'center' && '5.5em',
+    };
+  }
 );
 
 const Container = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, background, flex = false }) => {
-    const backgroundSelector = {
-      full: 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important',
-      leaves: `url(${leavesBackground})`,
-      circles: `url(${leavesBackground})`,
-      'mixed leaves and right': `url(${leavesBackground})`,
-      none: null,
-    };
-
+  ({ theme, background }) => {
     let styles = {
-      padding: theme.spacing(6),
+      padding: theme.spacing(12, 0),
       width: '100%',
-      backgroundImage: backgroundSelector[background],
-      backgroundSize: 'contain',
-      backgroundPosition: '40%',
-      backgroundRepeat: 'no-repeat',
+      backgroundImage:
+        background === 'full'
+          ? 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important'
+          : null,
+
+      display: 'flex',
+      flexWrap: 'wrap',
+      [theme.breakpoints.up('md')]: {
+        flexWrap: 'nowrap',
+      },
     };
 
     return { ...styles };
@@ -42,10 +43,13 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
   ({ theme, background, flex = false }) => {
     let styles = {
       width: '80%',
-      margin: background === 'full' ? theme.spacing(-7, 'auto') : '0 auto',
+      margin: '0 auto',
 
       [theme.breakpoints.up('lg')]: {
         width: '65%',
+      },
+      [theme.breakpoints.up('xl')]: {
+        width: '55%',
       },
     };
 
@@ -69,8 +73,8 @@ const Card = styled((props) => <Box component="div" {...props} />)(
   ({ theme, isFirstCard }) => ({
     borderRadius: '5px',
     alignItems: 'flex-start',
-    padding: theme.spacing(3, 3),
-
+    padding: theme.spacing(4, 3.5),
+    paddingBottom: theme.spacing(5),
     textAlign: 'center',
     background: isFirstCard
       ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
@@ -111,37 +115,46 @@ const Image = styled((props) => <Box component="img" {...props} />)(
 );
 
 const Grid = styled(({ show, photoColumn, ...props }) => {
-  let spacing = show === 'cards' ? 3 : 3;
-
-  let direction =
+  const direction =
     photoColumn === 'first' && show === 'photo'
       ? ['column-reverse', 'row-reverse']
       : 'row';
 
-  return (
-    <MuiGrid
-      container
-      direction={direction}
-      columnSpacing={spacing}
-      rowSpacing={spacing}
-      component="div"
-      {...props}
-    />
-  );
-})(({ theme, background }) => {
-  const shadowSelector = {
-    none: null,
-    right: '10vw 0px 0px 0px #00bccc',
-    'mixed leaves and right': '10vw 0px 0px 0px #00bccc',
-    full: 'rgba(56, 21, 11, 0.09) 0px 50px 80px 0px',
+  return <MuiGrid container direction={direction} component="div" {...props} />;
+})(({ theme, background, show }) => {
+  const backgroundImageSelector = {
+    leaves: `url(${leavesBackground})`,
+    circles: `url(${leavesBackground})`,
+    'mixed leaves and right': `url(${leavesBackground})`,
   };
 
   return {
-    padding: ['1em', '2em', '3em'],
-    paddingLeft: 0,
-    height: '5% !important',
-    boxShadow: shadowSelector[background],
-    backgroundColor: background === 'full' && '#edf4f8',
+    backgroundColor: !backgroundImageSelector[background]
+      ? '#F4F9FC'
+      : 'transparent',
+    backgroundImage: backgroundImageSelector[background],
+    margin:
+      background === 'full'
+        ? [theme.spacing(-20, 'auto'), theme.spacing(-30, 'auto')]
+        : '0 auto',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+
+    boxShadow:
+      background === 'right' || background === 'mixed leaves and right'
+        ? '10vw 0px 0px 0px #00bccc'
+        : null,
+
+    [theme.breakpoints.up('sm')]: {
+      width: '85%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '80%',
+    },
+
+    [theme.breakpoints.up('lg')]: {
+      width: '65%',
+    },
   };
 });
 

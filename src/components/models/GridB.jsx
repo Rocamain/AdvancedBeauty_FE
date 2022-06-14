@@ -31,7 +31,7 @@ export default function GridB({ id, path, data }) {
                   textAlign: 'center',
                 }}
               />
-              <Divider />
+              <Divider type="center" />
             </>
           )}
 
@@ -39,7 +39,7 @@ export default function GridB({ id, path, data }) {
             {cards.map(({ photo, title, content, tittle_color }, index) => {
               return (
                 <Card key={index} size={size}>
-                  <ImageContainer src={photo.url} />
+                  <ImageContainer src={photo.url} size={size} />
                   {title && <Title children={title} color={tittle_color} />}
                   <Typography
                     component="p"

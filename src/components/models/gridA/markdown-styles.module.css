@@ -1,0 +1,11 @@
+.reactMarkDown {
+  color: #666;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+
+.reactMarkDown img {
+  margin: 2em auto;
+  max-width: 100%;
+  height: auto;
+}

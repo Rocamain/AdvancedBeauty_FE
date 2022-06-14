@@ -13,6 +13,7 @@ const Card = ({ cards, animatedPhoto, cardAnimation, slide }, ref) => {
       sx={{
         display: 'inline-flex',
         alignItems: 'center',
+        // width: 'inherit',
         maxWidth: { xs: '70%', xl: '60%' },
         boxSizing: 'border-box !important',
         marginLeft: { sm: '-5%' },
@@ -27,20 +28,22 @@ const Card = ({ cards, animatedPhoto, cardAnimation, slide }, ref) => {
       </CardPhotoContainer>
 
       <CardWrapper className={cardAnimation}>
-        <Box sx={{ paddingLeft: ['0em', '0em', '6em', '7em'] }}>
-          <Box sx={{ padding: '1.5em 0' }}>
-            <Typography ref={ref} component="h4" variant="cardTitle">
-              {cards[slide].title}
-            </Typography>
-          </Box>
-          <Typography component="p" sx={{ paddingBottom: '2em' }}>
-            {cards[slide].content}
-          </Typography>
-          <Button
-            buttonText={cards[slide].buttonText}
-            buttonTo={cards[slide].buttonTo}
-          />
-        </Box>
+        <Typography
+          ref={ref}
+          component="h4"
+          variant="cardTitle"
+          sx={{ paddingBottom: '1em' }}
+        >
+          {cards[slide].title}
+        </Typography>
+
+        <Typography component="p" sx={{ paddingBottom: '2em' }}>
+          {cards[slide].content}
+        </Typography>
+        <Button
+          buttonText={cards[slide].buttonText}
+          buttonTo={cards[slide].buttonTo}
+        />
       </CardWrapper>
     </Box>
   );
