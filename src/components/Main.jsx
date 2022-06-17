@@ -4,14 +4,15 @@ import Loading from './shared/Loading';
 
 import { useLocation } from 'react-router-dom';
 
-function Main({ routeName }) {
-  let { pathname, hash, ...rest } = useLocation();
+function Main() {
+  const { pathname } = useLocation();
 
-  pathname = pathname === '/' ? 'home' : pathname.replace('/', '');
+  const formattedPath =
+    pathname === '/' ? 'Home' : pathname.replaceAll('/', '');
 
   //  the data received is an array of objects, that each each objet represent a component.
 
-  const { error, loading, data } = useFetchData(pathname);
+  const { error, loading, data } = useFetchData(formattedPath);
 
   function loadComponent(name) {
     const Component = lazy(() => import(`./models/${name}.jsx`));
@@ -24,7 +25,6 @@ function Main({ routeName }) {
   const renderChildrenComponents = (components) => {
     let routeComponents = components.map((componentInfo, index) => {
       let componentName = componentInfo.componentName;
-
       let LazyComponent = loadComponent(componentName);
 
       return (

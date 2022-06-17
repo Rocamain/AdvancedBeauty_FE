@@ -1,8 +1,8 @@
 const qs = require('qs');
 
 const querySelector = {
-  menu: ['links', 'logo', 'links.dropdown_links.links'],
-  home: [
+  Logo: ['photo.media'],
+  Home: [
     'components',
     'components.background.media',
     'components.cards',
@@ -18,19 +18,21 @@ const querySelector = {
     'components.photo.media',
     'components.button',
   ],
-  'Services-and-Fares': [
+  'Services-and-Fare': [
     'components',
-
     'components.background.media',
     'components.cards',
     'components.cards.photo.media',
     'components.photo.media',
     'components.button',
   ],
-  Contact: ['*'],
+  Contact: ['components', 'components.photo.media'],
 };
 
 const makeQuery = (path) => {
+  path = path.replace('/', '');
+  if (path === 'Services-and-Fares') path = 'Services-and-Fare';
+
   const query = qs.stringify(
     {
       populate: [...querySelector[path]],
@@ -39,7 +41,6 @@ const makeQuery = (path) => {
       encodeValuesOnly: true,
     }
   );
-  if (path === 'Services-and-Fares') path = 'Services-and-Fare';
 
   const queryString = `${path}?${query}`;
 

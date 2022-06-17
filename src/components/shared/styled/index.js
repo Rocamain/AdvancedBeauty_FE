@@ -69,30 +69,36 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
   }
 );
 
-const Card = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, isFirstCard }) => ({
-    borderRadius: '5px',
-    alignItems: 'flex-start',
-    padding: theme.spacing(4, 3.5),
-    paddingBottom: theme.spacing(5),
-    textAlign: 'center',
-    background: isFirstCard
-      ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
-      : 'white',
-    boxShadow: isFirstCard
-      ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
-      : '0px 50px 80px 0px rgba(12,2,2,0.1)',
-    color: isFirstCard ? 'white !important' : '#666 !important',
-    [theme.breakpoints.up('md')]: {
-      transform: 'scale(1)',
-      transition: 'transform 0.5s',
-    },
-    ':hover': {
-      transform: 'scale(1.03)',
-      transition: 'transform 0.5s',
-    },
-  })
-);
+const Card = styled(({ button, handleClick, buttonTo, ...props }) => {
+  button ? (
+    <Box component="div" {...props}>
+      <button onClick={() => handleClick(buttonTo)}>{props.children}</button>
+    </Box>
+  ) : (
+    <Box component="div" {...props} />
+  );
+})(({ theme, isFirstCard }) => ({
+  borderRadius: '5px',
+  alignItems: 'flex-start',
+  padding: theme.spacing(4, 3.5),
+  paddingBottom: theme.spacing(5),
+  textAlign: 'center',
+  background: isFirstCard
+    ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
+    : 'white',
+  boxShadow: isFirstCard
+    ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
+    : '0px 50px 80px 0px rgba(12,2,2,0.1)',
+  color: isFirstCard ? 'white !important' : '#666 !important',
+  [theme.breakpoints.up('md')]: {
+    transform: 'scale(1)',
+    transition: 'transform 0.5s',
+  },
+  ':hover': {
+    transform: 'scale(1.03)',
+    transition: 'transform 0.5s',
+  },
+}));
 const ImageContainer = styled((props) => (
   <Box component="div" {...props}>
     <Image {...props} />

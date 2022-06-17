@@ -1,6 +1,7 @@
 // Hook and data formatter
 import { useState, useRef } from 'react';
 import useFetchData from 'hooks/useFetchData';
+import useNavigation from 'hooks/useNavigation';
 
 //// components, layouts and style hooks imports
 
@@ -14,23 +15,32 @@ import {
   PopoverMenu,
   BurgerButton,
 } from 'components/header/styled/index';
-import NavMenu from 'components/header/NavMenu';
-import NavMenuList from 'components/header/NavMenuList';
+import ScreenMenu from 'components/header/ScreenMenu';
+import MobileMenu from 'components/header/MobileMenu';
+import { useLocation } from 'react-router-dom';
 
 export default function Header() {
   // states and hooks
-  const [selectedIndex, setSelectedIndex] = useState('Home');
-  const [anchorEl, setAnchorEl] = useState(null);
-  const { data, loading } = useFetchData('menu');
-
+  const { data, loading } = useFetchData('Logo');
+  const navigation = useNavigation();
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
+  const { pathname } = useLocation();
 
+  const formattedPath =
+    pathname === '/'
+      ? 'Home'
+      : pathname.replaceAll('/', '').replaceAll('-', ' ');
+
+  const [selectedIndex, setSelectedIndex] = useState(formattedPath);
+  const [anchorEl, setAnchorEl] = useState(null);
+  console.log('SELECT:', selectedIndex);
   const ref = useRef(null);
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+
+  const id = open ? 'simple-popover' : null;
 
   const handleOpen = () => {
     setAnchorEl(ref.current);
@@ -41,15 +51,16 @@ export default function Header() {
   };
 
   return (
-    data && (
+    data &&
+    navigation && (
       <>
         <HeaderContainer ref={ref}>
           <Wrapper fixed>
-            <Logo src={data.logo.url} alt={data.logo.alternativeText} />
+            <Logo src={data.photo.url} alt={data.photo.alternativeText} />
 
             {matchesBigScreens ? (
-              <NavMenu
-                links={data.links}
+              <ScreenMenu
+                links={navigation.nestedList}
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
               />
@@ -71,8 +82,8 @@ export default function Header() {
           anchorEl={anchorEl}
           onClose={handleClose}
         >
-          <NavMenuList
-            links={data.links}
+          <MobileMenu
+            links={navigation.flatList}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
             onClose={handleClose}

@@ -1,11 +1,14 @@
 import {
   styled,
-  List,
   Container,
   Popover,
   Menu,
+  MenuItem,
   IconButton,
+  MenuList,
+  Typography,
 } from '@mui/material';
+import { Link as LinkRouter } from 'react-router-dom';
 
 const HeaderContainer = styled('header')(({ theme }) => ({
   width: '100vw',
@@ -76,6 +79,7 @@ const PopoverMenu = styled((props) => (
 const BurgerButton = styled((props) => (
   <IconButton aria-haspopup="true" aria-label="menu burger button" {...props} />
 ))(({ theme }) => ({
+  color: theme.palette.tertiary.main,
   [theme.breakpoints.up('md')]: {
     display: 'none',
   },
@@ -119,21 +123,61 @@ const DropDownMenu = styled((props) => (
   };
 });
 
-const MenuList = styled(List)(({ theme }) => ({
-  width: '85vw',
-  margin: '0 auto',
-  ariaLabel: 'navigation menu',
-  alignItems: 'flexStart',
-  justifyContent: 'flex-end',
-  borderTop: '3px solid #2ea3f2',
-  [theme.breakpoints.up('md')]: {
-    display: 'flex',
-    alignItems: 'center',
-    borderTop: 'none',
-    flexDirection: 'row',
-    width: 'auto',
-  },
-}));
+const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
+  ({ theme }) => {
+    return {
+      padding: 0,
+      display: 'block',
+      margin: '0 auto',
+      [theme.breakpoints.down('md')]: {
+        width: '85vw ! important',
+        padding: '0.5em 0',
+        borderTop: `2px solid ${theme.palette.tertiary.main}`,
+      },
+    };
+  }
+);
+const MenuLink = styled(
+  ({
+    mainLink,
+
+    to,
+    children,
+    onClick,
+    onMouseLeave,
+    ...props
+  }) => {
+    return (
+      <MenuItem disableGutters={false} {...props} onClick={onClick}>
+        <Link to={to}>
+          <Typography component="h3" variant="p">
+            {children}
+          </Typography>
+        </Link>
+      </MenuItem>
+    );
+  }
+)(({ theme, mainLink }) => {
+  return {
+    padding: '0 0 !important',
+    display: 'block',
+    a: {
+      [theme.breakpoints.down('md')]: {
+        padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
+        backgroundColor: mainLink && 'rgba(0,0,0,3%)',
+      },
+    },
+  };
+});
+
+const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => {
+  return {
+    display: 'block',
+    textDecoration: 'none',
+    color: 'black',
+    padding: '1.5em',
+  };
+});
 
 export {
   HeaderContainer,
@@ -142,5 +186,7 @@ export {
   PopoverMenu,
   BurgerButton,
   DropDownMenu,
-  MenuList,
+  LinksMenu,
+  MenuLink,
+  Link,
 };

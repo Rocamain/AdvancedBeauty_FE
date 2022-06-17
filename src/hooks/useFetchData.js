@@ -13,22 +13,27 @@ export default function useFetchData(path) {
   useEffect(() => {
     const getData = async () => {
       setData({ loading: true, data: false, error: false });
-
+      let controller = new AbortController();
       try {
         const queryString = makeQuery(path);
         let res;
         // For production
 
         // if (process.env.NODE_ENV !== 'production') {
-        // res = await fetch(`http://localhost:1337/api/${queryString}`);
         // }
 
-        res = await fetch(
-          `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`
-        );
-        const { meta, data } = await res.json();
+        // res = await fetch(`http://localhost:1337/api/${queryString}`, {
+        //   signal: controller.signal,
+        // });
 
+        res = await fetch(
+          `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`,
+          { signal: controller.signal }
+        );
+        const { data } = await res.json();
         setData({ data: data, error: false, loading: false });
+
+        controller = null;
       } catch (err) {
         console.log(err);
         setData({ error: err, data: false, loading: false });
