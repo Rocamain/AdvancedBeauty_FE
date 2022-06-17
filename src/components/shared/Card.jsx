@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Box } from '@mui/material';
 import Button from 'components/shared/Button';
 import {
@@ -7,13 +7,13 @@ import {
   CardPhotoContainer,
 } from 'components/models/carousel/styled';
 
-const Card = ({ cards, animatedPhoto, cardAnimation, slide }, ref) => {
+const Card = ({ cards, animatedPhoto, cardAnimation, slide }) => {
   return (
     <Box
+      component="div"
       sx={{
         display: 'inline-flex',
         alignItems: 'center',
-        // width: 'inherit',
         maxWidth: { xs: '70%', xl: '60%' },
         boxSizing: 'border-box !important',
         marginLeft: { sm: '-5%' },
@@ -21,7 +21,7 @@ const Card = ({ cards, animatedPhoto, cardAnimation, slide }, ref) => {
     >
       <CardPhotoContainer>
         <Photo
-          alt="woman face"
+          alt={cards[slide].photo.alternativeText}
           src={cards[slide].photo.url}
           className={animatedPhoto}
         />
@@ -29,7 +29,6 @@ const Card = ({ cards, animatedPhoto, cardAnimation, slide }, ref) => {
 
       <CardWrapper className={cardAnimation}>
         <Typography
-          ref={ref}
           component="h4"
           variant="cardTitle"
           sx={{ paddingBottom: '1em' }}
@@ -42,11 +41,11 @@ const Card = ({ cards, animatedPhoto, cardAnimation, slide }, ref) => {
         </Typography>
         <Button
           buttonText={cards[slide].buttonText}
-          buttonTo={cards[slide].buttonTo}
+          buttonTo={cards[slide].page}
         />
       </CardWrapper>
     </Box>
   );
 };
 
-export default forwardRef(Card);
+export default Card;

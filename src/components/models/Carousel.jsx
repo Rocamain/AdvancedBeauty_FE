@@ -1,25 +1,20 @@
 import { useState } from 'react';
 import useNearScreen from 'hooks/useNearScreen';
-import useAlignTitle from 'hooks/useAlignTitle';
-import { Typography, Box } from '@mui/material';
-
 import clsx from 'clsx';
-
+import { Typography } from '@mui/material';
 import {
   CarouselContainer,
   SlideContainer,
   CarouselHero,
   ChevronButton,
 } from 'components/models/carousel/styled';
+import Card from 'components/shared/Card';
 import { slideCard, slidePhoto } from './carousel/styles.js';
 
-import Card from 'components/shared/Card';
-
-export default function Carousel({ path, data, id }) {
+export default function Carousel({ data, id }) {
   const [slide, setSlide] = useState(0);
   const [exit, setExit] = useState(false);
   const { fromRef, isNearScreen } = useNearScreen();
-  const { ref, coords } = useAlignTitle(isNearScreen);
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
@@ -48,7 +43,7 @@ export default function Carousel({ path, data, id }) {
   })}`;
 
   return (
-    <div ref={fromRef} style={{ marginBottom: '14vw' }}>
+    <div id={id} ref={fromRef} style={{ marginBottom: '14vw' }}>
       {/* LAZY LOAD */}
 
       {isNearScreen ? (
@@ -69,7 +64,6 @@ export default function Carousel({ path, data, id }) {
               />
 
               <Card
-                ref={ref}
                 className="card"
                 cards={data.cards}
                 animatedPhoto={animatedPhoto}

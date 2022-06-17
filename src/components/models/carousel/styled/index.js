@@ -155,11 +155,9 @@ const Photo = styled((props) => <Box component="img" {...props} />)(
     },
     [theme.breakpoints.up('lg')]: {
       maxWidth: '400px',
-      // display: 'none',
       left: '15%',
     },
     [theme.breakpoints.up('xl')]: {
-      // display: 'none',
       maxWidth: '450px',
     },
   })

@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
-import { MenuItem } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { LinksMenu, MenuLink } from './styled/index';
 import { DropDownMenu } from 'components/header/styled/index';
 
 export default function MenuItemWithDropDown({
   link,
   selectedIndex,
   handleHover,
-  handleClick,
   hoverTracker,
+  setSelectedIndex,
 }) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const id = open ? 'simple-popover' + link.name : undefined;
+  useEffect(() => {
+    setOpen(hoverTracker);
+  }, [hoverTracker]);
 
   const handleClose = (event) => {
     handleHover(event);
@@ -25,71 +25,52 @@ export default function MenuItemWithDropDown({
   const handleOpen = (event) => {
     handleHover(event);
     setOpen(true);
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(event.target);
   };
 
-  const handleCloseModal = (event) => {
-    const isModal = event.target.className.includes('Modal');
-    if (isModal) {
-      handleHover(event);
-      setOpen(false);
-      setAnchorEl(null);
-    }
+  const handleClick = () => {
+    setOpen(false);
+    setSelectedIndex(anchorEl.textContent);
   };
+
+  const id = open ? 'simple-popover' + link.name : undefined;
 
   return (
     <>
-      <MenuItem
-        id="demo-customized-button"
-        aria-controls={open ? 'demo-customized-menu' : undefined}
+      <MenuLink
+        id="dropdown-button"
+        aria-controls={open ? 'dropdown-menu' : null}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? 'true' : null}
         component={'li'}
         onClick={handleClick}
         onMouseOver={handleOpen}
         selected={selectedIndex}
-        sx={{ padding: 0, display: 'block' }}
+        to={link.path}
       >
-        <Link
-          style={{
-            display: 'block',
-            textDecoration: 'none',
-            color: 'black',
-            padding: '1.5em',
-          }}
-          to={link.routePath}
-        >
-          {link.route}
-        </Link>
-      </MenuItem>
+        {link.title}
+      </MenuLink>
 
       <DropDownMenu
         id={id}
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button',
-          onMouseLeave: handleClose,
-        }}
         anchorEl={anchorEl}
-        open={hoverTracker}
-        onMouseOver={handleCloseModal}
+        open={open}
+        sx={{ width: 'inherit' }}
       >
-        {link.dropdown_links.links.map((link, index) => {
-          return (
-            <MenuItem key={index} sx={{ padding: 0 }}>
-              <Link
-                style={{
-                  padding: '2em',
-                  textDecoration: 'none',
-                  color: 'black',
-                  width: '100%',
-                }}
-                to={link.routePath}
+        <LinksMenu onMouseLeave={handleClose} aria-labelledby="dropdown-button">
+          {link.items.map((dropdownLink, index) => {
+            return (
+              <MenuLink
+                key={index}
+                onClick={handleClick}
+                onMouseLeave={handleClose}
+                to={dropdownLink.path}
               >
-                {link.route}
-              </Link>
-            </MenuItem>
-          );
-        })}
+                {dropdownLink.title}
+              </MenuLink>
+            );
+          })}
+        </LinksMenu>
       </DropDownMenu>
     </>
   );

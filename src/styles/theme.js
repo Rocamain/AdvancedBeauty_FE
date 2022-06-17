@@ -13,6 +13,7 @@ theme = createTheme(theme, {
       main: '#ffd4a3',
       contrastText: '#fff',
     },
+    tertiary: { main: '#0693e3', contrastText: '#fff' },
     text: {
       primary: '#333333',
       secondary: '#75C9CC',

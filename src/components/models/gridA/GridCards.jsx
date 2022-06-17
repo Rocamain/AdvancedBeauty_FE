@@ -1,8 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import { Typography, Grid } from '@mui/material';
 import { Card, ImageContainer } from 'components/shared/styled/index.js';
-import { Link as LinkRouter } from 'react-router-dom';
 
 const GridCards = ({ cards }) => {
+  let navigate = useNavigate();
+
+  const handleClick = (buttonTo) => {
+    navigate(`/${buttonTo}`, { replace: true });
+  };
+
   return (
     <Grid
       item
@@ -36,33 +42,29 @@ const GridCards = ({ cards }) => {
           return (
             index % 2 === 0 && (
               <Grid key={index} item>
-                <LinkRouter
-                  style={{
-                    textDecoration: 'none',
-                  }}
-                  to={`Services-and-Fares/#${card.title}`}
+                <Card
+                  button={true}
+                  handleClick={() => handleClick(card.page)}
+                  isFirstCard={isFirstCard}
                 >
-                  <Card isFirstCard={isFirstCard}>
-                    <ImageContainer src={card.photo.url} size="Big" />
-
-                    <Typography
-                      component="h4"
-                      variant="h4"
-                      children={card.title}
-                      sx={{
-                        marginBottom: '0.7em',
-                        color: isFirstCard
-                          ? 'white !important'
-                          : '#8f5f25 !important',
-                      }}
-                    />
-                    <Typography
-                      component="p"
-                      variant="p"
-                      children={card.content}
-                    />
-                  </Card>
-                </LinkRouter>
+                  <ImageContainer src={card.photo.url} size="Big" />
+                  <Typography
+                    component="h4"
+                    variant="h4"
+                    children={card.title}
+                    sx={{
+                      marginBottom: '0.7em',
+                      color: isFirstCard
+                        ? 'white !important'
+                        : '#8f5f25 !important',
+                    }}
+                  />
+                  <Typography
+                    component="p"
+                    variant="p"
+                    children={card.content}
+                  />
+                </Card>
               </Grid>
             )
           );
@@ -84,28 +86,27 @@ const GridCards = ({ cards }) => {
           return (
             index % 2 !== 0 && (
               <Grid key={index} item>
-                <LinkRouter
-                  style={{ textDecoration: 'none' }}
-                  to={`Services-and-Fares/#${card.title}`}
+                <Card
+                  button={true}
+                  buttonTo={card.page}
+                  handleClick={handleClick}
                 >
-                  <Card>
-                    <ImageContainer src={card.photo.url} size="Big" />
-                    <Typography
-                      component="h4"
-                      variant="h4"
-                      children={card.title}
-                      sx={{
-                        marginBottom: '0.7em',
-                        color: '#8f5f25 !important',
-                      }}
-                    />
-                    <Typography
-                      component="p"
-                      variant="p"
-                      children={card.content}
-                    />
-                  </Card>
-                </LinkRouter>
+                  <ImageContainer src={card.photo.url} size="Big" />
+                  <Typography
+                    component="h4"
+                    variant="h4"
+                    children={card.title}
+                    sx={{
+                      marginBottom: '0.7em',
+                      color: '#8f5f25 !important',
+                    }}
+                  />
+                  <Typography
+                    component="p"
+                    variant="p"
+                    children={card.content}
+                  />
+                </Card>
               </Grid>
             )
           );
