@@ -79,15 +79,6 @@ const Card = styled(({ button, handleClick, buttonTo, ...props }) =>
   )
 )(({ theme, isFirstCard }) => ({
   alignItems: 'flex-start',
-
-  textAlign: 'center',
-  background: isFirstCard
-    ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
-    : 'white',
-  boxShadow: isFirstCard
-    ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
-    : '0px 50px 80px 0px rgba(12,2,2,0.1)',
-  color: isFirstCard ? 'white !important' : '#666 !important',
   [theme.breakpoints.up('md')]: {
     transform: 'scale(1)',
     transition: 'transform 0.5s',
@@ -97,13 +88,21 @@ const Card = styled(({ button, handleClick, buttonTo, ...props }) =>
     transition: 'transform 0.5s',
   },
   button: {
+    textAlign: 'center',
     borderRadius: '5px',
     border: 'none',
-    background: 'transparent',
+    background: isFirstCard
+      ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
+      : 'white',
+    boxShadow: isFirstCard
+      ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
+      : '0px 50px 80px 0px rgba(12,2,2,0.1)',
+    color: isFirstCard ? 'white !important' : '#666 !important',
     padding: theme.spacing(4, 3.5),
     paddingBottom: theme.spacing(5),
   },
 }));
+
 const ImageContainer = styled((props) => (
   <Box component="div" {...props}>
     <Image {...props} />
