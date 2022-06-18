@@ -36,7 +36,7 @@ export default function Header() {
 
   const [selectedIndex, setSelectedIndex] = useState(formattedPath);
   const [anchorEl, setAnchorEl] = useState(null);
-  console.log('SELECT:', selectedIndex);
+
   const ref = useRef(null);
   const open = Boolean(anchorEl);
 
