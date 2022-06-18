@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { makeQuery } from 'strapi/makeQuery';
+const URL = process.env.REACT_APP_URL;
 
 export default function useFetchData(path) {
   const [data, setData] = useState({
@@ -16,20 +17,10 @@ export default function useFetchData(path) {
       let controller = new AbortController();
       try {
         const queryString = makeQuery(path);
-        let res;
-        // For production
+        const res = await fetch(`${URL}/api/${queryString}`, {
+          signal: controller.signal,
+        });
 
-        // if (process.env.NODE_ENV !== 'production') {
-        // }
-
-        // res = await fetch(`http://localhost:1337/api/${queryString}`, {
-        //   signal: controller.signal,
-        // });
-
-        res = await fetch(
-          `https://strapi-advanced-beauty.herokuapp.com/api/${queryString}`,
-          { signal: controller.signal }
-        );
         const { data } = await res.json();
         setData({ data: data, error: false, loading: false });
 
