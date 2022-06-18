@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-
-const useFetch = () => {
+const URL = process.env.REACT_APP_URL;
+const useNavigation = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -8,22 +8,13 @@ const useFetch = () => {
     const fetchData = async () => {
       try {
         const resNested = await fetch(
-          'https://strapi-advanced-beauty.herokuapp.com/api/navigation/render/main-navigation?type=TREE',
+          `${URL}/api/navigation/render/main-navigation?type=TREE`,
           { signal: controller.signal }
         );
         const resFlat = await fetch(
-          'https://strapi-advanced-beauty.herokuapp.com/api/navigation/render/main-navigation?type=FLAT',
+          `${URL}/api/navigation/render/main-navigation?type=FLAT`,
           { signal: controller.signal }
         );
-        // const resNested = await fetch(
-        //   'http://localhost:1337/api/navigation/render/main-navigation?type=TREE',
-        //   { signal: controller.signal }
-        // );
-        // const resFlat = await fetch(
-        //   'http://localhost:1337/api/navigation/render/main-navigation?type=FLAT',
-        //   { signal: controller.signal }
-        // );
-
         const menuNested = await resNested.json();
         const menuFlat = await resFlat.json();
 
@@ -40,4 +31,4 @@ const useFetch = () => {
   return data;
 };
 
-export default useFetch;
+export default useNavigation;
