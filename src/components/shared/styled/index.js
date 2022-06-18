@@ -69,19 +69,17 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
   }
 );
 
-const Card = styled(({ button, handleClick, buttonTo, ...props }) => {
+const Card = styled(({ button, handleClick, buttonTo, ...props }) =>
   button ? (
     <Box component="div" {...props}>
       <button onClick={() => handleClick(buttonTo)}>{props.children}</button>
     </Box>
   ) : (
     <Box component="div" {...props} />
-  );
-})(({ theme, isFirstCard }) => ({
-  borderRadius: '5px',
+  )
+)(({ theme, isFirstCard }) => ({
   alignItems: 'flex-start',
-  padding: theme.spacing(4, 3.5),
-  paddingBottom: theme.spacing(5),
+
   textAlign: 'center',
   background: isFirstCard
     ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
@@ -97,6 +95,13 @@ const Card = styled(({ button, handleClick, buttonTo, ...props }) => {
   ':hover': {
     transform: 'scale(1.03)',
     transition: 'transform 0.5s',
+  },
+  button: {
+    borderRadius: '5px',
+    border: 'none',
+    background: 'transparent',
+    padding: theme.spacing(4, 3.5),
+    paddingBottom: theme.spacing(5),
   },
 }));
 const ImageContainer = styled((props) => (
