@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { LinksMenu, MenuLink } from './styled/index';
 import { DropDownMenu } from 'components/header/styled/index';
+import { useNavigate } from 'react-router-dom';
 
 export default function MenuItemWithDropDown({
   link,
@@ -11,6 +12,7 @@ export default function MenuItemWithDropDown({
 }) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  let navigate = useNavigate();
 
   useEffect(() => {
     setOpen(hoverTracker);
@@ -28,9 +30,12 @@ export default function MenuItemWithDropDown({
     setAnchorEl(event.target);
   };
 
-  const handleClick = () => {
+  const handleClick = (e, path) => {
     setOpen(false);
     setSelectedIndex(anchorEl.textContent);
+    if (path) {
+      navigate(path);
+    }
   };
 
   const id = open ? 'simple-popover' + link.name : undefined;
@@ -53,24 +58,24 @@ export default function MenuItemWithDropDown({
 
       <DropDownMenu
         id={id}
+        aria-labelledby="dropdown-button"
         anchorEl={anchorEl}
         open={open}
+        onMouseLeave={handleClose}
         sx={{ width: 'inherit' }}
       >
-        <LinksMenu onMouseLeave={handleClose} aria-labelledby="dropdown-button">
-          {link.items.map((dropdownLink, index) => {
-            return (
-              <MenuLink
-                key={index}
-                onClick={handleClick}
-                onMouseLeave={handleClose}
-                to={dropdownLink.path}
-              >
-                {dropdownLink.title}
-              </MenuLink>
-            );
-          })}
-        </LinksMenu>
+        {link.items.map((dropdownLink, index) => {
+          return (
+            <MenuLink
+              key={index}
+              onClick={handleClick}
+              onMouseLeave={handleClose}
+              to={dropdownLink.path}
+            >
+              {dropdownLink.title}
+            </MenuLink>
+          );
+        })}
       </DropDownMenu>
     </>
   );

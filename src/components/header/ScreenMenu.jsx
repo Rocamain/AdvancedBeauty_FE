@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Box as Nav } from '@mui/material';
-import { LinksMenu, MenuLink } from './styled/index';
+import { Box as Nav, MenuList } from '@mui/material';
+import { MenuLink } from './styled/index';
 import MenuItemWithDropDown from 'components/header/MenuItemWithDropDown';
 
 export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
@@ -22,8 +22,8 @@ export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
 
   return (
     links && (
-      <Nav component={'nav'} sx={{ display: 'flex' }}>
-        <LinksMenu sx={{ display: 'flex', gap: '1.5em', alignItems: 'center' }}>
+      <Nav component={'nav'}>
+        <MenuList sx={{ display: 'flex', gap: '0.5em', alignItems: 'center' }}>
           {links.map((navLink, index) => {
             return haspopup(navLink) ? (
               <MenuItemWithDropDown
@@ -46,7 +46,7 @@ export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
               </MenuLink>
             );
           })}
-        </LinksMenu>
+        </MenuList>
       </Nav>
     )
   );

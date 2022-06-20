@@ -27,9 +27,7 @@ export default function GridText({ title, content, button, show, ...data }) {
           remarkPlugins={[gfm]}
           children={content}
         />
-        {button && (
-          <Button buttonText={button.buttonText} buttonTo={button.page} />
-        )}
+        {button && <Button {...button} />}
       </Box>
     </Grid>
   );

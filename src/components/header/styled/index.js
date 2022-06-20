@@ -5,7 +5,7 @@ import {
   Menu,
   MenuItem,
   IconButton,
-  MenuList,
+  Menu as MuiMenu,
   Typography,
 } from '@mui/material';
 import { Link as LinkRouter } from 'react-router-dom';
@@ -123,34 +123,34 @@ const DropDownMenu = styled((props) => (
   };
 });
 
-const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
-  ({ theme }) => {
-    return {
-      padding: 0,
-      display: 'block',
-      margin: '0 auto',
-      [theme.breakpoints.down('md')]: {
-        width: '85vw ! important',
-        padding: '0.5em 0',
-        borderTop: `2px solid ${theme.palette.tertiary.main}`,
-      },
-    };
-  }
-);
-const MenuLink = styled(
-  ({
-    mainLink,
+const LinksMenu = styled((props) => {
+  return <MuiMenu {...props} />;
+})(({ theme }) => {
+  return {
+    display: 'flex',
+    gap: '0.5em',
+    alignItems: 'center',
 
-    to,
-    children,
-    onClick,
-    onMouseLeave,
-    ...props
-  }) => {
+    [theme.breakpoints.down('md')]: {
+      padding: '1.5em 0em 2em',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '75vw ! important',
+      padding: '1em 0em 0.5em',
+      borderTop: `2px solid ${theme.palette.tertiary.main}`,
+    },
+  };
+});
+const MenuLink = styled(
+  ({ mainLink, to, children, onClick, onMouseLeave, ...props }) => {
     return (
-      <MenuItem disableGutters={false} {...props} onClick={onClick}>
+      <MenuItem
+        disableGutters={true}
+        {...props}
+        onClick={(e) => onClick(e, to)}
+      >
         <Link to={to}>
-          <Typography component="h3" variant="p">
+          <Typography variant="navLink" component="h2">
             {children}
           </Typography>
         </Link>
@@ -159,12 +159,19 @@ const MenuLink = styled(
   }
 )(({ theme, mainLink }) => {
   return {
-    padding: '0 0 !important',
+    padding: '0 !important',
+    boxSizing: 'border-box',
+    backgroundColor: mainLink && 'rgba(0,0,0,3%)',
     display: 'block',
+
     a: {
       [theme.breakpoints.down('md')]: {
-        padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
-        backgroundColor: mainLink && 'rgba(0,0,0,3%)',
+        display: 'block',
+        whiteSpace: 'pre-wrap',
+        padding: mainLink ? '1.2em 5em 1.2em' : '1em 7em 1em',
+      },
+      [theme.breakpoints.down('sm')]: {
+        padding: mainLink ? '0.8em 1em 0.8em' : '0.5em 2em 0.5em',
       },
     },
   };

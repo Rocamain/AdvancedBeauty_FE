@@ -26,7 +26,7 @@ const querySelector = {
     'components.photo.media',
     'components.button',
   ],
-  Contact: ['components', 'components.photo.media'],
+  Contact: ['components', 'components.button', 'components.photo.media'],
 };
 
 const makeQuery = (path) => {
