@@ -5,7 +5,7 @@ const Carousel = React.lazy(() =>
   import('components/models/Carousel/Carousel.jsx')
 );
 
-export default function LazyCarousel({ id, data, path }) {
+const LazyCarousel = React.forwardRef(({ id, data, path }, ref) => {
   const { fromRef, isNearScreen } = useNearScreen();
 
   return (
@@ -22,4 +22,5 @@ export default function LazyCarousel({ id, data, path }) {
       </Suspense>
     </Box>
   );
-}
+});
+export default LazyCarousel;
