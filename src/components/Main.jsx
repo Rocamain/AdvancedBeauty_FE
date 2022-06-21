@@ -1,7 +1,4 @@
 import useFetchData from 'hooks/useFetchData';
-import { lazy, Suspense } from 'react';
-import Loading from './shared/Loading';
-
 import { useLocation } from 'react-router-dom';
 
 function Main() {
@@ -15,7 +12,8 @@ function Main() {
   const { error, loading, data } = useFetchData(formattedPath);
 
   function loadComponent(name) {
-    const Component = lazy(() => import(`./models/${name}.jsx`));
+    const Component = () =>
+      require(`components/models/${name}/index.js`).default;
     return Component;
   }
 
@@ -25,16 +23,15 @@ function Main() {
   const renderChildrenComponents = (components) => {
     let routeComponents = components.map((componentInfo, index) => {
       let componentName = componentInfo.componentName;
-      let LazyComponent = loadComponent(componentName);
+      let LazyComponent = loadComponent(componentName)();
 
       return (
-        <Suspense key={index} fallback={<Loading />}>
-          <LazyComponent
-            id={componentInfo.title}
-            data={componentInfo}
-            path={pathname}
-          />
-        </Suspense>
+        <LazyComponent
+          key={index}
+          id={componentInfo.title}
+          data={componentInfo}
+          path={pathname}
+        />
       );
     });
 
@@ -43,11 +40,9 @@ function Main() {
 
   return (
     data && (
-      <>
-        <main style={{ marginBottom: '10vh' }}>
-          {renderChildrenComponents(data)}
-        </main>
-      </>
+      <main style={{ marginBottom: '10vh' }}>
+        {renderChildrenComponents(data)}
+      </main>
     )
   );
 }
