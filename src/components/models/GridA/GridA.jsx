@@ -22,7 +22,7 @@ export default function GridA({
           <GridText {...data} />
           {show === 'cards'
             ? data.cards && <GridCards {...data} />
-            : data.photo && <GridPhoto {...photo} columnOrder={photoColumn} />}
+            : photo && <GridPhoto {...photo} columnOrder={photoColumn} />}
         </Grid>
       </Container>
     </Box>

@@ -3,10 +3,12 @@ import { Typography, Grid } from '@mui/material';
 import { Card, ImageContainer } from 'components/shared/styled/index.js';
 
 const GridCards = ({ cards }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleClick = (buttonTo) => {
-    navigate(`/${buttonTo}`, { replace: true });
+  const handleClick = (buttonTo, sectionTitle) => {
+    return sectionTitle
+      ? navigate(`/${buttonTo}/#${sectionTitle}`, { replace: true })
+      : navigate(`/${buttonTo}`, { replace: true });
   };
 
   return (
@@ -44,7 +46,12 @@ const GridCards = ({ cards }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() => handleClick(card.page)}
+                  handleClick={() =>
+                    handleClick(
+                      card.page,
+                      card.sectionTitle.replaceAll(' ', '-')
+                    )
+                  }
                   isFirstCard={isFirstCard}
                 >
                   <ImageContainer src={card.photo.url} size="Big" />
@@ -88,8 +95,12 @@ const GridCards = ({ cards }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  buttonTo={card.page}
-                  handleClick={handleClick}
+                  handleClick={() =>
+                    handleClick(
+                      card.page,
+                      card.sectionTitle.replaceAll(' ', '-')
+                    )
+                  }
                 >
                   <ImageContainer src={card.photo.url} size="Big" />
                   <Typography

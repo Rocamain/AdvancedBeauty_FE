@@ -3,21 +3,25 @@ import { Box } from '@mui/material';
 import useNearScreen from 'hooks/useNearScreen.js';
 const GridA = React.lazy(() => import('components/models/GridA/GridA.jsx'));
 
-export default function LazyGridA({ id, data, path }) {
-  const { fromRef, isNearScreen } = useNearScreen();
+const LazyGridA = React.forwardRef(({ id, data, path }, ref) => {
+  const { fromRef, isNearScreen } = useNearScreen('100px', path);
 
   return (
     <Box
       component="section"
-      id={id}
-      ref={fromRef}
+      id={id.replaceAll(' ', '-')}
+      ref={ref}
       sx={{
         marginBottom: '10em',
       }}
     >
-      <Suspense fallback={'loading...'}>
-        {isNearScreen && <GridA {...data} />}
-      </Suspense>
+      <div ref={fromRef}>
+        <Suspense fallback={'loading...'}>
+          {true && <GridA {...data} />}
+        </Suspense>
+      </div>
     </Box>
   );
-}
+});
+
+export default LazyGridA;
