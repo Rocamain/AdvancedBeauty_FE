@@ -1,13 +1,21 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Typography, Grid } from '@mui/material';
 import { Card, ImageContainer } from 'components/shared/styled/index.js';
 
 const GridCards = ({ cards }) => {
   const navigate = useNavigate();
+  const { pathname, hash } = useLocation();
 
   const handleClick = (buttonTo, sectionTitle) => {
+    console.log('click', buttonTo, pathname);
+    const URLTo = `/${buttonTo}/#${sectionTitle}`;
+    const currentURL = pathname + hash;
+    const isSameLinkURL = URLTo === currentURL;
+
     return sectionTitle
-      ? navigate(`/${buttonTo}/#${sectionTitle}`, { replace: true })
+      ? navigate(URLTo, {
+          state: { SameOrigin: isSameLinkURL },
+        })
       : navigate(`/${buttonTo}`, { replace: true });
   };
 

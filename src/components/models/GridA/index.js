@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Box } from '@mui/material';
 import useNearScreen from 'hooks/useNearScreen.js';
+import { Error, Loading } from 'components/shared/index';
 const GridA = React.lazy(() => import('components/models/GridA/GridA.jsx'));
 
 const LazyGridA = React.forwardRef(({ id, data, path }, ref) => {
@@ -16,7 +17,7 @@ const LazyGridA = React.forwardRef(({ id, data, path }, ref) => {
       }}
     >
       <div ref={fromRef}>
-        <Suspense fallback={'loading...'}>
+        <Suspense fallback={<Loading />}>
           {true && <GridA {...data} />}
         </Suspense>
       </div>
