@@ -1,41 +1,21 @@
 const qs = require('qs');
 
-const querySelector = {
-  Logo: ['photo.media'],
-  Home: [
-    'components',
-    'components.background.media',
-    'components.cards',
-    'components.cards.photo.media',
-    'components.photo.media',
-    'components.button',
-  ],
-  'About-us': [
-    'components',
-    'components.background.media',
-    'components.cards',
-    'components.cards.photo.media',
-    'components.photo.media',
-    'components.button',
-  ],
-  'Services-and-Fare': [
-    'components',
-    'components.background.media',
-    'components.cards',
-    'components.cards.photo.media',
-    'components.photo.media',
-    'components.button',
-  ],
-  Contact: ['components', 'components.photo.media'],
-};
+const headerLogo = ['photo.media'];
+const mainComponent = [
+  'components',
+  'components.background.media',
+  'components.cards',
+  'components.cards.photo.media',
+  'components.photo.media',
+  'components.button',
+];
 
 const makeQuery = (path) => {
-  path = path.replace('/', '');
-  if (path === 'Services-and-Fares') path = 'Services-and-Fare';
+  const querySelector = path !== 'Logo' ? mainComponent : headerLogo;
 
   const query = qs.stringify(
     {
-      populate: [...querySelector[path]],
+      populate: [...querySelector],
     },
     {
       encodeValuesOnly: true,
