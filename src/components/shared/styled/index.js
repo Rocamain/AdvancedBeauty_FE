@@ -69,14 +69,15 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
   }
 );
 
-const Card = styled(({ button, handleClick, buttonTo, ...props }) =>
-  button ? (
-    <Box component="div" {...props}>
-      <button onClick={() => handleClick(buttonTo)}>{props.children}</button>
-    </Box>
-  ) : (
-    <Box component="div" {...props} />
-  )
+const Card = styled(
+  ({ button, handleClick, buttonTo, page, sectionTitle, ...props }) =>
+    button ? (
+      <Box component="div" {...props}>
+        <button onClick={handleClick}>{props.children}</button>
+      </Box>
+    ) : (
+      <Box component="div" {...props} />
+    )
 )(({ theme, isFirstCard }) => ({
   alignItems: 'flex-start',
   [theme.breakpoints.up('md')]: {

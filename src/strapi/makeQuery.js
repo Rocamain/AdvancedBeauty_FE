@@ -11,6 +11,8 @@ const mainComponent = [
 ];
 
 const makeQuery = (path) => {
+  path = path.replace('Services-and-Fares', 'Services-and-Fare');
+
   const querySelector = path !== 'Logo' ? mainComponent : headerLogo;
 
   const query = qs.stringify(
