@@ -1,12 +1,21 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Typography, Grid } from '@mui/material';
 import { Card, ImageContainer } from 'components/shared/styled/index.js';
 
 const GridCards = ({ cards }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const { pathname, hash } = useLocation();
 
-  const handleClick = (buttonTo) => {
-    navigate(`/${buttonTo}`, { replace: true });
+  const handleClick = (buttonTo, sectionTitle) => {
+    const URLTo = `/${buttonTo}/#${sectionTitle}`;
+    const currentURL = pathname + hash;
+    const isSameLinkURL = URLTo === currentURL;
+
+    return sectionTitle
+      ? navigate(URLTo, {
+          state: { SameOrigin: isSameLinkURL },
+        })
+      : navigate(`/${buttonTo}`, { replace: true });
   };
 
   return (
@@ -44,7 +53,12 @@ const GridCards = ({ cards }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() => handleClick(card.page)}
+                  handleClick={() =>
+                    handleClick(
+                      card.page,
+                      card.sectionTitle.replaceAll(' ', '-')
+                    )
+                  }
                   isFirstCard={isFirstCard}
                 >
                   <ImageContainer src={card.photo.url} size="Big" />
@@ -88,8 +102,12 @@ const GridCards = ({ cards }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  buttonTo={card.page}
-                  handleClick={handleClick}
+                  handleClick={() =>
+                    handleClick(
+                      card.page,
+                      card.sectionTitle.replaceAll(' ', '-')
+                    )
+                  }
                 >
                   <ImageContainer src={card.photo.url} size="Big" />
                   <Typography

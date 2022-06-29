@@ -64,18 +64,22 @@ export default function MenuItemWithDropDown({
         onMouseLeave={handleClose}
         sx={{ width: 'inherit' }}
       >
-        {link.items.map((dropdownLink, index) => {
-          return (
-            <MenuLink
-              key={index}
-              onClick={handleClick}
-              onMouseLeave={handleClose}
-              to={dropdownLink.path}
-            >
-              {dropdownLink.title}
-            </MenuLink>
-          );
-        })}
+        <LinksMenu onMouseLeave={handleClose} aria-labelledby="dropdown-button">
+          {link.items.map((dropdownLink, index) => {
+            const { path } = dropdownLink;
+
+            return (
+              <MenuLink
+                key={index}
+                onClick={handleClick}
+                onMouseLeave={handleClose}
+                to={path}
+              >
+                {dropdownLink.title}
+              </MenuLink>
+            );
+          })}
+        </LinksMenu>
       </DropDownMenu>
     </>
   );

@@ -123,24 +123,20 @@ const DropDownMenu = styled((props) => (
   };
 });
 
-const LinksMenu = styled((props) => {
-  return <MuiMenu {...props} />;
-})(({ theme }) => {
-  return {
-    display: 'flex',
-    gap: '0.5em',
-    alignItems: 'center',
-
-    [theme.breakpoints.down('md')]: {
-      padding: '1.5em 0em 2em',
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '75vw ! important',
-      padding: '1em 0em 0.5em',
-      borderTop: `2px solid ${theme.palette.tertiary.main}`,
-    },
-  };
-});
+const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
+  ({ theme }) => {
+    return {
+      padding: 0,
+      display: 'block',
+      margin: '0 auto',
+      [theme.breakpoints.down('md')]: {
+        width: '85vw ! important',
+        padding: '0.5em 0',
+        borderTop: `2px solid ${theme.palette.tertiary.main}`,
+      },
+    };
+  }
+);
 const MenuLink = styled(
   ({ mainLink, to, children, onClick, onMouseLeave, ...props }) => {
     return (

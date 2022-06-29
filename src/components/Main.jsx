@@ -1,54 +1,63 @@
+import { useEffect, useRef } from 'react';
 import useFetchData from 'hooks/useFetchData';
-import { lazy, Suspense } from 'react';
-import Loading from './shared/Loading';
-
 import { useLocation } from 'react-router-dom';
+import { Error, Loading } from 'components/shared/index';
+import renderComponents from 'components/Main/renderComponents';
+
+// This function will receive the data of the path as parameter, that represents an array of objects (components)
+// and it will imported be dynamically the component required.
 
 function Main() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
+  //  the data received is an array of objects, that each each objet represent a component.
   const formattedPath =
     pathname === '/' ? 'Home' : pathname.replaceAll('/', '');
 
-  //  the data received is an array of objects, that each each objet represent a component.
-
   const { error, loading, data } = useFetchData(formattedPath);
 
-  function loadComponent(name) {
-    const Component = lazy(() => import(`./models/${name}.jsx`));
-    return Component;
-  }
+  const refs = useRef([]);
 
-  // This function will receive the data of the path as parameter, that represents an array of objects (components)
-  // and it will imported be dynamically the component required.
+  // Scroll effect
+  useEffect(() => {
+    setTimeout(async () => {
+      const hasRef = refs.current[0];
+      if (hasRef && !hash) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
 
-  const renderChildrenComponents = (components) => {
-    let routeComponents = components.map((componentInfo, index) => {
-      let componentName = componentInfo.componentName;
-      let LazyComponent = loadComponent(componentName);
-
-      return (
-        <Suspense key={index} fallback={<Loading />}>
-          <LazyComponent
-            id={componentInfo.title}
-            data={componentInfo}
-            path={pathname}
-          />
-        </Suspense>
+      const HeaderHeight = Math.round(
+        document.documentElement.clientHeight * 0.2
       );
-    });
 
-    return routeComponents;
-  };
+      const scrollTo = () => {
+        const id = hash.replaceAll('#', '').replaceAll('-', ' ');
+        const filterRef = [
+          ...refs.current.filter((innerRef) => innerRef[id] !== undefined),
+        ][0];
+
+        if (filterRef) {
+          const offsetTop = filterRef[id]?.top - HeaderHeight;
+
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth',
+          });
+        }
+      };
+      scrollTo();
+    }, 300);
+  });
 
   return (
-    data && (
-      <>
-        <main style={{ marginBottom: '10vh' }}>
-          {renderChildrenComponents(data)}
-        </main>
-      </>
-    )
+    <main style={{ height: '100%', marginBottom: '10vh' }}>
+      {loading && <Loading />}
+      {error && <Error />}
+      {data && renderComponents({ components: data, refs })}
+    </main>
   );
 }
 

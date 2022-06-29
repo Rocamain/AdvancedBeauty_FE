@@ -4,7 +4,7 @@ import {
   CardWrapper,
   Photo,
   CardPhotoContainer,
-} from 'components/models/carousel/styled';
+} from 'components/models/Carousel/styled';
 
 const Card = ({ cards, animatedPhoto, cardAnimation, slide }) => {
   return (
