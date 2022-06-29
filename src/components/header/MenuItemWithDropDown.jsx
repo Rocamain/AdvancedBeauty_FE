@@ -59,12 +59,14 @@ export default function MenuItemWithDropDown({
       >
         <LinksMenu onMouseLeave={handleClose} aria-labelledby="dropdown-button">
           {link.items.map((dropdownLink, index) => {
+            const { path } = dropdownLink;
+
             return (
               <MenuLink
                 key={index}
                 onClick={handleClick}
                 onMouseLeave={handleClose}
-                to={dropdownLink.path}
+                to={path}
               >
                 {dropdownLink.title}
               </MenuLink>

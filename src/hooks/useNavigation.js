@@ -20,9 +20,7 @@ const useNavigation = () => {
 
         setData({ nestedList: menuNested, flatList: menuFlat });
         controller = null;
-      } catch (err) {
-        console.log('err', err);
-      }
+      } catch (err) {}
     };
     fetchData();
     return () => controller?.abort();

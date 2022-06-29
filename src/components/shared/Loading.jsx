@@ -9,7 +9,7 @@ export default function Loading() {
         justifyContent: 'center',
         py: '4em',
         backgroundColor: 'yellow',
-        minHeight: '70vh',
+        minHeight: '100vh',
       }}
     >
       <CircularProgress size={40} color="secondary" />

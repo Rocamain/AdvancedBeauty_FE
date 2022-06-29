@@ -1,84 +1,63 @@
-import { useEffect, useRef, makeRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useFetchData from 'hooks/useFetchData';
 import { useLocation } from 'react-router-dom';
+import { Error, Loading } from 'components/shared/index';
+import renderComponents from 'components/Main/renderComponents';
+
+// This function will receive the data of the path as parameter, that represents an array of objects (components)
+// and it will imported be dynamically the component required.
 
 function Main() {
-  const { pathname, hash, state, ...rest } = useLocation();
-  const ref = useRef([]);
-  console.log(state);
+  const { pathname, hash } = useLocation();
 
+  //  the data received is an array of objects, that each each objet represent a component.
   const formattedPath =
     pathname === '/' ? 'Home' : pathname.replaceAll('/', '');
 
-  //  the data received is an array of objects, that each each objet represent a component.
   const { error, loading, data } = useFetchData(formattedPath);
 
+  const refs = useRef([]);
+
+  // Scroll effect
   useEffect(() => {
-    const id = hash.replaceAll('#', '').replaceAll('-', ' ');
+    setTimeout(async () => {
+      const hasRef = refs.current[0];
+      if (hasRef && !hash) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
 
-    const getHash = async () => {
-      try {
-        const element = await ref.current.filter((innerRef) =>
-          innerRef.hasOwnProperty(id)
-        );
+      const HeaderHeight = Math.round(
+        document.documentElement.clientHeight * 0.2
+      );
 
-        if (element.length !== 0 && element[0][id] !== null) {
-          const HeaderHeight = Math.round(
-            document.documentElement.clientHeight * 0.2
-          );
-          const elTop = await Math.round(
-            element[0][id].getBoundingClientRect().top
-          );
-          const distanceTop = (await elTop) - HeaderHeight;
-          const offSetTop = window.pageYOffset;
+      const scrollTo = () => {
+        const id = hash.replaceAll('#', '').replaceAll('-', ' ');
+        const filterRef = [
+          ...refs.current.filter((innerRef) => innerRef[id] !== undefined),
+        ][0];
+
+        if (filterRef) {
+          const offsetTop = filterRef[id]?.top - HeaderHeight;
 
           window.scrollTo({
-            top: distanceTop + offSetTop,
+            top: offsetTop,
             behavior: 'smooth',
           });
         }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getHash();
-  }, [hash, data, ref, state]);
-
-  function loadComponent(name) {
-    const Component = require(`components/models/${name}/index.js`).default;
-    return Component;
-  }
-
-  // This function will receive the data of the path as parameter, that represents an array of objects (components)
-  // and it will imported be dynamically the component required.
-
-  const renderChildrenComponents = (components) => {
-    let routeComponents = components.map((componentInfo, index) => {
-      let componentName = componentInfo.componentName;
-      let LazyComponent = loadComponent(componentName);
-
-      return (
-        <LazyComponent
-          ref={(el) =>
-            (ref.current[index] = { [componentInfo.title || 'carousel']: el })
-          }
-          key={index}
-          id={componentInfo.title}
-          data={componentInfo}
-          path={pathname}
-        />
-      );
-    });
-
-    return routeComponents;
-  };
+      };
+      scrollTo();
+    }, 300);
+  });
 
   return (
-    data && (
-      <main style={{ marginBottom: '10vh' }}>
-        {renderChildrenComponents(data)}
-      </main>
-    )
+    <main style={{ height: '100%', marginBottom: '10vh' }}>
+      {loading && <Loading />}
+      {error && <Error />}
+      {data && renderComponents({ components: data, refs })}
+    </main>
   );
 }
 

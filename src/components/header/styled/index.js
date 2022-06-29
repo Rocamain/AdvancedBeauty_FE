@@ -138,15 +138,7 @@ const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
   }
 );
 const MenuLink = styled(
-  ({
-    mainLink,
-
-    to,
-    children,
-    onClick,
-    onMouseLeave,
-    ...props
-  }) => {
+  ({ mainLink, to, children, onClick, onMouseLeave, ...props }) => {
     return (
       <MenuItem disableGutters={false} {...props} onClick={onClick}>
         <Link to={to}>

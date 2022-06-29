@@ -24,7 +24,7 @@ function App() {
                   index={navRoute.path === '/' ? true : false}
                   path={navRoute.path !== '/' && navRoute.path}
                   element={
-                    <React.Suspense fallback={'loading...'}>
+                    <React.Suspense fallback={<Loading />}>
                       <LazyMain />
                     </React.Suspense>
                   }

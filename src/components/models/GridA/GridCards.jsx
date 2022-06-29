@@ -7,7 +7,6 @@ const GridCards = ({ cards }) => {
   const { pathname, hash } = useLocation();
 
   const handleClick = (buttonTo, sectionTitle) => {
-    console.log('click', buttonTo, pathname);
     const URLTo = `/${buttonTo}/#${sectionTitle}`;
     const currentURL = pathname + hash;
     const isSameLinkURL = URLTo === currentURL;

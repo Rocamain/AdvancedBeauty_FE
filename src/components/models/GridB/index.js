@@ -1,26 +1,38 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useImperativeHandle } from 'react';
 import useNearScreen from 'hooks/useNearScreen.js';
 import { Box } from '@mui/material';
-import { Error, Loading } from 'components/shared/index';
+import { Loading } from 'components/shared/index';
+
 const GridB = React.lazy(() => import('components/models/GridB/GridB.jsx'));
 
-const LazyGridB = React.forwardRef(({ id, data, path }, ref) => {
-  const { fromRef, isNearScreen } = useNearScreen();
+const LazyGridB = React.forwardRef(({ id, data }, ref) => {
+  const { fromRef, isNearScreen } = useNearScreen({
+    distance: '100px',
+  });
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        top: Math.round(fromRef.current.offsetTop),
+      };
+    },
+    [fromRef]
+  );
 
   return (
     <Box
       component="section"
       id={id}
-      ref={ref}
+      ref={fromRef}
       sx={{
-        marginBottom: '2em',
+        height: isNearScreen ? 'auto' : '20vh',
+        marginBottom: '10vh',
       }}
     >
-      <div ref={fromRef}>
-        <Suspense fallback={<Loading />}>
-          {isNearScreen && <GridB {...data} />}
-        </Suspense>
-      </div>
+      <Suspense fallback={<Loading />}>
+        {isNearScreen && <GridB {...data} />}
+      </Suspense>
     </Box>
   );
 });
