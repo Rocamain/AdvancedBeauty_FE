@@ -29,10 +29,12 @@ const MyButton = styled((props) => <MuiButton component="a" {...props} />)(
   })
 );
 
-export default function Button({ buttonText, buttonTo }) {
+export default function Button({ buttonText, page, sectionTitle }) {
   let navigate = useNavigate();
+
+  const path = sectionTitle ? page + '/' + sectionTitle : page;
   const handleClick = () => {
-    navigate(`/${buttonTo}`, { replace: true });
+    navigate(`/${path}`, { replace: true });
   };
 
   return (

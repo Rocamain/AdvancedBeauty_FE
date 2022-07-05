@@ -66,8 +66,20 @@ theme = createTheme(theme, {
     p: {
       fontWeight: '400',
       fontSize: '1.1rem',
+      lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.007em',
+    },
+    navLink: {
+      fontFamily: ['Abel'].join(','),
+      fontWeight: 500,
+      fontSize: '1rem',
+      lineHeight: 1.1,
+      wordBreak: 'break-word',
+      wordWrap: 'break-word',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1.3rem',
+      },
     },
 
     //  Variants

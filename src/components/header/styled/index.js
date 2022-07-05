@@ -85,9 +85,12 @@ const BurgerButton = styled((props) => (
   },
 }));
 
-const DropDownMenu = styled((props) => (
+const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
   <Menu
     elevation={0}
+    disableRestoreFocus
+    disableAutoFocusItem
+    keepMounted
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'center',
@@ -96,32 +99,42 @@ const DropDownMenu = styled((props) => (
       vertical: 'top',
       horizontal: 'center',
     }}
-    hideBackdrop
+    BackdropProps={{
+      onMouseOver: onMouseOnBackdrop,
+    }}
     disablePortal
     {...props}
   />
-))(({ theme }) => {
-  return {
-    top: '15vh',
-    '& .MuiPaper-root': {
-      borderRadius: 6,
-      top: '0!important',
-      color:
-        theme.palette.mode === 'light'
-          ? 'rgb(55, 65, 81)'
-          : theme.palette.grey[300],
-      boxShadow:
-        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-      '& .MuiMenu-list': {
-        padding: theme.spacing(1),
-      },
-      '&MuiPopover-paper': {},
-      '& .MuiMenuItem-root': {
-        '&:active': {},
-      },
+))(({ theme }) => ({
+  zIndex: -1,
+  '& .MuiBackdrop-root': {
+    backgroundColor: 'transparent',
+    [theme.breakpoints.up('md')]: {
+      top: '18vh',
     },
-  };
-});
+    [theme.breakpoints.up('lg')]: {
+      top: '17vh',
+    },
+    [theme.breakpoints.up('xl')]: {
+      top: '15.5vh',
+    },
+  },
+  '& .MuiPaper-root': {
+    overflow: 'visible',
+    [theme.breakpoints.up('md')]: {
+      paddingTop: 'calc(6vh - 3px )',
+    },
+    [theme.breakpoints.up('lg')]: {
+      paddingTop: 'calc(5vh)',
+    },
+  },
+  '& .MuiList-root': {
+    padding: '20px 0',
+    backgroundColor: '#fafafa',
+    boxShadow: theme.shadows[10],
+    borderTop: `2px solid ${theme.palette.tertiary.main}`,
+  },
+}));
 
 const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
   ({ theme }) => {
@@ -137,39 +150,32 @@ const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
     };
   }
 );
-const MenuLink = styled(
-  ({ mainLink, to, children, onClick, onMouseLeave, ...props }) => {
-    return (
-      <MenuItem disableGutters={false} {...props} onClick={onClick}>
-        <Link to={to}>
-          <Typography component="h3" variant="p">
-            {children}
-          </Typography>
-        </Link>
-      </MenuItem>
-    );
-  }
-)(({ theme, mainLink }) => {
-  return {
-    padding: '0 0 !important',
-    display: 'block',
-    a: {
-      [theme.breakpoints.down('md')]: {
-        padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
-        backgroundColor: mainLink && 'rgba(0,0,0,3%)',
-      },
+const MenuLink = styled(({ mainLink, to, children, ...props }) => {
+  return (
+    <MenuItem disableGutters {...props}>
+      <Link to={to}>
+        <Typography component="h3" variant="p">
+          {children}
+        </Typography>
+      </Link>
+    </MenuItem>
+  );
+})(({ theme, mainLink }) => ({
+  padding: 0,
+  a: {
+    [theme.breakpoints.down('md')]: {
+      padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
+      backgroundColor: mainLink && 'rgba(0,0,0,3%)',
     },
-  };
-});
+  },
+}));
 
-const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => {
-  return {
-    display: 'block',
-    textDecoration: 'none',
-    color: 'black',
-    padding: '1.5em',
-  };
-});
+const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => ({
+  display: 'block',
+  textDecoration: 'none',
+  color: 'black',
+  padding: '1em 1.5em',
+}));
 
 export {
   HeaderContainer,

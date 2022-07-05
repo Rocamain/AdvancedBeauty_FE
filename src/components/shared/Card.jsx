@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { Typography, Box } from '@mui/material';
 import Button from 'components/shared/Button';
 import {
@@ -42,6 +41,7 @@ const Card = ({ cards, animatedPhoto, cardAnimation, slide }) => {
         <Button
           buttonText={cards[slide].buttonText}
           buttonTo={cards[slide].page}
+          sectionTitle={cards[slide].sectionTitle}
         />
       </CardWrapper>
     </Box>
