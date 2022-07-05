@@ -23,6 +23,7 @@ export default function Header() {
   // states and hooks
   const { data, loading } = useFetchData('Logo');
   const navigation = useNavigation();
+
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,

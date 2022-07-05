@@ -6,9 +6,10 @@ import MenuItemWithDropDown from 'components/header/MenuItemWithDropDown';
 export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
   const [hoverTracker, setHoverTracker] = useState(null);
 
-  const handleHover = (event) => {
-    if (event) {
-      setHoverTracker(event.target.textContent);
+  const handleHover = (sectionHover) => {
+    // setHoverTracker(null);
+    if (sectionHover !== hoverTracker) {
+      setHoverTracker(sectionHover);
     }
   };
 
@@ -22,8 +23,18 @@ export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
 
   return (
     links && (
-      <Nav component={'nav'}>
-        <MenuList sx={{ display: 'flex', gap: '0.5em', alignItems: 'center' }}>
+      <Nav
+        component={'nav'}
+        sx={{ display: 'flex', position: 'relative', zIndex: 4000 }}
+      >
+        <MenuList
+          sx={{
+            display: 'flex',
+            gap: '0.7em',
+            alignItems: 'center',
+            padding: '0 0',
+          }}
+        >
           {links.map((navLink, index) => {
             return haspopup(navLink) ? (
               <MenuItemWithDropDown
@@ -32,12 +43,12 @@ export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
                 key={index}
                 setSelectedIndex={setSelectedIndex}
                 selectedIndex={navLink.title === selectedIndex}
-                hoverTracker={navLink.title === hoverTracker}
+                isHover={navLink.title === hoverTracker}
               />
             ) : (
               <MenuLink
                 key={index}
-                onMouseOver={handleHover}
+                onMouseOver={(e) => handleHover(navLink.title)}
                 onClick={handleClick}
                 selected={navLink.title === selectedIndex}
                 to={navLink.path}
