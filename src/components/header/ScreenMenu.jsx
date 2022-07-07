@@ -15,6 +15,7 @@ export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
 
   const handleClick = (event) => {
     setSelectedIndex(event.target.textContent);
+    window.scrollTo(0, 0);
   };
 
   const haspopup = (navLink) => {
@@ -52,6 +53,7 @@ export default function ScreenMenu({ links, selectedIndex, setSelectedIndex }) {
                 onClick={handleClick}
                 selected={navLink.title === selectedIndex}
                 to={navLink.path}
+                replace={true}
               >
                 {navLink.title}
               </MenuLink>
