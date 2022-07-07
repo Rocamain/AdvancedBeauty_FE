@@ -150,17 +150,19 @@ const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
     };
   }
 );
-const MenuLink = styled(({ mainLink, to, children, ...props }) => {
-  return (
-    <MenuItem disableGutters {...props}>
-      <Link to={to}>
-        <Typography component="h3" variant="p">
-          {children}
-        </Typography>
-      </Link>
-    </MenuItem>
-  );
-})(({ theme, mainLink }) => ({
+const MenuLink = styled(
+  ({ mainLink, to, replace, state, children, ...props }) => {
+    return (
+      <MenuItem disableGutters {...props}>
+        <Link to={to} replace={replace} state={state}>
+          <Typography component="h3" variant="p">
+            {children}
+          </Typography>
+        </Link>
+      </MenuItem>
+    );
+  }
+)(({ theme, mainLink }) => ({
   padding: 0,
   a: {
     [theme.breakpoints.down('md')]: {
