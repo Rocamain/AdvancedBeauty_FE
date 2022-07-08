@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Box } from '@mui/material';
+
 import useNearScreen from 'hooks/useNearScreen.js';
 
 const Accordion = React.lazy(() =>
@@ -10,7 +11,7 @@ const LazyAccordion = ({ id, data, height }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '100px',
   });
-  console.log(data);
+
   return (
     <Box
       component="section"

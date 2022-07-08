@@ -125,10 +125,10 @@ theme = createTheme(theme, {
 
       fontFamily: ['Open Sans', 'Abel'].join(','),
       [theme.breakpoints.up('sm')]: {
-        fontSize: '3rem',
+        fontSize: '2.2rem',
       },
       [theme.breakpoints.up('lg')]: {
-        fontSize: '4rem',
+        fontSize: '2.8rem',
       },
     },
     content: {
