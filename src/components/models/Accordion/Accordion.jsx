@@ -7,6 +7,7 @@ import {
   AccordionSummary,
 } from 'components/models/Accordion/styled/index';
 import { sortTreatments } from 'components/models/Accordion/utils/index';
+import { Divider } from 'components/shared/styled';
 
 export default function CustomizedAccordions({ treatments }) {
   const [expanded, setExpanded] = useState(null);
@@ -18,6 +19,11 @@ export default function CustomizedAccordions({ treatments }) {
   };
   return (
     <div style={{ width: '80vw', margin: '0 auto' }}>
+      <Typography variant="title">
+        {`Services in Palma de Majorca`}
+        <Divider />
+      </Typography>
+
       {sortedTreatments.map(({ name, services }, index) => {
         return (
           <Accordion
@@ -36,7 +42,8 @@ export default function CustomizedAccordions({ treatments }) {
                 return (
                   <Box key={index}>
                     <Typography>
-                      {Name} {price} gbp
+                      {Name} <span>- </span>
+                      <span> {price},00 &#163;</span>
                     </Typography>
                   </Box>
                 );
