@@ -14,7 +14,10 @@ const LazyHero = ({ id, data, height }) => {
       component="section"
       id={id}
       ref={fromRef}
-      sx={{ height: isNearScreen ? 'auto' : height, marginBottom: '10vh' }}
+      sx={{
+        height: isNearScreen ? 'auto' : height,
+        marginBottom: ['0', '0', '10vh'],
+      }}
     >
       <Suspense fallback={<div style={{ height: '10vh' }} />}>
         {isNearScreen && <Hero {...data} />}
