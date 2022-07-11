@@ -8,7 +8,7 @@ const mainComponent = [
   'components.cards',
   'components.cards.photo.media',
   'components.photo.media',
-  'components.cover.media',
+  'components.Cover.media',
   'components.button',
 ];
 
