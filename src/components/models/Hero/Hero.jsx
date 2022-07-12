@@ -1,5 +1,55 @@
-import React from 'react';
+import { Box, Typography } from '@mui/material';
+import {
+  HeroContainer,
+  WavesBackground,
+  HeroHeader,
+  HeroHeaderWrapper,
+  HeroContentWrapper,
+  CoffeeMug,
+} from 'components/models/Hero/styled/';
+import { Divider } from 'components/shared/styled/';
 
-export default function Hero(props) {
-  return <div>Hero</div>;
+import Button from 'components/shared/Button';
+
+export default function Hero({ content, title, subTitle, Cover, button }) {
+  const biggerBackground = content ? 1 : 0;
+
+  return (
+    <Box>
+      <HeroContainer
+        className="container"
+        cover={Cover}
+        biggerBackground={biggerBackground}
+      >
+        <HeroHeader>
+          <HeroHeaderWrapper biggerBackground={biggerBackground}>
+            <Typography component="h1" variant="heroTitle">
+              {title}
+            </Typography>
+
+            <Typography component="h3" variant="heroSubtitle">
+              {subTitle}
+            </Typography>
+            <Divider />
+          </HeroHeaderWrapper>
+        </HeroHeader>
+        <HeroContentWrapper>
+          {content && <CoffeeMug />}
+          {content && (
+            <Box
+              sx={{
+                width: '80%',
+                margin: '0 auto',
+                padding: '1em 0.5em',
+              }}
+            >
+              <Typography variant="content">{content}</Typography>
+            </Box>
+          )}
+          {button && <Button width={'170px'} {...button} />}
+        </HeroContentWrapper>
+      </HeroContainer>
+      <WavesBackground className="waves" biggerBackground={biggerBackground} />
+    </Box>
+  );
 }

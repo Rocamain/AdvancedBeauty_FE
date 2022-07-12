@@ -1,6 +1,15 @@
 import { createTheme, responsiveFontSizes } from '@mui/material';
+import { createBreakpoints } from '@mui/system';
 
 let theme = createTheme();
+const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1400, xl: 1736, xxl: 2100 };
+const breakpointsValues = {
+  breakpoints: createBreakpoints({
+    values: BREAKPOINTS,
+  }),
+};
+
+theme = createTheme(theme, { ...breakpointsValues });
 
 theme = createTheme(theme, {
   palette: {
@@ -27,7 +36,7 @@ theme = createTheme(theme, {
 
   typography: {
     fontFamily: ['Abel', 'Open Sans'].join(','),
-
+    fontSize: 8,
     h1: {
       fontWeight: '300',
       fontSize: '5rem',
@@ -83,6 +92,80 @@ theme = createTheme(theme, {
     },
 
     //  Variants
+    heroTitle: {
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      fontWeight: 700,
+      fontSize: '4rem',
+      color: '#00BCCC !important',
+      letterSpacing: '-0.017em',
+      textAlign: 'center',
+      textShadow: '0.05em 0.08em 0.12em #ffff !important',
+      lineHeight: 1.1,
+      wordBreak: 'break-word',
+      wordWrap: 'break-word',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '4.5rem',
+        letterSpacing: '-0.117rem',
+        textAlign: 'left',
+      },
+      [theme.breakpoints.up('md')]: {
+        textAlign: 'right',
+        fontSize: '5rem',
+        lineHeight: 1,
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '6rem',
+      },
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '6.5rem',
+        lineHeight: 0.94,
+        letterSpacing: '-0.257rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '8.5rem',
+        lineHeight: 0.94,
+        letterSpacing: '-0.257rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '10.5rem',
+        lineHeight: 0.94,
+        letterSpacing: '-0.257rem',
+      },
+    },
+
+    heroSubtitle: {
+      wordBreak: 'break-word',
+      wordWrap: 'break-word',
+      color: '#444444',
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      fontWeight: 500,
+      textAlign: 'center',
+      fontSize: '1.9rem',
+      textShadow: '-17em 7em 0.3em #ffffff',
+      [theme.breakpoints.up('sm')]: {
+        fontWeight: 600,
+        fontSize: '2.4rem',
+        lineHeight: 1,
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '2.4rem',
+        color: '#666',
+        fontWeight: 600,
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '3.7rem',
+      },
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '4.2rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '5rem',
+      },
+      [theme.breakpoints.up('xxxl')]: {
+        fontSize: '7rem',
+      },
+    },
+
     carouselTitle: {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 700,
@@ -101,14 +184,14 @@ theme = createTheme(theme, {
       fontSize: '2.8rem',
     },
     cardTitle: {
-      color: 'black',
+      color: '#666',
       fontSize: '2.4rem',
       lineHeight: 1.1,
       fontWeight: 400,
       fontFamily: ['Open Sans', 'Abel'].join(','),
     },
     cardText: {
-      color: 'black',
+      color: '#e666',
       fontFamily: ['Open Sans', 'Abel'].join(','),
       fontWeight: 300,
       lineHeight: 1.1,
@@ -134,11 +217,15 @@ theme = createTheme(theme, {
     content: {
       wordBreak: 'break-word',
       wordWrap: 'break-word',
-      fontWeight: '400',
-      fontSize: '1.15rem',
-      color: '#666',
-      lineHeight: 1.4,
+      fontWeight: '500',
+      fontSize: '0.9rem',
+      letterSpacing: '0.03em',
+      color: '#444',
+      lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1.35rem',
+      },
     },
     gridText: {
       fontWeight: '400',
@@ -162,16 +249,6 @@ theme = createTheme(theme, {
   },
 });
 
-const responsiveTheme = responsiveFontSizes(theme, {
-  breakpoints: ['xs', 'xm', 'lg', 'xl'],
-
-  variants: [
-    'carouselTitle',
-    'carouselSubtitle',
-    'cardTitle',
-    'cardText',
-    'gridText',
-  ],
-});
+const responsiveTheme = responsiveFontSizes(theme);
 
 export default responsiveTheme;
