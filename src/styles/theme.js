@@ -101,7 +101,8 @@ theme = createTheme(theme, {
       textAlign: 'center',
       textShadow: '0.05em 0.08em 0.12em #ffff !important',
       lineHeight: 1.1,
-
+      wordBreak: 'break-word',
+      wordWrap: 'break-word',
       [theme.breakpoints.up('sm')]: {
         fontSize: '4.5rem',
         letterSpacing: '-0.117rem',
@@ -133,13 +134,16 @@ theme = createTheme(theme, {
     },
 
     heroSubtitle: {
+      wordBreak: 'break-word',
+      wordWrap: 'break-word',
       color: '#444444',
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      fontWeight: 600,
+      fontWeight: 500,
       textAlign: 'center',
       fontSize: '1.9rem',
       textShadow: '-17em 7em 0.3em #ffffff',
       [theme.breakpoints.up('sm')]: {
+        fontWeight: 600,
         fontSize: '2.4rem',
         lineHeight: 1,
       },
@@ -214,11 +218,14 @@ theme = createTheme(theme, {
       wordBreak: 'break-word',
       wordWrap: 'break-word',
       fontWeight: '500',
-      fontSize: '1.35rem',
+      fontSize: '0.9rem',
       letterSpacing: '0.03em',
       color: '#444',
-      lineHeight: 1.2,
+      lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1.35rem',
+      },
     },
     gridText: {
       fontWeight: '400',

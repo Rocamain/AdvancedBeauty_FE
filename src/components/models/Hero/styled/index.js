@@ -2,67 +2,51 @@ import { Box, styled } from '@mui/material';
 import curves from 'assets/curves.svg';
 import coffee from 'assets/coffee.png';
 
-const HeroContainer = styled(Box)(({ theme, cover, hasContent }) => {
-  console.log(hasContent);
-
+const HeroContainer = styled(Box)(({ theme, cover, biggerBackground }) => {
   return {
-    backgroundImage: `linear-gradient(1deg,#ffffff 21%,rgba(255,255,255,0) 68%),url(${cover.url})!important`,
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    height: biggerBackground ? '70vh' : '40vh',
+    paddingTop: '4em',
+    backgroundImage: `linear-gradient(1deg,#ffffff 11%,rgba(255,255,255,0) 68%),url(${cover.url})!important`,
     backgroundSize: 'cover, cover',
     backgroundColor: '#FFFFFF',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '50%',
-    overflow: 'visible',
-    position: 'relative',
-    top: 0,
-    height: hasContent ? '35vh' : '25vh',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    flexDirection: 'column',
-    //
-    [theme.breakpoints.up('sm')]: {
-      height: hasContent ? '50vvh' : '35vh',
-      minHeight: hasContent && '',
+
+    [theme.breakpoints.down('sm')]: {
+      height: biggerBackground ? '70vh' : '25vh',
     },
     [theme.breakpoints.up('md')]: {
-      minHeight: hasContent && '50vh',
-    },
-    [theme.breakpoints.up('lg')]: {
-      minHeight: hasContent && '70vh',
-    },
-    [theme.breakpoints.up('xl')]: {
-      minHeight: hasContent && '60vh',
-    },
-    [theme.breakpoints.up('xxl')]: {
-      minHeight: hasContent && '50vh',
+      justifyContent: 'flex-end',
+      paddingTop: '0',
     },
   };
 });
 
 const HeroHeader = styled(Box)(({ theme }) => {
   return {
-    zIndex: 100,
-    justifyContent: 'flex-end',
     [theme.breakpoints.up('md')]: {
       width: '65%',
     },
   };
 });
-const HeroHeaderWrapper = styled(Box)(({ theme, hasContent }) => {
+const HeroHeaderWrapper = styled(Box)(({ theme, biggerBackground }) => {
   return {
-    width: 'inherit',
-    margin: '0 auto',
+    position: 'relative',
+    zIndex: 140,
     display: 'flex',
     flexDirection: 'column',
-    paddingTop: hasContent ? '0' : '5em',
+    width: '90%',
+    margin: '0 auto',
+    paddingTop: biggerBackground ? '0' : '5em',
 
     [theme.breakpoints.up('sm')]: {
-      // paddingBottom: hasContent ? '1em' : 0,
       width: '80%',
     },
     [theme.breakpoints.up('md')]: {
-      width: '70%',
-    },
-    [theme.breakpoints.up('lg')]: {
       width: '70%',
     },
     [theme.breakpoints.up('xl')]: {
@@ -73,10 +57,14 @@ const HeroHeaderWrapper = styled(Box)(({ theme, hasContent }) => {
 
 const HeroContentWrapper = styled(Box)(({ theme, cover }) => {
   return {
-    width: '85%',
-    margin: '0 auto',
+    position: 'relative',
+    zIndex: 140,
+    display: 'flex',
+    flexDirection: 'column',
     gap: '1.5em',
-    zIndex: 100,
+    width: '90%',
+    margin: '0 auto',
+
     [theme.breakpoints.up('sm')]: {
       width: '80%',
     },
@@ -84,7 +72,7 @@ const HeroContentWrapper = styled(Box)(({ theme, cover }) => {
       margin: '0 auto',
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
     },
     [theme.breakpoints.up('lg')]: {
       width: '70%',
@@ -97,31 +85,28 @@ const HeroContentWrapper = styled(Box)(({ theme, cover }) => {
     },
   };
 });
-const WavesBackground = styled(Box)(({ theme }) => {
+const WavesBackground = styled(Box)(({ theme, biggerBackground }) => {
   return {
+    position: 'absolute',
+    left: '0',
+    right: '0',
+    bottom: '0',
     backgroundImage: `url(${curves})`,
     backgroundRepeatY: 'no-repeat',
-    backgroundSize: 'cover',
-    width: '100%',
-    position: 'absolute',
-    zIndex: 1,
-    height: 'calc(100% - 230px)',
-    [theme.breakpoints.up('xs')]: {
-      height: 'calc(100% + 60px)',
-    },
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 60px)',
-    },
-    [theme.breakpoints.up('md')]: {
-      height: 'calc(100%  + 10px)',
-    },
+    backgroundSize: '100% 500px',
+    height: biggerBackground ? '60%' : '90%',
+    transform: 'scale(1,1)',
   };
 });
+
 const CoffeeMug = styled((props) => (
   <Box
     sx={{
-      width: '20%',
+      width: ['100%', '100%', '25%'],
       alignSelf: 'end',
+      display: 'flex',
+      position: 'relative',
+      top: '4em',
     }}
   >
     <Box
@@ -132,11 +117,9 @@ const CoffeeMug = styled((props) => (
       srcSet={`${coffee} 1200w, ${coffee} 980w, ${coffee} 480w`}
       sizes="(min-width: 0px) and (max-width: 480px) 85vw, (min-width: 481px) and (max-width: 980px) 95vw, (min-width: 981px) 90vw, 100vw"
       sx={{
-        maxWidth: '100%',
-        minWidth: '140px',
+        maxWidth: '250px',
+        width: ['60%', '60%', '100%'],
         height: 'auto',
-        marginTop: { md: '3em' },
-        display: { xs: 'none', sm: 'block' },
       }}
     />
   </Box>
