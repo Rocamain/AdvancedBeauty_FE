@@ -11,14 +11,14 @@ import { Divider } from 'components/shared/styled/';
 
 import Button from 'components/shared/Button';
 
-export default function Hero({ content, title, subTitle, Cover, button }) {
+export default function Hero({ content, title, subTitle, cover, button }) {
   const biggerBackground = content ? 1 : 0;
 
   return (
     <Box>
       <HeroContainer
         className="container"
-        cover={Cover}
+        cover={cover}
         biggerBackground={biggerBackground}
       >
         <HeroHeader>
