@@ -3,10 +3,13 @@ const qs = require('qs');
 const headerLogo = ['photo.media'];
 const mainComponent = [
   'components',
+  'components.treatments',
+  'components.sectionTitle',
   'components.background.media',
   'components.cards',
   'components.cards.photo.media',
   'components.photo.media',
+  'components.cover.media',
   'components.button',
 ];
 

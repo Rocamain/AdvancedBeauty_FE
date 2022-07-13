@@ -5,7 +5,13 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from './markdown-styles.module.css';
 
-export default function GridText({ title, content, button, show, ...data }) {
+export default function GridText({
+  sectionTitle,
+  content,
+  button,
+  show,
+  ...data
+}) {
   const isPhoto = show === 'photo';
   return (
     <Grid item component="div" xs={12} sm={isPhoto && 6} md={6}>
@@ -19,7 +25,11 @@ export default function GridText({ title, content, button, show, ...data }) {
           paddingBottom: '3em',
         }}
       >
-        <Typography component="h2" variant="title" children={title} />
+        <Typography
+          component="h2"
+          variant="title"
+          children={sectionTitle.title}
+        />
         <Divider />
         <ReactMarkdown
           className={style.reactMarkDown}

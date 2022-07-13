@@ -11,7 +11,7 @@ import {
 import Card from 'components/shared/Card';
 import { slideCard, slidePhoto } from './styles.js';
 
-export default function Carousel({ cards, background }) {
+export default function Carousel({ cards, background, sectionTitle }) {
   const [slide, setSlide] = useState(0);
   const [exit, setExit] = useState(false);
 
@@ -43,7 +43,7 @@ export default function Carousel({ cards, background }) {
   return (
     <CarouselContainer url={background.url}>
       <CarouselHero>
-        <Typography variant="carouselTitle">2U Aesthetics </Typography>
+        <Typography variant="carouselTitle">{sectionTitle.title} </Typography>
         <Typography variant="carouselSubtitle">Advanced Beauty</Typography>
       </CarouselHero>
       <SlideContainer>

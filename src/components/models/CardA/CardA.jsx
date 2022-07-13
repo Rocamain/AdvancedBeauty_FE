@@ -3,7 +3,15 @@ import { Card, Image } from './styled/index.js';
 import { Divider, Container, Wrapper } from 'components/shared/styled/index.js';
 import Button from 'components/shared/Button.jsx';
 
-export default function CardA({ content, title, button, photo, background }) {
+export default function CardA({
+  content,
+  sectionTitle,
+  button,
+  photo,
+  background,
+  ...props
+}) {
+  console.log(sectionTitle.title);
   return (
     <Box>
       <Container background={background}>
@@ -13,14 +21,13 @@ export default function CardA({ content, title, button, photo, background }) {
               maxWidth: { md: '50%' },
               position: { md: 'relative' },
               right: '-2.5em',
-
               zIndex: '100',
             }}
           >
             <Typography
               component="h2"
               variant="title"
-              children={title}
+              children={sectionTitle.title}
               sx={{
                 padding: ['0', '0', '1em 0'],
                 paddingRight: '1em',

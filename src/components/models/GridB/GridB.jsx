@@ -2,15 +2,22 @@ import { Box, Typography } from '@mui/material';
 import { ImageContainer, Divider } from 'components/shared/styled/index.js';
 import { Container, Card, Title } from 'components/models/GridB/styled';
 
-export default function GridB({ content, title, button, photo, cards, size }) {
+export default function GridB({
+  content,
+  sectionTitle,
+  button,
+  photo,
+  cards,
+  size,
+}) {
   return (
     <Box>
-      {title && (
+      {sectionTitle && (
         <>
           <Typography
             component="h2"
             variant="title"
-            children={title}
+            children={sectionTitle.title}
             sx={{
               padding: ['0', '0', '1em 0'],
               paddingRight: '1em',
