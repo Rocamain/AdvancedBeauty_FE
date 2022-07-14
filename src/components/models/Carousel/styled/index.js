@@ -128,6 +128,7 @@ const CardPhotoContainer = styled((props) => {
   margin: '-100px auto',
   [theme.breakpoints.up('sm')]: {
     width: '50%',
+    marginLeft: '-5%',
   },
   [theme.breakpoints.up('md')]: {
     paddingLeft: theme.spacing(7),
@@ -142,6 +143,7 @@ const CardPhotoContainer = styled((props) => {
 const Photo = styled((props) => <Box component="img" {...props} />)(
   ({ theme }) => ({
     position: 'relative',
+    zIndex: 200,
     width: '100%',
     height: 'auto',
     margin: '0 auto',
