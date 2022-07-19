@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Body from './components/Body';
 import React from 'react';
 
-const LazyMain = React.lazy(() => import('./components/Main'));
+const LazyMain = React.lazy(() => import('components/Main'));
 
 function App() {
   const routes = useNavigation();
