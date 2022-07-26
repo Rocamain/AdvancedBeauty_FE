@@ -9,8 +9,8 @@ export default function useButtonSelected({ date, timeFrame }) {
     }
   }, [date, timeFrame]);
 
-  const handleSelector = ({ target }) => {
-    const btnSelected = target.innerText.toLowerCase();
+  const handleSelector = (btnText) => {
+    const btnSelected = btnText.toLowerCase();
     setSelected(btnSelected);
   };
 

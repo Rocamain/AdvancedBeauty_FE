@@ -1,19 +1,33 @@
+import { useContext } from 'react';
+import { BookingContext } from 'context/BookingContext';
 import useButtonSelected from 'hooks/useButtonSelected';
-import { Button, Box } from '@mui/material';
+import { Box } from '@mui/material';
+import { TimeAvailableBtn } from 'components/single/Calendar/styled/';
 import { filterHoursByTimeFrame } from 'components/single/Calendar/utils/';
 
-export default function TimePicker({
-  timeFrame,
-  date,
-  timesAvailable,
-  handleClickTime,
-}) {
-  const { selected, handleSelector } = useButtonSelected({ timeFrame, date });
+export default function TimePicker({ timeFrame, timesAvailable }) {
+  const { setBooking, booking } = useContext(BookingContext);
+
+  const { date } = booking;
+  const { selected, handleSelector } = useButtonSelected({
+    timeFrame,
+    date,
+  });
 
   const handleClick = (event) => {
-    handleClickTime(event);
-    handleSelector(event);
+    const btnTimeValue = event.target.firstChild.data;
+
+    setBooking(({ time, bookingStep, ...rest }) => {
+      return { time: btnTimeValue, bookingStep: 1, ...rest };
+    });
+
+    handleSelector(btnTimeValue);
   };
+
+  const timesByTimeFrame = filterHoursByTimeFrame({
+    timesAvailable,
+    timeFrame,
+  });
 
   return (
     <Box
@@ -24,28 +38,19 @@ export default function TimePicker({
       sx={{ marginBottom: '1em' }}
     >
       {timesAvailable &&
-        filterHoursByTimeFrame({ timesAvailable, timeFrame }).map(
-          (hour, index) => (
-            <Box key={index}>
-              <Button
-                fullWidth={true}
-                variant={
-                  selected === hour || selected === 'all'
-                    ? 'contained'
-                    : 'outlined'
-                }
-                onClick={handleClick}
-                color={'primary'}
-                sx={{
-                  fontSize: '1rem',
-                  fontWeight: 900,
-                }}
-              >
-                {hour}
-              </Button>
-            </Box>
-          )
-        )}
+        timesByTimeFrame.map((timesAvailable, index) => (
+          <Box key={index}>
+            <TimeAvailableBtn
+              onClick={handleClick}
+              variant={
+                selected === timesAvailable || selected === 'all'
+                  ? 'contained'
+                  : 'outlined'
+              }
+              children={timesAvailable}
+            />
+          </Box>
+        ))}
     </Box>
   );
 }
