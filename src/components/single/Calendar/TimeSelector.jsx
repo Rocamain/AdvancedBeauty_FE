@@ -17,7 +17,13 @@ export default function TimeSelector({ date, timesAvailable }) {
 
   return (
     <>
-      <Box gap={4} display="flex" justifyContent="center" mb="2em">
+      <Box
+        gap={4}
+        display="flex"
+        justifyContent="center"
+        mb="2em"
+        sx={{ width: 'inherit' }}
+      >
         <Button
           onClick={handleClick}
           variant={

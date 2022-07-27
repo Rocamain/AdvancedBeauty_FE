@@ -1,5 +1,12 @@
 import { styled } from '@mui/material';
-import { Box, Paper, IconButton, Typography } from '@mui/material/';
+import {
+  Box,
+  Paper,
+  IconButton,
+  TextField,
+  InputAdornment,
+  Checkbox as MuiCheckbox,
+} from '@mui/material/';
 import NorthWestSharpIcon from '@mui/icons-material/NorthWestSharp';
 import circles from 'assets/circles.jpg';
 import { keyframes } from '@emotion/react';
@@ -8,13 +15,12 @@ const DialogContainer = styled((props) => {
   return <Box {...props} />;
 })(({ theme, props }) => {
   return {
-    // display: 'inline-table',
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '80vw',
-    minHeight: '80vh',
+    minHeight: '70vh',
     backgroundImage: `url(${circles})`,
     backgroundSize: 'contain',
     backgroundColor: 'white',
@@ -26,57 +32,67 @@ const DialogContainer = styled((props) => {
 });
 
 const ModalWrapper = styled(({ children, ...props }) => {
-  return <Box {...props} show={true} children={children} />;
-})(({ theme, show }) => {
-  const fadeIn = keyframes`
-    0% {
-      opacity: 0;
-      height: 0
-      // visibility: "visible"
-    }
-    100% {
-      height: "auto",
-      opacity: 1;
-  }`;
+  return <Box {...props} children={children} />;
+})(({ theme, showSummary, fadeIn }) => {
+  const fadeOutAnimation = keyframes`
+0% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+  // background-color: ${theme.palette.primary.main};
+  // color ${theme.palette.text.primary} !important;
+}`;
+
+  const fadeInAnimation = keyframes`
+0% {
+   opacity: 1;
+}
+100% {
+  opacity: 0;
+  visibility: hidden;
+}`;
+
+  let animation;
+
+  if (fadeIn) {
+    animation = `${fadeInAnimation} 0.7s linear forwards 0.2s`;
+  }
+
+  if (showSummary) {
+    animation = `${fadeOutAnimation} 0.7s linear forwards 0.2s`;
+  }
 
   return {
-    '&  .fade': {
-      display: 'flex',
-      flexDirection: 'column',
-      // opacity: 0,
-      // height: 0,
-      // display: show ? 'block' : 'none',
-      // visibility: 'hidden',
-      animation: show && `${fadeIn} 1s linear forwards 1s`,
+    display: showSummary && 'flex',
+    flexDirection: showSummary && 'column',
+    gap: showSummary && '2.5em',
+
+    '&  .summary': {
+      visibility: showSummary ? `visible` : 'hidden',
+      opacity: 0,
+      animation: showSummary && animation,
+    },
+    '&  .header': {
+      animation: animation,
+      opacity: showSummary && 0,
     },
   };
 });
 
-const FadeOut = styled(({ show, ...props }) => {
-  console.log('FADE', props);
+const SummaryContainer = styled(({ show, ...props }) => {
   return <Paper {...props} />;
-})(({ theme, show }) => {
-  console.log('props', show);
-  const fadeInEffect = keyframes`
-0% {
-  opacity: 0;
-
-  // background-color: transparent;
-  // position: relative;
-}
-100% {
-  opacity: 1;
-  // margin: '3em 4em 0.5em 4em';
-  background-color: ${theme.palette.tertiary.main};
-  // padding: 4em;
-  // top: 10em;
-  color ${theme.palette.text.primary};
-}`;
-  // return {};
+})(({ theme }) => {
   return {
-    visibility: show ? `visible` : 'hidden',
-    opacity: 0,
-    animation: show && `${fadeInEffect} 1s linear forwards 1s`,
+    maxWidth: 500,
+
+    justifyContent: 'center',
+    flexDirection: 'column',
+    margin: '0  1em',
+    padding: '1em 1.5em',
+    display: 'flex',
+    gap: '1em',
+    backgroundImage: theme.palette.background.primary,
   };
 });
 
@@ -90,4 +106,51 @@ const ExitBtn = styled((props) => {
   };
 });
 
-export { DialogContainer, ModalWrapper, ExitBtn, FadeOut };
+const Input = styled(({ icon, ...props }) => {
+  return (
+    <TextField
+      autoComplete="off"
+      variant="standard"
+      color="primary"
+      multiline
+      maxRows={2}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">{icon}</InputAdornment>
+        ),
+      }}
+      {...props}
+    />
+  );
+})(({ theme, props }) => {
+  return { margin: '1em', width: '200px' };
+});
+
+const Form = styled(({ ...props }) => {
+  return <Box noValidate component="form" {...props} />;
+})(({ theme, props }) => {
+  return { gap: '1em', padding: '1 0em', display: 'flex' };
+});
+
+const Checkbox = styled(({ ...props }) => {
+  console.log(props);
+  return <MuiCheckbox disableRipple color="secondary" {...props} />;
+})(({ theme, props }) => {
+  return {
+    display: 'inline-block',
+    borderRadius: '5px',
+    lineHeight: '0',
+    verticalAlign: 'inherit',
+    padding: '0',
+    color: 'orange',
+  };
+});
+export {
+  DialogContainer,
+  ModalWrapper,
+  ExitBtn,
+  SummaryContainer,
+  Input,
+  Form,
+  Checkbox,
+};

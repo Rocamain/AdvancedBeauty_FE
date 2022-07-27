@@ -31,15 +31,14 @@ const CalendarPicker = styled(({ date, ...props }) => {
   return {
     margin: '0 auto',
     maxHeight: 'none',
-    width: '70%',
-    maxWidth: 500,
+    minWidth: 380,
+    maxWidth: 600,
 
     // HEADER Month and icons
     '> div:nth-of-type(1)': {
       marginBottom: '1em',
       justifyContent: 'space-evenly',
       fontSize: '1.5rem ',
-      padding: 0,
       margin: 0,
       '& >div[role=presentation]': {
         fontSize: '1.3rem',

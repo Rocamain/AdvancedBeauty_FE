@@ -1,9 +1,9 @@
 import { styled } from '@mui/material';
 import { Box, Typography } from '@mui/material/';
 
-export default function Header({ title, subtitle }) {
+export default function Header({ title, subtitle, className }) {
   return (
-    <Container>
+    <Container className={className}>
       <Typography
         component="h2"
         sx={{

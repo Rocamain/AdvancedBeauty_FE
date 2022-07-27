@@ -32,7 +32,7 @@ export default forwardRef(({ fadeIn, ...props }, ref) => {
       sx={(theme) => {
         return {
           margin: '1em 1em 0.5em 2em',
-          animation: fadeIn && `${fadeInAnimation} 1s linear forwards 1s`,
+          animation: fadeIn && `${fadeInAnimation} 0.7s linear forwards 0.2s`,
         };
       }}
       ref={ref}
@@ -82,7 +82,7 @@ const Calendar = (props) => {
         </Grid>
         <Grid
           item
-          xs={10}
+          xs={12}
           md={4}
           sx={{
             position: 'relative',

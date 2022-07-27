@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { BookingContext } from 'context/BookingContext';
-import { Modal as MuiModal, Button } from '@mui/material/';
-import { DialogContent } from '@mui/material';
+import useShowSummary from 'hooks/useShowSummary';
+import { Modal as MuiModal, Button, DialogContent } from '@mui/material/';
 import Stepper from 'components/single/Modal/Stepper';
 import Summary from 'components/single/Modal/Summary';
 import Calendar from 'components/single/Calendar/Calendar.jsx';
@@ -19,27 +19,8 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
     time: null,
     bookingStep: 0,
   });
-  const [showSummary, setShowSummary] = useState(false);
-
   const { bookingStep, time, date } = booking;
-  const ref = useRef();
-
-  useEffect(() => {
-    let handleAnimationEnd;
-    let elementGrid = ref?.current;
-
-    if (elementGrid && bookingStep > 1) {
-      handleAnimationEnd = () => {
-        ref.current.style.display = 'none';
-        setShowSummary(true);
-      };
-      ref.current.addEventListener('animationend', handleAnimationEnd);
-      if (bookingStep > 1) {
-      }
-    }
-    return () =>
-      elementGrid?.removeEventListener('animationstart', handleAnimationEnd);
-  }, [ref, bookingStep]);
+  const { fromRef, showSummary } = useShowSummary(bookingStep);
 
   const isBtnActive = Boolean(bookingStep % 2);
 
@@ -49,7 +30,7 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
 
   const handleStep = () => {
     setBooking(({ bookingStep, ...rest }) => ({
-      bookingStep: 2,
+      bookingStep: bookingStep + 1,
       ...rest,
     }));
   };
@@ -65,17 +46,18 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
       >
         <DialogContent>
           <DialogContainer>
-            <Stepper bookingStep={bookingStep} />
-
-            <ModalWrapper>
+            <ModalWrapper fadeIn={bookingStep > 1} showSummary={showSummary}>
+              <Stepper bookingStep={bookingStep} />
               <ExitBtn onClick={handleExitBtn} />
-
-              <Header title={serviceType} subtitle={serviceName} />
-
-              <Calendar ref={ref} fadeIn={bookingStep > 1} />
+              <Header
+                className="header"
+                title={serviceType}
+                subtitle={serviceName}
+              />
+              <Calendar ref={fromRef} fadeIn={bookingStep > 1} />
               {showSummary && (
                 <Summary
-                  show={showSummary}
+                  className="summary"
                   date={date}
                   time={time}
                   serviceName={serviceName}
@@ -85,9 +67,11 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
               <Button
                 variant={isBtnActive ? 'contained' : 'disabled'}
                 onClick={handleStep}
-                sx={{ position: 'absolute', right: '0.2em', bottom: '0.2em' }}
+                type={bookingStep > 2 ? 'submit' : null}
+                form={bookingStep > 2 ? 'a-form' : null}
+                sx={{ position: 'absolute', right: '0.7em', bottom: '0.7em' }}
               >
-                {bookingStep > 2 ? 'confirm' : 'continue'}
+                {bookingStep > 1 ? 'Confirm Booking' : 'Continue'}
               </Button>
             </ModalWrapper>
           </DialogContainer>
