@@ -16,13 +16,12 @@ export default function TimeSelector({ date, timesAvailable }) {
   };
 
   return (
-    <>
+    <Box>
       <Box
-        gap={4}
+        gap={[4, 4, 1]}
         display="flex"
-        justifyContent="center"
+        justifyContent={['center', 'center', 'center', 'space-between']}
         mb="2em"
-        sx={{ width: 'inherit' }}
       >
         <Button
           onClick={handleClick}
@@ -49,6 +48,6 @@ export default function TimeSelector({ date, timesAvailable }) {
       {timesAvailable && (
         <TimePicker timeFrame={selected} timesAvailable={timesAvailable} />
       )}
-    </>
+    </Box>
   );
 }

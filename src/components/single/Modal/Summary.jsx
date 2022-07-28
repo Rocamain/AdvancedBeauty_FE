@@ -59,55 +59,101 @@ export default function Summary({ date, time, className }) {
   };
 
   const matches = useMediaQuery('(min-width:760px)');
+  const smallPhone = useMediaQuery('(max-width:460px)');
   return (
     <Box sx={{ margin: matches && '0 auto' }}>
       <SummaryContainer className={className}>
-        <Box display="flex" sx={{ marginBottom: '0.35em', gap: '1em' }}>
-          <Box
-            component="h4"
-            variant="summaryHeader"
-            sx={({ palette }) => ({
-              margin: '0px 1em',
-              minWidth: '200px',
-            })}
-          >
-            Date:
+        <Box
+          display="flex"
+          sx={{
+            // flexDirection: smallPhone ? 'column' : 'row',
+            marginBottom: '0.35em',
+            gap: '1em',
+          }}
+        >
+          <Box>
             <Box
-              component="span"
-              children={`${day}/${month}/${year}`}
-              style={{
-                marginLeft: '0.5em',
-                color: 'white',
-              }}
-            />
+              component="h4"
+              variant="summaryHeader"
+              sx={({ palette }) => ({
+                margin: '0px 1em',
+                marginBotton: smallPhone && '1em',
+                minWidth: '200px',
+              })}
+            >
+              Date:
+              <Box
+                component="span"
+                children={`${day}/${month}/${year}`}
+                style={{
+                  marginLeft: '0.5em',
+                  color: 'white',
+                }}
+              />
+            </Box>
+            {smallPhone && (
+              <Box
+                variant="summaryHeader"
+                component="h4"
+                sx={({ palette }) => ({
+                  margin: '0px 1em',
+                  minWidth: '200px',
+                })}
+              >
+                Time:
+                <Box
+                  component="span"
+                  children={time}
+                  sx={{
+                    fontsize: 'inherit',
+                    marginLeft: '0.5em',
+                    color: 'white',
+                  }}
+                />
+              </Box>
+            )}
           </Box>
-          <Divider
-            orientation="vertical"
-            sx={{ backgroundColor: 'orange' }}
-            flexItem
-          />
-          <Box
-            variant="summaryHeader"
-            component="h4"
-            sx={({ palette }) => ({
-              margin: '0',
-              minWidth: '200px',
-            })}
-          >
-            Time:
+
+          {!smallPhone && (
+            <Divider
+              orientation="vertical"
+              sx={{ backgroundColor: 'orange' }}
+              flexItem
+            />
+          )}
+          {!smallPhone && (
             <Box
-              component="span"
-              children={time}
-              sx={{ fontsize: 'inherit', marginLeft: '0.5em', color: 'white' }}
-            />
-          </Box>
+              variant="summaryHeader"
+              component="h4"
+              sx={({ palette }) => ({
+                margin: '0px 1em',
+                minWidth: '200px',
+              })}
+            >
+              Time:
+              <Box
+                component="span"
+                children={time}
+                sx={{
+                  fontsize: 'inherit',
+                  marginLeft: '0.5em',
+                  color: 'white',
+                }}
+              />
+            </Box>
+          )}
         </Box>
         <Divider sx={{ backgroundColor: 'orange' }} />
-        <Form id="a-form" onSubmit={handleSubmit}>
+        <Form
+          id="a-form"
+          onSubmit={handleSubmit}
+          sx={{ flexDirection: 'column' }}
+        >
           <Box display="flex" sx={{ gap: '1em', flexDirection: 'column' }}>
             <Input
               id="name"
               placeholder="name"
+              smallPhone={smallPhone}
               value={name}
               error={nameError}
               onChange={handleChange}
@@ -115,6 +161,7 @@ export default function Summary({ date, time, className }) {
             />
             <Input
               id="email"
+              smallPhone={smallPhone}
               placeholder="email"
               value={email}
               error={emailError}
@@ -122,11 +169,13 @@ export default function Summary({ date, time, className }) {
               icon={<EmailRoundedIcon />}
             />
           </Box>
-          <Divider
-            orientation="vertical"
-            sx={{ backgroundColor: 'orange' }}
-            flexItem
-          />
+          {!smallPhone && (
+            <Divider
+              orientation="vertical"
+              sx={{ backgroundColor: 'orange' }}
+              flexItem
+            />
+          )}
           <Box>
             <Typography component="p" variant="conditions">
               <Checkbox
