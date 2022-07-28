@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { styled } from '@mui/material';
 import {
   Box,
@@ -6,7 +7,9 @@ import {
   TextField,
   InputAdornment,
   Checkbox as MuiCheckbox,
+  DialogContent,
 } from '@mui/material/';
+
 import NorthWestSharpIcon from '@mui/icons-material/NorthWestSharp';
 import circles from 'assets/circles.jpg';
 import { keyframes } from '@emotion/react';
@@ -24,11 +27,21 @@ const DialogContainer = styled((props) => {
     backgroundImage: `url(${circles})`,
     backgroundSize: 'contain',
     backgroundColor: 'white',
-    border: '2px solid #000',
     boxShadow: 24,
     paddingTop: 3,
     paddingBottom: 3,
+    [theme.breakpoints.down('sm')]: {
+      width: '100vw',
+    },
   };
+});
+
+const Dialog = forwardRef((props, ref) => {
+  return (
+    <DialogContent tabIndex={-1} ref={ref}>
+      <DialogContainer {...props} />
+    </DialogContent>
+  );
 });
 
 const ModalWrapper = styled(({ children, ...props }) => {
@@ -40,8 +53,6 @@ const ModalWrapper = styled(({ children, ...props }) => {
 }
 100% {
   opacity: 1;
-  // background-color: ${theme.palette.primary.main};
-  // color ${theme.palette.text.primary} !important;
 }`;
 
   const fadeInAnimation = keyframes`
@@ -85,11 +96,11 @@ const SummaryContainer = styled(({ show, ...props }) => {
 })(({ theme }) => {
   return {
     maxWidth: 500,
-
     justifyContent: 'center',
     flexDirection: 'column',
-    margin: '0  1em',
-    padding: '1em 1.5em',
+    margin: '0',
+    marginBottom: '3em',
+    padding: '2em 1.5em',
     display: 'flex',
     gap: '1em',
     backgroundImage: theme.palette.background.primary,
@@ -106,7 +117,7 @@ const ExitBtn = styled((props) => {
   };
 });
 
-const Input = styled(({ icon, ...props }) => {
+const Input = styled(({ icon, error, ...props }) => {
   return (
     <TextField
       autoComplete="off"
@@ -116,14 +127,48 @@ const Input = styled(({ icon, ...props }) => {
       maxRows={2}
       InputProps={{
         startAdornment: (
-          <InputAdornment position="start">{icon}</InputAdornment>
+          <InputAdornment
+            position="start"
+            sx={{ color: error ? '#ef5350' : 'orange' }}
+          >
+            {icon}
+          </InputAdornment>
         ),
       }}
       {...props}
+      error={error}
     />
   );
 })(({ theme, props }) => {
-  return { margin: '1em', width: '200px' };
+  return {
+    margin: '1em',
+    width: '200px',
+    textarea: {
+      color: 'white',
+      letterSpacing: '0.05em',
+      '::placeholder': {
+        fontWeight: '700',
+        opacity: 0.5,
+        color: '#333333',
+      },
+    },
+
+    '& .MuiInput-underline': {
+      color: 'rgba(0, 0, 0, 0.12)',
+      borderBottom: `2px solid`,
+      '::before': {
+        color: 'rgba(0, 0, 0, 0.12)',
+        borderBottom: `1px solid`,
+      },
+      ':hover': {
+        '::before': {
+          borderBottom: `2px solid ${theme.palette.secondary.main}`,
+        },
+      },
+    },
+
+    // .css-1eke8a3-MuiInputBase-root-MuiInput-root:after {
+  };
 });
 
 const Form = styled(({ ...props }) => {
@@ -146,7 +191,7 @@ const Checkbox = styled(({ ...props }) => {
   };
 });
 export {
-  DialogContainer,
+  Dialog,
   ModalWrapper,
   ExitBtn,
   SummaryContainer,
@@ -154,3 +199,5 @@ export {
   Form,
   Checkbox,
 };
+
+// class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-multiline MuiInputBase-adornedStart css-1eke8a3-MuiInputBase-root-MuiInput-root"

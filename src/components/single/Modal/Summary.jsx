@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { BookingContext } from 'context/BookingContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   SummaryContainer,
   Input,
@@ -57,58 +58,92 @@ export default function Summary({ date, time, className }) {
     e.preventDefault();
   };
 
+  const matches = useMediaQuery('(min-width:760px)');
   return (
-    <SummaryContainer className={className}>
-      <Box display="flex" sx={{ gap: 4 }}>
-        <Typography variant="h4" sx={{ margin: '8px', width: '220px' }}>
-          Date:
-          <span
-            children={`${day} / ${month} / ${year}`}
-            style={{ marginLeft: '0.5em' }}
-          />
-        </Typography>
-        <Typography variant="h4" sx={{ margin: '8px', width: '200px' }}>
-          Time:
-          <span children={time} style={{ marginLeft: '0.5em' }} />
-        </Typography>
-      </Box>
-      <Divider />
-      <Form id="a-form" onSubmit={handleSubmit}>
-        <Box display="flex" sx={{ gap: '1em', flexDirection: 'column' }}>
-          <Input
-            id="name"
-            placeholder="name"
-            value={name}
-            error={nameError}
-            onChange={handleChange}
-            icon={<PersonOutlineRoundedIcon color="secondary" />}
-          />
-          <Input
-            id="email"
-            placeholder="email"
-            value={email}
-            error={emailError}
-            onChange={handleChange}
-            icon={<EmailRoundedIcon color="secondary" />}
-          />
-        </Box>
-        <Divider
-          orientation="vertical"
-          sx={{ backgroundColor: 'orange' }}
-          flexItem
-        />
-        <Box>
-          <Typography component="p" variant="conditions">
-            <Checkbox
-              id="checkbox authorization"
-              onChange={handleChangeCheckBox}
+    <Box sx={{ margin: matches && '0 auto' }}>
+      <SummaryContainer className={className}>
+        <Box display="flex" sx={{ marginBottom: '0.35em', gap: '1em' }}>
+          <Box
+            component="h4"
+            variant="summaryHeader"
+            sx={({ palette }) => ({
+              margin: '0px 1em',
+              minWidth: '200px',
+            })}
+          >
+            Date:
+            <Box
+              component="span"
+              children={`${day}/${month}/${year}`}
+              style={{
+                marginLeft: '0.5em',
+                color: 'white',
+              }}
             />
-            By clicking the box will authorized us to use and store the email
-            solely for learning purposes. Also will allow us to send you a the
-            confirmation once the booking is done.
-          </Typography>
+          </Box>
+          <Divider
+            orientation="vertical"
+            sx={{ backgroundColor: 'orange' }}
+            flexItem
+          />
+          <Box
+            variant="summaryHeader"
+            component="h4"
+            sx={({ palette }) => ({
+              margin: '0',
+              minWidth: '200px',
+            })}
+          >
+            Time:
+            <Box
+              component="span"
+              children={time}
+              sx={{ fontsize: 'inherit', marginLeft: '0.5em', color: 'white' }}
+            />
+          </Box>
         </Box>
-      </Form>
-    </SummaryContainer>
+        <Divider sx={{ backgroundColor: 'orange' }} />
+        <Form id="a-form" onSubmit={handleSubmit}>
+          <Box display="flex" sx={{ gap: '1em', flexDirection: 'column' }}>
+            <Input
+              id="name"
+              placeholder="name"
+              value={name}
+              error={nameError}
+              onChange={handleChange}
+              icon={<PersonOutlineRoundedIcon />}
+            />
+            <Input
+              id="email"
+              placeholder="email"
+              value={email}
+              error={emailError}
+              onChange={handleChange}
+              icon={<EmailRoundedIcon />}
+            />
+          </Box>
+          <Divider
+            orientation="vertical"
+            sx={{ backgroundColor: 'orange' }}
+            flexItem
+          />
+          <Box>
+            <Typography component="p" variant="conditions">
+              <Checkbox
+                id="checkbox authorization"
+                onChange={handleChangeCheckBox}
+              />{' '}
+              By clicking the box will authorized us to use and store the email
+              solely for learning purposes. Also will allow us to send you a the
+              confirmation once the booking is done.
+            </Typography>
+          </Box>
+        </Form>
+      </SummaryContainer>
+      <Box display="flex" sx={{ justifyContent: 'flex-end', gap: '1em' }}>
+        <Typography variant="h5">Total cost:</Typography>
+        <Typography variant="h5"> 40,00 &#163;</Typography>
+      </Box>
+    </Box>
   );
 }

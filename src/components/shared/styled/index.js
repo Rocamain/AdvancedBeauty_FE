@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 
 import leavesBackground from 'assets/leaves-background.jpg';
+import circles from 'assets/circles.jpg';
 
 const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
   ({ theme, type }) => {
@@ -135,7 +136,7 @@ const Grid = styled(({ show, photoColumn, ...props }) => {
 })(({ theme, background, show }) => {
   const backgroundImageSelector = {
     leaves: `url(${leavesBackground})`,
-    circles: `url(${leavesBackground})`,
+    circles: `url(${circles})`,
     'mixed leaves and right': `url(${leavesBackground})`,
   };
 
