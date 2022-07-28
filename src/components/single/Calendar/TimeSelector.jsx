@@ -3,20 +3,27 @@ import useButtonSelected from 'hooks/useButtonSelected';
 import TimePicker from 'components/single/Calendar/TimePicker';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-export default function TimeSelector({
-  date,
-  timesAvailable,
-  handleClickTime,
-}) {
-  const { selected, handleSelector } = useButtonSelected({ date });
+
+export default function TimeSelector({ date, timesAvailable }) {
+  const { selected, handleSelector } = useButtonSelected({
+    date,
+    timesAvailable,
+  });
 
   const handleClick = (event) => {
-    handleSelector(event);
+    const btnTimeFrameText = event.target.innerText;
+    handleSelector(btnTimeFrameText);
   };
 
   return (
     <>
-      <Box gap={4} display="flex" justifyContent="center" mb="2em">
+      <Box
+        gap={4}
+        display="flex"
+        justifyContent="center"
+        mb="2em"
+        sx={{ width: 'inherit' }}
+      >
         <Button
           onClick={handleClick}
           variant={
@@ -39,12 +46,9 @@ export default function TimeSelector({
           <IconButton children={<KeyboardArrowRightIcon />} />
         </Box>
       </Box>
-      <TimePicker
-        date={date}
-        timeFrame={selected}
-        timesAvailable={timesAvailable}
-        handleClickTime={handleClickTime}
-      />
+      {timesAvailable && (
+        <TimePicker timeFrame={selected} timesAvailable={timesAvailable} />
+      )}
     </>
   );
 }

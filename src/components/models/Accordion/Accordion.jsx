@@ -13,7 +13,6 @@ import Modal from 'components/single/Modal/Modal';
 export default function CustomizedAccordions({ treatments }) {
   const [sectionExpanded, setSectionExpanded] = useState(null);
   const [serviceSelected, setServiceSelected] = useState(false);
-
   const isModalOpen = Boolean(serviceSelected);
 
   const handleOpenModal = ({ target }) => {
@@ -50,7 +49,11 @@ export default function CustomizedAccordions({ treatments }) {
             <AccordionDetails component={'ul'}>
               {services.map(({ price, Name }, index) => {
                 return (
-                  <Box key={index} onClick={handleOpenModal}>
+                  <Box
+                    key={index}
+                    onClick={handleOpenModal}
+                    sx={{ cursor: 'pointer' }}
+                  >
                     <Typography>
                       {Name} <span>- </span>
                       <span> {price},00 &#163;</span>
@@ -62,11 +65,14 @@ export default function CustomizedAccordions({ treatments }) {
           </Accordion>
         );
       })}
-      <Modal
-        open={isModalOpen}
-        handleClose={handleClose}
-        service={serviceSelected}
-      />
+      {serviceSelected && (
+        <Modal
+          open={isModalOpen}
+          handleClose={handleClose}
+          serviceName={serviceSelected}
+          serviceType={sectionExpanded}
+        />
+      )}
     </div>
   );
 }

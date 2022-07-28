@@ -1,67 +1,88 @@
-import { useState, useEffect } from 'react';
+import { keyframes } from '@emotion/react';
+import { useState, useEffect, useContext, forwardRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import { BookingContext } from 'context/BookingContext';
 import enGb from 'date-fns/locale/en-GB';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { addYears } from 'date-fns';
 import TimeSelector from 'components/single/Calendar/TimeSelector';
-import { CalendarPicker } from 'components/single/Calendar/styled';
-import { Grid } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { Grid, Box } from '@mui/material';
+import {
+  CalendarPicker,
+  GridContainer,
+} from 'components/single/Calendar/styled';
+
 import mockFetchBooking from 'dev-utils/mockFetchBooking';
 
-export default function Calendar({ service }) {
-  const [date, setDate] = useState(new Date());
-  const [timesAvailable, setTimesAvailable] = useState(null);
-  const [booking, setBooking] = useState(null);
+export default forwardRef(({ fadeIn, ...props }, ref) => {
+  const fadeInAnimation = keyframes`
+    0% {
+      opacity: 1;
+    
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+ 
+    }
+  `;
 
+  return (
+    <Box
+      sx={(theme) => {
+        return {
+          margin: '1em 1em 0.5em 2em',
+          animation: fadeIn && `${fadeInAnimation} 0.7s linear forwards 0.2s`,
+        };
+      }}
+      ref={ref}
+    >
+      <Calendar {...props} />
+    </Box>
+  );
+});
+
+const Calendar = (props) => {
+  const [timesAvailable, setTimesAvailable] = useState(null);
+  const { booking, setBooking } = useContext(BookingContext);
+  const { date, serviceName } = booking;
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (date && service && pathname) {
-      mockFetchBooking({ date, service, pathname }).then((times) =>
+    if (date) {
+      mockFetchBooking({ serviceName, date, pathname }).then((times) =>
         setTimesAvailable(times)
       );
     }
-  }, [date, service, pathname]);
+  }, [date, serviceName, pathname]);
 
-  const handleClickTime = (event) => {
-    setBooking({
-      service,
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate(),
-      time: event.target.innerText,
-    });
-  };
-
-  const handleChange = (date) => {
-    setDate(new Date(date));
+  const handleChange = (newDate) => {
+    const day = newDate.getDate();
+    const month = newDate.getMonth();
+    const year = newDate.getFullYear();
+    const formattedDate = new Date(year, month, day);
+    setBooking(({ date, time, isBtnActive, ...rest }) => ({
+      date: formattedDate,
+      isBtnActive: false,
+      time: null,
+      ...rest,
+    }));
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGb}>
-      <Grid container spacing={0} justifyContent="center">
+      <GridContainer>
         <Grid
           item
           xs={12}
           md={4}
           sx={{ position: 'relative', overflow: 'hidden' }}
         >
-          <CalendarPicker
-            date={date}
-            views={['day']}
-            minDate={new Date()}
-            maxDate={addYears(new Date(), 1)}
-            reduceAnimations={true}
-            daySelected={date}
-            fullWidth
-            onChange={handleChange}
-            disableHighlightToday
-          />
+          <CalendarPicker date={date} onChange={handleChange} />
         </Grid>
         <Grid
           item
-          xs={10}
+          xs={12}
           md={4}
           sx={{
             position: 'relative',
@@ -69,13 +90,20 @@ export default function Calendar({ service }) {
             marginBottom: '1em',
           }}
         >
-          <TimeSelector
-            date={date}
-            timesAvailable={timesAvailable}
-            handleClickTime={handleClickTime}
-          />
+          <TimeSelector date={date} timesAvailable={timesAvailable} />
         </Grid>
-      </Grid>
+
+        <Grid
+          item
+          xs={10}
+          md={4}
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginBottom: '1em',
+          }}
+        ></Grid>
+      </GridContainer>
     </LocalizationProvider>
   );
-}
+};

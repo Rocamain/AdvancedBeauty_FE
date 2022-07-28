@@ -1,14 +1,14 @@
 const delay = (timeout) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
 
-const fetchBookingTimes = ({ pathname, date, service }) => {
+const fetchBookingTimes = ({ pathname, date, serviceName }) => {
   const splitUrl = pathname.split('/');
   const shop = splitUrl[splitUrl.length - 1];
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
 
-  const url = `/${shop}/${service.replaceAll(
+  const url = `/${shop}/${serviceName.replaceAll(
     ' ',
     '-'
   )}/${year}/${month}/${day}`;

@@ -234,6 +234,14 @@ theme = createTheme(theme, {
       lineHeight: 1.2,
       fontFamily: ['Abel', 'Open Sans'].join(','),
     },
+    conditions: {
+      fontSize: '0.65rem',
+      verticalAlign: 'bottom',
+      color: 'white',
+      fontWeight: '700',
+      letterSpacing: '0.04em',
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+    },
 
     // Components override.
 

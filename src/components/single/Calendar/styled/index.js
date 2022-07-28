@@ -1,21 +1,44 @@
 import { CalendarPicker as MuiCalendar } from '@mui/x-date-pickers';
-import { styled } from '@mui/material';
+import { addYears } from 'date-fns';
+import { Button, Grid as MuiGrid, styled } from '@mui/material';
 
-const CalendarPicker = styled((props) => {
-  return <MuiCalendar {...props} />;
+const GridContainer = styled((props) => (
+  <MuiGrid {...props} container spacing={0} justifyContent="center" />
+))(({ theme, props }) => {
+  return {};
+});
+
+const TimeAvailableBtn = styled((props) => {
+  return <Button fullWidth={true} color={'primary'} {...props} />;
+})(({ theme, props }) => {
+  return { fontSize: '1rem', fontWeight: 900 };
+});
+
+const CalendarPicker = styled(({ date, ...props }) => {
+  return (
+    <MuiCalendar
+      date={date}
+      minDate={new Date()}
+      maxDate={addYears(new Date(), 1)}
+      reduceAnimations={true}
+      views={['day']}
+      fullWidth
+      {...props}
+      disableHighlightToday
+    />
+  );
 })(({ theme, props }) => {
   return {
     margin: '0 auto',
     maxHeight: 'none',
-    width: '70%',
-    maxWidth: 500,
+    minWidth: 380,
+    maxWidth: 600,
 
     // HEADER Month and icons
     '> div:nth-of-type(1)': {
       marginBottom: '1em',
       justifyContent: 'space-evenly',
       fontSize: '1.5rem ',
-      padding: 0,
       margin: 0,
       '& >div[role=presentation]': {
         fontSize: '1.3rem',
@@ -95,10 +118,10 @@ const CalendarPicker = styled((props) => {
       '.MuiPickersDay-root': {
         display: 'flex',
         fontSize: '1.3rem',
-        '&.Mui-selected': { backgroundColor: theme.palette.primary.main },
+        '& .Mui-selected': { backgroundColor: 'green' },
       },
     },
   };
 });
 
-export { CalendarPicker };
+export { CalendarPicker, GridContainer, TimeAvailableBtn };
