@@ -234,12 +234,23 @@ theme = createTheme(theme, {
       lineHeight: 1.2,
       fontFamily: ['Abel', 'Open Sans'].join(','),
     },
+    summaryHeader: {
+      color: '#c48037',
+      fontWeight: '700',
+      letterSpacing: '0.05em',
+      fontSize: '1.5rem',
+      lineHeight: 1.1,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '1.25rem',
+      },
+    },
     conditions: {
-      fontSize: '0.65rem',
+      fontSize: '0.85rem',
       verticalAlign: 'bottom',
       color: 'white',
       fontWeight: '700',
-      letterSpacing: '0.04em',
+      letterSpacing: '0.09em',
       fontFamily: ['Abel', 'Open Sans'].join(','),
     },
 
