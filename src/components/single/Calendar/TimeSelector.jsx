@@ -1,5 +1,6 @@
 import { Button, Box, IconButton } from '@mui/material';
 import useButtonSelected from 'hooks/useButtonSelected';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import TimePicker from 'components/single/Calendar/TimePicker';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -15,10 +16,12 @@ export default function TimeSelector({ date, timesAvailable }) {
     handleSelector(btnTimeFrameText);
   };
 
+  const smallPhone = useMediaQuery('(max-width:460px)');
+
   return (
     <Box>
       <Box
-        gap={[4, 4, 1]}
+        gap={[1, 4, 1]}
         display="flex"
         justifyContent={['center', 'center', 'center', 'space-between']}
         mb="2em"
@@ -31,12 +34,26 @@ export default function TimeSelector({ date, timesAvailable }) {
               : 'outlined'
           }
           color={'primary'}
+          size={smallPhone ? 'small' : 'big'}
+          sx={{
+            ':hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.14)',
+              fontWeight: 600,
+            },
+          }}
         >
           Morning
         </Button>
         <Button
           onClick={handleClick}
           variant={selected === 'afternoon' ? 'contained' : 'outlined'}
+          size={smallPhone ? 'small' : 'big'}
+          sx={{
+            ':hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.14)',
+              fontWeight: 600,
+            },
+          }}
         >
           Afternoon
         </Button>

@@ -84,8 +84,8 @@ const ModalWrapper = styled(({ children, ...props }) => {
   return {
     display: showSummary && 'flex',
     flexDirection: showSummary && 'column',
-    gap: showSummary && '2.5em',
-    margin: smallPhone && '0 2em',
+
+    margin: smallPhone && '0 1em',
 
     '&  .summary': {
       visibility: showSummary ? `visible` : 'hidden',
@@ -103,7 +103,7 @@ const SummaryContainer = styled(({ show, ...props }) => {
   return <Paper {...props} />;
 })(({ theme }) => {
   return {
-    maxWidth: 500,
+    maxWidth: 600,
     justifyContent: 'center',
     flexDirection: 'column',
     margin: '0',
@@ -150,8 +150,19 @@ const Input = styled(({ icon, error, ...props }) => {
 })(({ theme, smallPhone }) => {
   return {
     margin: '1em',
-    width: !smallPhone ? '200px' : '65vw',
 
+    [theme.breakpoints.up('xs')]: {
+      width: !smallPhone ? '200px' : '65vw',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '260px',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '360px',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '360px',
+    },
     textarea: {
       color: 'white',
       letterSpacing: '0.05em',
@@ -175,15 +186,18 @@ const Input = styled(({ icon, error, ...props }) => {
         },
       },
     },
-
-    // .css-1eke8a3-MuiInputBase-root-MuiInput-root:after {
   };
 });
 
 const Form = styled(({ ...props }) => {
   return <Box noValidate component="form" {...props} />;
-})(({ theme, props }) => {
-  return { gap: '1em', padding: '1 0em', display: 'flex' };
+})(({ theme, smallPhone }) => {
+  return {
+    gap: '1em',
+    padding: '1 0em',
+    display: 'flex',
+    flexDirection: smallPhone ? 'column' : 'row',
+  };
 });
 
 const Checkbox = styled(({ ...props }) => {

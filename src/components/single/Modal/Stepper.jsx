@@ -7,7 +7,11 @@ import {
 } from 'components/single/Modal/styled/stepper';
 export default function Stepper({ bookingStep }) {
   return (
-    <Box display="flex" justifyContent="center" sx={{ margin: '1.3em auto' }}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      sx={{ marginTop: '1em', marginBottom: '2.5em' }}
+    >
       <StepOne>
         <Slider bookingStep={bookingStep} />
       </StepOne>
