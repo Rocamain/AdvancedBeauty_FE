@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BookingContext } from 'context/BookingContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import useShowSummary from 'hooks/useShowSummary';
 import { Modal as MuiModal, Button } from '@mui/material/';
 import Stepper from 'components/single/Modal/Stepper';
@@ -31,6 +32,8 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
     }));
   };
 
+  const smallPhone = useMediaQuery('(max-width:460px)');
+
   return (
     <BookingContext.Provider value={{ booking, setBooking }}>
       <MuiModal
@@ -43,9 +46,13 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
       >
         {/* <DialogContent> */}
         <Dialog>
-          <ModalWrapper fadeIn={bookingStep > 1} showSummary={showSummary}>
-            <Stepper bookingStep={bookingStep} />
-            <ExitBtn onClick={handleExitBtn} />
+          <Stepper bookingStep={bookingStep} />
+          <ExitBtn onClick={handleExitBtn} />
+          <ModalWrapper
+            smallPhone={smallPhone}
+            fadeIn={bookingStep > 1}
+            showSummary={showSummary}
+          >
             <Header
               className="header"
               title={serviceType}

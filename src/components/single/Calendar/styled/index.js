@@ -3,9 +3,20 @@ import { addYears } from 'date-fns';
 import { Button, Grid as MuiGrid, styled } from '@mui/material';
 
 const GridContainer = styled((props) => (
-  <MuiGrid {...props} container spacing={0} justifyContent="center" />
+  <MuiGrid {...props} container spacing={[0, 0, 2]} justifyContent="center" />
 ))(({ theme, props }) => {
-  return {};
+  return {
+    minWidth: 280,
+    maxWidth: 300,
+    margin: '0 auto',
+    [theme.breakpoints.up('md')]: {
+      minWidth: 800,
+      maxWidth: 900,
+    },
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: 1300,
+    },
+  };
 });
 
 const TimeAvailableBtn = styled((props) => {
@@ -25,23 +36,32 @@ const CalendarPicker = styled(({ date, ...props }) => {
       fullWidth
       {...props}
       disableHighlightToday
+      sx={{ minWidth: [240, 300, 330, 380], maxWidth: [300, 500, 300] }}
     />
   );
 })(({ theme, props }) => {
   return {
     margin: '0 auto',
     maxHeight: 'none',
-    minWidth: 380,
-    maxWidth: 600,
+    width: '100%',
 
     // HEADER Month and icons
     '> div:nth-of-type(1)': {
       marginBottom: '1em',
       justifyContent: 'space-evenly',
-      fontSize: '1.5rem ',
+      fontSize: '2.7rem ',
       margin: 0,
+
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '2.8rem',
+      },
+      // Month
       '& >div[role=presentation]': {
-        fontSize: '1.3rem',
+        fontSize: '1.5rem',
+
+        [theme.breakpoints.down('sm')]: {
+          fontSize: '1.3rem',
+        },
       },
       svg: {},
     },
@@ -51,44 +71,53 @@ const CalendarPicker = styled(({ date, ...props }) => {
       '> div:nth-of-type(1)': {
         justifyContent: 'space-evenly',
         span: {
-          fontSize: '1rem',
+          fontSize: '1.2rem',
         },
-        '& span:nth-of-type(1)': {
-          ':after': {
-            content: "'on'",
-          },
-        },
-        '& span:nth-of-type(2)': {
-          ':after': {
-            content: "'ue'",
-          },
-        },
-        '& span:nth-of-type(3)': {
-          ':after': {
-            content: "'ed'",
-          },
-        },
-        '& span:nth-of-type(4)': {
-          ':after': {
-            content: "'hu'",
-          },
-        },
-        '& span:nth-of-type(5)': {
-          ':after': {
-            content: "'ri'",
-          },
-        },
+
         '& span:nth-of-type(6)': {
           color: '#0693e3',
-          ':after': {
-            content: "'at'",
-          },
         },
         '& span:nth-of-type(7)': {
           color: '#0693e3',
-          ':after': {
+        },
+        [theme.breakpoints.up('sm')]: {
+          '& span:nth-of-type(1)': {
+            ':after': {
+              content: "'on'",
+            },
+          },
+          '& span:nth-of-type(2)': {
+            ':after': {
+              content: "'ue'",
+            },
+          },
+          '& span:nth-of-type(3)': {
+            ':after': {
+              content: "'ed'",
+            },
+          },
+          '& span:nth-of-type(4)': {
+            ':after': {
+              content: "'hu'",
+            },
+          },
+          '& span:nth-of-type(5)': {
+            ':after': {
+              content: "'ri'",
+            },
+          },
+          '& span:nth-of-type(6)': {
             color: '#0693e3',
-            content: "'un'",
+            ':after': {
+              content: "'at'",
+            },
+          },
+          '& span:nth-of-type(7)': {
+            color: '#0693e3',
+            ':after': {
+              color: '#0693e3',
+              content: "'un'",
+            },
           },
         },
       },
@@ -118,7 +147,23 @@ const CalendarPicker = styled(({ date, ...props }) => {
       '.MuiPickersDay-root': {
         display: 'flex',
         fontSize: '1.3rem',
-        '& .Mui-selected': { backgroundColor: 'green' },
+        backgroundColor: 'transparent',
+        [theme.breakpoints.down('sm')]: {
+          fontSize: '1.1rem',
+        },
+        '&:hover': {
+          backgroundColor: 'rgba(0, 0, 0, 0.14)',
+          color: 'black',
+          // opacity: '0.2',
+        },
+        '&.Mui-selected': {
+          backgroundColor: '#75C9CC',
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.14)',
+            color: 'black',
+            // opacity: '0.2',
+          },
+        },
       },
     },
   };

@@ -23,7 +23,7 @@ const DialogContainer = styled((props) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '80vw',
-    minHeight: '70vh',
+    minHeight: '73vh',
     backgroundImage: `url(${circles})`,
     backgroundSize: 'contain',
     backgroundColor: 'white',
@@ -32,6 +32,13 @@ const DialogContainer = styled((props) => {
     paddingBottom: 3,
     [theme.breakpoints.down('sm')]: {
       width: '100vw',
+    },
+    [theme.breakpoints.up('md')]: {
+      minHeight: 600,
+      maxWidth: 800,
+    },
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: 1000,
     },
   };
 });
@@ -46,7 +53,7 @@ const Dialog = forwardRef((props, ref) => {
 
 const ModalWrapper = styled(({ children, ...props }) => {
   return <Box {...props} children={children} />;
-})(({ theme, showSummary, fadeIn }) => {
+})(({ theme, showSummary, fadeIn, smallPhone }) => {
   const fadeOutAnimation = keyframes`
 0% {
   opacity: 0;
@@ -78,6 +85,7 @@ const ModalWrapper = styled(({ children, ...props }) => {
     display: showSummary && 'flex',
     flexDirection: showSummary && 'column',
     gap: showSummary && '2.5em',
+    margin: smallPhone && '0 2em',
 
     '&  .summary': {
       visibility: showSummary ? `visible` : 'hidden',
@@ -139,10 +147,11 @@ const Input = styled(({ icon, error, ...props }) => {
       error={error}
     />
   );
-})(({ theme, props }) => {
+})(({ theme, smallPhone }) => {
   return {
     margin: '1em',
-    width: '200px',
+    width: !smallPhone ? '200px' : '65vw',
+
     textarea: {
       color: 'white',
       letterSpacing: '0.05em',
@@ -178,7 +187,6 @@ const Form = styled(({ ...props }) => {
 });
 
 const Checkbox = styled(({ ...props }) => {
-  console.log(props);
   return <MuiCheckbox disableRipple color="secondary" {...props} />;
 })(({ theme, props }) => {
   return {
@@ -199,5 +207,3 @@ export {
   Form,
   Checkbox,
 };
-
-// class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-multiline MuiInputBase-adornedStart css-1eke8a3-MuiInputBase-root-MuiInput-root"

@@ -31,7 +31,7 @@ export default forwardRef(({ fadeIn, ...props }, ref) => {
     <Box
       sx={(theme) => {
         return {
-          margin: '1em 1em 0.5em 2em',
+          margin: '2em auto',
           animation: fadeIn && `${fadeInAnimation} 0.7s linear forwards 0.2s`,
         };
       }}
@@ -75,7 +75,7 @@ const Calendar = (props) => {
         <Grid
           item
           xs={12}
-          md={4}
+          md={5}
           sx={{ position: 'relative', overflow: 'hidden' }}
         >
           <CalendarPicker date={date} onChange={handleChange} />
@@ -83,7 +83,7 @@ const Calendar = (props) => {
         <Grid
           item
           xs={12}
-          md={4}
+          md={5}
           sx={{
             position: 'relative',
             overflowX: 'hidden',
@@ -92,17 +92,6 @@ const Calendar = (props) => {
         >
           <TimeSelector date={date} timesAvailable={timesAvailable} />
         </Grid>
-
-        <Grid
-          item
-          xs={10}
-          md={4}
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            marginBottom: '1em',
-          }}
-        ></Grid>
       </GridContainer>
     </LocalizationProvider>
   );
