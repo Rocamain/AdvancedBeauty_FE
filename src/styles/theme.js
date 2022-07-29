@@ -237,12 +237,13 @@ theme = createTheme(theme, {
     summaryHeader: {
       color: '#c48037',
       fontWeight: '700',
-      letterSpacing: '0.05em',
-      fontSize: '1.5rem',
+      letterSpacing: '0.08em',
+      fontSize: '1.7rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
+
       [theme.breakpoints.down('sm')]: {
-        fontSize: '1.25rem',
+        fontSize: '1.45rem',
       },
     },
     conditions: {
@@ -253,15 +254,16 @@ theme = createTheme(theme, {
       letterSpacing: '0.09em',
       fontFamily: ['Abel', 'Open Sans'].join(','),
     },
-
-    // Components override.
-
-    MuiTypography: {
+  },
+  // Components override.
+  components: {
+    MuiButton: {
       styleOverrides: {
         root: {
-          wordBreak: 'break-word',
-          wordWrap: 'break-word',
-          whiteSpace: 'pre-wrap',
+          ':hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.14)',
+            color: 'orange',
+          },
         },
       },
     },

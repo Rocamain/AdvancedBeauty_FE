@@ -37,6 +37,6 @@ const Container = styled((props) => {
 })(({ theme, props }) => {
   return {
     backgroundColor: 'transparent ! important',
-    marginBottom: '1.5em',
+    marginBottom: '2.5em',
   };
 });

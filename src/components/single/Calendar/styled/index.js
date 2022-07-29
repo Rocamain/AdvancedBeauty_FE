@@ -3,12 +3,22 @@ import { addYears } from 'date-fns';
 import { Button, Grid as MuiGrid, styled } from '@mui/material';
 
 const GridContainer = styled((props) => (
-  <MuiGrid {...props} container spacing={[0, 0, 2]} justifyContent="center" />
+  <MuiGrid
+    {...props}
+    container
+    rowSpacing={[0, 2, 2, 9]}
+    columnSpacing={[0, 0, 1, 4]}
+    justifyContent="center"
+  />
 ))(({ theme, props }) => {
   return {
-    minWidth: 280,
-    maxWidth: 300,
+    minWidth: 250,
+    maxWidth: 330,
     margin: '0 auto',
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 330,
+      maxWidth: 380,
+    },
     [theme.breakpoints.up('md')]: {
       minWidth: 800,
       maxWidth: 900,
@@ -36,7 +46,7 @@ const CalendarPicker = styled(({ date, ...props }) => {
       fullWidth
       {...props}
       disableHighlightToday
-      sx={{ minWidth: [240, 300, 330, 380], maxWidth: [300, 500, 300] }}
+      sx={{ minWidth: [240, 330, 330, 380], maxWidth: [300, 500, 300] }}
     />
   );
 })(({ theme, props }) => {
@@ -47,20 +57,34 @@ const CalendarPicker = styled(({ date, ...props }) => {
 
     // HEADER Month and icons
     '> div:nth-of-type(1)': {
-      marginBottom: '1em',
-      justifyContent: 'space-evenly',
-      fontSize: '2.7rem ',
       margin: 0,
+      marginBottom: '1em',
 
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: '0.7em',
+        paddingRight: '0.1em',
+      },
       [theme.breakpoints.down('sm')]: {
-        fontSize: '2.8rem',
+        // padding: 0,
+        marginBottom: '0.2em',
       },
       // Month
       '& >div[role=presentation]': {
-        fontSize: '1.5rem',
+        fontSize: '2rem',
+        lineHeight: 1.1,
 
+        fontFamily: ['Abel'].join(','),
+        fontWeight: 700,
+        color: 'orange',
         [theme.breakpoints.down('sm')]: {
-          fontSize: '1.3rem',
+          fontSize: '1.7rem',
+          minHeight: '70px',
+          maxHeight: '70px',
+          pointerEvents: 'none',
+          '& >div': {
+            // minHeight: '60px',
+            // maxHeight: '100px',
+          },
         },
       },
       svg: {},
@@ -71,7 +95,9 @@ const CalendarPicker = styled(({ date, ...props }) => {
       '> div:nth-of-type(1)': {
         justifyContent: 'space-evenly',
         span: {
-          fontSize: '1.2rem',
+          fontSize: '1.3rem',
+          fontFamily: ['Open Sans', 'Abel'].join(','),
+          fontWeight: '500',
         },
 
         '& span:nth-of-type(6)': {
@@ -79,6 +105,12 @@ const CalendarPicker = styled(({ date, ...props }) => {
         },
         '& span:nth-of-type(7)': {
           color: '#0693e3',
+        },
+        [theme.breakpoints.down('sm')]: {
+          span: {
+            fontWeight: '700',
+            fontSize: '1.1rem',
+          },
         },
         [theme.breakpoints.up('sm')]: {
           '& span:nth-of-type(1)': {
@@ -107,15 +139,14 @@ const CalendarPicker = styled(({ date, ...props }) => {
             },
           },
           '& span:nth-of-type(6)': {
-            color: '#0693e3',
+            color: 'orange',
             ':after': {
               content: "'at'",
             },
           },
           '& span:nth-of-type(7)': {
-            color: '#0693e3',
+            color: 'orange',
             ':after': {
-              color: '#0693e3',
               content: "'un'",
             },
           },
@@ -147,21 +178,21 @@ const CalendarPicker = styled(({ date, ...props }) => {
       '.MuiPickersDay-root': {
         display: 'flex',
         fontSize: '1.3rem',
+        fontFamily: ['Open Sans', 'Helvetica'].join(','),
         backgroundColor: 'transparent',
         [theme.breakpoints.down('sm')]: {
           fontSize: '1.1rem',
+          fontWeight: 500,
         },
         '&:hover': {
           backgroundColor: 'rgba(0, 0, 0, 0.14)',
-          color: 'black',
-          // opacity: '0.2',
+          fontWeight: 700,
+          color: 'orange',
         },
         '&.Mui-selected': {
           backgroundColor: '#75C9CC',
           '&:hover': {
             backgroundColor: 'rgba(0, 0, 0, 0.14)',
-            color: 'black',
-            // opacity: '0.2',
           },
         },
       },
