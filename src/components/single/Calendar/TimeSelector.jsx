@@ -1,3 +1,5 @@
+import { useContext, useEffect } from 'react';
+import { BookingContext } from 'context/BookingContext';
 import { Button, Box, IconButton } from '@mui/material';
 import useButtonSelected from 'hooks/useButtonSelected';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -10,6 +12,7 @@ export default function TimeSelector({ date, timesAvailable }) {
     date,
     timesAvailable,
   });
+  const { setBooking, booking } = useContext(BookingContext);
 
   const handleClick = (event) => {
     const btnTimeFrameText = event.target.innerText;
@@ -17,6 +20,12 @@ export default function TimeSelector({ date, timesAvailable }) {
   };
 
   const smallPhone = useMediaQuery('(max-width:460px)');
+  useEffect(() => {
+    if (selected !== 'all') {
+      setBooking({ ...booking, bookingStep: 0 });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected]);
 
   return (
     <Box>

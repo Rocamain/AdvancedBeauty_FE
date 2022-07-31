@@ -71,6 +71,8 @@ const PopoverMenu = styled((props) => (
     {...props}
   />
 ))(({ theme }) => ({
+  border: 'none',
+
   [theme.breakpoints.up('md')]: {
     display: 'none',
   },
@@ -139,21 +141,22 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
 const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
   ({ theme }) => {
     return {
-      padding: 0,
+      padding: '0',
       display: 'block',
       margin: '0 auto',
       [theme.breakpoints.down('md')]: {
         width: '85vw ! important',
-        padding: '0.5em 0',
+        padding: '1em 0',
+
         borderTop: `2px solid ${theme.palette.tertiary.main}`,
       },
     };
   }
 );
 const MenuLink = styled(
-  ({ mainLink, to, replace, state, children, ...props }) => {
+  ({ mainLink, to, replace, state, children, isFirst, ...props }) => {
     return (
-      <MenuItem disableGutters {...props}>
+      <MenuItem disableGutters dense {...props}>
         <Link to={to} replace={replace} state={state}>
           <Typography component="h3" variant="p">
             {children}
@@ -162,20 +165,29 @@ const MenuLink = styled(
       </MenuItem>
     );
   }
-)(({ theme, mainLink }) => ({
-  padding: 0,
-  a: {
-    [theme.breakpoints.down('md')]: {
-      padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
-      backgroundColor: mainLink && 'rgba(0,0,0,3%)',
+)(({ theme, mainLink, isFirst }) => {
+  return {
+    // padding: 0,
+    backgroundColor: isFirst && mainLink && 'rgba(0,0,0,9%)',
+    '&.Mui-selected': {
+      backgroundColor: 'rgba(117, 201, 204, 0.38)',
     },
-  },
-}));
+    a: {
+      [theme.breakpoints.down('md')]: {
+        padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
+      },
+    },
+    h3: {
+      color: '#666',
+      fontWeight: 600,
+    },
+  };
+});
 
 const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => ({
   display: 'block',
   textDecoration: 'none',
-  color: 'black',
+
   padding: '1em 1.5em',
 }));
 
