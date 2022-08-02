@@ -37,6 +37,7 @@ theme = createTheme(theme, {
   typography: {
     fontFamily: ['Abel', 'Open Sans'].join(','),
     fontSize: 8,
+    color: '#E666',
     h1: {
       fontWeight: '300',
       fontSize: '5rem',
@@ -52,7 +53,7 @@ theme = createTheme(theme, {
       letterSpacing: '-0.008em',
     },
     h3: {
-      fontWeight: '400',
+      fontWeight: '600',
       fontSize: '3rem',
       lineHeight: 1.2,
       fontFamily: ['Abel', 'Open Sans'].join(','),
@@ -73,7 +74,7 @@ theme = createTheme(theme, {
       letterSpacing: '-0.01rem',
     },
     p: {
-      fontWeight: '400',
+      fontWeight: '600',
       fontSize: '1.1rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),

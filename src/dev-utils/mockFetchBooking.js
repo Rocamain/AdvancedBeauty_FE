@@ -15,7 +15,7 @@ const fetchBookingTimes = ({ pathname, date, serviceName }) => {
 
   return delay(500).then(() => {
     switch (url) {
-      case '/Services-in-Palma-de-Majorca/Nam-cursus,-sapien/2022/7/30':
+      case '/Services-in-Palma-de-Majorca/Nam-cursus,-sapien/2022/7/31':
         return [
           '8:00',
           '8:30',

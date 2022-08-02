@@ -154,12 +154,12 @@ const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
   }
 );
 const MenuLink = styled(
-  ({ mainLink, to, replace, state, children, isFirst, ...props }) => {
+  ({ mainLink, to, replace, state, title, isFirst, ...props }) => {
     return (
       <MenuItem disableGutters dense {...props}>
-        <Link to={to} replace={replace} state={state}>
+        <Link to={to} state={state}>
           <Typography component="h3" variant="p">
-            {children}
+            {title}
           </Typography>
         </Link>
       </MenuItem>
@@ -167,7 +167,6 @@ const MenuLink = styled(
   }
 )(({ theme, mainLink, isFirst }) => {
   return {
-    // padding: 0,
     backgroundColor: isFirst && mainLink && 'rgba(0,0,0,9%)',
     '&.Mui-selected': {
       backgroundColor: 'rgba(117, 201, 204, 0.38)',
@@ -175,6 +174,8 @@ const MenuLink = styled(
     a: {
       [theme.breakpoints.down('md')]: {
         padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
+        // flex: 1,
+        width: '100%',
       },
     },
     h3: {

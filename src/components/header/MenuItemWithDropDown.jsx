@@ -1,22 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
-import { DropDownMenu, MenuLink, Link } from 'components/header/styled/index';
-import { MenuItem, Typography } from '@mui/material';
+import { DropDownMenu } from 'components/header/styled/index';
+import MenuLink from 'components/header/MenuLink.jsx';
 
 export default function MenuItemWithDropDown({
   link,
-  selectedIndex,
+  selectedMain,
+  selectedDrop,
   handleHover,
   isHover,
-  setSelectedIndex,
+  handleSelect,
 }) {
-  const ref = useRef(null);
-
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [click, setClick] = useState(false);
+  const ref = useRef(null);
 
   useEffect(() => {
     setOpen(false);
+
     if (isHover) {
       setAnchorEl(ref.current);
       setOpen(true);
@@ -29,19 +29,10 @@ export default function MenuItemWithDropDown({
     handleHover(event);
   };
 
-  const handleClickMain = (e) => {
-    e.preventDefault();
-    setOpen(false);
-    setSelectedIndex(anchorEl.textContent);
-
-    window.scrollTo(0, 0);
-  };
-
-  const handleClickDrop = (e) => {
+  const handleClick = (e, path) => {
     e.stopPropagation();
-    setClick(true);
+    handleSelect(e, path);
     setOpen(false);
-    setSelectedIndex(anchorEl.textContent);
   };
 
   const id = open
@@ -51,24 +42,20 @@ export default function MenuItemWithDropDown({
     'dropdown-button-' + link.title.replace(' ', '-').toLowerCase();
 
   return (
-    <MenuItem
+    <MenuLink
       ref={ref}
       id={linkId}
       aria-controls={open ? 'dropdown-menu' : null}
       aria-haspopup="true"
       aria-expanded={open ? 'true' : null}
-      onClick={handleClickMain}
+      onClick={(e) => handleClick(e, link.path)}
       onMouseOver={() => handleHover(link.title)}
       onMouseLeave={handleClose}
-      selected={selectedIndex}
-      sx={{ padding: 0 }}
+      selected={selectedMain === link.path}
       disableGutters
+      title={link.title}
+      to={link.path}
     >
-      <Link to={link.path}>
-        <Typography component="h3" variant="p">
-          {link.title}
-        </Typography>
-      </Link>
       <DropDownMenu
         id={id}
         aria-labelledby={linkId}
@@ -78,20 +65,19 @@ export default function MenuItemWithDropDown({
         onMouseLeave={handleClose}
       >
         {link.items.map((dropdownLink, index) => {
-          const { path } = dropdownLink;
+          const { path, title } = dropdownLink;
 
           return (
             <MenuLink
               key={index}
-              onClick={handleClickDrop}
+              onClick={(e) => handleClick(e, path)}
+              selected={path.includes(selectedDrop)}
               to={path}
-              state={{ click }}
-            >
-              {dropdownLink.title}
-            </MenuLink>
+              title={title}
+            />
           );
         })}
       </DropDownMenu>
-    </MenuItem>
+    </MenuLink>
   );
 }

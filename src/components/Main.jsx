@@ -7,7 +7,7 @@ import useScrollTo from 'hooks/useScrollTo';
 function Main() {
   const { scrollToRef } = useScrollTo();
   const { pathname } = useLocation();
-  const path = pathname === '/' ? 'Home' : pathname.replaceAll('/', '');
+  const path = pathname === '/' ? 'Home' : pathname.replace('/', '');
   const { error, loading, data } = useFetchData(path);
 
   return (
