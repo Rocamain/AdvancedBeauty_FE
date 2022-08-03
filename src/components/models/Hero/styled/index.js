@@ -8,20 +8,18 @@ const HeroContainer = styled(Box)(({ theme, cover, biggerBackground }) => {
     display: 'flex',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    height: biggerBackground ? '70vh' : '40vh',
-    paddingTop: '4em',
+    paddingTop: '2em',
     backgroundImage: `linear-gradient(1deg,#ffffff 11%,rgba(255,255,255,0) 68%),url(${cover.url})!important`,
     backgroundSize: 'cover, cover',
     backgroundColor: '#FFFFFF',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '50%',
-
-    [theme.breakpoints.down('sm')]: {
-      height: biggerBackground ? '70vh' : '25vh',
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: '3em',
     },
     [theme.breakpoints.up('md')]: {
+      paddingTop: biggerBackground ? '4em' : '12em',
       justifyContent: 'flex-end',
-      paddingTop: '0',
     },
   };
 });
@@ -88,14 +86,13 @@ const HeroContentWrapper = styled(Box)(({ theme, cover }) => {
 const WavesBackground = styled(Box)(({ theme, biggerBackground }) => {
   return {
     position: 'absolute',
-    left: '0',
-    right: '0',
     bottom: '0',
     backgroundImage: `url(${curves})`,
     backgroundRepeatY: 'no-repeat',
-    backgroundSize: '100% 500px',
-    height: biggerBackground ? '60%' : '90%',
-    transform: 'scale(1,1)',
+    backgroundSize: '100% 100%',
+    width: '100%',
+    height: '70%',
+    transform: 'scale(1.1)',
   };
 });
 

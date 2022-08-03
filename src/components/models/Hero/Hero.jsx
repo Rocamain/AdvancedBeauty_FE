@@ -12,10 +12,10 @@ import { Divider } from 'components/shared/styled/';
 import Button from 'components/shared/Button';
 
 export default function Hero({ content, title, subTitle, cover, button }) {
-  const biggerBackground = content ? 1 : 0;
+  const biggerBackground = Boolean(content);
 
   return (
-    <Box>
+    <Box sx={{ position: 'relative', marginBottom: ['5vh', '7vh'] }}>
       <HeroContainer
         className="container"
         cover={cover}
