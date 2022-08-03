@@ -4,14 +4,23 @@ import { Box } from '@mui/material';
 export default function MobileMenu({
   links,
   onClose,
-  setSelectedIndex,
-  selectedIndex,
+  handleSelect,
+  selectedLink,
 }) {
-  const handleClick = (index) => {
+  const handleClick = (e, { parentPath, path }) => {
+    if (parentPath) {
+      const fullPath = `/${parentPath}/${path}`;
+
+      handleSelect(e, fullPath);
+    } else {
+      const slashedPath = !path.includes('/') ? '/' + path : path;
+
+      handleSelect(e, `${slashedPath}`);
+    }
+
     if (onClose) {
       onClose();
     }
-    setSelectedIndex(index.target.textContent);
   };
 
   const isMainLink = (link) => {
@@ -21,22 +30,40 @@ export default function MobileMenu({
   return (
     <LinksMenu>
       {links.map((link, index) => {
+        const slashedPath = !link.path.includes('/')
+          ? '/' + link.path
+          : link.path;
+        let fullPath = slashedPath;
+        if (link?.parent?.path) {
+          fullPath = `/${link.parent.path}/${link.path}`;
+        }
+
         return (
           <Box key={index} sx={{ margin: '0 2em' }}>
             <MenuLink
               key={index}
-              onClick={handleClick}
+              onClick={(e) =>
+                handleClick(e, {
+                  parentPath: link?.parent?.path,
+                  path: link.path,
+                })
+              }
               isFirst={index !== 0}
+              replace={true}
               to={
                 isMainLink(link)
-                  ? link.path
+                  ? `${link.path}`
                   : link.parent.path + '/' + link.path
               }
               mainLink={isMainLink(link)}
-              selected={link.title === selectedIndex}
-            >
-              {link.title}
-            </MenuLink>
+              selected={
+                fullPath ===
+                (selectedLink.dropLink
+                  ? selectedLink.mainLink + selectedLink.dropLink
+                  : selectedLink.mainLink)
+              }
+              title={link.title}
+            />
           </Box>
         );
       })}

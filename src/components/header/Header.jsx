@@ -2,6 +2,7 @@
 import { useState, useRef } from 'react';
 import useFetchData from 'hooks/useFetchData';
 import useNavigation from 'hooks/useNavigation';
+import useMenuLinkSelected from 'hooks/useMenuLinkSelected';
 
 //// components, layouts and style hooks imports
 
@@ -17,30 +18,21 @@ import {
 } from 'components/header/styled/index';
 import ScreenMenu from 'components/header/ScreenMenu';
 import MobileMenu from 'components/header/MobileMenu';
-import { useLocation } from 'react-router-dom';
 
 export default function Header() {
   // states and hooks
   const { data, loading } = useFetchData('Logo');
   const navigation = useNavigation();
+  const { selectedLink, setSelectedLink, pathBuilder } = useMenuLinkSelected();
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
-  const { pathname } = useLocation();
-
-  const formattedPath =
-    pathname === '/'
-      ? 'Home'
-      : pathname.replaceAll('/', '').replaceAll('-', ' ');
-
-  const [selectedIndex, setSelectedIndex] = useState(formattedPath);
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const ref = useRef(null);
   const open = Boolean(anchorEl);
-
   const id = open ? 'simple-popover' : null;
 
   const handleOpen = () => {
@@ -51,6 +43,15 @@ export default function Header() {
     setAnchorEl(null);
   };
 
+  const handleSelect = (e, fullPath) => {
+    const splitPath = pathBuilder(fullPath);
+    setSelectedLink(splitPath);
+    const hasHash = fullPath.includes('#');
+    if (!hasHash) {
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     data &&
     navigation && (
@@ -58,12 +59,11 @@ export default function Header() {
         <HeaderContainer ref={ref}>
           <Wrapper fixed>
             <Logo src={data.photo.url} alt={data.photo.alternativeText} />
-
             {matchesBigScreens ? (
               <ScreenMenu
                 links={navigation.nestedList}
-                selectedIndex={selectedIndex}
-                setSelectedIndex={setSelectedIndex}
+                selectedLink={selectedLink}
+                handleSelect={handleSelect}
               />
             ) : (
               <BurgerButton
@@ -85,8 +85,8 @@ export default function Header() {
         >
           <MobileMenu
             links={navigation.flatList}
-            selectedIndex={selectedIndex}
-            setSelectedIndex={setSelectedIndex}
+            selectedLink={selectedLink}
+            handleSelect={handleSelect}
             onClose={handleClose}
           />
         </PopoverMenu>
