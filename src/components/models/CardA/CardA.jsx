@@ -11,7 +11,6 @@ export default function CardA({
   background,
   ...props
 }) {
-  console.log(sectionTitle.title);
   return (
     <Box>
       <Container background={background}>
