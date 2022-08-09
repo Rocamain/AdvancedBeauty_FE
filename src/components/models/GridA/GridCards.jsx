@@ -27,13 +27,13 @@ const GridCards = ({ cards }) => {
       md={5}
       container
       alignItems="flex-start"
-      sx={{
+      sx={(theme) => ({
         margin: ' 0 auto',
-        marginBottom: '-14em',
+        marginBottom: theme.spacing(-16),
         paddingTop: '2em',
         gap: '2em',
         justifyContent: 'center',
-      }}
+      })}
     >
       {/* FIRST COLUMN */}
       <Grid

@@ -20,10 +20,29 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
   }
 );
 
+const top = (theme, background, show) => {
+  if (background === 'full') {
+    return [theme.spacing(20), theme.spacing(30)];
+  }
+
+  if (background === 'full' && show === 'cards') {
+    return [theme.spacing(20), theme.spacing(30)];
+  }
+
+  if (show === 'photo' && background === 'full') {
+    return [theme.spacing(25), theme.spacing(30)];
+  }
+  if (show === 'photo') {
+    return [theme.spacing(5)];
+  }
+};
+
 const Container = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, background }) => {
-    let styles = {
-      padding: theme.spacing(12, 0),
+  ({ theme, background, show }) => {
+    return {
+      position: (background === 'full' || show === 'photo') && 'relative',
+      top: top(theme, background, show),
+      padding: background === 'full' && theme.spacing(12, 0),
       width: '100%',
       backgroundImage:
         background === 'full'
@@ -34,10 +53,9 @@ const Container = styled((props) => <Box component="div" {...props} />)(
       flexWrap: 'wrap',
       [theme.breakpoints.up('md')]: {
         flexWrap: 'nowrap',
+        //
       },
     };
-
-    return { ...styles };
   }
 );
 const Wrapper = styled((props) => <Box component="div" {...props} />)(

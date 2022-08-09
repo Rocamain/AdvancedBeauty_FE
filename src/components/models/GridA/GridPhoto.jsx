@@ -4,14 +4,14 @@ export default function GridPhoto(photo) {
   return (
     <Grid item component="div" xs={12} sm={6} container={true}>
       <Box
-        sx={{
+        sx={(theme) => ({
           position: 'relative',
-          top: ['-1em', '-1em', '-6em'],
+          top: theme.spacing(-5),
           right: photo.columnOrder === 'first' ? '10vw' : 0,
           zIndex: 200,
           minWidth: ['100vw', 'calc(100% + 10vw)'],
           overflowX: 'visible',
-        }}
+        })}
       >
         <Box
           component="img"
