@@ -159,9 +159,6 @@ const Grid = styled(({ show, photoColumn, ...props }) => {
   };
 
   return {
-    backgroundColor: !backgroundImageSelector[background]
-      ? '#F4F9FC'
-      : 'transparent',
     backgroundImage: backgroundImageSelector[background],
     margin:
       background === 'full'

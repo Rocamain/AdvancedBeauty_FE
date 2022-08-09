@@ -56,7 +56,7 @@ export default function GridA({
             photoColumn={photoColumn}
             onLoad={() => setLoaded(true)}
           >
-            <GridText {...data} />
+            <GridText show={show} {...data} />
             {show === 'cards'
               ? data.cards && <GridCards {...data} />
               : photo && <GridPhoto {...photo} columnOrder={photoColumn} />}
