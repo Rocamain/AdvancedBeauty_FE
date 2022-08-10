@@ -15,7 +15,7 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
       borderColor: '#ffd4a3',
       borderBottomWidth: 'medium',
       width: type === 'center' ? '10%' : '60%',
-      marginBottom: type === 'center' && '5.5em',
+      marginBottom: type === 'center' && '50px',
     };
   }
 );
@@ -48,41 +48,26 @@ const Container = styled((props) => <Box component="div" {...props} />)(
         background === 'full'
           ? 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important'
           : null,
-
-      display: 'flex',
-      flexWrap: 'wrap',
-      [theme.breakpoints.up('md')]: {
-        flexWrap: 'nowrap',
-        //
-      },
     };
   }
 );
 const Wrapper = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, background, flex = false }) => {
+  ({ theme }) => {
     let styles = {
-      width: '80%',
+      width: '100%',
       margin: '0 auto',
-
-      [theme.breakpoints.up('lg')]: {
-        width: '65%',
-      },
-      [theme.breakpoints.up('xl')]: {
-        width: '55%',
-      },
-    };
-
-    const flexStyles = {
+      gap: theme.spacing(12),
       display: 'flex',
       flexWrap: 'wrap',
       [theme.breakpoints.up('md')]: {
+        gap: 0,
+        width: '80%',
         flexWrap: 'nowrap',
       },
+      [theme.breakpoints.up('xl')]: {
+        width: '65%',
+      },
     };
-
-    if (flex) {
-      styles = { ...styles, ...flexStyles };
-    }
 
     return { ...styles };
   }
@@ -91,7 +76,7 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
 const Card = styled(
   ({ button, handleClick, buttonTo, page, sectionTitle, ...props }) =>
     button ? (
-      <Box component="div" {...props}>
+      <Box component="div" {...props} sx={{ pointerEvents: 'auto' }}>
         <button onClick={handleClick}>{props.children}</button>
       </Box>
     ) : (
@@ -99,6 +84,7 @@ const Card = styled(
     )
 )(({ theme, isFirstCard }) => ({
   alignItems: 'flex-start',
+
   [theme.breakpoints.up('md')]: {
     transform: 'scale(1)',
     transition: 'transform 0.5s',
@@ -120,6 +106,8 @@ const Card = styled(
     color: isFirstCard ? 'white !important' : '#666 !important',
     padding: theme.spacing(4, 3.5),
     paddingBottom: theme.spacing(5),
+    cursor: 'pointer',
+    zIndex: 100,
   },
 }));
 

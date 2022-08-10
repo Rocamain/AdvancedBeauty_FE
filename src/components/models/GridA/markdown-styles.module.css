@@ -1,7 +1,16 @@
-.reactMarkDown {
+.reactMarkDown p,
+li {
   color: #666;
   font-size: 1.2rem;
-  line-height: 1.6rem;
+  line-height: 1.5em;
+  letter-spacing: 0.09em;
+  font-weight: 600;
+  fontfamily: Abel;
+}
+.reactMarkDown p strong {
+  color: black;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .reactMarkDown img {
