@@ -24,7 +24,8 @@ const GridCards = ({ cards }) => {
       component="div"
       xs={10}
       sm={12}
-      md={5}
+      md={7}
+      lg={6}
       container
       alignItems="flex-start"
       sx={(theme) => ({
@@ -42,7 +43,7 @@ const GridCards = ({ cards }) => {
         xs={10}
         sm={5}
         md={5}
-        container={true}
+        container
         rowSpacing="2em"
       >
         {cards.map((card, index) => {

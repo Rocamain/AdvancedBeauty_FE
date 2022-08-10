@@ -15,7 +15,14 @@ export default function GridText({
   const isPhoto = show === 'photo';
 
   return (
-    <Grid item component="div" xs={12} sm={isPhoto && 6} md={isPhoto ? 8 : 6}>
+    <Grid
+      item
+      component="div"
+      xs={12}
+      sm={isPhoto && 6}
+      md={isPhoto ? 8 : 5}
+      lg={isPhoto ? 8 : 6}
+    >
       <Box
         sx={{
           width: ['65%', '85%'],
