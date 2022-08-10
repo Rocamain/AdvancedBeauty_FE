@@ -12,52 +12,50 @@ export default function CardA({
   ...props
 }) {
   return (
-    <Box>
-      <Container background={background}>
-        <Wrapper flex>
-          <Box
+    <Container background={background}>
+      <Wrapper>
+        <Box
+          sx={{
+            margin: '0 auto',
+            maxWidth: { xs: '80%', md: '50%' },
+            position: { md: 'relative' },
+            paddingTop: '3em',
+            left: { md: '3vw' },
+            zIndex: '100',
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="title"
+            children={sectionTitle.title}
             sx={{
-              maxWidth: { md: '50%' },
-              position: { md: 'relative' },
-              right: '-2.5em',
-              zIndex: '100',
+              position: 'relative',
+              padding: ['0', '0', '1em 0'],
+              paddingRight: '1em',
             }}
-          >
+          />
+          <Divider />
+          <Card>
             <Typography
               component="h2"
-              variant="title"
-              children={sectionTitle.title}
+              children={content}
               sx={{
-                padding: ['0', '0', '1em 0'],
-                paddingRight: '1em',
-                marginBottom: '0.5em',
+                marginBottom: '1.5em',
+                fontWeight: 600,
+                letterSpacing: '0.09em',
+                color: '#666',
+                fontSize: '1.2rem',
+                lineHeight: '1.5em',
+                fontFamily: 'Abel',
               }}
             />
-
-            <Card>
-              <Divider />
-              <Typography
-                component="h2"
-                variant="body2"
-                children={content}
-                sx={{
-                  marginBottom: '1.5em',
-                }}
-              />
-              <Button {...button} />
-            </Card>
-          </Box>
-          <Box>
-            <Image
-              src={photo.url}
-              title="shop"
-              alt={photo.alternativeText}
-              srcSet={`${photo.formats?.large?.url} 1200w, ${photo.formats?.medium?.url} 980w, ${photo.formats?.small?.url} 480w`}
-              sizes="(min-width: 0px) and (max-width: 480px) 85vw, (min-width: 481px) and (max-width: 980px) 95vw, (min-width: 981px) 60vw, 100vw"
-            />
-          </Box>
-        </Wrapper>
-      </Container>
-    </Box>
+            <Button {...button} />
+          </Card>
+        </Box>
+        <Box sx={{ width: '100%', paddingTop: { md: '5em', xl: '0' } }}>
+          <Image src={photo.url} title="shop" alt={photo.alternativeText} />
+        </Box>
+      </Wrapper>
+    </Container>
   );
 }
