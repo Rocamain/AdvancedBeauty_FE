@@ -11,13 +11,18 @@ import {
 import Card from 'components/shared/Card';
 import { slideCard, slidePhoto } from './styles.js';
 
-export default function Carousel({ cards, background, sectionTitle }) {
+export default function Carousel({
+  slides,
+  background,
+  sectionTitle,
+  ...rest
+}) {
   const [slide, setSlide] = useState(0);
   const [exit, setExit] = useState(false);
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
-    const newIndex = (slide + increment + cards.length) % cards.length;
+    const newIndex = (slide + increment + slides.length) % slides.length;
 
     setExit(true);
 
@@ -56,7 +61,7 @@ export default function Carousel({ cards, background, sectionTitle }) {
 
         <Card
           className="card"
-          cards={cards}
+          cards={slides}
           animatedPhoto={animatedPhoto}
           cardAnimation={cardAnimation}
           slide={slide}
