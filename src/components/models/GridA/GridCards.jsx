@@ -6,16 +6,17 @@ const GridCards = ({ cards }) => {
   const navigate = useNavigate();
   const { pathname, hash } = useLocation();
 
-  const handleClick = (buttonTo, sectionTitle) => {
-    const URLTo = `/${buttonTo}/#${sectionTitle}`;
+  const handleClick = ({ path, section }) => {
+    const URLTo = `/${path}/#${section.replaceAll(' ', '-')}`;
     const currentURL = pathname + hash;
+
     const isSameLinkURL = URLTo === currentURL;
 
-    return sectionTitle
+    return section
       ? navigate(URLTo, {
           state: { SameOrigin: isSameLinkURL },
         })
-      : navigate(`/${buttonTo}`, { replace: true });
+      : navigate(`/${path}`, { replace: true });
   };
 
   return (
@@ -54,15 +55,14 @@ const GridCards = ({ cards }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() =>
-                    handleClick(
-                      card.page,
-                      card.sectionTitle.replaceAll(' ', '-')
-                    )
-                  }
+                  handleClick={() => handleClick(card.linkedTo)}
                   isFirstCard={isFirstCard}
                 >
-                  <ImageContainer src={card.photo.url} size="Big" />
+                  <ImageContainer
+                    src={card.photo.url}
+                    alt={card.photo.alternativeText}
+                    size="Big"
+                  />
                   <Typography
                     component="h4"
                     variant="h4"
@@ -103,14 +103,13 @@ const GridCards = ({ cards }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() =>
-                    handleClick(
-                      card.page,
-                      card.sectionTitle.replaceAll(' ', '-')
-                    )
-                  }
+                  handleClick={() => handleClick(card.linkedTo)}
                 >
-                  <ImageContainer src={card.photo.url} size="Big" />
+                  <ImageContainer
+                    src={card.photo.url}
+                    alt={card.photo.alternativeText}
+                    size="Big"
+                  />
                   <Typography
                     component="h4"
                     variant="h4"

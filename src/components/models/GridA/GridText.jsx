@@ -5,13 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from './markdown-styles.module.css';
 
-export default function GridText({
-  sectionTitle,
-  content,
-  button,
-  show,
-  ...data
-}) {
+export default function GridText({ sectionTitle, content, button, show }) {
   const isPhoto = show === 'photo';
 
   return (
