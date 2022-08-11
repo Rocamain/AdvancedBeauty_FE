@@ -2,50 +2,67 @@ import { Box, Typography } from '@mui/material';
 import { ImageContainer, Divider } from 'components/shared/styled/index.js';
 import { Container, Card, Title } from 'components/models/GridB/styled';
 
-export default function GridB({
-  content,
-  sectionTitle,
-  button,
-  photo,
-  cards,
-  size,
-}) {
+export default function GridB({ sectionTitle, button, title, cards, size }) {
   return (
     <Box>
       {sectionTitle && (
-        <>
+        <Box sx={{ marginBottom: ['6em', '5em', '10em'] }}>
           <Typography
             component="h2"
             variant="title"
             children={sectionTitle.title}
             sx={{
-              padding: ['0', '0', '1em 0'],
-              paddingRight: '1em',
-              marginBottom: '0.5em',
               textAlign: 'center',
             }}
           />
           <Divider type="center" />
-        </>
+        </Box>
       )}
       <Container size={size}>
-        {cards.map(({ photo, title, content, tittle_color }, index) => {
-          return (
-            <Card key={index} size={size}>
-              <ImageContainer src={photo.url} size={size} />
-              {title && <Title children={title} color={tittle_color} />}
-              <Typography
-                component="p"
-                variant="p"
-                children={content}
-                sx={{
-                  textAlign: 'center',
-                  marginBottom: '1.5em',
-                }}
-              />
-            </Card>
-          );
-        })}
+        {cards.map(
+          (
+            {
+              icon,
+              title,
+              content,
+              showTitle,
+              titleColor,
+              subTitle,
+              page,
+              isButton,
+            },
+            index
+          ) => {
+            return (
+              <Card key={index} size={size}>
+                {icon && <ImageContainer src={icon.url} size={size} />}
+                {showTitle && <Title children={title} color={titleColor} />}
+
+                {subTitle && (
+                  <Typography
+                    component="p"
+                    variant="p"
+                    children={subTitle}
+                    sx={{
+                      fontWeight: 700,
+                    }}
+                  />
+                )}
+                {content && (
+                  <Typography
+                    component="p"
+                    variant="p"
+                    children={content}
+                    sx={{
+                      textAlign: 'center',
+                      marginBottom: '1.5em',
+                    }}
+                  />
+                )}
+              </Card>
+            );
+          }
+        )}
       </Container>
     </Box>
   );
