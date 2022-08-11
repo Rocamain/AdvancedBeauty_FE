@@ -8,7 +8,7 @@ const Container = styled((props) => <Box component="div" {...props} />)(
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'center',
-      gap: '2em',
+      gap: '1.7em',
       [theme.breakpoints.up('md')]: {
         width: size === 'Big' ? '70%' : '60%',
       },
@@ -33,16 +33,21 @@ const Card = styled((props) => <Box component="div" {...props} />)(
 );
 
 const Title = styled((props) => (
-  <Typography component="h5" variant="h5" {...props} />
+  <Typography
+    component="h5"
+    variant="h5"
+    {...props}
+    sx={{ fontsize: '1.5rem' }}
+  />
 ))(({ theme, color }) => {
-  const palette = {
-    orange: '#ffd4a3',
-  };
+  const COLORS = { blue: '#0693e3', orange: '#8f5f25' };
 
   return {
-    marginBottom: '0.6em',
+    marginBottom: '0.7em',
     textAlign: 'center',
-    color: palette[color],
+    fontWeight: 700,
+
+    color: COLORS[color],
   };
 });
 
