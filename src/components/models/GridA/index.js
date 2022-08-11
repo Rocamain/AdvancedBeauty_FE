@@ -16,21 +16,9 @@ const LazyGridA = ({ id, data, height }) => {
       id={id}
       ref={fromRef}
       sx={(theme) => {
-        const setMargin = () => {
-          if (show === 'photo') {
-            return [theme.spacing(25)];
-          }
-          if (show === 'photo' && backgroundType === 'full') {
-            return [theme.spacing(35), theme.spacing(40)];
-          }
-          if (show === 'cards' && backgroundType === 'full') {
-            return [theme.spacing(30), theme.spacing(40)];
-          }
-          return [theme.spacing(11)];
-        };
         return {
           height: isNearScreen ? 'auto' : height,
-          marginBottom: setMargin(),
+          marginBottom: '20vh',
         };
       }}
     >

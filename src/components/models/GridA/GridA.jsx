@@ -5,6 +5,7 @@ import GridCards from 'components/models/GridA/GridCards';
 import GridText from 'components/models/GridA/GridText';
 import GridPhoto from 'components/models/GridA/GridPhoto';
 import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
 
 export default function GridA({
   show,
@@ -12,6 +13,8 @@ export default function GridA({
   backgroundType,
   photo,
   isNearScreen,
+  slides,
+  title,
   ...data
 }) {
   const [parentHeight, setParentHeight] = useState(null);
@@ -19,27 +22,32 @@ export default function GridA({
   const theme = useTheme();
   const childRef = useRef(null);
 
+  const smallMobile = useMediaQuery(theme.breakpoints.up('sm'), {
+    noSsr: true,
+  });
+
   useLayoutEffect(() => {
-    setParentHeight(null);
     if (childRef.current && loaded) {
       let childHeight = childRef.current.children[0].scrollHeight;
       if (backgroundType === 'full' && show === 'photo') {
-        const extraHeight = Number(theme.spacing(5).replace('px', ''));
+        const extraSpace = smallMobile ? 30 : 20;
+        const extraHeight = Number(theme.spacing(extraSpace).replace('px', ''));
         setParentHeight(childHeight + extraHeight);
       }
 
       if (backgroundType === 'full') {
-        setParentHeight(childHeight);
+        const extraSpace = smallMobile ? 4 : 6;
+        const extraHeight = Number(theme.spacing(extraSpace).replace('px', ''));
+        setParentHeight(childHeight + extraHeight);
       }
 
       if (show === 'photo' && backgroundType !== 'full') {
         const extraHeight = Number(theme.spacing(5).replace('px', ''));
-        childRef.current.children[0].addEventListener('load', () => {
-          setParentHeight(childHeight + extraHeight);
-        });
+
+        setParentHeight(childHeight + extraHeight);
       }
     }
-  }, [childRef, loaded]);
+  }, [childRef, loaded, smallMobile]);
 
   return (
     <Box
@@ -50,15 +58,15 @@ export default function GridA({
       <Container background={backgroundType} show={show}>
         <div ref={(show === 'photo' || backgroundType === 'full') && childRef}>
           <Grid
-            id={data.title}
+            id={title}
             background={backgroundType}
             show={show}
             photoColumn={photoColumn}
             onLoad={() => setLoaded(true)}
           >
             <GridText show={show} {...data} />
-            {show === 'cards'
-              ? data.cards && <GridCards {...data} />
+            {show === 'slides'
+              ? slides && <GridCards cards={slides} />
               : photo && <GridPhoto {...photo} columnOrder={photoColumn} />}
           </Grid>
         </div>
