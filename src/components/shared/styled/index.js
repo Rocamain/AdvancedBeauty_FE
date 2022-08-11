@@ -11,11 +11,11 @@ import circles from 'assets/circles.jpg';
 const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
   ({ theme, type }) => {
     return {
-      margin: type === 'center' ? '0  auto 1em auto' : '1.5em  1em 2.5em -1em',
+      margin:
+        type === 'center' ? '1.5em  auto 2.5em auto' : '1.5em  1em 2.5em -1em',
       borderColor: '#ffd4a3',
       borderBottomWidth: 'medium',
       width: type === 'center' ? '10%' : '60%',
-      marginBottom: type === 'center' && '50px',
     };
   }
 );
@@ -42,7 +42,7 @@ const Container = styled((props) => <Box component="div" {...props} />)(
     return {
       position: (background === 'full' || show === 'photo') && 'relative',
       top: top(theme, background, show),
-      padding: background === 'full' && theme.spacing(12, 0),
+      padding: background === 'full' && theme.spacing(4, 0),
       width: '100%',
       backgroundImage:
         background === 'full'
@@ -76,7 +76,7 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
 const Card = styled(
   ({ button, handleClick, buttonTo, page, sectionTitle, ...props }) =>
     button ? (
-      <Box component="div" {...props} sx={{ pointerEvents: 'auto' }}>
+      <Box component="div" {...props}>
         <button onClick={handleClick}>{props.children}</button>
       </Box>
     ) : (
@@ -112,7 +112,7 @@ const Card = styled(
 }));
 
 const ImageContainer = styled((props) => (
-  <Box component="div" {...props}>
+  <Box component="div">
     <Image {...props} />
   </Box>
 ))(({ theme, size }) => ({

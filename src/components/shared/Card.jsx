@@ -5,6 +5,9 @@ import {
   Photo,
   CardPhotoContainer,
 } from 'components/models/Carousel/styled';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
+import style from 'components/models/GridA/markdown-styles.module.css';
 
 const Card = ({ cards, animatedPhoto, cardAnimation, slide }) => {
   return (
@@ -26,18 +29,22 @@ const Card = ({ cards, animatedPhoto, cardAnimation, slide }) => {
         />
       </CardPhotoContainer>
 
-      <CardWrapper className={cardAnimation}>
+      <CardWrapper className={cardAnimation} sx={{ pb: '2em' }}>
         <Typography
           component="h4"
           variant="cardTitle"
-          sx={{ paddingBottom: '1em' }}
+          sx={{ paddingBottom: '1em', color: 'black' }}
         >
           {cards[slide].title}
         </Typography>
+        <ReactMarkdown
+          className={style.reactMarkDown}
+          escapeHTML={true}
+          remarkPlugins={[gfm]}
+          children={cards[slide].content}
+          style={{ paddingBottom: '1em', color: 'black' }}
+        />
 
-        <Typography component="p" sx={{ paddingBottom: '2em' }}>
-          {cards[slide].content}
-        </Typography>
         <Button
           buttonText={cards[slide].buttonText}
           buttonTo={cards[slide].page}
