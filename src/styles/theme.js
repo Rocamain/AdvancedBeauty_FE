@@ -256,6 +256,31 @@ theme = createTheme(theme, {
       letterSpacing: '0.09em',
       fontFamily: ['Abel', 'Open Sans'].join(','),
     },
+    footerTitle: {
+      padding: '1em 0',
+      color: '#75C9CC',
+      fontWeight: 600,
+      fontSize: '2rem',
+      lineHeight: 1.1,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      letterSpacing: '0.012em',
+    },
+    footerSubtitle: {
+      fontWeight: 600,
+
+      fontSize: '1rem',
+      lineHeight: 1.1,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      letterSpacing: '0.1em',
+      marginBottom: '0.5em',
+    },
+    footerParagraph: {
+      fontWeight: 500,
+      fontSize: '0.85rem',
+      lineHeight: 1.2,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      letterSpacing: '0.1em',
+    },
   },
   // Components override.
   components: {

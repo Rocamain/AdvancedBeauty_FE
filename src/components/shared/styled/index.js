@@ -3,10 +3,55 @@ import {
   Grid as MuiGrid,
   styled,
   Divider as MuiDivider,
+  Button as MuiButton,
 } from '@mui/material';
 
+import SendIcon from '@mui/icons-material/Send';
 import leavesBackground from 'assets/leaves-background.jpg';
 import circles from 'assets/circles.jpg';
+
+const Button = styled((props) => (
+  <MuiButton
+    variant="outlined"
+    disableRipple
+    endIcon={<SendIcon className="icon" />}
+    {...props}
+  />
+))(({ theme }) => {
+  return {
+    fontWeight: '500',
+    border: '2px solid #00BCCC',
+    transition: 'all 0.5s ease',
+    justifyContent: 'flex-start',
+    'span,svg': {
+      color: '#00BCCC',
+      opacity: '0.2',
+      transition: 'all 0.5s ease',
+      marginLeft: '-0.7rem',
+    },
+    p: {
+      color: '#00BCCC',
+      transform: 'translateX(-0.2rem)',
+      lineHeight: '0.3rem',
+      transition: 'all 0.5s ease',
+    },
+    '&:hover': {
+      color: '#e2d3e2',
+      background: 'transparent',
+      border: '1px solid #333333',
+      margin: ' 0 0.1rem',
+      transform: 'scale(1.1)',
+      '& span,svg:first-of-type': {
+        margin: '0',
+        opacity: '1',
+      },
+      '& p:first-of-type': {
+        transform: 'translateX(-5px)',
+        opacity: '1',
+      },
+    },
+  };
+});
 
 const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
   ({ theme, type }) => {
@@ -174,4 +219,4 @@ const Grid = styled(({ show, photoColumn, ...props }) => {
   };
 });
 
-export { Container, Wrapper, Card, ImageContainer, Grid, Divider };
+export { Container, Wrapper, Card, ImageContainer, Grid, Divider, Button };
