@@ -9,7 +9,6 @@ export default function CardA({
   button,
   photo,
   background,
-  ...props
 }) {
   return (
     <Container background={background}>
@@ -19,7 +18,6 @@ export default function CardA({
             margin: '0 auto',
             maxWidth: { xs: '80%', md: '50%' },
             position: { md: 'relative' },
-            paddingTop: '3em',
             left: { md: '3vw' },
             zIndex: '100',
           }}
@@ -52,9 +50,11 @@ export default function CardA({
             <Button {...button} />
           </Card>
         </Box>
-        <Box sx={{ width: '100%', paddingTop: { md: '5em', xl: '0' } }}>
-          <Image src={photo.url} title="shop" alt={photo.alternativeText} />
-        </Box>
+        {photo && (
+          <Box sx={{ width: '100%', paddingTop: { md: '5em', xl: '0' } }}>
+            <Image src={photo.url} title="shop" alt={photo.alternativeText} />
+          </Box>
+        )}
       </Wrapper>
     </Container>
   );
