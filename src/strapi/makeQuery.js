@@ -8,6 +8,7 @@ const mainComponent = [
   'components.background.media',
   'components.cover.media',
   'components.photo.media',
+  'components.photos.media',
   'components.cards',
   'components.cards.icon.media',
   'components.slides.linkedTo',
