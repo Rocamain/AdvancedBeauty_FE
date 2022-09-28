@@ -46,8 +46,8 @@ function Footer() {
     <Box sx={{ backgroundColor: '#333333', color: 'primary.contrastText' }}>
       <Grid
         container
-        columnSpacing={[0, 0, 4]}
-        rowSpacing={[8, 8, 0]}
+        columnSpacing={['0', '0', 4]}
+        rowSpacing={[8, 8, '0']}
         sx={{
           justifyContent: 'center',
           width: '100%',
@@ -105,14 +105,14 @@ function Footer() {
             </Box>
 
             <iframe
-              title={`shop {shop.shopName}`}
+              title={shop.shopName}
               loading="lazy"
               src={shop.googleMapAddress}
               width="90%"
               height="250"
               style={{ border: 0 }}
               allowFullScreen={true}
-            ></iframe>
+            />
           </Grid>
         ))}
       </Grid>

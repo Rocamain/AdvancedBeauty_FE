@@ -2,42 +2,54 @@ import { Button as MuiButton, styled, Box } from '@mui/material';
 import { ArrowRight } from '@mui/icons-material/';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const MyButton = styled((props) => <MuiButton component="a" {...props} />)(
-  ({ theme }) => ({
-    // wordBreak: 'break-word',
-    // wordWrap: 'break-word',
-
+const MyButton = styled(({ type, onClick, ...props }) => (
+  <MuiButton
+    component="a"
+    type={type}
+    onClick={type === 'submit' ? null : onClick}
+    {...props}
+  />
+))(({ theme }) => ({
+  fontWeight: 600,
+  zIndex: 100,
+  minWidth: '0',
+  maxWidth: '80%',
+  fontSize: '0.9rem',
+  borderLeft: '15px solid transparent',
+  borderRight: '15px solid transparent',
+  margin: '0 auto',
+  transition: 'background-color 0.65s !important',
+  ':hover': {
+    backgroundColor: 'orange',
+    color: 'white',
     fontWeight: 600,
-    zIndex: 100,
-    minWidth: '0',
-    maxWidth: '80%',
-    fontSize: '0.9rem',
-    padding: '0.3em 1.5em',
-    margin: '0 auto',
-    transition: 'background-color 0.65s !important',
-    ':hover': {
-      backgroundColor: 'orange',
-      '.MuiButton-endIcon': {
-        opacity: 1,
-        transform: 'translate(-10px)',
-        width: '6px',
-      },
+    '.MuiButton-endIcon': {
+      opacity: 1,
+      transform: 'translate(-10px)',
+      width: '6px',
     },
+  },
 
-    '& .MuiButton-endIcon': {
-      transform: 'translate(-20px)',
-      width: 0,
-      opacity: 0,
-      transition: 'transform 0.6s, width 0.3s, opacity 0.2s ease',
-      '&>:nth-of-type(1)': {
-        fontSize: '2.5rem',
-        fontWeight: 800,
-      },
+  '&.MuiButton-endIcon': {
+    transform: 'translate(-40px)',
+    width: 0,
+    opacity: 0,
+    transition: 'transform 0.6s, width 0.3s, opacity 0.2s ease',
+    '&>:nth-of-type(1)': {
+      fontSize: '2.5rem',
+      fontWeight: 800,
     },
-  })
-);
+  },
+}));
 
-export default function Button({ buttonText, page, sectionTitle, width }) {
+export default function Button({
+  buttonText,
+  page,
+  sectionTitle,
+  width,
+  disabled,
+  type,
+}) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -49,15 +61,17 @@ export default function Button({ buttonText, page, sectionTitle, width }) {
       window.scrollTo(0, 0);
     }
 
-    navigate(url, { replace: true });
+    navigate(url, { replace: false });
   };
 
   return (
-    <Box sx={{ width: width, margin: '1em auto' }}>
+    <Box sx={{ width: width && width, margin: '1em auto', overflow: 'hidden' }}>
       <MyButton
         color="primary"
+        disabled={disabled}
         disableFocusRipple
         disableRipple
+        type={type}
         onClick={handleClick}
         variant="contained"
         sx={{ width: 'inherit' }}

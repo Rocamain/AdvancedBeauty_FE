@@ -22,8 +22,8 @@ const DialogContainer = styled((props) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80vw',
-    minHeight: '73vh',
+    width: '85vw',
+    height: '76vh',
     backgroundImage: `url(${circles})`,
     backgroundSize: 'contain',
     backgroundColor: 'white',
@@ -33,11 +33,18 @@ const DialogContainer = styled((props) => {
     [theme.breakpoints.down('sm')]: {
       width: '100vw',
     },
-    [theme.breakpoints.up('md')]: {
-      minHeight: 600,
+    [theme.breakpoints.down('md')]: {
       maxWidth: 800,
+      minHeight: '80vh',
+    },
+    [theme.breakpoints.down('lg')]: {
+      height: '65vh',
+      maxHeight: 650,
+      maxWidth: 1000,
     },
     [theme.breakpoints.up('lg')]: {
+      height: '65vh',
+      maxHeight: 700,
       maxWidth: 1000,
     },
   };
@@ -85,14 +92,14 @@ const ModalWrapper = styled(({ children, ...props }) => {
     display: showSummary && 'flex',
     flexDirection: showSummary && 'column',
 
-    margin: smallPhone && '0 1em',
+    margin: '1em',
 
-    '&  .summary': {
+    '&.summary': {
       visibility: showSummary ? `visible` : 'hidden',
       opacity: 0,
       animation: showSummary && animation,
     },
-    '&  .header': {
+    '&.header': {
       animation: animation,
       opacity: showSummary && 0,
     },
@@ -106,8 +113,6 @@ const SummaryContainer = styled(({ show, ...props }) => {
     maxWidth: 600,
     justifyContent: 'center',
     flexDirection: 'column',
-    margin: '0',
-    marginBottom: '3em',
     padding: '2em 1.5em',
     display: 'flex',
     gap: '1em',
@@ -147,12 +152,12 @@ const Input = styled(({ icon, error, ...props }) => {
       error={error}
     />
   );
-})(({ theme, smallPhone }) => {
+})(({ theme, smallphone }) => {
   return {
     margin: '1em',
 
     [theme.breakpoints.up('xs')]: {
-      width: !smallPhone ? '200px' : '65vw',
+      width: !smallphone ? '200px' : '65vw',
     },
     [theme.breakpoints.up('sm')]: {
       width: '260px',
@@ -173,7 +178,7 @@ const Input = styled(({ icon, error, ...props }) => {
       },
     },
 
-    '& .MuiInput-underline': {
+    '&.MuiInput-underline': {
       color: 'rgba(0, 0, 0, 0.12)',
       borderBottom: `2px solid`,
       '::before': {
@@ -191,12 +196,12 @@ const Input = styled(({ icon, error, ...props }) => {
 
 const Form = styled(({ ...props }) => {
   return <Box noValidate component="form" {...props} />;
-})(({ theme, smallPhone }) => {
+})(({ theme, smallphone }) => {
   return {
     gap: '1em',
     padding: '1 0em',
     display: 'flex',
-    flexDirection: smallPhone ? 'column' : 'row',
+    flexDirection: smallphone ? 'column' : 'row',
   };
 });
 

@@ -11,20 +11,40 @@ import { Box, Typography, Divider } from '@mui/material/';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import { isOk, hasNoError } from 'components/single/Modal/utils/';
+import { getYear, getMonth, getDate, getHours, getMinutes } from 'date-fns';
 
-export default function Summary({ date, time, className }) {
+const getFormattedDate = (date) => {
+  const year = getYear(date);
+  const month = getMonth(date) + 1;
+  const day = getDate(date);
+
+  return `${day}/${month}/${year}`;
+};
+
+const getFormattedTime = (date) => {
+  const hours = getHours(date);
+  let minutes = getMinutes(date).toString();
+
+  if (minutes.length === 1) {
+    minutes = '0' + minutes;
+  }
+  return hours + ':' + minutes;
+};
+
+export default function Summary({ className }) {
   const { booking, setBooking } = useContext(BookingContext);
   const [formData, setFormData] = useState({
     email: '',
     name: '',
     authorized: false,
   });
+  const { date, price, serviceName, shopName } = booking;
   const [error, setError] = useState({ emailError: null, nameError: null });
   const { emailError, nameError } = error;
   const { email, name, authorized } = formData;
-  const day = date?.getDate();
-  const month = date?.getMonth();
-  const year = date?.getFullYear();
+
+  const formattedDate = getFormattedDate(date);
+  const formattedTime = getFormattedTime(date);
 
   useEffect(() => {
     setBooking({ ...booking, bookingStep: 2 });
@@ -56,12 +76,32 @@ export default function Summary({ date, time, className }) {
   const handleSubmit = (e) => {
     // linked submit button in Modal
     e.preventDefault();
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customerName: name,
+        email,
+        serviceName,
+        shopName,
+        appointment: date,
+      }),
+    };
+    fetch('http://localhost:9000/bookings', requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setBooking((booking) => ({
+          confirmedBooking: data.booking,
+          ...booking,
+        }));
+      });
   };
 
   const matches = useMediaQuery('(min-width:760px)');
   const smallPhone = useMediaQuery('(max-width:460px)');
   return (
-    <Box sx={{ margin: matches && '0 auto' }}>
+    <Box sx={{ margin: matches ? '0 auto' : '1.5em auto' }}>
       <SummaryContainer
         className={className}
         sx={{ gap: !smallPhone && '1em' }}
@@ -87,7 +127,7 @@ export default function Summary({ date, time, className }) {
                     Date:
                     <Box
                       component="span"
-                      children={`${day}/${month}/${year}`}
+                      children={formattedDate}
                       style={{
                         marginLeft: '0.5em',
                         color: 'white',
@@ -99,7 +139,6 @@ export default function Summary({ date, time, className }) {
                   <Box
                     sx={({ palette }) => ({
                       margin: '0.5em 1em',
-                      // marginBottom: '0.5em',
                       minWidth: '200px',
                     })}
                   >
@@ -107,10 +146,9 @@ export default function Summary({ date, time, className }) {
                       Time:
                       <Box
                         component="span"
-                        children={time}
+                        children={formattedTime}
                         sx={{
                           fontsize: 'inherit',
-                          // margin: '0 1em',
                           marginLeft: '0.5em',
                           color: 'white',
                         }}
@@ -138,7 +176,7 @@ export default function Summary({ date, time, className }) {
                     Time:
                     <Box
                       component="span"
-                      children={time}
+                      children={formattedTime}
                       sx={{
                         fontsize: 'inherit',
                         marginLeft: '0.5em',
@@ -151,7 +189,11 @@ export default function Summary({ date, time, className }) {
             </Box>
             <Divider sx={{ backgroundColor: 'orange' }} />
             <Box>
-              <Form id="a-form" onSubmit={handleSubmit} smallPhone={smallPhone}>
+              <Form
+                id="a-form"
+                onSubmit={handleSubmit}
+                smallphone={smallPhone ? smallPhone : undefined}
+              >
                 <Box
                   display="flex"
                   sx={{ gap: '1em', flexDirection: 'column' }}
@@ -159,7 +201,7 @@ export default function Summary({ date, time, className }) {
                   <Input
                     id="name"
                     placeholder="name"
-                    smallPhone={smallPhone}
+                    smallphone={smallPhone ? smallPhone : undefined}
                     value={name}
                     error={nameError}
                     onChange={handleChange}
@@ -167,7 +209,7 @@ export default function Summary({ date, time, className }) {
                   />
                   <Input
                     id="email"
-                    smallPhone={smallPhone}
+                    smallphone={smallPhone ? smallPhone : undefined}
                     placeholder="email"
                     value={email}
                     error={emailError}
@@ -194,7 +236,7 @@ export default function Summary({ date, time, className }) {
                     <Checkbox
                       id="checkbox authorization"
                       onChange={handleChangeCheckBox}
-                    />{' '}
+                    />
                     By clicking the box will authorized us to use and store the
                     email solely for learning purposes. Also will allow us to
                     send you a the confirmation once the booking is done.
@@ -216,9 +258,23 @@ export default function Summary({ date, time, className }) {
           />
         </Box>
       </SummaryContainer>
-      <Box display="flex" sx={{ justifyContent: 'space-between', gap: '1em' }}>
-        <Typography variant="h5">Total cost:</Typography>
-        <Typography variant="h5"> 40,00 &#163;</Typography>
+      <Box
+        display="flex"
+        sx={{ justifyContent: 'flex-end', gap: '1em', padding: '2em' }}
+      >
+        <Typography
+          component="h5"
+          sx={{ color: '#75C9CC', fontSize: '1.65rem', fontWeight: 700 }}
+        >
+          Total cost:
+        </Typography>
+        <Typography
+          component="h5"
+          sx={{ color: '#c48037', fontSize: '1.55rem', fontWeight: 700 }}
+        >
+          {' '}
+          {price} &#x20AC;
+        </Typography>
       </Box>
     </Box>
   );

@@ -109,7 +109,7 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
   />
 ))(({ theme }) => ({
   zIndex: -1,
-  '& .MuiBackdrop-root': {
+  '&.MuiBackdrop-root': {
     backgroundColor: 'transparent',
     [theme.breakpoints.up('md')]: {
       top: '18vh',
@@ -121,7 +121,7 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
       top: '15.5vh',
     },
   },
-  '& .MuiPaper-root': {
+  '&.MuiPaper-root': {
     overflow: 'visible',
     [theme.breakpoints.up('md')]: {
       paddingTop: 'calc(6vh - 3px )',
@@ -130,7 +130,7 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
       paddingTop: 'calc(5vh)',
     },
   },
-  '& .MuiList-root': {
+  '&.MuiList-root': {
     padding: '20px 0',
     backgroundColor: '#fafafa',
     boxShadow: theme.shadows[10],
@@ -174,7 +174,6 @@ const MenuLink = styled(
     a: {
       [theme.breakpoints.down('md')]: {
         padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
-        // flex: 1,
         width: '100%',
       },
     },
@@ -188,7 +187,6 @@ const MenuLink = styled(
 const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => ({
   display: 'block',
   textDecoration: 'none',
-
   padding: '1em 1.5em',
 }));
 

@@ -2,9 +2,11 @@ import React, { Suspense } from 'react';
 import useNearScreen from 'hooks/useNearScreen.js';
 import { Box } from '@mui/material';
 
-const Hero = React.lazy(() => import('components/models/Hero/Hero.jsx'));
+const GridButton = React.lazy(() =>
+  import('components/models/GridButton/GridButton.jsx')
+);
 
-const LazyHero = ({ id, data, height }) => {
+const LazyGridButton = ({ id, data, height }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '100px',
   });
@@ -14,15 +16,12 @@ const LazyHero = ({ id, data, height }) => {
       component="section"
       id={id}
       ref={fromRef}
-      sx={{
-        height: isNearScreen ? 'auto' : height,
-        marginBottom: '10vh',
-      }}
+      sx={{ height: isNearScreen ? 'auto' : height, marginBottom: '10vh' }}
     >
       <Suspense fallback={<div style={{ height: '10vh' }} />}>
-        {isNearScreen && <Hero {...data} />}
+        {isNearScreen && <GridButton {...data} />}
       </Suspense>
     </Box>
   );
 };
-export default LazyHero;
+export default LazyGridButton;

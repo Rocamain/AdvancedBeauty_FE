@@ -3,7 +3,6 @@ html: {
 }
 
 body {
-  /* overflowx: hidden; */
   margin: 0 auto;
   height: 100%;
   width: 100%;
@@ -12,7 +11,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* prevent to hide the scroll bar , Mui component popover style the body with overflow: hidden and  add padding to image backround of carousel*/
 @media screen and (min-width: 900px) {
   body {
     overflow-y: auto !important;

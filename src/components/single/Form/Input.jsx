@@ -1,6 +1,6 @@
 import { TextField, Grid, MenuItem } from '@mui/material';
 
-export default function Input({ select, options, fullWith, ...props }) {
+export default function Input({ options, fullWith, ...props }) {
   return (
     <Grid item xs={12} sm={12} md={fullWith ? 12 : 6}>
       <TextField

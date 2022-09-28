@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { makeQuery } from 'strapi/makeQuery';
+import { makeQuery } from 'services/strapi/makeQuery';
 
 const URL = process.env.REACT_APP_URL;
 

@@ -28,7 +28,7 @@ export default function TimeSelector({ date, timesAvailable }) {
   }, [selected]);
 
   return (
-    <Box>
+    <Box sx={{ pt: '10px' }}>
       <Box
         gap={[1, 4, 1]}
         display="flex"

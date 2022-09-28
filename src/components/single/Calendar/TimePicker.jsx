@@ -4,6 +4,7 @@ import useButtonSelected from 'hooks/useButtonSelected';
 import { Box } from '@mui/material';
 import { TimeAvailableBtn } from 'components/single/Calendar/styled/';
 import { filterHoursByTimeFrame } from 'components/single/Calendar/utils/';
+import { addMinutes, addHours, set } from 'date-fns';
 
 export default function TimePicker({ timeFrame, timesAvailable }) {
   const { setBooking, booking } = useContext(BookingContext);
@@ -16,9 +17,20 @@ export default function TimePicker({ timeFrame, timesAvailable }) {
 
   const handleClick = (event) => {
     const btnTimeValue = event.target.firstChild.data;
+    const [hours, minutes] = btnTimeValue.split(':');
 
-    setBooking(({ time, bookingStep, ...rest }) => {
-      return { time: btnTimeValue, bookingStep: 1, ...rest };
+    const resetTimeOnDate = set(date, {
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
+
+    let appointmentDateWithTime = addMinutes(resetTimeOnDate, minutes);
+    appointmentDateWithTime = addHours(appointmentDateWithTime, hours);
+
+    setBooking(({ date, bookingStep, ...rest }) => {
+      return { date: appointmentDateWithTime, bookingStep: 1, ...rest };
     });
 
     handleSelector(btnTimeValue);
@@ -38,7 +50,7 @@ export default function TimePicker({ timeFrame, timesAvailable }) {
       sx={{ marginBottom: '1em' }}
     >
       {timesAvailable &&
-        timesByTimeFrame.map((timesAvailable, index) => (
+        timesByTimeFrame.map((timeAvailable, index) => (
           <Box key={index}>
             <TimeAvailableBtn
               onClick={handleClick}
@@ -47,7 +59,7 @@ export default function TimePicker({ timeFrame, timesAvailable }) {
                   ? 'contained'
                   : 'outlined'
               }
-              children={timesAvailable}
+              children={timeAvailable}
             />
           </Box>
         ))}

@@ -41,11 +41,11 @@ const Button = styled((props) => (
       border: '1px solid #333333',
       margin: ' 0 0.1rem',
       transform: 'scale(1.1)',
-      '& span,svg:first-of-type': {
+      '&span,svg:first-of-type': {
         margin: '0',
         opacity: '1',
       },
-      '& p:first-of-type': {
+      '&p:first-of-type': {
         transform: 'translateX(-5px)',
         opacity: '1',
       },

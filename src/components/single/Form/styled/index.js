@@ -4,12 +4,9 @@ import shop from 'assets/shop.jpg';
 const Header = styled((props) => <Box {...props} />)(({ theme }) => ({
   width: '100%',
   maxWidth: '450px',
-  marginBottom: theme.spacing(1),
-  [theme.breakpoints.up('md')]: {
-    width: '50%',
-  },
+  marginBottom: theme.spacing(10),
 
-  '& .MuiTypography-root': {
+  '&.MuiTypography-root': {
     marginBottom: theme.spacing(1),
   },
 }));
@@ -56,7 +53,7 @@ const Form = styled(
 
   borderRadius: '15px',
   boxShadow: '0px 45px 84px -40px rgba(0,0,0,0.3)',
-  '& .MuiTextField-root': {
+  '&.MuiTextField-root': {
     backgroundColor: '#eee',
     width: '100%',
     textArea: {

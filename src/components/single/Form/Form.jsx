@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Box, Grid, Typography, Checkbox, Button } from '@mui/material';
+import IconButton from 'components/single/Form/IconButton.jsx';
 import { Divider } from 'components/shared/styled';
 import {
   Header,
@@ -10,6 +11,8 @@ import {
 import Input from 'components/single/Form/Input.jsx';
 import { inputs } from 'components/single/Form/utils/index.js';
 import shop from 'assets/shop.jpg';
+import EmailIcon from '@mui/icons-material/Email';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 export default function ContactForm() {
   const [value, setValue] = useState({
@@ -40,7 +43,6 @@ export default function ContactForm() {
   }, [checked, result]);
 
   const handleChange = (event) => {
-    console.log('change');
     const key = event.target.id ? event.target.id : 'shop';
     setValue({ ...value, [key]: event.target.value });
   };
@@ -55,7 +57,6 @@ export default function ContactForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(value);
   };
 
   return (
@@ -67,11 +68,20 @@ export default function ContactForm() {
           </Typography>
           <Divider />
           <Typography variant="p" component="p">
-            Proin sit amet ipsum ut enim tempor egestas nec vitae nulla. Sed
-            vitae felis at nunc suscipit sodales. Nulla eu scelerisque odio.
-            Quisque bibendum eu. Integer a auctor purus. Ut tristique lacinia
-            ante et tempus. Nulla eu.
+            This website is build with React and Strapi, if you want to change
+            the content, fill up this form or contact me by email, If you can to
+            have more details about the technologies used in this project go to
+            the Change Me section.
           </Typography>
+          <IconButton
+            href="https://www.linkedin.com/in/francisco-javier-roca-vazquez/"
+            target="black"
+            children={<LinkedInIcon />}
+          />
+          <IconButton
+            href="mailto:fjrocavazquez@gmail.com?subject=Mail from 2U website"
+            children={<EmailIcon />}
+          />
         </Header>
         <Form id="contact-form" onSubmit={handleSubmit}>
           <Grid container spacing={4}>

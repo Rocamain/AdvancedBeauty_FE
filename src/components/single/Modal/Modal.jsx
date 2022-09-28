@@ -1,25 +1,58 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BookingContext } from 'context/BookingContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useShowSummary from 'hooks/useShowSummary';
+import getBankHolidays from 'services/calendarific/getBankHolidays';
+
 import { Modal as MuiModal, Button } from '@mui/material/';
 import Stepper from 'components/single/Modal/Stepper';
 import Summary from 'components/single/Modal/Summary';
 import Calendar from 'components/single/Calendar/Calendar.jsx';
 import Header from 'components/single/Modal/Header.jsx';
 import { Dialog, ModalWrapper, ExitBtn } from 'components/single/Modal/styled';
+import { utcToZonedTime } from 'date-fns-tz';
+import { set, getYear } from 'date-fns';
 
-export default function Modal({ open, handleClose, serviceName, serviceType }) {
+const TODAY = utcToZonedTime(new Date(), 'Europe/Madrid');
+
+const SET_TODAY = set(TODAY, {
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+  milliseconds: 0,
+});
+
+export default function Modal({
+  open,
+  handleClose,
+  serviceName,
+  price,
+  serviceType,
+  shopName,
+}) {
   const [booking, setBooking] = useState({
     serviceName,
-    date: new Date(),
-    time: null,
+    price,
+    shopName,
+    date: SET_TODAY,
     bookingStep: 0,
   });
+  const [bankHolidays, setBankHoliday] = useState(null);
   const { bookingStep, time, date } = booking;
+
+  const year = getYear(date);
+
   const { fromRef, showSummary } = useShowSummary(bookingStep);
 
   const isBtnActive = Boolean(bookingStep % 2);
+
+  useEffect(() => {
+    if (shopName && year) {
+      getBankHolidays({ year: year, location: shopName }).then((res) =>
+        setBankHoliday(res)
+      );
+    }
+  }, [year, shopName]);
 
   const handleExitBtn = () => {
     handleClose();
@@ -44,7 +77,6 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
         disableEnforceFocus
         disableAutoFocus
       >
-        {/* <DialogContent> */}
         <Dialog>
           <Stepper bookingStep={bookingStep} />
           <ExitBtn onClick={handleExitBtn} />
@@ -58,7 +90,11 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
               title={serviceType}
               subtitle={serviceName}
             />
-            <Calendar ref={fromRef} fadeIn={bookingStep > 1} />
+            <Calendar
+              ref={fromRef}
+              fadeIn={bookingStep > 1}
+              bankHolidays={bankHolidays}
+            />
             {showSummary && (
               <Summary
                 className="summary"
@@ -79,7 +115,6 @@ export default function Modal({ open, handleClose, serviceName, serviceType }) {
             </Button>
           </ModalWrapper>
         </Dialog>
-        {/* </DialogContent> */}
       </MuiModal>
     </BookingContext.Provider>
   );

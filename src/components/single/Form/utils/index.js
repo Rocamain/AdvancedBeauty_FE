@@ -24,7 +24,6 @@ const inputs = [
     multiline: true,
     fullWith: true,
     rows: 5,
-    options: ['Palma de Mallorca', 'Turo Park', "L'Illa Diagonal"],
   },
 ];
 

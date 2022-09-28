@@ -28,7 +28,7 @@ const AccordionSummary = styled((props) => (
   borderRadius: '5px',
   flexDirection: 'row-reverse',
   fontFamily: 'Open Sans',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+  '&.MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
     transform: 'rotate(90deg)',
     color: theme.palette.text.primary,
   },
@@ -37,7 +37,7 @@ const AccordionSummary = styled((props) => (
     background: 'white',
     color: theme.palette.text.primary,
   },
-  '& .MuiAccordionSummary-content': {
+  '&.MuiAccordionSummary-content': {
     marginLeft: theme.spacing(2),
     P: {
       fontFamily: ['Abel', 'Open Sans'].join(','),

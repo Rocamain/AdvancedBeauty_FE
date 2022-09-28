@@ -2,11 +2,11 @@ import React, { Suspense } from 'react';
 import useNearScreen from 'hooks/useNearScreen.js';
 import { Box } from '@mui/material';
 
-const Hero = React.lazy(() =>
+const GridPhoto = React.lazy(() =>
   import('components/models/GridPhoto/GridPhoto.jsx')
 );
 
-const LazyHero = ({ id, data, height }) => {
+const LazyGridPhoto = ({ id, data, height }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '100px',
   });
@@ -22,9 +22,9 @@ const LazyHero = ({ id, data, height }) => {
       }}
     >
       <Suspense fallback={<div style={{ height: '10vh' }} />}>
-        {isNearScreen && <Hero {...data} />}
+        {isNearScreen && <GridPhoto {...data} />}
       </Suspense>
     </Box>
   );
 };
-export default LazyHero;
+export default LazyGridPhoto;
