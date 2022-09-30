@@ -14,18 +14,20 @@ import shop from 'assets/shop.jpg';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
+const initialValue = {
+  name: '',
+  shop: '',
+  email: '',
+  phone: '',
+  message: '',
+};
+
 export default function ContactForm() {
-  const [value, setValue] = useState({
-    name: '',
-    shop: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
+  const [value, setValue] = useState(initialValue);
   const [checked, setChecked] = useState(false);
   const [result, setResult] = useState('');
   const [disabled, setDisabled] = useState(true);
-
+  const [mailSent, setEmailSent] = useState(false);
   const numbers = useMemo(() => {
     const first = Math.floor(Math.random() * 21);
     const second = Math.floor(Math.random() * 21);
@@ -57,31 +59,62 @@ export default function ContactForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log('submit', value);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(value),
+    };
+    fetch('http://localhost:9000/contact', requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        if ((data.msg = 'Email sent')) {
+          setEmailSent(true);
+          setChecked(false);
+          setDisabled(true);
+          setResult('');
+          setValue(initialValue);
+        }
+        if (data.err) {
+          console.log(data.err);
+        }
+      });
   };
 
   return (
     <FlexContainer>
       <Wrapper>
         <Header>
-          <Typography variant="title" component="h4">
-            Contact us
-          </Typography>
-          <Divider />
-          <Typography variant="p" component="p">
-            This website is build with React and Strapi, if you want to change
-            the content, fill up this form or contact me by email, If you can to
-            have more details about the technologies used in this project go to
-            the Change Me section.
-          </Typography>
-          <IconButton
-            href="https://www.linkedin.com/in/francisco-javier-roca-vazquez/"
-            target="black"
-            children={<LinkedInIcon />}
-          />
-          <IconButton
-            href="mailto:fjrocavazquez@gmail.com?subject=Mail from 2U website"
-            children={<EmailIcon />}
-          />
+          <Box sx={{ marginBottom: '1em' }}>
+            <Typography variant="title" component="h4">
+              Contact us
+            </Typography>
+            <Divider />
+            <Typography variant="p" component="p">
+              This website is build with React and Strapi, if you want to change
+              the content, fill up this form or contact me by email, If you can
+              to have more details about the technologies used in this project
+              go to the Change Me section.
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '0.2em',
+              position: 'relative',
+              left: '-10px',
+            }}
+          >
+            <IconButton
+              href="https://www.linkedin.com/in/francisco-javier-roca-vazquez/"
+              target="_blank"
+              children={<LinkedInIcon />}
+            />
+            <IconButton
+              href="mailto:fjrocavazquez@gmail.com?subject=Mail from 2U website"
+              children={<EmailIcon />}
+            />
+          </Box>
         </Header>
         <Form id="contact-form" onSubmit={handleSubmit}>
           <Grid container spacing={4}>
@@ -99,8 +132,8 @@ export default function ContactForm() {
 
           <Box
             sx={{
-              display: 'inline-block',
-              verticalAlign: 'middle',
+              display: 'flex',
+              alignItems: 'center',
               fontSize: '0.9rem',
               margin: '1em auto',
             }}
@@ -124,23 +157,36 @@ export default function ContactForm() {
               justifyContent: 'flex-end',
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography>{numbers.first}</Typography>
-              <Typography> + {numbers.second} = </Typography>
-              <Input id="result" value={result} onChange={handleResult} />
-            </Box>
+            {mailSent ? (
+              <h1>Your query is been sent, you will received an email soon </h1>
+            ) : (
+              <Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '2em',
+                  }}
+                >
+                  <Typography>
+                    {numbers.first} + {numbers.second} ={' '}
+                  </Typography>
+                  <Input id="result" value={result} onChange={handleResult} />
+                </Box>
 
-            <Box>
-              <Button
-                disabled={disabled}
-                type="submit"
-                value="submit"
-                variant="contained"
-                size="large"
-              >
-                SUBMIT
-              </Button>
-            </Box>
+                <Box sx={{ position: 'relative' }}>
+                  <Button
+                    disabled={disabled}
+                    type="submit"
+                    value="submit"
+                    variant="contained"
+                    size="large"
+                  >
+                    SUBMIT
+                  </Button>
+                </Box>
+              </Box>
+            )}
           </Box>
         </Form>
       </Wrapper>
@@ -154,7 +200,12 @@ export default function ContactForm() {
         <Box
           component="img"
           src={shop}
-          sx={{ maxWidth: '100%', height: 'auto', objectFit: 'contain' }}
+          sx={{
+            maxWidth: '100%',
+            height: 'auto',
+            objectFit: 'contain',
+            boxShadow: '0px 45px 84px -40px rgba(0,0,0,0.3)',
+          }}
         />
       </Box>
     </FlexContainer>

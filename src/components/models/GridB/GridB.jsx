@@ -6,7 +6,13 @@ export default function GridB({ sectionTitle, button, title, cards, size }) {
   return (
     <Box>
       {sectionTitle && (
-        <Box sx={{ marginBottom: ['6em', '5em', '10em'] }}>
+        <Box
+          sx={{
+            marginBottom: ['6em', '5em', '10em'],
+            maxWidth: ['90vw', '80vw', '65vw'],
+            margin: '0 auto',
+          }}
+        >
           <Typography
             component="h2"
             variant="title"

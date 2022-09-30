@@ -8,7 +8,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from 'components/models/Accordion/styled/index';
-import Loading from 'components/shared/Loading.jsx';
+import { Loading } from 'components/shared/index';
 
 import { sortTreatments } from 'components/models/Accordion/utils/index';
 import { Divider } from 'components/shared/styled';

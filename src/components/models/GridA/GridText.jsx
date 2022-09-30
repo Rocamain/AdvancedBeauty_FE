@@ -13,18 +13,18 @@ export default function GridText({ sectionTitle, content, button, show }) {
       item
       component="div"
       xs={12}
-      sm={isPhoto && 6}
-      md={isPhoto ? 8 : 5}
-      lg={isPhoto ? 8 : 6}
+      sm={isPhoto && 12}
+      md={isPhoto ? 7 : 5}
+      lg={isPhoto ? 7 : 6}
     >
       <Box
         sx={{
-          width: ['65%', '85%'],
+          width: ['80%'],
           display: { xs: 'flex', sm: 'block' },
           flexDirection: 'column',
           mx: 'auto',
           paddingTop: ['3em', '5em'],
-          paddingBottom: '3em',
+          paddingBottom: '8em',
         }}
       >
         <Typography

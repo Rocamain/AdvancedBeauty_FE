@@ -6,7 +6,7 @@ import renderComponents from 'components/Main/renderComponents';
 import useScrollTo from 'hooks/useScrollTo';
 import Form from 'components/single/Form/Form.jsx';
 
-function Main() {
+function Main(props) {
   const { scrollToRef } = useScrollTo();
   const { pathname } = useLocation();
   const path = pathname === '/' ? 'Home' : pathname.replace('/', '');
@@ -18,10 +18,13 @@ function Main() {
       document.title =
         'Advanced Beauty -' + pathname.replace('/', '').replaceAll('-', ' ');
     }
-  }, [data]);
+  }, [data, pathname]);
 
   return (
-    <main ref={scrollToRef} style={{ height: '100%', marginBottom: '10vh' }}>
+    <main
+      ref={scrollToRef}
+      style={{ minHeight: '100vh', height: '100%', marginBottom: '10vh' }}
+    >
       {loading && <Loading />}
       {error && <Error />}
 

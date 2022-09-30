@@ -22,7 +22,7 @@ export default function GridA({
   const theme = useTheme();
   const childRef = useRef(null);
 
-  const smallMobile = useMediaQuery(theme.breakpoints.up('sm'), {
+  const smallMobile = useMediaQuery(theme.breakpoints.down('sm'), {
     noSsr: true,
   });
 
@@ -42,7 +42,7 @@ export default function GridA({
       }
 
       if (show === 'photo' && backgroundType !== 'full') {
-        const extraHeight = Number(theme.spacing(5).replace('px', ''));
+        const extraHeight = Number(theme.spacing(8).replace('px', ''));
 
         setParentHeight(childHeight + extraHeight);
       }
@@ -53,6 +53,8 @@ export default function GridA({
     <Box
       sx={{
         minHeight: parentHeight,
+        maxWidth: ['90vw', '80vw', '65vw'],
+        margin: '0 auto',
       }}
     >
       <Container background={backgroundType} show={show}>

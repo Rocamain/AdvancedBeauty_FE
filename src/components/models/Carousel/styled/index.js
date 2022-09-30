@@ -41,30 +41,32 @@ const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => {
   };
 });
 
-const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
-  display: 'inline-flex',
+const SlideContainer = styled((props) => <Box {...props} />)(
+  ({ theme, height }) => ({
+    display: 'inline-flex',
+    backgroundColor: theme.palette.primary.main,
+    height: height && height,
 
-  backgroundColor: theme.palette.primary.main,
-
-  [theme.breakpoints.up('md')]: {
-    '.chevronIcon-left': {
-      transform: 'translate(-100%)',
-      transition: 'transform 1s',
+    [theme.breakpoints.up('md')]: {
+      '.chevronIcon-left': {
+        transform: 'translate(-100%)',
+        transition: 'transform 1s',
+      },
+      ':hover .chevronIcon-left': {
+        transform: 'translate(0)',
+        transition: 'transform 1s',
+      },
+      '.chevronIcon-right': {
+        transform: 'translate(100%)',
+        transition: 'transform 1s',
+      },
+      ':hover .chevronIcon-right': {
+        transform: 'translate(0)',
+        transition: 'transform 1s',
+      },
     },
-    ':hover .chevronIcon-left': {
-      transform: 'translate(0)',
-      transition: 'transform 1s',
-    },
-    '.chevronIcon-right': {
-      transform: 'translate(100%)',
-      transition: 'transform 1s',
-    },
-    ':hover .chevronIcon-right': {
-      transform: 'translate(0)',
-      transition: 'transform 1s',
-    },
-  },
-}));
+  })
+);
 
 const ChevronButton = styled((props) => {
   const { value } = props;
@@ -140,30 +142,30 @@ const CardPhotoContainer = styled((props) => {
   },
 }));
 
-const Photo = styled((props) => <Box component="img" {...props} />)(
-  ({ theme }) => ({
-    position: 'relative',
-    zIndex: 200,
-    width: '100%',
-    height: 'auto',
-    margin: '0 auto',
-    borderRadius: '5px',
+const Photo = styled((props) => (
+  <Box component="img" {...props} loading="lazy" />
+))(({ theme }) => ({
+  position: 'relative',
+  zIndex: 200,
+  width: '100%',
+  height: 'auto',
+  margin: '0 auto',
+  borderRadius: '5px',
 
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
-    [theme.breakpoints.up('sm')]: {
-      left: '8%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      maxWidth: '400px',
-      left: '15%',
-    },
-    [theme.breakpoints.up('xl')]: {
-      maxWidth: '450px',
-    },
-  })
-);
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
+  [theme.breakpoints.up('sm')]: {
+    left: '8%',
+  },
+  [theme.breakpoints.up('lg')]: {
+    maxWidth: '400px',
+    left: '15%',
+  },
+  [theme.breakpoints.up('xl')]: {
+    maxWidth: '450px',
+  },
+}));
 
 export {
   CarouselContainer,

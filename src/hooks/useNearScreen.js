@@ -10,13 +10,6 @@ export default function useNearScreen({ distance = '100px' }) {
   useEffect(() => {
     let observer;
 
-    // Pending to decide if we want to do deactivate the lazy load on # path
-    // if has hash then activate  setShow //
-
-    // if (hash) {
-    //   setShow(true);
-    // }
-
     const onChange = (entries) => {
       const el = entries[0];
 

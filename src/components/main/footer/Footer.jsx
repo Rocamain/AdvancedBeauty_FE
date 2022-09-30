@@ -43,7 +43,10 @@ const data = [
 
 function Footer() {
   return (
-    <Box sx={{ backgroundColor: '#333333', color: 'primary.contrastText' }}>
+    <Box
+      sx={{ backgroundColor: '#333333', color: 'primary.contrastText' }}
+      component="footer"
+    >
       <Grid
         container
         columnSpacing={['0', '0', 4]}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import clsx from 'clsx';
 import { Typography } from '@mui/material';
@@ -19,6 +19,14 @@ export default function Carousel({
 }) {
   const [slide, setSlide] = useState(0);
   const [exit, setExit] = useState(false);
+  const [height, setHeight] = useState(false);
+  const ref = useRef();
+  useEffect(() => {
+    if (ref.current) {
+      const elHeight = ref.current.getBoundingClientRect().height;
+      setHeight(elHeight);
+    }
+  }, [ref]);
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
@@ -51,29 +59,31 @@ export default function Carousel({
         <Typography variant="carouselTitle">{sectionTitle.title} </Typography>
         <Typography variant="carouselSubtitle">Advanced Beauty</Typography>
       </CarouselHero>
-      <SlideContainer>
-        <ChevronButton
-          className="ChevronButton ChevronButton-left"
-          value="left"
-          disableRipple={true}
-          onClick={handleClick}
-        />
+      <div ref={ref}>
+        <SlideContainer height={height ? height : undefined}>
+          <ChevronButton
+            className="ChevronButton ChevronButton-left"
+            value="left"
+            disableRipple={true}
+            onClick={handleClick}
+          />
 
-        <Card
-          className="card"
-          cards={slides}
-          animatedPhoto={animatedPhoto}
-          cardAnimation={cardAnimation}
-          slide={slide}
-        />
+          <Card
+            className="card"
+            cards={slides}
+            animatedPhoto={animatedPhoto}
+            cardAnimation={cardAnimation}
+            slide={slide}
+          />
 
-        <ChevronButton
-          className="ChevronButton ChevronButton-right"
-          value="right"
-          disableRipple={true}
-          onClick={handleClick}
-        />
-      </SlideContainer>
+          <ChevronButton
+            className="ChevronButton ChevronButton-right"
+            value="right"
+            disableRipple={true}
+            onClick={handleClick}
+          />
+        </SlideContainer>
+      </div>
     </CarouselContainer>
   );
 }

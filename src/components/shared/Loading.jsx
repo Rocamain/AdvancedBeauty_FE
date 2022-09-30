@@ -7,7 +7,7 @@ export default function Loading() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '40vh',
+        minHeight: '100vh',
       }}
     >
       <CircularProgress size={60} color="primary" sx={{}} />

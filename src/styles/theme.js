@@ -2,7 +2,7 @@ import { createTheme, responsiveFontSizes } from '@mui/material';
 import { createBreakpoints } from '@mui/system';
 
 let theme = createTheme();
-const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1400, xl: 1736, xxl: 2100 };
+const BREAKPOINTS = { xs: 0, sm: 500, md: 900, lg: 1400, xl: 1736, xxl: 2100 };
 const breakpointsValues = {
   breakpoints: createBreakpoints({
     values: BREAKPOINTS,

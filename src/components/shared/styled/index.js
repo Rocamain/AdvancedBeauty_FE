@@ -35,17 +35,15 @@ const Button = styled((props) => (
       lineHeight: '0.3rem',
       transition: 'all 0.5s ease',
     },
-    '&:hover': {
+    ':hover': {
       color: '#e2d3e2',
       background: 'transparent',
-      border: '1px solid #333333',
-      margin: ' 0 0.1rem',
-      transform: 'scale(1.1)',
-      '&span,svg:first-of-type': {
+      border: '2px solid transparent',
+      '& span,svg:first-of-type': {
         margin: '0',
         opacity: '1',
       },
-      '&p:first-of-type': {
+      '& p:first-of-type': {
         transform: 'translateX(-5px)',
         opacity: '1',
       },
@@ -93,6 +91,10 @@ const Container = styled((props) => <Box component="div" {...props} />)(
         background === 'full'
           ? 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important'
           : null,
+      boxShadow:
+        background === 'right' || background === 'mixed leaves and right'
+          ? '10vw 0px 0px 0px #00bccc'
+          : null,
     };
   }
 );
@@ -106,11 +108,8 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
       flexWrap: 'wrap',
       [theme.breakpoints.up('md')]: {
         gap: 0,
-        width: '80%',
+
         flexWrap: 'nowrap',
-      },
-      [theme.breakpoints.up('xl')]: {
-        width: '65%',
       },
     };
 
@@ -161,8 +160,6 @@ const ImageContainer = styled((props) => (
     <Image {...props} />
   </Box>
 ))(({ theme, size }) => ({
-  maxWidth: '100%',
-  height: size === 'Big' ? '6.5em' : '4.5em',
   margin: '0 auto',
   marginBottom: '1em',
   display: 'inline-block',
@@ -201,21 +198,16 @@ const Grid = styled(({ show, photoColumn, ...props }) => {
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
 
-    boxShadow:
-      background === 'right' || background === 'mixed leaves and right'
-        ? '10vw 0px 0px 0px #00bccc'
-        : null,
+    // [theme.breakpoints.up('xs')]: {
+    //   width: '100%',
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   // width: '80%',
+    // },
 
-    [theme.breakpoints.up('sm')]: {
-      width: '85%',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '80%',
-    },
-
-    [theme.breakpoints.up('lg')]: {
-      width: '65%',
-    },
+    // [theme.breakpoints.up('lg')]: {
+    //   // width: '65%',
+    // },
   };
 });
 

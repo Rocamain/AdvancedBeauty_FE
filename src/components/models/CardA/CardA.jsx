@@ -11,51 +11,58 @@ export default function CardA({
   background,
 }) {
   return (
-    <Container background={background}>
-      <Wrapper>
-        <Box
-          sx={{
-            margin: '0 auto',
-            maxWidth: { xs: '80%', md: '50%' },
-            position: { md: 'relative' },
-            left: { md: '3vw' },
-            zIndex: '100',
-          }}
-        >
-          <Typography
-            component="h2"
-            variant="title"
-            children={sectionTitle.title}
+    <Box sx={{ maxWidth: ['90vw', '80vw', '65vw'], margin: '0 auto' }}>
+      <Container background={background}>
+        <Wrapper>
+          <Box
             sx={{
-              position: 'relative',
-              padding: ['0', '0', '1em 0'],
-              paddingRight: '1em',
+              margin: '0 auto',
+              maxWidth: { xs: '80%', md: '50%' },
+              position: { md: 'relative' },
+              left: { md: '3vw' },
+              zIndex: '100',
             }}
-          />
-          <Divider />
-          <Card>
+          >
             <Typography
               component="h2"
-              children={content}
+              variant="title"
+              children={sectionTitle.title}
               sx={{
-                marginBottom: '1.5em',
-                fontWeight: 600,
-                letterSpacing: '0.09em',
-                color: '#666',
-                fontSize: '1.2rem',
-                lineHeight: '1.5em',
-                fontFamily: 'Abel',
+                position: 'relative',
+                padding: ['0', '0', '1em 0'],
+                paddingRight: '1em',
               }}
             />
-            <Button {...button} />
-          </Card>
-        </Box>
-        {photo && (
-          <Box sx={{ width: '100%', paddingTop: { md: '5em', xl: '0' } }}>
-            <Image src={photo.url} title="shop" alt={photo.alternativeText} />
+            <Divider />
+            <Card>
+              <Typography
+                component="h2"
+                children={content}
+                sx={{
+                  marginBottom: '1.5em',
+                  fontWeight: 600,
+                  letterSpacing: '0.09em',
+                  color: '#666',
+                  fontSize: '1.2rem',
+                  lineHeight: '1.5em',
+                  fontFamily: 'Abel',
+                }}
+              />
+              <Button {...button} />
+            </Card>
           </Box>
-        )}
-      </Wrapper>
-    </Container>
+          {photo && (
+            <Box sx={{ width: '100%', paddingTop: { md: '5em', xl: '0' } }}>
+              <Image
+                src={photo.url}
+                formats={photo.formats}
+                title="shop"
+                alt={photo.alternativeText}
+              />
+            </Box>
+          )}
+        </Wrapper>
+      </Container>
+    </Box>
   );
 }

@@ -9,15 +9,16 @@ const LazyMain = React.lazy(() => import('components/Main'));
 function App() {
   const routes = useNavigation();
 
-  return (
-    <div className="App">
-      {/* {loading && <Loading />}
-      {error && <Error />} */}
+  if (!routes) {
+    <Loading />;
+  }
 
+  return (
+    <>
       {routes && (
         <Router>
           <Routes>
-            <Route path="/" element={<Body />}>
+            <Route path="/" element={<Body routes={{ ...routes }} />}>
               {routes.nestedList.map((navRoute, index) => (
                 <Route
                   key={index}
@@ -43,11 +44,11 @@ function App() {
                 </Route>
               ))}
             </Route>
-            <Route path="*" element={<h1>Notfound</h1>} />
+            <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </Router>
       )}
-    </div>
+    </>
   );
 }
 

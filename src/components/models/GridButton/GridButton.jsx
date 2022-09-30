@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Divider } from 'components/shared/styled';
 import { Wrapper } from 'components/models/GridPhoto/styled/';
 import NavButton from 'components/shared/NavButton.jsx';

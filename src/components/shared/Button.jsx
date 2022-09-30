@@ -18,6 +18,7 @@ const MyButton = styled(({ type, onClick, ...props }) => (
   borderLeft: '15px solid transparent',
   borderRight: '15px solid transparent',
   margin: '0 auto',
+  textAlign: 'center',
   transition: 'background-color 0.65s !important',
   ':hover': {
     backgroundColor: 'orange',
@@ -30,13 +31,14 @@ const MyButton = styled(({ type, onClick, ...props }) => (
     },
   },
 
-  '&.MuiButton-endIcon': {
-    transform: 'translate(-40px)',
+  '& .MuiButton-endIcon': {
+    transform: 'translate(-30px)',
     width: 0,
     opacity: 0,
     transition: 'transform 0.6s, width 0.3s, opacity 0.2s ease',
-    '&>:nth-of-type(1)': {
+    '& >:nth-of-type(1)': {
       fontSize: '2.5rem',
+
       fontWeight: 800,
     },
   },

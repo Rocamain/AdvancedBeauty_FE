@@ -8,7 +8,6 @@ import {
   CoffeeMug,
 } from 'components/models/Hero/styled/';
 import { Divider } from 'components/shared/styled/';
-
 import Button from 'components/shared/Button';
 
 export default function Hero({ content, title, subTitle, cover, button }) {
@@ -26,7 +25,6 @@ export default function Hero({ content, title, subTitle, cover, button }) {
             <Typography component="h1" variant="heroTitle">
               {title}
             </Typography>
-
             <Typography component="h3" variant="heroSubtitle">
               {subTitle}
             </Typography>

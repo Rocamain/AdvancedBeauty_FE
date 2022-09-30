@@ -1,14 +1,13 @@
 import React, { Suspense } from 'react';
 import { Box } from '@mui/material';
 import useNearScreen from 'hooks/useNearScreen.js';
-
+import { Loading } from 'components/shared/index';
 const GridA = React.lazy(() => import('components/models/GridA/GridA.jsx'));
 
 const LazyGridA = ({ id, data, height }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '100px',
   });
-  const { show, backgroundType } = data;
 
   return (
     <Box
@@ -22,7 +21,7 @@ const LazyGridA = ({ id, data, height }) => {
         };
       }}
     >
-      <Suspense fallback={<div style={{ height: '100vh' }} />}>
+      <Suspense fallback={<Loading />}>
         {isNearScreen && <GridA isNearScreen={isNearScreen} {...data} />}
       </Suspense>
     </Box>

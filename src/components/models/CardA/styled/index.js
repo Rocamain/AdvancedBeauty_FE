@@ -22,14 +22,27 @@ const Card = styled((props) => <Box component="div" {...props} />)(
   })
 );
 
-const Image = styled((props) => <Box component="img" {...props} />)(
-  ({ theme }) => ({
-    width: '100%',
-    height: 'auto',
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '100%',
-    },
-  })
-);
+const Image = styled(({ formats, ...props }) => (
+  <Box
+    component="img"
+    {...props}
+    loading="lazy"
+    sx={{
+      content: {
+        sx: `url(${formats.medium.url})`,
+        sm: `url(${formats.medium.url})`,
+        md: `url(${formats.medium.url})`,
+      },
+    }}
+  />
+))(({ theme }) => ({
+  width: '100%',
+  height: 'auto',
+  borderRadius: '5px',
+
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '100%',
+  },
+}));
 
 export { Card, Image };

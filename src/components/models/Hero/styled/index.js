@@ -90,9 +90,8 @@ const WavesBackground = styled(Box)(({ theme, biggerBackground }) => {
     backgroundImage: `url(${curves})`,
     backgroundRepeatY: 'no-repeat',
     backgroundSize: '100% 100%',
-    width: '100%',
+    width: '100vw',
     height: '70%',
-    transform: 'scale(1.1)',
   };
 });
 

@@ -15,12 +15,14 @@ export default function Input({ options, fullWith, ...props }) {
                   p: '8px !important',
                 },
               }
-            : null
+            : {
+                width: '100%',
+              }
         }
       >
         {options &&
           options.map((shop, index) => (
-            <MenuItem key={index} value={shop}>
+            <MenuItem key={index} value={shop} sx={{ width: '100%' }}>
               {shop}
             </MenuItem>
           ))}

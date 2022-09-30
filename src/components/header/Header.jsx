@@ -1,7 +1,6 @@
 // Hook and data formatter
 import { useState, useRef } from 'react';
 import useFetchData from 'hooks/useFetchData';
-import useNavigation from 'hooks/useNavigation';
 import useMenuLinkSelected from 'hooks/useMenuLinkSelected';
 
 //// components, layouts and style hooks imports
@@ -18,18 +17,19 @@ import {
 } from 'components/header/styled/index';
 import ScreenMenu from 'components/header/ScreenMenu';
 import MobileMenu from 'components/header/MobileMenu';
+import { Error, Loading } from 'components/shared/index';
 
-export default function Header() {
+export default function Header({ routes }) {
   // states and hooks
-  const { data, loading } = useFetchData('Logo');
-  const navigation = useNavigation();
-  const { selectedLink, setSelectedLink, pathBuilder } = useMenuLinkSelected();
-  const [anchorEl, setAnchorEl] = useState(null);
 
+  const { data, loading } = useFetchData('Logo');
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
+
+  const { selectedLink, setSelectedLink, pathBuilder } = useMenuLinkSelected();
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const ref = useRef(null);
   const open = Boolean(anchorEl);
@@ -52,45 +52,46 @@ export default function Header() {
     }
   };
 
+  if (!data) {
+    return <Loading />;
+  }
+
   return (
-    data &&
-    navigation && (
-      <>
-        <HeaderContainer ref={ref}>
-          <Wrapper fixed>
-            <Logo src={data.photo.url} alt={data.photo.alternativeText} />
-            {matchesBigScreens ? (
-              <ScreenMenu
-                links={navigation.nestedList}
-                selectedLink={selectedLink}
-                handleSelect={handleSelect}
-              />
-            ) : (
-              <BurgerButton
-                aria-describedby={id}
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleOpen}
-              >
-                <MenuIcon />
-              </BurgerButton>
-            )}
-          </Wrapper>
-        </HeaderContainer>
-        <PopoverMenu
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
+    <>
+      <HeaderContainer ref={ref}>
+        <Wrapper fixed>
+          <Logo src={data.photo.url} alt={data.photo.alternativeText} />
+          {matchesBigScreens ? (
+            <ScreenMenu
+              links={routes.nestedList}
+              selectedLink={selectedLink}
+              handleSelect={handleSelect}
+            />
+          ) : (
+            <BurgerButton
+              aria-describedby={id}
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleOpen}
+            >
+              <MenuIcon />
+            </BurgerButton>
+          )}
+        </Wrapper>
+      </HeaderContainer>
+      <PopoverMenu
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+      >
+        <MobileMenu
+          links={routes.flatList}
+          selectedLink={selectedLink}
+          handleSelect={handleSelect}
           onClose={handleClose}
-        >
-          <MobileMenu
-            links={navigation.flatList}
-            selectedLink={selectedLink}
-            handleSelect={handleSelect}
-            onClose={handleClose}
-          />
-        </PopoverMenu>
-      </>
-    )
+        />
+      </PopoverMenu>
+    </>
   );
 }

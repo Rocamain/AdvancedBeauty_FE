@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import useNearScreen from 'hooks/useNearScreen.js';
 import { Box } from '@mui/material';
+import { Loading } from 'components/shared/index';
 
 const GridPhoto = React.lazy(() =>
   import('components/models/GridPhoto/GridPhoto.jsx')
@@ -21,7 +22,7 @@ const LazyGridPhoto = ({ id, data, height }) => {
         marginBottom: '15vh',
       }}
     >
-      <Suspense fallback={<div style={{ height: '10vh' }} />}>
+      <Suspense fallback={<Loading />}>
         {isNearScreen && <GridPhoto {...data} />}
       </Suspense>
     </Box>

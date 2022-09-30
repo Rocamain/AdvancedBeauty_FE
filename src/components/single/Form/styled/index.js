@@ -1,10 +1,9 @@
 import { Box, styled } from '@mui/material';
-import shop from 'assets/shop.jpg';
 
 const Header = styled((props) => <Box {...props} />)(({ theme }) => ({
   width: '100%',
   maxWidth: '450px',
-  marginBottom: theme.spacing(10),
+  marginBottom: theme.spacing(3),
 
   '&.MuiTypography-root': {
     marginBottom: theme.spacing(1),
