@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const pathBuilder = (path) => {
@@ -14,10 +14,17 @@ const pathBuilder = (path) => {
 
 export default function useMenuLinkSelected() {
   const { pathname, hash } = useLocation();
+  const [selectedLinks, setSelectedLinks] = useState({
+    mainLink: null,
+    dropLink: null,
+  });
 
   const fullPath = pathname + hash;
 
-  const [selectedLink, setSelectedLink] = useState(() => pathBuilder(fullPath));
+  useEffect(() => {
+    const linksSelected = pathBuilder(fullPath);
+    setSelectedLinks(linksSelected);
+  }, [fullPath]);
 
-  return { selectedLink, setSelectedLink, pathBuilder };
+  return { selectedLinks };
 }

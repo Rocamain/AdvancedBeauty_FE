@@ -1,6 +1,5 @@
 import { CalendarPicker as MuiCalendar } from '@mui/x-date-pickers';
-import { addYears } from 'date-fns';
-import { Button, Grid as MuiGrid, styled, TextField } from '@mui/material';
+import { Button, Grid as MuiGrid, styled } from '@mui/material';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 
 const GridContainer = styled((props) => (
@@ -33,42 +32,47 @@ const TimeAvailableBtn = styled((props) => {
   return { fontSize: '1rem', fontWeight: 900 };
 });
 
-const CustomPickersDay = styled(PickersDay)(({ theme }) => ({
-  display: 'flex',
-  fontSize: '1.3rem',
-  fontFamily: ['Open Sans', 'Helvetica'].join(','),
-  backgroundColor: 'transparent',
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1rem',
-    fontWeight: 500,
-  },
-  '&:hover': {
-    backgroundColor: 'rgba(0, 0, 0, 0.14)',
-    fontWeight: 700,
-    color: 'orange',
-  },
-  '&.Mui-selected': {
-    backgroundColor: '#75C9CC',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.14)',
+const CustomPickersDay = styled(({ ...props }) => {
+  return <PickersDay {...props} disableRipple />;
+})(({ theme }) => {
+  return {
+    display: 'flex',
+    fontSize: '1.3rem',
+    fontFamily: ['Open Sans', 'Helvetica'].join(','),
+    backgroundColor: 'transparent',
+    ':hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.14) !important',
+      fontWeight: 700,
+      color: '#75C9CC',
     },
-  },
-}));
+    ':focus': {
+      backgroundColor: '#75C9CC !important',
+      color: 'white',
+    },
 
-const CalendarPicker = styled(({ date, renderWeekPickerDay, ...props }) => {
+    '&.Mui-selected': {
+      backgroundColor: '75C9CC !important',
+      fontWeight: '700 !important',
+    },
+    '&.bank-holiday': {
+      color: 'orange',
+      fontWeight: 500,
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
+      fontWeight: 600,
+    },
+  };
+});
+
+const CalendarPicker = styled(({ ...props }) => {
   return (
     <MuiCalendar
-      date={date}
-      minDate={new Date()}
-      maxDate={addYears(new Date(), 1)}
       reduceAnimations={true}
+      disableHighlightToday
       views={['day']}
-      renderInput={(params) => <TextField {...params} />}
-      renderDay={renderWeekPickerDay}
       fullWidth
       {...props}
-      disableHighlightToday
       sx={{ minWidth: [220, 330, 330, 380], maxWidth: [300, 500, 300] }}
     />
   );
@@ -91,6 +95,7 @@ const CalendarPicker = styled(({ date, renderWeekPickerDay, ...props }) => {
         paddingLeft: '0.9em ! important',
       },
       '&>div[role=presentation]': {
+        pointerEvents: 'none',
         fontSize: '1.7rem',
         lineHeight: 1.1,
         fontFamily: ['Abel'].join(','),
@@ -105,18 +110,18 @@ const CalendarPicker = styled(({ date, renderWeekPickerDay, ...props }) => {
       },
     },
 
-    '>div:nth-of-type(2)': {
-      '>div:nth-of-type(1)': {
+    '> div:nth-of-type(2)': {
+      '> div:nth-of-type(1)': {
         justifyContent: 'space-evenly',
         span: {
           fontSize: '1.2rem',
           fontFamily: ['Open Sans', 'Abel'].join(','),
           fontWeight: '500',
         },
-        '&span:nth-of-type(6)': {
+        '& span:nth-of-type(6)': {
           color: 'orange',
         },
-        '&span:nth-of-type(7)': {
+        '& span:nth-of-type(7)': {
           color: 'orange',
         },
         [theme.breakpoints.down('sm')]: {
@@ -126,38 +131,38 @@ const CalendarPicker = styled(({ date, renderWeekPickerDay, ...props }) => {
           },
         },
         [theme.breakpoints.up('sm')]: {
-          '&span:nth-of-type(1)': {
+          '& span:nth-of-type(1)': {
             ':after': {
               content: '"on"',
             },
           },
-          '&span:nth-of-type(2)': {
+          '& span:nth-of-type(2)': {
             ':after': {
               content: '"ue"',
             },
           },
-          '&span:nth-of-type(3)': {
+          '& span:nth-of-type(3)': {
             ':after': {
               content: '"ed"',
             },
           },
-          '&span:nth-of-type(4)': {
+          '& span:nth-of-type(4)': {
             ':after': {
               content: '"hu"',
             },
           },
-          '&span:nth-of-type(5)': {
+          '& span:nth-of-type(5)': {
             ':after': {
               content: '"ri"',
             },
           },
-          '&span:nth-of-type(6)': {
+          '& span:nth-of-type(6)': {
             color: 'orange',
             ':after': {
               content: '"at"',
             },
           },
-          '&span:nth-of-type(7)': {
+          '& span:nth-of-type(7)': {
             color: 'orange',
             ':after': {
               content: '"un"',

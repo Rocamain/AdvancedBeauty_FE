@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-const URL = process.env.REACT_APP_URL;
+const URL = process.env.REACT_APP_STRAPI_URL;
+
 const useNavigation = () => {
   const [data, setData] = useState(null);
 

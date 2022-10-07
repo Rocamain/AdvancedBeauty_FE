@@ -4,58 +4,78 @@ import useButtonSelected from 'hooks/useButtonSelected';
 import { Box } from '@mui/material';
 import { TimeAvailableBtn } from 'components/single/Calendar/styled/';
 import { filterHoursByTimeFrame } from 'components/single/Calendar/utils/';
-import { addMinutes, addHours, set } from 'date-fns';
+import dayjs from 'dayjs';
 
-export default function TimePicker({ timeFrame, timesAvailable }) {
+import useFetchData from 'hooks/useFetchData';
+
+export default function TimePicker({ timeFrame }) {
   const { setBooking, booking } = useContext(BookingContext);
+  const { serviceName, shopName, date } = booking;
 
-  const { date } = booking;
+  const { data: bookings } = useFetchData('bookingSystem', {
+    action: 'getAvailableTimes',
+    serviceName,
+    shopName,
+    date,
+  });
+
+  const availableTimes = bookings?.availableTimes;
+  const availableBookings = bookings?.availableBookings;
+
   const { selected, handleSelector } = useButtonSelected({
     timeFrame,
     date,
   });
 
   const handleClick = (event) => {
-    const btnTimeValue = event.target.firstChild.data;
+    const btnTimeValue = event.target.id;
+    const timeIndex = availableTimes.indexOf(btnTimeValue);
+    const bookingWithTime = availableBookings[timeIndex];
+
     const [hours, minutes] = btnTimeValue.split(':');
+    const offset = date.$offset;
 
-    const resetTimeOnDate = set(date, {
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      milliseconds: 0,
-    });
+    const appointmentDateWithTime = dayjs(date)
+      .subtract(offset)
+      .set('hour', hours)
+      .set('minutes', minutes)
+      .set('seconds', 0)
+      .tz();
 
-    let appointmentDateWithTime = addMinutes(resetTimeOnDate, minutes);
-    appointmentDateWithTime = addHours(appointmentDateWithTime, hours);
-
-    setBooking(({ date, bookingStep, ...rest }) => {
-      return { date: appointmentDateWithTime, bookingStep: 1, ...rest };
+    setBooking(({ bookingStep, date, time, ...rest }) => {
+      return {
+        date: appointmentDateWithTime,
+        dbBookingDate: bookingWithTime,
+        time: btnTimeValue,
+        bookingStep: 1,
+        ...rest,
+      };
     });
 
     handleSelector(btnTimeValue);
   };
 
-  const timesByTimeFrame = filterHoursByTimeFrame({
-    timesAvailable,
-    timeFrame,
-  });
+  if (availableTimes) {
+    const timesByTimeFrame = filterHoursByTimeFrame({
+      availableTimes,
+      timeFrame,
+    });
 
-  return (
-    <Box
-      display="grid"
-      gap={1}
-      justifyContent="center"
-      gridTemplateColumns="repeat(auto-fill, minmax(min(4em, 100%), 1fr))"
-      sx={{ marginBottom: '1em' }}
-    >
-      {timesAvailable &&
-        timesByTimeFrame.map((timeAvailable, index) => (
-          <Box key={index}>
+    return (
+      <Box
+        display="grid"
+        gap={1}
+        justifyContent="center"
+        gridTemplateColumns="repeat(auto-fill, minmax(min(4em, 100%), 1fr))"
+        sx={{ marginBottom: '1em' }}
+      >
+        {timesByTimeFrame.map((timeAvailable, index) => (
+          <Box key={index} id={timeAvailable}>
             <TimeAvailableBtn
+              id={timeAvailable}
               onClick={handleClick}
               variant={
-                selected === timesAvailable || selected === 'all'
+                selected === availableTimes || selected === 'all'
                   ? 'contained'
                   : 'outlined'
               }
@@ -63,6 +83,7 @@ export default function TimePicker({ timeFrame, timesAvailable }) {
             />
           </Box>
         ))}
-    </Box>
-  );
+      </Box>
+    );
+  }
 }

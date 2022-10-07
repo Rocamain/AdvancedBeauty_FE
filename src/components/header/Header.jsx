@@ -17,18 +17,19 @@ import {
 } from 'components/header/styled/index';
 import ScreenMenu from 'components/header/ScreenMenu';
 import MobileMenu from 'components/header/MobileMenu';
-import { Error, Loading } from 'components/shared/index';
+import { Loading } from 'components/shared/index';
 
 export default function Header({ routes }) {
   // states and hooks
 
-  const { data, loading } = useFetchData('Logo');
+  const { data, loading } = useFetchData('strapi', { component: 'Logo' });
+
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
 
-  const { selectedLink, setSelectedLink, pathBuilder } = useMenuLinkSelected();
+  const { selectedLinks } = useMenuLinkSelected();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const ref = useRef(null);
@@ -43,16 +44,7 @@ export default function Header({ routes }) {
     setAnchorEl(null);
   };
 
-  const handleSelect = (e, fullPath) => {
-    const splitPath = pathBuilder(fullPath);
-    setSelectedLink(splitPath);
-    const hasHash = fullPath.includes('#');
-    if (!hasHash) {
-      window.scrollTo(0, 0);
-    }
-  };
-
-  if (!data) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -64,8 +56,7 @@ export default function Header({ routes }) {
           {matchesBigScreens ? (
             <ScreenMenu
               links={routes.nestedList}
-              selectedLink={selectedLink}
-              handleSelect={handleSelect}
+              selectedLinks={selectedLinks}
             />
           ) : (
             <BurgerButton
@@ -87,8 +78,7 @@ export default function Header({ routes }) {
       >
         <MobileMenu
           links={routes.flatList}
-          selectedLink={selectedLink}
-          handleSelect={handleSelect}
+          selectedLinks={selectedLinks}
           onClose={handleClose}
         />
       </PopoverMenu>

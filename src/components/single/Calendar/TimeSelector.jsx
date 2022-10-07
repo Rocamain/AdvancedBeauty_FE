@@ -1,16 +1,14 @@
 import { useContext, useEffect } from 'react';
 import { BookingContext } from 'context/BookingContext';
-import { Button, Box, IconButton } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import useButtonSelected from 'hooks/useButtonSelected';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import TimePicker from 'components/single/Calendar/TimePicker';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-export default function TimeSelector({ date, timesAvailable }) {
+export default function TimeSelector({ date, availableTimes }) {
   const { selected, handleSelector } = useButtonSelected({
     date,
-    timesAvailable,
+    availableTimes,
   });
   const { setBooking, booking } = useContext(BookingContext);
 
@@ -66,14 +64,9 @@ export default function TimeSelector({ date, timesAvailable }) {
         >
           Afternoon
         </Button>
-        <Box sx={{ display: 'flex' }}>
-          <IconButton children={<KeyboardArrowLeftIcon />} />
-          <IconButton children={<KeyboardArrowRightIcon />} />
-        </Box>
       </Box>
-      {timesAvailable && (
-        <TimePicker timeFrame={selected} timesAvailable={timesAvailable} />
-      )}
+
+      <TimePicker timeFrame={selected} />
     </Box>
   );
 }

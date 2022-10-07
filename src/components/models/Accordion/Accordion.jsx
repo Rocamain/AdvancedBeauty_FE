@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useBookingSystem from 'hooks/useBookingSystem';
+import useFetchData from 'hooks/useFetchData';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -9,7 +9,6 @@ import {
   AccordionSummary,
 } from 'components/models/Accordion/styled/index';
 import { Loading } from 'components/shared/index';
-
 import { sortTreatments } from 'components/models/Accordion/utils/index';
 import { Divider } from 'components/shared/styled';
 import Modal from 'components/single/Modal/Modal';
@@ -30,17 +29,19 @@ export default function CustomizedAccordions() {
   const [servicePrice, setServicePrice] = useState(null);
   const isModalOpen = Boolean(serviceSelected);
 
+  const { loading, data } = useFetchData('bookingSystem', {
+    action: 'getServices',
+  });
+
   const handleOpenModal = (e) => {
-    setServiceSelected(e.target.firstChild.data);
-    setServicePrice(e.target.children[1].innerText);
+    setServiceSelected(e.target.id);
+    setServicePrice(e.target.value);
   };
   const handleClose = () => setServiceSelected(null);
 
   const handleChange = (event, newExpanded) => {
     setSectionExpanded(newExpanded ? event.target.innerText : false);
   };
-
-  const { loading, data } = useBookingSystem('getServices', {});
 
   if (loading) {
     return <Loading />;
@@ -52,7 +53,7 @@ export default function CustomizedAccordions() {
 
   return (
     <div style={{ width: '80vw', margin: '0 auto' }}>
-      <Typography variant="title">
+      <Typography variant="title" component="h2">
         {`Services in ${shopName}`}
         <Divider />
       </Typography>
@@ -71,22 +72,26 @@ export default function CustomizedAccordions() {
               >
                 <Typography>{name}</Typography>
               </AccordionSummary>
-              <AccordionDetails component={'ul'}>
-                {services.map(({ price, serviceName }, index) => {
-                  return (
-                    <Box
-                      key={index}
-                      onClick={handleOpenModal}
-                      sx={{ cursor: 'pointer' }}
-                    >
-                      <Typography>
-                        {serviceName} <span>- </span>
-                        <span> {`${price},00`}</span>
+              <AccordionDetails>
+                <Box component={'ul'}>
+                  {services.map(({ price, serviceName }, index) => {
+                    return (
+                      <Box
+                        key={index}
+                        onClick={handleOpenModal}
+                        sx={{ cursor: 'pointer' }}
+                        component="li"
+                        id={serviceName}
+                        value={price}
+                      >
+                        {serviceName}
+                        <span> - </span>
+                        <span value={price}> {`${price},00`}</span>
                         <span> &#x20AC;</span>
-                      </Typography>
-                    </Box>
-                  );
-                })}
+                      </Box>
+                    );
+                  })}
+                </Box>
               </AccordionDetails>
             </Accordion>
           );

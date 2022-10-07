@@ -31,7 +31,7 @@ export default function MenuItemWithDropDown({
 
   const handleClick = (e, path) => {
     e.stopPropagation();
-    handleSelect(e, path);
+    // handleSelect(e, path);
     setOpen(false);
   };
 

@@ -5,7 +5,7 @@ export default function MobileMenu({
   links,
   onClose,
   handleSelect,
-  selectedLink,
+  selectedLinks,
 }) {
   const handleClick = (e, { parentPath, path }) => {
     if (parentPath) {
@@ -58,9 +58,9 @@ export default function MobileMenu({
               mainLink={isMainLink(link)}
               selected={
                 fullPath ===
-                (selectedLink.dropLink
-                  ? selectedLink.mainLink + selectedLink.dropLink
-                  : selectedLink.mainLink)
+                (selectedLinks.dropLink
+                  ? selectedLinks.mainLink + selectedLinks.dropLink
+                  : selectedLinks.mainLink)
               }
               title={link.title}
             />

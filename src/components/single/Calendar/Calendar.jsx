@@ -1,35 +1,28 @@
-import { keyframes } from '@emotion/react';
-import { useState, useContext, useEffect, forwardRef } from 'react';
-import { utcToZonedTime } from 'date-fns-tz';
 import { BookingContext } from 'context/BookingContext';
-import {
-  getYear,
-  getMonth,
-  getDate,
-  set,
-  isSunday as checkIsSunday,
-} from 'date-fns';
-import enGb from 'date-fns/locale/en-GB';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import TimeSelector from 'components/single/Calendar/TimeSelector';
+import { keyframes } from '@emotion/react';
+import { useState, forwardRef, useContext } from 'react';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import gb from 'dayjs/locale/en-gb';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Grid, Box } from '@mui/material';
-import { CustomPickersDay } from 'components/single/Calendar/styled';
 import {
   CalendarPicker,
+  CustomPickersDay,
   GridContainer,
 } from 'components/single/Calendar/styled';
+import TimeSelector from 'components/single/Calendar/TimeSelector';
+import { Loading } from 'components/shared/index';
+import { isSunday, isBankHoliday } from './utils/index';
 
 export default forwardRef(({ fadeIn, ...props }, ref) => {
   const fadeInAnimation = keyframes`
     0% {
       opacity: 1;
-    
     }
     100% {
       opacity: 0;
       visibility: hidden;
- 
     }
   `;
 
@@ -47,119 +40,74 @@ export default forwardRef(({ fadeIn, ...props }, ref) => {
   );
 });
 
-const formatDate = (date) => {
-  const year = getYear(date);
-  const month = getMonth(date) + 1;
+const Calendar = ({ shopName, serviceName, date }) => {
+  const [year, setYear] = useState(date.year());
+  const { setBooking, booking } = useContext(BookingContext);
 
-  const day = getDate(date);
+  // const { data: bankHolidays, loading } = useFetchData('calendar', {
+  //   year,
+  //   location: shopName,
+  // });
 
-  return `${day}/${month}/${year}`;
-};
-
-const Calendar = ({ bankHolidays }) => {
-  const [timesAvailable, setTimesAvailable] = useState(null);
-  const { booking, setBooking } = useContext(BookingContext);
-  const { date, serviceName, shopName } = booking;
-
-  useEffect(() => {
-    let controller = new AbortController();
-    if (date) {
-      const formattedDate = formatDate(date);
-
-      const fetchData = async () => {
-        const URL = `http://localhost:9000/bookings/available?date=${formattedDate}&shopName=${shopName}&serviceName=${serviceName}`;
-
-        try {
-          let data = await fetch(URL, {
-            signal: controller.signal,
-          });
-
-          data = await data.json();
-          const { availableTimes } = data.bookings;
-
-          setTimesAvailable(availableTimes);
-
-          controller = null;
-        } catch (err) {
-          console.log({ err });
-        }
-      };
-      fetchData();
+  const renderDay = (date, selectedDates, pickersProps) => {
+    if (
+      isSunday(date)
+      // || isBankHoliday(date, bankHolidays)
+    ) {
+      pickersProps.disabled = true;
+      return <CustomPickersDay className="bank-holiday" {...pickersProps} />;
     }
-    return () => controller?.abort();
-  }, [date, serviceName, shopName]);
+    if (true) return <CustomPickersDay day={dayjs(date)} {...pickersProps} />;
+  };
+
+  const handleMonthChange = (date) => {
+    const newYear = date.year();
+    if (newYear !== year) {
+      setYear(newYear);
+    }
+  };
 
   const handleChange = (newDate) => {
-    const formattedDate = utcToZonedTime(newDate, 'Europe/Madrid');
-
-    const appointmentDate = set(formattedDate, {
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      milliseconds: 0,
-    });
-
-    setBooking(({ date, time, isBtnActive, ...rest }) => ({
-      date: appointmentDate,
-      isBtnActive: false,
-
-      ...rest,
+    setBooking(({ date, ...restBooking }) => ({
+      date: dayjs(newDate).tz(),
+      ...restBooking,
     }));
   };
 
-  const renderWeekPickerDay = (date, selectedDates, pickersDayProps) => {
-    if (bankHolidays) {
-      let day = getDate(date).toString();
-      day = day.length === 1 ? `0${day}` : day;
-      const month = getMonth(date);
-      const year = getYear(date);
-      const formattedDate = `${year}-${month}-${day}`;
-      const isBankHoliday = bankHolidays.includes(formattedDate);
-      const isSunday = checkIsSunday(date);
-
-      if (isSunday || isBankHoliday) {
-        pickersDayProps.disabled = true;
-
-        return (
-          <CustomPickersDay
-            {...pickersDayProps}
-            sx={{ color: 'orange !important', fontWeight: 900 }}
-          />
-        );
-      }
-
-      return <CustomPickersDay {...pickersDayProps} />;
-    }
-  };
-
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGb}>
-      <GridContainer>
-        <Grid
-          item
-          xs={12}
-          md={5}
-          sx={{ position: 'relative', overflow: 'hidden' }}
-        >
+    // bankHolidays &&
+    <GridContainer>
+      <Grid
+        item
+        xs={12}
+        md={5}
+        sx={{ position: 'relative', overflow: 'hidden' }}
+      >
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={gb}>
           <CalendarPicker
+            label="Calendar appointment picker"
             date={date}
-            onChange={handleChange}
-            renderWeekPickerDay={renderWeekPickerDay}
+            minDate={dayjs()}
+            maxDate={dayjs().add(1, 'year')}
+            disablePast={true}
+            renderDay={renderDay}
+            onChange={(day) => handleChange(day)}
+            onMonthChange={handleMonthChange}
           />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={5}
-          sx={{
-            position: 'relative',
-            overflowXp: 'hidden',
-            marginBottom: '1em',
-          }}
-        >
-          <TimeSelector date={date} timesAvailable={timesAvailable} />
-        </Grid>
-      </GridContainer>
-    </LocalizationProvider>
+        </LocalizationProvider>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={5}
+        sx={{
+          position: 'relative',
+          overflowXp: 'hidden',
+          marginBottom: '1em',
+        }}
+      >
+        <TimeSelector />
+      </Grid>
+    </GridContainer>
   );
 };

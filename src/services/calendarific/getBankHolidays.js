@@ -1,12 +1,14 @@
-const LOCATIONS = {
+const COUNTIES = {
   'Palma de Majorca': 'IB',
   "L'Illa Diagonal": 'CT',
   'Turo Park': 'CT',
 };
-const getISOdates = (holidays, county) => {
+
+const getISOdates = ({ holidays, location }) => {
+  const countyCode = COUNTIES[location];
   const filterCountyHols = holidays.filter(
     (holiday) =>
-      holiday.locations === county ||
+      holiday.locations === countyCode ||
       holiday.locations === '14 states' ||
       holiday.type.includes('National holiday')
   );
@@ -15,24 +17,11 @@ const getISOdates = (holidays, county) => {
     return holiday.date.iso;
   });
 };
-const getBankHolidays = async ({ year, location }) => {
-  try {
-    const holsData = await fetch(
-      `${process.env.REACT_APP_HOLS_API}?&api_key=${process.env.REACT_APP_HOLS_KEY}&country=es&year=${year}`
-    );
+// API is not very reliable, in future need to look for a better API
+const getBankHolidays = ({ year }) => {
+  const queryString = `${process.env.REACT_APP_HOLS_API}?&api_key=${process.env.REACT_APP_HOLS_KEY}&country=es&year=${year}`;
 
-    const holsParsed = await holsData.json();
-
-    const nationalHolidays = holsParsed.response.holidays;
-
-    if (nationalHolidays) {
-      const bankHolidays = getISOdates(nationalHolidays, LOCATIONS[location]);
-
-      return bankHolidays;
-    }
-  } catch (err) {
-    throw err;
-  }
+  return queryString;
 };
 
-export default getBankHolidays;
+export { getBankHolidays, getISOdates };

@@ -3,9 +3,9 @@ import { Box as Nav, MenuList } from '@mui/material';
 import { MenuLink } from './styled/index';
 import MenuItemWithDropDown from 'components/header/MenuItemWithDropDown';
 
-export default function ScreenMenu({ links, selectedLink, handleSelect }) {
+export default function ScreenMenu({ links, selectedLinks, handleSelect }) {
   const [hoverTracker, setHoverTracker] = useState(null);
-  const { mainLink, dropLink } = selectedLink;
+  const { mainLink, dropLink } = selectedLinks;
 
   const handleHover = (sectionHover) => {
     if (sectionHover !== hoverTracker) {

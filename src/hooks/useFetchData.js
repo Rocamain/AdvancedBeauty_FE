@@ -1,42 +1,90 @@
 import { useEffect, useState } from 'react';
-import { makeQuery } from 'services/strapi/makeQuery';
+import { useNavigate } from 'react-router-dom';
 
-const URL = process.env.REACT_APP_URL;
+const API_SELECTOR = {
+  strapi: ({ component }) => {
+    const { makeQuery } = require('services/strapi/makeQuery');
+    return makeQuery(component);
+  },
+  calendar: ({ year, location }) => {
+    const {
+      getBankHolidays,
+    } = require('services/calendarific/getBankHolidays');
 
-export default function useFetchData(path) {
-  const [data, setData] = useState({
-    loading: true,
-    data: false,
-    error: false,
-  });
+    return getBankHolidays({ year });
+  },
+  bookingSystem: ({ action, shopName, serviceName, date }) => {
+    const getQuery = require(`services/booking/${action}.js`).default;
 
-  // fetch data
+    if (action === 'getAvailableTimes') {
+      return getQuery({ shopName, serviceName, date });
+    }
+    return getQuery();
+  },
+};
+
+export default function useFetchData(
+  api,
+  { component, location, year, action, date, shopName, serviceName }
+) {
+  const [data, setData] = useState();
+  const [loading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const getData = async () => {
-      let controller = new AbortController();
+    const abortController = new AbortController();
 
-      try {
-        const queryString = makeQuery(path);
-        const res = await fetch(`${URL}/api/${queryString}`, {
-          signal: controller.signal,
-        });
-
-        const { data } = await res.json();
-        setData({ data: data, error: false, loading: false });
-
-        controller = null;
-      } catch (err) {
-        setData({ data: false, error: err, loading: false });
+    fetch(
+      API_SELECTOR[api]({
+        component,
+        year,
+        date,
+        location,
+        action,
+        shopName,
+        serviceName,
+      }),
+      {
+        signal: abortController.signal,
       }
-    };
+    )
+      .then((response) => {
+        if (response) {
+          return response.json();
+        }
+        return Promise.reject();
+      })
+      .then((data) => {
+        if (api === 'calendar') {
+          const { holidays } = data.response;
 
-    getData();
+          const {
+            getISOdates,
+          } = require('services/calendarific/getBankHolidays');
+
+          const shopBankHols = getISOdates({ holidays, location });
+
+          setData(shopBankHols);
+        } else {
+          setData(data?.data || data?.bookings || data);
+        }
+      })
+      .catch(() => {
+        if (abortController.signal.aborted) {
+          console.log('The user aborted the request');
+        } else {
+          navigate('/error');
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
 
     return () => {
-      setData((prev) => prev);
+      abortController.abort();
     };
-  }, [path]);
+  }, [api, component, year, location, action, date, date?.$d]);
 
-  return data;
+  return { data, loading };
 }

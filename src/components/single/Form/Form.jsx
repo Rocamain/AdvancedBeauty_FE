@@ -13,7 +13,7 @@ import { inputs } from 'components/single/Form/utils/index.js';
 import shop from 'assets/shop.jpg';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-
+import { useNavigate } from 'react-router-dom';
 const initialValue = {
   name: '',
   shop: '',
@@ -28,6 +28,7 @@ export default function ContactForm() {
   const [result, setResult] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [mailSent, setEmailSent] = useState(false);
+  const navigate = useNavigate();
   const numbers = useMemo(() => {
     const first = Math.floor(Math.random() * 21);
     const second = Math.floor(Math.random() * 21);
@@ -59,7 +60,7 @@ export default function ContactForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submit', value);
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -75,10 +76,9 @@ export default function ContactForm() {
           setResult('');
           setValue(initialValue);
         }
-        if (data.err) {
-          console.log(data.err);
-        }
-      });
+      })
+      .catch((err) => navigate('/error'))
+      .finally(() => setValue(initialValue));
   };
 
   return (

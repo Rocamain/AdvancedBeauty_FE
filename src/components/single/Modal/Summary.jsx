@@ -11,25 +11,8 @@ import { Box, Typography, Divider } from '@mui/material/';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import { isOk, hasNoError } from 'components/single/Modal/utils/';
-import { getYear, getMonth, getDate, getHours, getMinutes } from 'date-fns';
-
-const getFormattedDate = (date) => {
-  const year = getYear(date);
-  const month = getMonth(date) + 1;
-  const day = getDate(date);
-
-  return `${day}/${month}/${year}`;
-};
-
-const getFormattedTime = (date) => {
-  const hours = getHours(date);
-  let minutes = getMinutes(date).toString();
-
-  if (minutes.length === 1) {
-    minutes = '0' + minutes;
-  }
-  return hours + ':' + minutes;
-};
+import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 export default function Summary({ className }) {
   const { booking, setBooking } = useContext(BookingContext);
@@ -38,13 +21,11 @@ export default function Summary({ className }) {
     name: '',
     authorized: false,
   });
-  const { date, price, serviceName, shopName } = booking;
+  const navigate = useNavigate();
+  const { dbBookingDate, price, serviceName, shopName } = booking;
   const [error, setError] = useState({ emailError: null, nameError: null });
   const { emailError, nameError } = error;
   const { email, name, authorized } = formData;
-
-  const formattedDate = getFormattedDate(date);
-  const formattedTime = getFormattedTime(date);
 
   useEffect(() => {
     setBooking({ ...booking, bookingStep: 2 });
@@ -73,8 +54,8 @@ export default function Summary({ className }) {
       authorized: !authorized,
     }));
   };
+
   const handleSubmit = (e) => {
-    // linked submit button in Modal
     e.preventDefault();
 
     const requestOptions = {
@@ -85,17 +66,28 @@ export default function Summary({ className }) {
         email,
         serviceName,
         shopName,
-        appointment: date,
+        appointment: dayjs(dbBookingDate).toISOString(),
       }),
     };
+
     fetch('http://localhost:9000/bookings', requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        setBooking((booking) => ({
-          confirmedBooking: data.booking,
-          ...booking,
-        }));
-      });
+        if (data.booking) {
+          console.log('BOOKING RESULT:', data.booking);
+          setBooking((booking) => ({
+            bookingConfirmed: true,
+            ...booking,
+          }));
+          navigate('/confirmation', { state: booking });
+        } else {
+          const err = new Error();
+          err.msg = data.msg;
+          throw err;
+        }
+      })
+      .catch((err) => navigate('/error'))
+      .finally(() => setBooking(null));
   };
 
   const matches = useMediaQuery('(min-width:760px)');
@@ -127,7 +119,7 @@ export default function Summary({ className }) {
                     Date:
                     <Box
                       component="span"
-                      children={formattedDate}
+                      children={booking.date.format('DD/MM/YYYY')}
                       style={{
                         marginLeft: '0.5em',
                         color: 'white',
@@ -146,7 +138,7 @@ export default function Summary({ className }) {
                       Time:
                       <Box
                         component="span"
-                        children={formattedTime}
+                        children={booking.time}
                         sx={{
                           fontsize: 'inherit',
                           marginLeft: '0.5em',
@@ -176,7 +168,7 @@ export default function Summary({ className }) {
                     Time:
                     <Box
                       component="span"
-                      children={formattedTime}
+                      children={booking.time}
                       sx={{
                         fontsize: 'inherit',
                         marginLeft: '0.5em',

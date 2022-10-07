@@ -16,6 +16,7 @@ const mainComponent = [
   'components.button',
   'components.buttons.linkedTo',
 ];
+const URL = process.env.REACT_APP_STRAPI_URL;
 
 const makeQuery = (path) => {
   path = path.replace('Services-and-Fares', 'Services-and-Fare');
@@ -38,7 +39,7 @@ const makeQuery = (path) => {
     }
   );
 
-  const queryString = `${path}?${query}`;
+  const queryString = `${URL}/api/${path}?${query}`;
 
   return queryString;
 };

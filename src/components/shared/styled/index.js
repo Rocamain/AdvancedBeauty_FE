@@ -155,11 +155,32 @@ const Card = styled(
   },
 }));
 
-const ImageContainer = styled((props) => (
-  <Box component="div">
-    <Image {...props} />
-  </Box>
-))(({ theme, size }) => ({
+const ImageContainer = styled(({ url, ...props }) => {
+  if (url) {
+    const { small, medium } = url;
+    return (
+      <Box component="div">
+        <Image
+          {...props}
+          url={url}
+          sx={{
+            content: {
+              sx: `url(${small.url})`,
+              sm: `url(${small.url})`,
+              md: `url(${medium.url})`,
+            },
+          }}
+        />
+      </Box>
+    );
+  } else {
+    return (
+      <Box>
+        <Image {...props} />
+      </Box>
+    );
+  }
+})(({ theme, size }) => ({
   margin: '0 auto',
   marginBottom: '1em',
   display: 'inline-block',

@@ -4,6 +4,8 @@ import { Divider, Container, Wrapper } from 'components/shared/styled/index.js';
 import Button from 'components/shared/Button.jsx';
 
 export default function CardA({
+  bookingConfirmation = false,
+  confirmationMsg,
   content,
   sectionTitle,
   button,
@@ -17,9 +19,11 @@ export default function CardA({
           <Box
             sx={{
               margin: '0 auto',
-              maxWidth: { xs: '80%', md: '50%' },
+              maxWidth: bookingConfirmation
+                ? { xs: '90%', sm: '70%', md: '75%' }
+                : { xs: '90%', sm: '75%', md: '50%' },
               position: { md: 'relative' },
-              left: { md: '3vw' },
+              left: bookingConfirmation ? undefined : { md: '3vw' },
               zIndex: '100',
             }}
           >
@@ -34,9 +38,9 @@ export default function CardA({
               }}
             />
             <Divider />
+            {/* {confirmationMsg && <Box children={confirmationMsg} />} */}
             <Card>
-              <Typography
-                component="h2"
+              <Box
                 children={content}
                 sx={{
                   marginBottom: '1.5em',
@@ -48,15 +52,14 @@ export default function CardA({
                   fontFamily: 'Abel',
                 }}
               />
-              <Button {...button} />
+              {photo && <Button {...button} />}
             </Card>
           </Box>
           {photo && (
             <Box sx={{ width: '100%', paddingTop: { md: '5em', xl: '0' } }}>
               <Image
                 src={photo.url}
-                formats={photo.formats}
-                title="shop"
+                formats={photo?.formats}
                 alt={photo.alternativeText}
               />
             </Box>

@@ -6,7 +6,7 @@ export default function GridPhoto({
   columnOrder,
   alternativeText,
 }) {
-  const { small, medium, thumbnail } = formats;
+  const { small, medium } = formats;
 
   if (small)
     return (

@@ -1,6 +1,6 @@
 import { Button as MuiButton, styled, Box } from '@mui/material';
 import { ArrowRight } from '@mui/icons-material/';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MyButton = styled(({ type, onClick, ...props }) => (
   <MuiButton
@@ -53,17 +53,13 @@ export default function Button({
   type,
 }) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const url = sectionTitle ? `/${page}/#${sectionTitle}` : `/${page}`;
 
   const handleClick = (event) => {
     event.preventDefault();
-    if (!sectionTitle) {
-      window.scrollTo(0, 0);
-    }
 
-    navigate(url, { replace: false });
+    navigate(url);
   };
 
   return (

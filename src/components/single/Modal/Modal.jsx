@@ -1,26 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BookingContext } from 'context/BookingContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useShowSummary from 'hooks/useShowSummary';
-import getBankHolidays from 'services/calendarific/getBankHolidays';
-
 import { Modal as MuiModal, Button } from '@mui/material/';
 import Stepper from 'components/single/Modal/Stepper';
 import Summary from 'components/single/Modal/Summary';
 import Calendar from 'components/single/Calendar/Calendar.jsx';
 import Header from 'components/single/Modal/Header.jsx';
 import { Dialog, ModalWrapper, ExitBtn } from 'components/single/Modal/styled';
-import { utcToZonedTime } from 'date-fns-tz';
-import { set, getYear } from 'date-fns';
+import dayjs, { tz } from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-const TODAY = utcToZonedTime(new Date(), 'Europe/Madrid');
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(customParseFormat);
 
-const SET_TODAY = set(TODAY, {
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0,
-});
+dayjs.tz.setDefault('Europe/Madrid');
 
 export default function Modal({
   open,
@@ -32,27 +29,20 @@ export default function Modal({
 }) {
   const [booking, setBooking] = useState({
     serviceName,
-    price,
     shopName,
-    date: SET_TODAY,
+    price,
+    date: dayjs().tz(),
+    time: null,
     bookingStep: 0,
+    emailAuthorization: false,
+    bookingConfirmation: false,
   });
-  const [bankHolidays, setBankHoliday] = useState(null);
-  const { bookingStep, time, date } = booking;
 
-  const year = getYear(date);
+  const { bookingStep, time, date } = booking;
 
   const { fromRef, showSummary } = useShowSummary(bookingStep);
 
   const isBtnActive = Boolean(bookingStep % 2);
-
-  useEffect(() => {
-    if (shopName && year) {
-      getBankHolidays({ year: year, location: shopName }).then((res) =>
-        setBankHoliday(res)
-      );
-    }
-  }, [year, shopName]);
 
   const handleExitBtn = () => {
     handleClose();
@@ -68,7 +58,10 @@ export default function Modal({
   const smallPhone = useMediaQuery('(max-width:460px)');
 
   return (
-    <BookingContext.Provider value={{ booking, setBooking }}>
+    <BookingContext.Provider
+      value={{ booking, setBooking }}
+      dateLibInstance={dayjs.tz}
+    >
       <MuiModal
         open={open}
         onClose={handleClose}
@@ -93,7 +86,9 @@ export default function Modal({
             <Calendar
               ref={fromRef}
               fadeIn={bookingStep > 1}
-              bankHolidays={bankHolidays}
+              shopName={shopName}
+              serviceName={serviceName}
+              date={date}
             />
             {showSummary && (
               <Summary
