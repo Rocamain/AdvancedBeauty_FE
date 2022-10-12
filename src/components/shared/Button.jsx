@@ -45,7 +45,8 @@ const MyButton = styled(({ type, onClick, ...props }) => (
 }));
 
 export default function Button({
-  buttonText,
+  linkText,
+  linkTo,
   page,
   sectionTitle,
   width,
@@ -53,8 +54,9 @@ export default function Button({
   type,
 }) {
   const navigate = useNavigate();
+  const { path, title } = linkTo;
 
-  const url = sectionTitle ? `/${page}/#${sectionTitle}` : `/${page}`;
+  const url = title ? `/${path}/#${title}` : `/${path}`;
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -75,7 +77,7 @@ export default function Button({
         sx={{ width: 'inherit' }}
         endIcon={<ArrowRight />}
       >
-        {buttonText}
+        {linkText}
       </MyButton>
     </Box>
   );

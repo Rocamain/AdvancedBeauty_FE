@@ -57,7 +57,7 @@ const slideCard = makeStyles((theme) => ({
   },
   cardExiting: {
     animation: `$cardOut 500ms ${theme.transitions.easing.easeInOut}`,
-    opacity: 1,
+
     transform: 'translateY(0)',
   },
 

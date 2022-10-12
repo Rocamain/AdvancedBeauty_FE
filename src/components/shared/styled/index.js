@@ -83,10 +83,12 @@ const top = (theme, background, show) => {
 const Container = styled((props) => <Box component="div" {...props} />)(
   ({ theme, background, show }) => {
     return {
+      width: '90vw',
+      margin: '0 auto',
       position: (background === 'full' || show === 'photo') && 'relative',
       top: top(theme, background, show),
       padding: background === 'full' && theme.spacing(4, 0),
-      width: '100%',
+
       backgroundImage:
         background === 'full'
           ? 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important'
@@ -95,6 +97,12 @@ const Container = styled((props) => <Box component="div" {...props} />)(
         background === 'right' || background === 'mixed leaves and right'
           ? '10vw 0px 0px 0px #00bccc'
           : null,
+      [theme.breakpoints.up('sm')]: {
+        width: '80vw',
+      },
+      [theme.breakpoints.up('md')]: {
+        width: '65vw',
+      },
     };
   }
 );
@@ -157,43 +165,25 @@ const Card = styled(
 
 const ImageContainer = styled(({ url, ...props }) => {
   if (url) {
-    const { small, medium } = url;
     return (
-      <Box component="div">
-        <Image
-          {...props}
-          url={url}
-          sx={{
-            content: {
-              sx: `url(${small.url})`,
-              sm: `url(${small.url})`,
-              md: `url(${medium.url})`,
-            },
-          }}
-        />
-      </Box>
+      <Box
+        component="img"
+        {...props}
+        loading="lazy"
+        src={url}
+        width="128px"
+        height="128px"
+      />
     );
   } else {
-    return (
-      <Box>
-        <Image {...props} />
-      </Box>
-    );
+    return <Box component="img" {...props} loading="lazy" />;
   }
-})(({ theme, size }) => ({
+})(({ theme }) => ({
   margin: '0 auto',
   marginBottom: '1em',
-  display: 'inline-block',
+  width: '100px',
+  height: '100px',
 }));
-const Image = styled((props) => <Box component="img" {...props} />)(
-  ({ theme }) => {
-    return {
-      objectFit: 'contain',
-      width: '100%',
-      height: 'auto',
-    };
-  }
-);
 
 const Grid = styled(({ show, photoColumn, ...props }) => {
   const direction =

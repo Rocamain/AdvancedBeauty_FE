@@ -11,10 +11,10 @@ const mainComponent = [
   'components.photos.media',
   'components.cards',
   'components.cards.icon.media',
-  'components.slides.linkedTo',
+  'components.slides.linkTo',
   'components.slides.photo.media',
   'components.button',
-  'components.buttons.linkedTo',
+  'components.button.linkTo',
 ];
 const URL = process.env.REACT_APP_STRAPI_URL;
 
@@ -28,6 +28,7 @@ const makeQuery = (path) => {
   path = path.replace('Services-and-Fare/Services-in-Turo-Park', 'Turo');
   path = path.replace('Services-and-Fare/Promotions', 'promotions');
   path = path.replace('Services-and-Fare/Fares', 'fares');
+
   const querySelector = path !== 'Logo' ? mainComponent : headerLogo;
 
   const query = qs.stringify(

@@ -12,7 +12,6 @@ const getAvailableTimes = ({ shopName, serviceName, date }) => {
 
   const queryString = `${PATH}/bookings/available?shopName=${shopName}&serviceName=${serviceName}&date=${formattedDate}`;
 
-  console.log('Execute get QueryAvailableTimes', queryString);
   return queryString;
 };
 

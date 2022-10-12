@@ -8,50 +8,83 @@ import {
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from 'components/models/GridA/markdown-styles.module.css';
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
+import { slideCard, slidePhoto } from 'components/models/Carousel/styles';
+import clsx from 'clsx';
 
-const Card = ({ cards, animatedPhoto, cardAnimation, slide }) => {
+const Card = ({ exit, card, exitAnimationEnd }) => {
+  const { photo, content, buttonText, page, title, sectionTitle } = card;
+  const theme = useTheme();
+  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
+    noSsr: true,
+  });
+
+  let photoAnimationStyles = slidePhoto();
+  let cardAnimationStyles = slideCard();
+
+  let animatedPhoto = `${clsx(photoAnimationStyles.photoEntering, {
+    [photoAnimationStyles.photoExiting]: exit,
+  })}`;
+
+  let cardAnimation = `${clsx(cardAnimationStyles.cardEntering, {
+    [cardAnimationStyles.cardExiting]: exit,
+  })}`;
+
   return (
-    <Box
-      component="div"
-      sx={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        maxWidth: { xs: '70%', xl: '60%' },
-        boxSizing: 'border-box !important',
-        marginLeft: { sm: '-5%' },
-      }}
-    >
-      <CardPhotoContainer>
-        <Photo
-          alt={cards[slide].photo.alternativeText}
-          src={cards[slide].photo.url}
-          className={animatedPhoto}
-        />
-      </CardPhotoContainer>
+    <>
+      <Box
+        component="div"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          marginLeft: [
+            theme.spacing(0),
+            theme.spacing(0),
+            theme.spacing(-3.5),
+            theme.spacing(-9),
+          ],
+          width: { md: '75%', lg: '70%' },
+        }}
+      >
+        {matchesBigScreens && (
+          <CardPhotoContainer>
+            <Photo
+              alt={photo.alternativeText}
+              src={photo}
+              className={animatedPhoto}
+            />
+          </CardPhotoContainer>
+        )}
 
-      <CardWrapper className={cardAnimation} sx={{ pb: '2em' }}>
-        <Typography
-          component="h4"
-          variant="cardTitle"
-          sx={{ paddingBottom: '1em', color: 'black' }}
+        <CardWrapper
+          className={cardAnimation}
+          sx={{ pb: '2em' }}
+          onAnimationEnd={exitAnimationEnd}
         >
-          {cards[slide].title}
-        </Typography>
-        <ReactMarkdown
-          className={style.reactMarkDown}
-          escapeHTML={true}
-          remarkPlugins={[gfm]}
-          children={cards[slide].content}
-          style={{ paddingBottom: '1em', color: 'black' }}
-        />
+          <Typography
+            component="h4"
+            variant="cardTitle"
+            sx={{ paddingBottom: '1em', color: 'black' }}
+          >
+            {title}
+          </Typography>
+          <ReactMarkdown
+            className={style.reactMarkDown}
+            escapeHTML={true}
+            remarkPlugins={[gfm]}
+            children={content}
+            style={{ paddingBottom: '1em', color: 'black' }}
+          />
 
-        <Button
-          buttonText={cards[slide].buttonText}
-          buttonTo={cards[slide].page}
-          sectionTitle={cards[slide].sectionTitle}
-        />
-      </CardWrapper>
-    </Box>
+          <Button
+            buttonText={buttonText}
+            buttonTo={page}
+            sectionTitle={sectionTitle}
+          />
+        </CardWrapper>
+      </Box>
+    </>
   );
 };
 
