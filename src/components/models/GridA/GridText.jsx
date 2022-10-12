@@ -3,7 +3,7 @@ import Button from 'components/shared/Button';
 import { Divider } from 'components/shared/styled';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
-import style from './markdown-styles.module.css';
+import style from 'styles/markdown-styles.module.css';
 
 export default function GridText({ sectionTitle, content, button, show }) {
   const isPhoto = show === 'photo';

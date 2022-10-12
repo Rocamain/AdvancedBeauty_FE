@@ -1,24 +1,5 @@
-@font-face {
+.reactMarkDown {
   font-family: 'Abel';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: local('Abel'), local('Abel-Regular'),
-    url('@fontsource/abel/latin.css') format('Abel');
-  unicoderange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF;
-}
-@font-face {
-  font-family: 'Open sans';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: local('Open sans'), local('Open sans-Regular'),
-    url('@fontsource/open-sans/latin-ext.css') format('Open sans');
-  unicoderange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF;
 }
 
 .reactMarkDown p,
@@ -28,12 +9,14 @@ li {
   line-height: 1.5em;
   letter-spacing: 0.09em;
   font-weight: 600;
-  fontfamily: Abel;
+  font-family: 'Open Sans';
+  font-family: 'Abel';
 }
 .reactMarkDown p strong {
   color: black;
   font-size: 1.3rem;
   font-weight: 700;
+  font-family: 'Abel';
 }
 
 @media screen and (min-width: 600px) {
@@ -42,20 +25,25 @@ li {
   }
   .reactMarkDown h1 {
     font-size: 1.4rem;
+    font-family: 'Abel';
   }
   .reactMarkDown h2,
   h3 {
     font-size: 1.4rem;
+    font-family: 'Abel';
   }
   .reactMarkDown h4,
   h5 {
     font-size: 1.4rem;
+    font-family: 'Abel';
   }
   .reactMarkDown h6 {
     font-size: 1.4rem;
+    font-family: 'Abel';
   }
   .reactMarkDown p {
     font-size: 1rem;
+    font-family: 'Abel';
   }
   .reactMarkDown img {
     margin: 2em auto;
@@ -66,6 +54,7 @@ li {
 @media screen and (min-width: 900px) {
   .reactMarkDown li {
     font-size: 1.2rem;
+    font-family: 'Abel';
   }
   .reactMarkDown h1 {
     font-size: 1.6rem;
@@ -83,6 +72,7 @@ li {
   }
   .reactMarkDown p {
     font-size: 1.2rem;
+    font-family: 'Abel';
   }
 }
 @media screen and (min-width: 1400px) {
@@ -105,5 +95,6 @@ li {
   }
   .reactMarkDown p {
     font-size: 1.35rem;
+    font-family: 'Abel';
   }
 }

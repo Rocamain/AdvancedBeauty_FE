@@ -3,17 +3,17 @@ function loadComponent(name) {
   return Component;
 }
 
-const renderComponents = ({ components }) => {
+const renderComponents = ({ components, path }) => {
   const routeComponents = components.map((componentInfo, index) => {
-    const { componentName, title, sectionTitle } = componentInfo;
+    const { componentName, id } = componentInfo;
+
     const LazyComponent = loadComponent(componentName);
-    const firstChildHeight = index === 0 ? '90vh' : '10vh';
+    const firstChildHeight = index === 0 ? '90vh' : '20vh';
 
     return (
       <LazyComponent
         key={index}
-        id={sectionTitle && sectionTitle.title}
-        data={componentInfo}
+        data={{ path, id }}
         height={firstChildHeight}
       />
     );

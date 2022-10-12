@@ -22,7 +22,7 @@ import { Loading } from 'components/shared/index';
 export default function Header({ routes }) {
   // states and hooks
 
-  const { data, loading } = useFetchData('strapi', { component: 'Logo' });
+  const { data, loading } = useFetchData('strapi', { path: 'Logo' });
 
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {

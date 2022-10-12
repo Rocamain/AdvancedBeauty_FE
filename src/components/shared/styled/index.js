@@ -82,8 +82,10 @@ const top = (theme, background, show) => {
 
 const Container = styled((props) => <Box component="div" {...props} />)(
   ({ theme, background, show }) => {
+    const shadowRight = background.includes('right');
+
     return {
-      width: '90vw',
+      width: shadowRight ? '80vw' : '90vw',
       margin: '0 auto',
       position: (background === 'full' || show === 'photo') && 'relative',
       top: top(theme, background, show),
@@ -94,14 +96,17 @@ const Container = styled((props) => <Box component="div" {...props} />)(
           ? 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important'
           : null,
       boxShadow:
-        background === 'right' || background === 'mixed leaves and right'
+        shadowRight || background === 'mixed leaves and right'
           ? '10vw 0px 0px 0px #00bccc'
           : null,
       [theme.breakpoints.up('sm')]: {
-        width: '80vw',
+        width: shadowRight ? '70vw' : '80vw',
       },
       [theme.breakpoints.up('md')]: {
-        width: '65vw',
+        width: shadowRight ? '60vw' : '70vw',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: shadowRight ? '55vw' : '65vw',
       },
     };
   }

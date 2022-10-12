@@ -6,7 +6,7 @@ export default function GridPhoto({
   columnOrder,
   alternativeText,
 }) {
-  const { small, medium } = formats;
+  const { small, medium, large } = formats;
 
   if (small)
     return (
@@ -21,28 +21,21 @@ export default function GridPhoto({
                 : { xs: '-10vw', md: 0 },
             zIndex: 200,
             width: { xs: '100%' },
-            // height: { md: '100%' },
             minWidth: { md: 'calc(100% + 10vw)' },
-            // maxHeight: { md: '200px' },
           })}
         >
           <Box
             component="img"
             loading="lazy"
             alt={alternativeText}
-            src={medium.url}
+            src={large.url}
+            srcSet={`${medium.url} 900w, ${small.url} 320w`}
+            sizes="(min-width: 0px) and (max-width: 480px) 320px, (min-width: 481px) 1400px, 100vw"
             sx={{
-              content: {
-                sx: `url(${medium.url})`,
-                sm: `url(${medium.url})`,
-                md: `url(${medium.url})`,
-                lg: `url(${url})`,
-                xl: `url(${url})`,
-              },
               width: ['100%', '100%'],
               height: ['auto', '100%', '100%', 'auto'],
               maxHeight: '450px',
-              objectFit: { xs: 'cover', md: 'cover' },
+              objectFit: { xs: 'contain', md: 'cover' },
               objectPosition: 'top',
               boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
               borderRadius: '5px',

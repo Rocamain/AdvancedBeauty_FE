@@ -22,7 +22,7 @@ const LazyGridA = ({ id, data, height }) => {
       }}
     >
       <Suspense fallback={<Loading />}>
-        {isNearScreen && <GridA isNearScreen={isNearScreen} {...data} />}
+        {isNearScreen && <GridA {...data} />}
       </Suspense>
     </Box>
   );

@@ -11,8 +11,9 @@ function Main(props) {
   const { pathname } = useLocation();
   const path = pathname === '/' ? 'Home' : pathname.replace('/', '');
   const { loading, data } = useFetchData('strapi', {
-    component: path,
+    path,
   });
+
   const isContact = pathname === '/Contact';
 
   useEffect(() => {
@@ -40,6 +41,7 @@ function Main(props) {
         // and it will imported be dynamically the component required.
         renderComponents({
           components: data,
+          path,
         })}
       {isContact && <Form />}
     </main>

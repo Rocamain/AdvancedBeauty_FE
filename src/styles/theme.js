@@ -325,6 +325,4 @@ const responsiveTheme = responsiveFontSizes(theme, {
   breakpoints: [theme.breakpoints],
 });
 
-console.log(responsiveTheme);
-
 export default responsiveTheme;
