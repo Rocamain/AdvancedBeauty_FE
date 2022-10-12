@@ -3,6 +3,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './styles/theme';
 import './index.css';
 import App from './App';
+import '@fontsource/abel';
+import '@fontsource/open-sans';
 
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript

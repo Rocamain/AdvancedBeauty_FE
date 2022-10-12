@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const API_SELECTOR = {
-  strapi: ({ component }) => {
+  strapi: ({ path, component, id }) => {
     const { makeQuery } = require('services/strapi/makeQuery');
-    return makeQuery(component);
+    return makeQuery({ path, component, id });
   },
   calendar: ({ year, location }) => {
     const {
@@ -25,9 +25,9 @@ const API_SELECTOR = {
 
 export default function useFetchData(
   api,
-  { component, location, year, action, date, shopName, serviceName }
+  { path, component, id, location, year, action, date, shopName, serviceName }
 ) {
-  const [data, setData] = useState();
+  const [data, setData] = useState(false);
   const [loading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -37,7 +37,9 @@ export default function useFetchData(
 
     fetch(
       API_SELECTOR[api]({
+        path,
         component,
+        id,
         year,
         date,
         location,
@@ -84,7 +86,19 @@ export default function useFetchData(
     return () => {
       abortController.abort();
     };
-  }, [api, component, year, location, action, date, date?.$d]);
+  }, [
+    api,
+    path,
+    year,
+    location,
+    action,
+    date,
+    date?.$d,
+    navigate,
+    serviceName,
+    shopName,
+    component,
+  ]);
 
   return { data, loading };
 }

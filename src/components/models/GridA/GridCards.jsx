@@ -59,9 +59,8 @@ const GridCards = ({ cards }) => {
                   isFirstCard={isFirstCard}
                 >
                   <ImageContainer
-                    src={card.photo.url}
+                    url={card.photo.url}
                     alt={card.photo.alternativeText}
-                    size="Big"
                   />
                   <Typography
                     component="h4"
@@ -106,9 +105,8 @@ const GridCards = ({ cards }) => {
                   handleClick={() => handleClick(card.linkedTo)}
                 >
                   <ImageContainer
-                    src={card.photo.url}
+                    url={card.photo.url}
                     alt={card.photo.alternativeText}
-                    size="Big"
                   />
                   <Typography
                     component="h4"

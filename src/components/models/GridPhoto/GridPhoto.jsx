@@ -27,7 +27,7 @@ export default function GridPhoto({ photos }) {
               component="img"
               alt={alternativeText}
               loading="lazy"
-              src={small.url}
+              src={large.url}
               sx={{
                 content: {
                   sm: `url(${small.url})`,

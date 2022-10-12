@@ -1,24 +1,40 @@
 const qs = require('qs');
 
 const headerLogo = ['photo.media'];
+const componentSelector = {
+  carousel: [
+    'sectionTitle',
+    'background.media',
+    'slides.photo.media',
+    'slides.linkTo',
+  ],
+
+  gridA: [
+    'sectionTitle',
+    'photo.media',
+    'button',
+    'button.linkTo',
+    'cardLinks.photo.media',
+    'cardLinks.linkTo',
+  ],
+};
 const mainComponent = [
   'components',
-  'components.treatments',
-  'components.sectionTitle',
-  'components.background.media',
-  'components.cover.media',
-  'components.photo.media',
-  'components.photos.media',
-  'components.cards',
-  'components.cards.icon.media',
-  'components.slides.linkTo',
-  'components.slides.photo.media',
-  'components.button',
-  'components.button.linkTo',
+  // 'components.sectionTitle',
+  // 'components.background.media',
+  // 'components.cover.media',
+  // 'components.photo.media',
+  // 'components.photos.media',
+  // 'components.cardLinks',
+  // 'components.cardLinks.icon.media',
+  // 'components.cardLinks.linkTo',
+  // 'components.slides.photo.media',
+  // 'components.button',
+  // 'components.button.linkTo',
 ];
 const URL = process.env.REACT_APP_STRAPI_URL;
 
-const makeQuery = (path) => {
+const makeQuery = ({ path, component, id }) => {
   path = path.replace('Services-and-Fares', 'Services-and-Fare');
   path = path.replace(
     'Services-and-Fare/Services-in-Palma-de-Majorca',
@@ -29,16 +45,39 @@ const makeQuery = (path) => {
   path = path.replace('Services-and-Fare/Promotions', 'promotions');
   path = path.replace('Services-and-Fare/Fares', 'fares');
 
-  const querySelector = path !== 'Logo' ? mainComponent : headerLogo;
+  let querySelector = path !== 'Logo' ? mainComponent : headerLogo;
 
-  const query = qs.stringify(
+  let query = qs.stringify(
     {
       populate: [...querySelector],
     },
+
     {
       encodeValuesOnly: true,
     }
   );
+
+  if (component && id) {
+    querySelector = componentSelector[component];
+    query = qs.stringify(
+      {
+        populate: {
+          components: {
+            populate: [...querySelector],
+            filters: {
+              id: {
+                $eq: id,
+              },
+            },
+          },
+        },
+      },
+
+      {
+        encodeValuesOnly: true,
+      }
+    );
+  }
 
   const queryString = `${URL}/api/${path}?${query}`;
 

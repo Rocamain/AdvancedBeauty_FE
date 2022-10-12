@@ -6,17 +6,15 @@ import GridText from 'components/models/GridA/GridText';
 import GridPhoto from 'components/models/GridA/GridPhoto';
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
+import useFetchData from 'hooks/useFetchData';
+import { Loading } from 'components/shared/index';
 
-export default function GridA({
-  show,
-  photoColumn,
-  backgroundType,
-  photo,
-  isNearScreen,
-  slides,
-  title,
-  ...data
-}) {
+export default function GridA({ path, id }) {
+  const { data, loading } = useFetchData('strapi', {
+    path,
+    component: 'gridA',
+    id: id,
+  });
   const [parentHeight, setParentHeight] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const theme = useTheme();
@@ -27,8 +25,10 @@ export default function GridA({
   });
 
   useLayoutEffect(() => {
-    if (childRef.current && loaded) {
+    if (childRef.current && data[0] && loaded) {
+      const { backgroundType, show } = data[0];
       let childHeight = childRef.current.children[0].scrollHeight;
+
       if (backgroundType === 'full' && show === 'photo') {
         const extraSpace = smallMobile ? 30 : 20;
         const extraHeight = Number(theme.spacing(extraSpace).replace('px', ''));
@@ -47,28 +47,49 @@ export default function GridA({
         setParentHeight(childHeight + extraHeight);
       }
     }
-  }, [childRef, loaded, smallMobile]);
+  }, [data, childRef, loaded, smallMobile, theme]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  const {
+    button,
+    backgroundType,
+    show,
+    photo,
+    photoColumn,
+    cardLinks,
+    sectionTitle,
+    content,
+  } = data[0];
 
   return (
     <Box
       sx={{
         minHeight: parentHeight,
-        maxWidth: ['90vw', '80vw', '65vw'],
-        margin: '0 auto',
       }}
     >
       <Container background={backgroundType} show={show}>
-        <div ref={(show === 'photo' || backgroundType === 'full') && childRef}>
+        <div
+          ref={
+            show === 'photo' || backgroundType === 'full' ? childRef : undefined
+          }
+        >
           <Grid
-            id={title}
             background={backgroundType}
             show={show}
             photoColumn={photoColumn}
             onLoad={() => setLoaded(true)}
           >
-            <GridText show={show} {...data} />
-            {show === 'slides'
-              ? slides && <GridCards cards={slides} />
+            <GridText
+              show={show}
+              content={content}
+              sectionTitle={sectionTitle}
+              button={button}
+            />
+            {show === 'cards'
+              ? cardLinks && <GridCards cards={cardLinks} />
               : photo && <GridPhoto {...photo} columnOrder={photoColumn} />}
           </Grid>
         </div>
