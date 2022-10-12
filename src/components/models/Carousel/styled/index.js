@@ -38,7 +38,7 @@ const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => {
     },
     [theme.breakpoints.up('xl')]: {
       width: '40%',
-      margin: '100px auto 140px auto',
+      margin: '80px auto 130px auto',
     },
   };
 });

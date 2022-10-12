@@ -1,3 +1,6 @@
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
+import clsx from 'clsx';
 import { Typography, Box } from '@mui/material';
 import Button from 'components/shared/Button';
 import {
@@ -7,14 +10,11 @@ import {
 } from 'components/models/Carousel/styled';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
-import style from 'components/models/GridA/markdown-styles.module.css';
-import { useTheme } from '@mui/material/styles';
-import { useMediaQuery } from '@mui/material';
+import style from 'styles/markdown-styles.module.css';
 import { slideCard, slidePhoto } from 'components/models/Carousel/styles';
-import clsx from 'clsx';
 
 const Card = ({ exit, card, exitAnimationEnd }) => {
-  const { photo, content, buttonText, page, title, sectionTitle } = card;
+  const { photo, content, linkText, linkTo, title } = card;
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
@@ -44,7 +44,7 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
             theme.spacing(-3.5),
             theme.spacing(-9),
           ],
-          width: { md: '75%', lg: '70%' },
+          width: { sm: '60%', md: '80%', lg: '70%' },
         }}
       >
         {matchesBigScreens && (
@@ -56,33 +56,48 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
             />
           </CardPhotoContainer>
         )}
-
-        <CardWrapper
-          className={cardAnimation}
-          sx={{ pb: '2em' }}
-          onAnimationEnd={exitAnimationEnd}
+        <Box
+          sx={{
+            width: {
+              xs: '100%',
+              md: '100%',
+              lg: '70%',
+              margin: '-100px auto',
+              position: 'relative',
+            },
+          }}
         >
-          <Typography
-            component="h4"
-            variant="cardTitle"
-            sx={{ paddingBottom: '1em', color: 'black' }}
+          <CardWrapper
+            className={cardAnimation}
+            sx={{
+              display: { xs: 'flex', md: 'block' },
+              justifyContent: ['flex-start'],
+              flexDirection: 'column',
+            }}
+            onAnimationEnd={exitAnimationEnd}
           >
-            {title}
-          </Typography>
-          <ReactMarkdown
-            className={style.reactMarkDown}
-            escapeHTML={true}
-            remarkPlugins={[gfm]}
-            children={content}
-            style={{ paddingBottom: '1em', color: 'black' }}
-          />
-
-          <Button
-            buttonText={buttonText}
-            buttonTo={page}
-            sectionTitle={sectionTitle}
-          />
-        </CardWrapper>
+            <Typography
+              component="h4"
+              variant="cardTitle"
+              sx={{
+                paddingBottom: '1em',
+                color: 'black',
+                textAlign: 'center',
+              }}
+            >
+              {title}
+            </Typography>
+            <Box sx={{ marginBottom: ['0.4m', '1em'] }}>
+              <ReactMarkdown
+                className={style.reactMarkDown}
+                escapeHTML={true}
+                remarkPlugins={[gfm]}
+                children={content}
+              />
+            </Box>
+            {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
+          </CardWrapper>
+        </Box>
       </Box>
     </>
   );
