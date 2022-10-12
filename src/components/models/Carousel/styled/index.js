@@ -4,39 +4,41 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 const CarouselContainer = styled((props, ref) => <Paper {...ref} {...props} />)(
   ({ theme, url }) => ({
     width: '100vw',
-    height: '70vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundImage: `url(${url})`,
+    backgroundImage: `url(${url.small.url})`,
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     overFlowY: 'visible',
     overFlowX: 'hidden',
+    padding: theme.spacing(16, 0),
     [theme.breakpoints.up('md')]: {
-      height: '80vh',
-      justifyContent: 'flex-start',
+      backgroundImage: `url(${url.large.url})`,
+      padding: theme.spacing(0),
+      paddingBottom: theme.spacing(24),
     },
   })
 );
 const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => {
   return {
-    display: 'none',
     [theme.breakpoints.up('md')]: {
       width: '60%',
-      margin: '70px auto',
+      margin: '100px auto 160px auto',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
-      position: 'relative',
-      top: '35px',
       zIndex: 300,
     },
+    [theme.breakpoints.up('lg')]: {
+      width: '40%',
+      margin: '80px auto 160px auto',
+    },
     [theme.breakpoints.up('xl')]: {
-      width: '60%',
-      margin: '70px auto',
+      width: '40%',
+      margin: '100px auto 140px auto',
     },
   };
 });
@@ -46,22 +48,23 @@ const SlideContainer = styled((props) => <Box {...props} />)(
     display: 'inline-flex',
     backgroundColor: theme.palette.primary.main,
     height: height && height,
+    width: '100%',
 
     [theme.breakpoints.up('md')]: {
       '.chevronIcon-left': {
-        transform: 'translate(-100%)',
+        transform: 'translateX(-100%)',
         transition: 'transform 1s',
       },
       ':hover .chevronIcon-left': {
-        transform: 'translate(0)',
+        transform: 'translateX(0)',
         transition: 'transform 1s',
       },
       '.chevronIcon-right': {
-        transform: 'translate(100%)',
+        transform: 'translateX(100%)',
         transition: 'transform 1s',
       },
       ':hover .chevronIcon-right': {
-        transform: 'translate(0)',
+        transform: 'translateX(0)',
         transition: 'transform 1s',
       },
     },
@@ -91,9 +94,10 @@ const ChevronButton = styled((props) => {
   backgroundColor: 'transparent',
   borderRadius: 0,
   padding: 0,
+  minWidth: '10vw',
   flex: 1,
-  [theme.breakpoints.up('sm')]: {
-    minWidth: '10vw',
+  [theme.breakpoints.up('md')]: {
+    flex: value === 'right' && 0,
   },
 
   [theme.breakpoints.up('xl')]: {
@@ -104,22 +108,21 @@ const ChevronButton = styled((props) => {
 const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
   ({ theme }) => ({
     boxSizing: 'border-box',
-    margin: '-70px auto',
-    padding: theme.spacing(5, 3),
 
+    padding: theme.spacing(5, 3),
     borderRadius: '5px',
     backgroundColor: theme.palette.primary.contrastText,
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(7, 5),
-      width: '90%',
+      width: '100% !important',
     },
     [theme.breakpoints.up('md')]: {
-      width: '80%',
+      width: '90%',
+      padding: theme.spacing(8, 7, 4, 12),
+      paddingLeft: theme.spacing(13),
     },
     [theme.breakpoints.up('lg')]: {
-      padding: theme.spacing(9, 7),
-      paddingLeft: theme.spacing(12),
-      width: '70%',
+      width: '90%',
+      paddingLeft: theme.spacing(20),
     },
   })
 );
@@ -128,42 +131,46 @@ const CardPhotoContainer = styled((props) => {
   return <Box elevation={24} {...props} />;
 })(({ theme }) => ({
   margin: '-100px auto',
-  [theme.breakpoints.up('sm')]: {
-    width: '50%',
-    marginLeft: '-5%',
-  },
+  marginLeft: '-5%',
   [theme.breakpoints.up('md')]: {
     paddingLeft: theme.spacing(7),
-    width: '30%',
+    width: '50%',
   },
   [theme.breakpoints.up('lg')]: {
-    width: '25%',
-    margin: '-150px auto',
+    width: '40%',
   },
 }));
 
-const Photo = styled((props) => (
-  <Box component="img" {...props} loading="lazy" />
-))(({ theme }) => ({
+const Photo = styled(({ src, ...props }) => {
+  const { small, medium } = src.formats;
+  return (
+    <Box
+      component="img"
+      src={medium.url}
+      srcSet={`${medium.url} 900w, ${small.url} 320w`}
+      sizes="(min-width: 0px) and (max-width: 480px) 320px, (min-width: 481px) 900px, 100vw"
+      loading="lazy"
+      {...props}
+    />
+  );
+})(({ theme }) => ({
   position: 'relative',
   zIndex: 200,
   width: '100%',
   height: 'auto',
   margin: '0 auto',
   borderRadius: '5px',
+  minWidth: '220px',
+  objectFit: 'contain',
 
-  [theme.breakpoints.down('sm')]: {
-    display: 'none',
-  },
   [theme.breakpoints.up('sm')]: {
-    left: '8%',
+    maxWidth: '290px',
+    left: '30%',
   },
   [theme.breakpoints.up('lg')]: {
-    maxWidth: '400px',
-    left: '15%',
-  },
-  [theme.breakpoints.up('xl')]: {
-    maxWidth: '450px',
+    minWidth: '260px',
+    maxWidth: '330px',
+    left: '36%',
   },
 }));
 

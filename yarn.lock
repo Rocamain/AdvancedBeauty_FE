@@ -1275,6 +1275,16 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/abel@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@fontsource/abel/-/abel-4.5.7.tgz#dc6b639624ab5d28496d32288dad017287719def"
+  integrity sha512-BNhXYSF7piPi619Yv/dlWAhfe71ZNxxLqlXbjkcjSmsACTt57qnQBs3FHSgCeIqYj0yhipvTab5xz4KgM/1nNA==
+
+"@fontsource/open-sans@^4.5.12":
+  version "4.5.12"
+  resolved "https://registry.yarnpkg.com/@fontsource/open-sans/-/open-sans-4.5.12.tgz#2c430aa1b1ce94d69a4d78292e96bdf822431955"
+  integrity sha512-WKCexsVbOECJUSOgG7GnrUxe+3ds4Sa1yhsTjSnszI+0TaJvMZnDnn5YDKwA/KwLbkZqCaV3nvMTH97jJuxWNA==
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.9.5.tgz"

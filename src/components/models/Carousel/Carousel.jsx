@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-
-import clsx from 'clsx';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 import {
   CarouselContainer,
@@ -9,18 +9,19 @@ import {
   ChevronButton,
 } from 'components/models/Carousel/styled';
 import Card from 'components/shared/Card';
-import { slideCard, slidePhoto } from './styles.js';
 
-export default function Carousel({
-  slides,
-  background,
-  sectionTitle,
-  ...rest
-}) {
-  const [slide, setSlide] = useState(0);
+export default function Carousel({ slides, background, sectionTitle }) {
+  const [slideIndex, setSlideIndex] = useState(0);
   const [exit, setExit] = useState(false);
+  const [card, setCard] = useState(slides[slideIndex]);
   const [height, setHeight] = useState(false);
   const ref = useRef();
+  const theme = useTheme();
+  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
+    noSsr: true,
+  });
+
+  console.log(card, sectionTitle);
   useEffect(() => {
     if (ref.current) {
       const elHeight = ref.current.getBoundingClientRect().height;
@@ -28,37 +29,29 @@ export default function Carousel({
     }
   }, [ref]);
 
-  const handleClick = (e) => {
-    const increment = e.currentTarget.value === 'right' ? +1 : -1;
-    const newIndex = (slide + increment + slides.length) % slides.length;
-
-    setExit(true);
-
-    setTimeout(() => {
-      setSlide(newIndex);
+  const exitAnimationEnd = (e) => {
+    const isExitAnimation = e.animationName.includes('cardOut');
+    if (isExitAnimation) {
       setExit(false);
-    }, 500);
+      setCard(slides[slideIndex]);
+    }
   };
 
-  // ANIMATIONS
-
-  let photoAnimationStyles = slidePhoto();
-  let cardAnimationStyles = slideCard();
-
-  let animatedPhoto = `${clsx(photoAnimationStyles.photoEntering, {
-    [photoAnimationStyles.photoExiting]: exit,
-  })}`;
-
-  let cardAnimation = `${clsx(cardAnimationStyles.cardEntering, {
-    [cardAnimationStyles.cardExiting]: exit,
-  })}`;
+  const handleClick = (e) => {
+    const increment = e.currentTarget.value === 'right' ? +1 : -1;
+    const newIndex = (slideIndex + increment + slides.length) % slides.length;
+    setExit(true);
+    setSlideIndex(newIndex);
+  };
 
   return (
-    <CarouselContainer url={background.url}>
-      <CarouselHero>
-        <Typography variant="carouselTitle">{sectionTitle.title} </Typography>
-        <Typography variant="carouselSubtitle">Advanced Beauty</Typography>
-      </CarouselHero>
+    <CarouselContainer url={background.formats}>
+      {matchesBigScreens && (
+        <CarouselHero>
+          <Typography variant="carouselTitle">{sectionTitle.title} </Typography>
+          <Typography variant="carouselSubtitle">Advanced Beauty</Typography>
+        </CarouselHero>
+      )}
       <div ref={ref}>
         <SlideContainer height={height ? height : undefined}>
           <ChevronButton
@@ -68,19 +61,13 @@ export default function Carousel({
             onClick={handleClick}
           />
 
-          <Card
-            className="card"
-            cards={slides}
-            animatedPhoto={animatedPhoto}
-            cardAnimation={cardAnimation}
-            slide={slide}
-          />
+          <Card card={card} exit={exit} exitAnimationEnd={exitAnimationEnd} />
 
           <ChevronButton
             className="ChevronButton ChevronButton-right"
             value="right"
             disableRipple={true}
-            onClick={handleClick}
+            onClick={(e, ref) => handleClick(e, ref)}
           />
         </SlideContainer>
       </div>
