@@ -1,22 +1,37 @@
+import useFetchData from 'hooks/useFetchData';
+import { Loading } from 'components/shared/index';
 import { Box, Typography } from '@mui/material';
-import { ImageContainer, Divider } from 'components/shared/styled/index.js';
+import { Divider } from 'components/shared/styled/index.js';
 import { Container, Card, Title } from 'components/models/GridB/styled';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
+import style from 'styles/markdown-styles.module.css';
 
-export default function GridB({ sectionTitle, button, title, cards, size }) {
+export default function GridB({ path, id }) {
+  const { data, loading } = useFetchData('strapi', {
+    path,
+    component: 'gridB',
+    id: id,
+  });
+
+  if (loading) {
+    return <Loading />;
+  }
+  const { title, size, cards } = data[0];
   return (
     <Box>
-      {sectionTitle && (
+      {title && (
         <Box
           sx={{
-            marginBottom: ['6em', '5em', '10em'],
-            maxWidth: ['90vw', '80vw', '65vw'],
+            width: ['90vw', '80vw', '65vw'],
             margin: '0 auto',
+            marginBottom: 'em',
           }}
         >
           <Typography
             component="h2"
             variant="title"
-            children={sectionTitle.title}
+            children={title}
             sx={{
               textAlign: 'center',
             }}
@@ -34,14 +49,35 @@ export default function GridB({ sectionTitle, button, title, cards, size }) {
               showTitle,
               titleColor,
               subTitle,
-              page,
-              isButton,
+              iconFullSize,
             },
             index
           ) => {
             return (
               <Card key={index} size={size}>
-                {icon && <ImageContainer src={icon.url} size={size} />}
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <Box
+                    component="img"
+                    loading="lazy"
+                    alt={icon.alternativeText}
+                    sx={{
+                      maxWidth: {
+                        xs: iconFullSize ? '90%' : '100px',
+                        xl: iconFullSize ? '90%' : '128px',
+                      },
+
+                      height: {
+                        xs: iconFullSize ? '90%' : '100px',
+                        xl: iconFullSize ? '90%' : '128px',
+                      },
+                      objectFit: 'contain',
+                      paddingBottom: showTitle ? '1.5em' : '1em',
+                      content: {
+                        xs: `url(${icon.url})`,
+                      },
+                    }}
+                  />
+                </Box>
                 {showTitle && <Title children={title} color={titleColor} />}
 
                 {subTitle && (
@@ -55,14 +91,11 @@ export default function GridB({ sectionTitle, button, title, cards, size }) {
                   />
                 )}
                 {content && (
-                  <Typography
-                    component="p"
-                    variant="p"
+                  <ReactMarkdown
+                    className={style.reactMarkDownGridA}
+                    escapeHTML={true}
+                    remarkPlugins={[gfm]}
                     children={content}
-                    sx={{
-                      textAlign: 'center',
-                      marginBottom: '1.5em',
-                    }}
                   />
                 )}
               </Card>
