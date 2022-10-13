@@ -17,7 +17,9 @@ const componentSelector = {
     'cardLinks.photo.media',
     'cardLinks.linkTo',
   ],
+  cardA: ['sectionTitle', 'photo.media', 'button', 'button.linkTo'],
 };
+
 const mainComponent = [
   'components',
   // 'components.sectionTitle',

@@ -28,9 +28,6 @@ export default function GridPhoto({
             component="img"
             loading="lazy"
             alt={alternativeText}
-            src={large.url}
-            srcSet={`${medium.url} 900w, ${small.url} 320w`}
-            sizes="(min-width: 0px) and (max-width: 480px) 320px, (min-width: 481px) 1400px, 100vw"
             sx={{
               width: ['100%', '100%'],
               height: ['auto', '100%', '100%', 'auto'],
@@ -39,6 +36,11 @@ export default function GridPhoto({
               objectPosition: 'top',
               boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
               borderRadius: '5px',
+              content: {
+                md: `url(${small.url})`,
+                lg: `url(${small.url})`,
+                xl: `url(${medium.url})`,
+              },
             }}
           />
         </Box>
