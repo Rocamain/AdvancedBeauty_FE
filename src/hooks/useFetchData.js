@@ -84,6 +84,8 @@ export default function useFetchData(
       });
 
     return () => {
+      setData(false);
+      setIsLoading(true);
       abortController.abort();
     };
   }, [
@@ -98,6 +100,7 @@ export default function useFetchData(
     serviceName,
     shopName,
     component,
+    id,
   ]);
 
   return { data, loading };
