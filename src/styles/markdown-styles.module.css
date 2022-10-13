@@ -98,3 +98,23 @@ li {
     font-family: 'Abel';
   }
 }
+
+.reactMarkDownGridA {
+  font-family: 'Abel';
+  width: 80%;
+}
+.reactMarkDownGridA p,
+li {
+  text-align: center;
+  color: #8c8b8b;
+  font-size: 0.9rem;
+  line-height: 1.6em;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  font-family: 'Open Sans', 'Abel';
+}
+
+strong {
+  color: black;
+  font-weight: 900;
+}
