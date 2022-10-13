@@ -18,6 +18,8 @@ const componentSelector = {
     'cardLinks.linkTo',
   ],
   cardA: ['sectionTitle', 'photo.media', 'button', 'button.linkTo'],
+  gridB: ['cards', 'cards.icon.media'],
+  hero: ['cover.media', 'button.linkTo'],
 };
 
 const mainComponent = [

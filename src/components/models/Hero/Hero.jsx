@@ -1,3 +1,5 @@
+import useFetchData from 'hooks/useFetchData';
+import { Loading } from 'components/shared/index';
 import { Box, Typography } from '@mui/material';
 import {
   HeroContainer,
@@ -8,27 +10,38 @@ import {
   CoffeeMug,
 } from 'components/models/Hero/styled/';
 import { Divider } from 'components/shared/styled/';
-import Button from 'components/shared/Button';
+import { Button } from '@mui/material';
 
-export default function Hero({ content, title, subTitle, cover, button }) {
-  const biggerBackground = Boolean(content);
+export default function Hero({ path, id }) {
+  const { data, loading } = useFetchData('strapi', {
+    path,
+    component: 'hero',
+    id: id,
+  });
+
+  if (loading) {
+    return <Loading />;
+  }
+  const { content, title, subTitle, cover, button } = data[0];
+
+  const isWithContent = Boolean(content);
 
   return (
     <Box sx={{ position: 'relative', marginBottom: ['5vh', '7vh'] }}>
       <HeroContainer
         className="container"
         cover={cover}
-        biggerBackground={biggerBackground}
+        isWithContent={isWithContent}
       >
         <HeroHeader>
-          <HeroHeaderWrapper biggerBackground={biggerBackground}>
+          <HeroHeaderWrapper isWithContent={isWithContent}>
             <Typography component="h1" variant="heroTitle">
               {title}
             </Typography>
             <Typography component="h3" variant="heroSubtitle">
               {subTitle}
             </Typography>
-            <Divider />
+            {!isWithContent && <Divider />}
           </HeroHeaderWrapper>
         </HeroHeader>
         <HeroContentWrapper>
@@ -41,13 +54,30 @@ export default function Hero({ content, title, subTitle, cover, button }) {
                 padding: '1em 0.5em',
               }}
             >
-              <Typography variant="content">{content}</Typography>
+              <Typography
+                component="p"
+                variant="content"
+                sx={{ fontWeight: [600, 500] }}
+              >
+                {content}
+              </Typography>
             </Box>
           )}
-          {button && <Button width={'170px'} {...button} />}
+          {button && (
+            <Box>
+              <Button
+                disableFocusRipple
+                disableRipple
+                variant="contained"
+                children={button.linkText}
+                href={button.linkTo.path}
+                sx={{ padding: '1rem 1.5rem', flex: 0 }}
+              />
+            </Box>
+          )}
         </HeroContentWrapper>
       </HeroContainer>
-      <WavesBackground className="waves" biggerBackground={biggerBackground} />
+      <WavesBackground className="waves" isWithContent={isWithContent} />
     </Box>
   );
 }
