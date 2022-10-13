@@ -143,14 +143,19 @@ const CardPhotoContainer = styled((props) => {
 
 const Photo = styled(({ src, ...props }) => {
   const { small, medium } = src.formats;
+
   return (
     <Box
       component="img"
-      src={medium.url}
-      srcSet={`${medium.url} 900w, ${small.url} 320w`}
-      sizes="(min-width: 0px) and (max-width: 480px) 320px, (min-width: 481px) 900px, 100vw"
       loading="lazy"
       {...props}
+      sx={{
+        content: {
+          md: `url(${small.url})`,
+          lg: `url(${small.url})`,
+          xl: `url(${medium.url})`,
+        },
+      }}
     />
   );
 })(({ theme }) => ({

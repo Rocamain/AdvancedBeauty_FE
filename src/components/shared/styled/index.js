@@ -82,15 +82,15 @@ const top = (theme, background, show) => {
 
 const Container = styled((props) => <Box component="div" {...props} />)(
   ({ theme, background, show }) => {
-    const shadowRight = background.includes('right');
+    const shadowRight = background && background.includes('right');
 
     return {
       width: shadowRight ? '80vw' : '90vw',
-      margin: '0 auto',
+      margin: shadowRight ? '0 0 0 5vw' : '0 5vw 0 5vw',
       position: (background === 'full' || show === 'photo') && 'relative',
       top: top(theme, background, show),
       padding: background === 'full' && theme.spacing(4, 0),
-
+      boxSizing: 'border-box',
       backgroundImage:
         background === 'full'
           ? 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important'
@@ -101,12 +101,15 @@ const Container = styled((props) => <Box component="div" {...props} />)(
           : null,
       [theme.breakpoints.up('sm')]: {
         width: shadowRight ? '70vw' : '80vw',
+        margin: shadowRight ? '0 5vw 0 10vw' : '0 10vw 0 10vw',
       },
       [theme.breakpoints.up('md')]: {
         width: shadowRight ? '60vw' : '70vw',
+        margin: shadowRight ? '0 10vw 0 15vw' : '0 15vw 0 15vw',
       },
-      [theme.breakpoints.up('lg')]: {
-        width: shadowRight ? '55vw' : '65vw',
+      [theme.breakpoints.up('xl')]: {
+        width: shadowRight ? '50vw' : '60vw',
+        margin: shadowRight ? '0 15vw 0 20vw' : '0 20vw 0 20vw',
       },
     };
   }
@@ -207,12 +210,12 @@ const Grid = styled(({ show, photoColumn, ...props }) => {
   return {
     backgroundColor: background === 'full' && '#F4F9FC',
     backgroundImage: backgroundImageSelector[background],
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
     margin:
       background === 'full'
         ? [theme.spacing(-20, 'auto'), theme.spacing(-30, 'auto')]
         : '0 auto',
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
 
     // [theme.breakpoints.up('xs')]: {
     //   width: '100%',
