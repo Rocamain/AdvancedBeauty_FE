@@ -75,6 +75,8 @@ export default function useFetchData(
       .catch(() => {
         if (abortController.signal.aborted) {
           console.log('The user aborted the request');
+          setData(false);
+          setIsLoading(true);
         } else {
           navigate('/error');
         }

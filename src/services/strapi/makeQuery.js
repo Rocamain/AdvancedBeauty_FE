@@ -20,6 +20,7 @@ const componentSelector = {
   cardA: ['sectionTitle', 'photo.media', 'button', 'button.linkTo'],
   gridB: ['cards', 'cards.icon.media'],
   hero: ['cover.media', 'button.linkTo'],
+  gridPhoto: ['photos.media'],
 };
 
 const mainComponent = [

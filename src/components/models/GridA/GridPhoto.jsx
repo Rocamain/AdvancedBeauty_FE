@@ -6,7 +6,7 @@ export default function GridPhoto({
   columnOrder,
   alternativeText,
 }) {
-  const { small, medium, large } = formats;
+  const { small, medium } = formats;
 
   if (small)
     return (
@@ -28,11 +28,11 @@ export default function GridPhoto({
             component="img"
             loading="lazy"
             alt={alternativeText}
+            src={small.url}
             sx={{
-              width: ['100%', '100%'],
-              height: ['auto', '100%', '100%', 'auto'],
-              maxHeight: '450px',
-              objectFit: { xs: 'contain', md: 'cover' },
+              maxWidth: '100%',
+              maxHeight: 'auto',
+              objectFit: 'contain',
               objectPosition: 'top',
               boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
               borderRadius: '5px',
