@@ -31,7 +31,8 @@
     "build-prod": "env-cmd -f ./.env npm run-script build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress-open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^10.10.0",
     "i": "^0.3.7"
   }
 }
