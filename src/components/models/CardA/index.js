@@ -5,20 +5,22 @@ import { Loading } from 'components/shared/index';
 
 const CardA = React.lazy(() => import('components/models/CardA/CardA.jsx'));
 
-const LazyCardA = ({ id, data, height }) => {
+const LazyCardA = ({ data, sectionTitle }) => {
   const { fromRef, isNearScreen } = useNearScreen({
-    distance: '100px',
+    distance: '200px',
   });
 
   return (
     <Box
       component="section"
-      id={id}
+      id={sectionTitle.title.replaceAll(' ', '-')}
       ref={fromRef}
-      sx={{ height: isNearScreen ? 'auto' : height, marginBottom: '20vh' }}
+      sx={{
+        minHeight: isNearScreen ? 'auto' : '40vh',
+        marginBottom: { xs: '10vh', md: '20vh' },
+      }}
     >
       <Suspense fallback={<Loading />}>
-        {' '}
         {isNearScreen && <CardA {...data} />}
       </Suspense>
     </Box>

@@ -64,7 +64,7 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
 );
 
 const Container = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, background, photoColumn, show }) => {
+  ({ theme, background, show }) => {
     const shadowRight = background.includes('right');
     console.log(shadowRight);
     return {
