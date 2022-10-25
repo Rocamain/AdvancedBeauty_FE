@@ -63,53 +63,35 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
   }
 );
 
-const top = (theme, background, show) => {
-  if (background === 'full') {
-    return [theme.spacing(20), theme.spacing(30)];
-  }
-
-  if (background === 'full' && show === 'cards') {
-    return [theme.spacing(20), theme.spacing(30)];
-  }
-
-  if (show === 'photo' && background === 'full') {
-    return [theme.spacing(25), theme.spacing(30)];
-  }
-  if (show === 'photo') {
-    return [theme.spacing(5)];
-  }
-};
-
 const Container = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, background, show }) => {
-    const shadowRight = background && background.includes('right');
-
+  ({ theme, background, photoColumn, show }) => {
+    const shadowRight = background.includes('right');
+    console.log(shadowRight);
     return {
-      width: shadowRight ? '80vw' : '90vw',
-      margin: shadowRight ? '0 0 0 5vw' : '0 5vw 0 5vw',
-      position: (background === 'full' || show === 'photo') && 'relative',
-      top: top(theme, background, show),
-      padding: background === 'full' && theme.spacing(4, 0),
+      width: shadowRight ? '90vw' : '100vw',
+      height: show === 'cards' && 'calc(100% + 64px)',
       boxSizing: 'border-box',
-      backgroundImage:
-        background === 'full'
-          ? 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important'
-          : null,
-      boxShadow:
-        shadowRight || background === 'mixed leaves and right'
-          ? '10vw 0px 0px 0px #00bccc'
-          : null,
+      boxShadow: shadowRight ? '10vw 0px 0px 0px #00bccc' : null,
       [theme.breakpoints.up('sm')]: {
-        width: shadowRight ? '70vw' : '80vw',
-        margin: shadowRight ? '0 5vw 0 10vw' : '0 10vw 0 10vw',
+        width: shadowRight ? '80vw' : '80vw',
+        margin: shadowRight
+          ? '0 0 0 10vw'
+          : background === 'full'
+          ? '-160px auto'
+          : ' 0 auto',
       },
       [theme.breakpoints.up('md')]: {
-        width: shadowRight ? '60vw' : '70vw',
-        margin: shadowRight ? '0 10vw 0 15vw' : '0 15vw 0 15vw',
+        width: shadowRight ? '80vw' : '80vw',
+        marginLeft: shadowRight && '10vw',
       },
       [theme.breakpoints.up('xl')]: {
+        width: '65vw',
+        marginLeft: shadowRight && '17.5vw',
+      },
+      [theme.breakpoints.up('xxl')]: {
         width: shadowRight ? '50vw' : '60vw',
-        margin: shadowRight ? '0 15vw 0 20vw' : '0 20vw 0 20vw',
+        margin: '0 auto',
+        marginLeft: shadowRight && '20vw',
       },
     };
   }
@@ -196,11 +178,11 @@ const ImageContainer = styled(({ url, ...props }) => {
 const Grid = styled(({ show, photoColumn, ...props }) => {
   const direction =
     photoColumn === 'first' && show === 'photo'
-      ? ['column-reverse', 'row-reverse']
+      ? ['column-reverse', 'column-reverse', 'row-reverse', 'row-reverse']
       : 'row';
 
   return <MuiGrid container direction={direction} component="div" {...props} />;
-})(({ theme, background, show }) => {
+})(({ theme, background }) => {
   const backgroundImageSelector = {
     leaves: `url(${leavesBackground})`,
     circles: `url(${circles})`,
@@ -208,25 +190,15 @@ const Grid = styled(({ show, photoColumn, ...props }) => {
   };
 
   return {
-    backgroundColor: background === 'full' && '#F4F9FC',
-    backgroundImage: backgroundImageSelector[background],
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-    margin:
-      background === 'full'
-        ? [theme.spacing(-20, 'auto'), theme.spacing(-30, 'auto')]
-        : '0 auto',
-
-    // [theme.breakpoints.up('xs')]: {
-    //   width: '100%',
-    // },
-    // [theme.breakpoints.up('md')]: {
-    //   // width: '80%',
-    // },
-
-    // [theme.breakpoints.up('lg')]: {
-    //   // width: '65%',
-    // },
+    [theme.breakpoints.up('xs')]: {
+      width: '100%',
+      backgroundColor: background === 'full' && '#F4F9FC',
+    },
+    [theme.breakpoints.up('md')]: {
+      backgroundImage: backgroundImageSelector[background],
+      backgroundSize: backgroundImageSelector[background] && 'contain',
+      backgroundRepeat: backgroundImageSelector[background] && 'no-repeat',
+    },
   };
 });
 
