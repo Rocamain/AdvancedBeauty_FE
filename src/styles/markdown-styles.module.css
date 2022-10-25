@@ -1,58 +1,94 @@
 .reactMarkDown {
   font-family: 'Abel';
+  text-align: center;
 }
 
-.reactMarkDown p,
+p,
 li {
   color: #666;
-  font-size: 1.2rem;
-  line-height: 1.5em;
-  letter-spacing: 0.09em;
+}
+.reactMarkDown p,
+li {
+  color: #8c8b8b;
+  font-size: 1rem;
+  line-height: 1.6em;
+  letter-spacing: 0.04em;
   font-weight: 600;
-  font-family: 'Open Sans';
   font-family: 'Abel';
 }
-.reactMarkDown p strong {
+
+strong {
   color: black;
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: 900;
+}
+
+.reactMarkDownGridA {
   font-family: 'Abel';
+}
+
+.reactMarkDown li,
+p {
+  font-size: 1rem;
+}
+.reactMarkDown h1 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+.reactMarkDown h2,
+h3 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+.reactMarkDown h4,
+h5 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+.reactMarkDown h6 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+
+.reactMarkDown img {
+  margin: 2em auto;
+  max-width: 100%;
+  height: auto;
+}
+.reactMarkDownGridA {
+  margin-bottom: 1em;
+}
+.reactMarkDownGridA li,
+p {
+  font-size: 1rem;
+}
+.reactMarkDownGridA h1 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+.reactMarkDownGridA h2,
+h3 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+.reactMarkDownGridA h4,
+h5 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+.reactMarkDownGridA h6 {
+  font-size: 1.4rem;
+  font-family: 'Abel';
+}
+
+.reactMarkDownGridA img {
+  margin: 2em auto;
+  max-width: 100%;
+  height: auto;
 }
 
 @media screen and (min-width: 600px) {
-  .reactMarkDown li {
-    font-size: 1rem;
-  }
-  .reactMarkDown h1 {
-    font-size: 1.4rem;
-    font-family: 'Abel';
-  }
-  .reactMarkDown h2,
-  h3 {
-    font-size: 1.4rem;
-    font-family: 'Abel';
-  }
-  .reactMarkDown h4,
-  h5 {
-    font-size: 1.4rem;
-    font-family: 'Abel';
-  }
-  .reactMarkDown h6 {
-    font-size: 1.4rem;
-    font-family: 'Abel';
-  }
-  .reactMarkDown p {
-    font-size: 1rem;
-    font-family: 'Abel';
-  }
-  .reactMarkDown img {
-    margin: 2em auto;
-    max-width: 100%;
-    height: auto;
-  }
-}
-@media screen and (min-width: 900px) {
-  .reactMarkDown li {
+  .reactMarkDown li,
+  p {
     font-size: 1.2rem;
     font-family: 'Abel';
   }
@@ -70,13 +106,29 @@ li {
   .reactMarkDown h6 {
     font-size: 1.3rem;
   }
-  .reactMarkDown p {
-    font-size: 1.2rem;
+  .reactMarkDownGridA li,
+  p {
+    font-size: 1.1rem;
     font-family: 'Abel';
   }
+  .reactMarkDownGridA h1 {
+    font-size: 1.6rem;
+  }
+  .reactMarkDownGridA h2,
+  h3 {
+    font-size: 1.5rem;
+  }
+  .reactMarkDownGridA h4,
+  h5 {
+    font-size: 1.4rem;
+  }
+  .reactMarkDownGridA h6 {
+    font-size: 1.3rem;
+  }
 }
-@media screen and (min-width: 1400px) {
-  .reactMarkDown li {
+@media screen and (min-width: 900px) {
+  .reactMarkDown li,
+  p {
     font-size: 1.35rem;
   }
   .reactMarkDown h1 {
@@ -88,33 +140,27 @@ li {
   }
   .reactMarkDown h4,
   h5 {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
   }
   .reactMarkDown h6 {
+    font-size: 1.3rem;
+  }
+  .reactMarkDownGridA li,
+  p {
+    font-size: 1.05rem;
+  }
+  .reactMarkDownGridA h1 {
     font-size: 1.5rem;
   }
-  .reactMarkDown p {
+  .reactMarkDownGridA h2,
+  h3 {
     font-size: 1.35rem;
-    font-family: 'Abel';
   }
-}
-
-.reactMarkDownGridA {
-  font-family: 'Abel';
-  width: 80%;
-}
-.reactMarkDownGridA p,
-li {
-  text-align: center;
-  color: #8c8b8b;
-  font-size: 0.9rem;
-  line-height: 1.6em;
-  letter-spacing: 0.04em;
-  font-weight: 600;
-  font-family: 'Open Sans', 'Abel';
-}
-
-strong {
-  color: black;
-  font-weight: 900;
+  .reactMarkDownGridA h4,
+  h5 {
+    font-size: 1.15rem;
+  }
+  .reactMarkDownGridA h6 {
+    font-size: 1.2rem;
+  }
 }

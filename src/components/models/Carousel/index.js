@@ -7,20 +7,24 @@ const Carousel = React.lazy(() =>
   import('components/models/Carousel/Carousel.jsx')
 );
 
-const LazyCarousel = ({ id, data, height }) => {
+const LazyCarousel = ({ id, data, firstChild, isScrollToActive }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '100px',
+    isScrollToActive,
   });
 
   return (
     <Box
+      id={data.sectionTitle.title}
       component="section"
-      id={id}
       ref={fromRef}
-      sx={{ height: isNearScreen ? 'auto' : height, marginBottom: '10vh' }}
+      sx={{
+        minHeight: firstChild && !isNearScreen && '40vh',
+        marginBottom: { xs: '20vh', md: '10vh' },
+      }}
     >
       <Suspense fallback={<Loading />}>
-        {isNearScreen && <Carousel {...data} />}
+        {(isNearScreen || isScrollToActive) && <Carousel {...data} />}
       </Suspense>
     </Box>
   );

@@ -4,7 +4,7 @@ import OpenSans from '@fontsource/open-sans';
 import Abel from '@fontsource/abel';
 
 let theme = createTheme();
-const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1400, xl: 1736, xxl: 2100 };
+const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1300, xl: 1600, xxl: 1900 };
 const breakpointsValues = {
   breakpoints: createBreakpoints({
     values: BREAKPOINTS,
@@ -26,6 +26,7 @@ theme = createTheme(theme, {
     },
     tertiary: { main: '#0693e3', contrastText: '#fff' },
     text: {
+      main: '#666',
       primary: '#333333',
       secondary: '#75C9CC',
     },
@@ -63,20 +64,27 @@ theme = createTheme(theme, {
     },
     h4: {
       fontWeight: 600,
-      fontSize: '2.2rem',
+      fontSize: '2.4rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      letterSpacing: '-0.04rem',
+      letterSpacing: '-0.004em',
     },
     h5: {
       fontWeight: 600,
-      fontSize: '2rem',
+      fontSize: '2.2rem',
       lineHeight: 1.1,
-      fontFamily: ['Abel', 'Open Sans'].join(','),
-      letterSpacing: '-0.01rem',
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+      letterSpacing: '-0.003em',
+    },
+    h6: {
+      fontWeight: 500,
+      fontSize: '1.5rem',
+      lineHeight: 1.6,
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+      letterSpacing: '0.06em',
     },
     p: {
-      fontWeight: 600,
+      fontWeight: 500,
       fontSize: '1rem',
       lineHeight: 1.4,
       color: '#666',
@@ -99,6 +107,7 @@ theme = createTheme(theme, {
     },
 
     //  Variants
+
     heroTitle: {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 700,
@@ -117,14 +126,14 @@ theme = createTheme(theme, {
       },
       [theme.breakpoints.up('md')]: {
         textAlign: 'right',
-        fontSize: '5rem',
+        fontSize: '7rem',
         lineHeight: 1,
       },
       [theme.breakpoints.up('lg')]: {
-        fontSize: '6rem',
+        fontSize: '8rem',
       },
       [theme.breakpoints.up('xl')]: {
-        fontSize: '6.5rem',
+        fontSize: '9rem',
         lineHeight: 0.94,
         letterSpacing: '-0.257rem',
       },
@@ -145,7 +154,7 @@ theme = createTheme(theme, {
       wordWrap: 'break-word',
       color: '#444444',
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      fontWeight: 500,
+      fontWeight: 700,
       textAlign: 'center',
       fontSize: '1.9rem',
       textShadow: '-17em 7em 0.3em #ffffff',
@@ -181,6 +190,7 @@ theme = createTheme(theme, {
       color: '#00BCCC',
       letterSpacing: '-0.017em',
       textShadow: '10px 0px 15px white',
+      wordBreak: 'break-word',
     },
 
     carouselSubtitle: {
@@ -192,10 +202,31 @@ theme = createTheme(theme, {
     },
     cardTitle: {
       color: '#666',
-      fontSize: '2.4rem',
+      // color: 'black',
+      textAlign: 'center',
+      fontSize: '1.4rem',
       lineHeight: 1.1,
-      fontWeight: 400,
+      fontWeight: 600,
       fontFamily: ['Open Sans', 'Abel'].join(','),
+      [theme.breakpoints.up('sm')]: {
+        fontWeight: 600,
+        fontSize: '1.65rem',
+        lineHeight: 1,
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.8rem',
+        color: '#666',
+        fontWeight: 500,
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '2rem',
+      },
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '2.2rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '2.5rem',
+      },
     },
     cardText: {
       color: '#666',
@@ -203,6 +234,14 @@ theme = createTheme(theme, {
       fontWeight: 300,
       lineHeight: 1.7,
       fontSize: '1.2rem',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.25rem',
+        fontWeight: 500,
+      },
+
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '1.35rem',
+      },
     },
 
     title: {
@@ -225,7 +264,7 @@ theme = createTheme(theme, {
       wordBreak: 'break-word',
       wordWrap: 'break-word',
       fontWeight: '500',
-      fontSize: '0.9rem',
+      fontSize: '1.1rem',
       letterSpacing: '0.03em',
       color: '#444',
       lineHeight: 1.1,
@@ -264,14 +303,15 @@ theme = createTheme(theme, {
     footerTitle: {
       padding: '1em 0',
       color: '#75C9CC',
-      fontWeight: 600,
+      fontWeight: 700,
       fontSize: '2rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.012em',
     },
     footerSubtitle: {
-      fontWeight: 600,
+      color: '#FFFFFF',
+      fontWeight: 700,
       fontSize: '1rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
@@ -279,6 +319,7 @@ theme = createTheme(theme, {
       marginBottom: '0.5em',
     },
     footerParagraph: {
+      color: '#FFFFFF',
       fontWeight: 500,
       fontSize: '0.85rem',
       lineHeight: 1.2,
