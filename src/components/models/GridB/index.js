@@ -11,7 +11,7 @@ const LazyGridB = ({ data, sectionTitle }) => {
 
   return (
     <Box
-      id={sectionTitle.title}
+      id={sectionTitle.title.replaceAll(' ', '-')}
       component="section"
       ref={fromRef}
       sx={{
