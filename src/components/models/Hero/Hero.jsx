@@ -1,5 +1,3 @@
-import useFetchData from 'hooks/useFetchData';
-import { Loading } from 'components/shared/index';
 import { Box, Typography } from '@mui/material';
 import {
   HeroContainer,
@@ -12,18 +10,7 @@ import {
 import { Divider } from 'components/shared/styled/';
 import { Button } from '@mui/material';
 
-export default function Hero({ path, id }) {
-  const { data, loading } = useFetchData('strapi', {
-    path,
-    component: 'hero',
-    id: id,
-  });
-
-  if (loading) {
-    return <Loading />;
-  }
-  const { content, title, subTitle, cover, button } = data[0];
-
+export default function Hero({ content, title, subTitle, cover, button }) {
   const isWithContent = Boolean(content);
 
   return (

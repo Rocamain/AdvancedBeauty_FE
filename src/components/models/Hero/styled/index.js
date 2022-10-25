@@ -53,7 +53,7 @@ const HeroHeaderWrapper = styled(Box)(({ theme, isWithContent }) => {
   };
 });
 
-const HeroContentWrapper = styled(Box)(({ theme, cover }) => {
+const HeroContentWrapper = styled(Box)(({ theme }) => {
   return {
     position: 'relative',
     zIndex: 140,
@@ -95,31 +95,45 @@ const WavesBackground = styled(Box)(({ theme, isWithContent }) => {
 });
 
 const CoffeeMug = styled((props) => (
-  <Box
-    sx={{
-      width: ['100%', '100%', '25%'],
-      alignSelf: 'end',
-      display: 'flex',
-      position: 'relative',
-      top: ['4em'],
-      paddingBottom: '1.5em',
-    }}
-  >
-    <Box
-      component="img"
-      src={coffee}
-      title="shop"
-      alt="shop"
-      srcSet={`${coffee} 1200w, ${coffee} 980w, ${coffee} 480w`}
-      sizes="(min-width: 0px) and (max-width: 480px) 85vw, (min-width: 481px) and (max-width: 980px) 95vw, (min-width: 981px) 90vw, 100vw"
-      sx={{
-        maxWidth: '150px',
-        width: ['40%', '50%', '100%'],
-        height: 'auto',
-      }}
-    />
+  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+    <CoffeeImg />
   </Box>
-))();
+))(({ theme }) => {
+  return {
+    display: 'none !important',
+    img: {
+      display: 'none !important',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '25%',
+      display: 'flex',
+      alignSelf: 'end',
+      position: 'relative',
+      top: '4em',
+      maxWidth: '150px',
+      paddingBottom: '1.5em',
+    },
+  };
+});
+
+const CoffeeImg = styled((props) => (
+  <Box
+    component="img"
+    src={coffee}
+    title="shop"
+    alt="shop"
+    srcSet={`${coffee} 1200w, ${coffee} 980w, ${coffee} 900w`}
+    sizes="(min-width: 900px) and (max-width: 1200px) 95vw, (min-width: 1700px) 90vw, 100vw"
+    sx={{
+      display: { xs: 'none', md: 'block' },
+      maxWidth: { md: '150px', lg: '290px', xl: '321px' },
+      width: '100%',
+      height: 'auto',
+    }}
+  />
+))(({ theme }) => {
+  return {};
+});
 
 export {
   HeroContainer,
