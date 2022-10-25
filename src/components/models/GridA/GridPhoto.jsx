@@ -1,27 +1,37 @@
 import { Box, Grid } from '@mui/material';
 
 export default function GridPhoto({
-  url,
   formats,
   columnOrder,
   alternativeText,
+  background,
 }) {
   const { small, medium } = formats;
+  const shadowRight = Boolean(background.includes('right'));
 
   if (small)
     return (
-      <Grid item component="div" xs={12} sm={12} md={5} lg={5} container={true}>
+      <Grid item component="div" xs={12} sm={12} md={6} lg={6} container={true}>
         <Box
           sx={(theme) => ({
             position: 'relative',
-            top: [theme.spacing(-10), theme.spacing(-8)],
-            right:
-              columnOrder === 'first'
-                ? { xs: '10vw', md: 0 }
-                : { xs: '-10vw', md: 0 },
+            top: {
+              xs: 0,
+              md: theme.spacing(-8),
+            },
             zIndex: 200,
-            width: { xs: '100%' },
-            minWidth: { md: 'calc(100% + 10vw)' },
+            minWidth: {
+              xs: shadowRight ? 'calc(100% + 10vw)' : 'calc(90%)',
+              sm: shadowRight ? 'calc(100% + 10vw)' : 'calc(80%)',
+              md: shadowRight
+                ? columnOrder === 'right'
+                  ? 'calc(100% + 10vw)'
+                  : 'calc(100% )'
+                : background === 'none'
+                ? 'calc(100% + 10vw)'
+                : 'calc(100%)',
+            },
+            margin: '0 auto',
           })}
         >
           <Box
@@ -30,15 +40,21 @@ export default function GridPhoto({
             alt={alternativeText}
             src={small.url}
             sx={{
-              maxWidth: '100%',
-              maxHeight: 'auto',
+              width: {
+                xs: 'calc(100%)',
+                md:
+                  columnOrder === 'second' ? 'calc(100% + 10vw)' : 'calc(100%)',
+              },
+
+              height: 'auto',
+              margin: '0 auto',
               objectFit: 'contain',
               objectPosition: 'top',
               boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
-              borderRadius: '5px',
+              borderRadius: [0, '5px'],
               content: {
                 md: `url(${small.url})`,
-                lg: `url(${small.url})`,
+                lg: `url(${medium.url})`,
                 xl: `url(${medium.url})`,
               },
             }}

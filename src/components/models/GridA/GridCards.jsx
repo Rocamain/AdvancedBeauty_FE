@@ -1,22 +1,17 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Grid } from '@mui/material';
-import { Card, ImageContainer } from 'components/shared/styled/index.js';
+import { Card } from 'components/shared/styled/index.js';
+import Icon from 'components/shared/Icon.jsx';
 
-const GridCards = ({ cards }) => {
+const GridCards = ({ cards, onLoad }) => {
   const navigate = useNavigate();
-  const { pathname, hash } = useLocation();
 
-  const handleClick = ({ path, section }) => {
-    const URLTo = `/${path}/#${section.replaceAll(' ', '-')}`;
-    const currentURL = pathname + hash;
-
-    const isSameLinkURL = URLTo === currentURL;
-
-    return section
-      ? navigate(URLTo, {
-          state: { SameOrigin: isSameLinkURL },
-        })
-      : navigate(`/${path}`, { replace: true });
+  const handleClick = ({ path, title }) => {
+    if (title) {
+      const URLTo = `/${path}/#${title}`.replaceAll(' ', '-');
+      return navigate(URLTo);
+    }
+    return navigate(`/${path}`);
   };
 
   return (
@@ -25,15 +20,14 @@ const GridCards = ({ cards }) => {
       component="div"
       xs={10}
       sm={12}
-      md={7}
-      lg={6}
+      md={6}
       container
       alignItems="flex-start"
       sx={(theme) => ({
         margin: ' 0 auto',
-        marginBottom: theme.spacing(-16),
-        paddingTop: '2em',
-        gap: '2em',
+        marginBottom: { md: theme.spacing(-16) },
+        paddingTop: { md: theme.spacing(2) },
+        gap: theme.spacing(4),
         justifyContent: 'center',
       })}
     >
@@ -49,18 +43,19 @@ const GridCards = ({ cards }) => {
       >
         {cards.map((card, index) => {
           const isFirstCard = index === 0;
-
           return (
             index % 2 === 0 && (
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() => handleClick(card.linkedTo)}
+                  handleClick={() => handleClick(card.linkTo)}
                   isFirstCard={isFirstCard}
                 >
-                  <ImageContainer
-                    url={card.photo.url}
-                    alt={card.photo.alternativeText}
+                  <Icon
+                    onLoad={onLoad}
+                    showTitle={false}
+                    iconFullSize={false}
+                    icon={card.photo}
                   />
                   <Typography
                     component="h4"
@@ -102,11 +97,12 @@ const GridCards = ({ cards }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() => handleClick(card.linkedTo)}
+                  handleClick={() => handleClick(card.linkTo)}
                 >
-                  <ImageContainer
-                    url={card.photo.url}
-                    alt={card.photo.alternativeText}
+                  <Icon
+                    showTitle={false}
+                    iconFullSize={false}
+                    icon={card.photo}
                   />
                   <Typography
                     component="h4"
