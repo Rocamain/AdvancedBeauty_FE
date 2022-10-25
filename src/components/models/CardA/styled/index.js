@@ -30,12 +30,18 @@ const Container = styled((props) => {
     leaves: `url(${leavesBackground})`,
     circles: `url(${circles})`,
   };
-
-  if (backgroundType === 'none') return {};
   return {
-    backgroundImage: backgroundImageSelector[backgroundType],
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage:
+      backgroundImageSelector[backgroundType] &&
+      backgroundImageSelector[backgroundType],
+    backgroundSize: backgroundImageSelector[backgroundType] && 'contain',
+    backgroundRepeat: backgroundImageSelector[backgroundType] && 'no-repeat',
+    width: '80vw',
+    margin: '0 auto',
+
+    [theme.breakpoints.up('xl')]: {
+      width: '60vw',
+    },
   };
 });
 
@@ -48,7 +54,7 @@ const Image = styled(({ formats, ...props }) => {
       sx={{
         content: {
           xs: `url(${formats.small.url})`,
-          sm: `url(${formats.small.url})`,
+          sm: `url(${formats.medium.url})`,
           md: `url(${formats.small.url})`,
           lg: `url(${formats.small.url})`,
           xl: `url(${formats.medium.url})`,
@@ -60,7 +66,6 @@ const Image = styled(({ formats, ...props }) => {
   width: '100%',
   height: 'auto',
   borderRadius: '5px',
-
   [theme.breakpoints.up('md')]: {
     maxWidth: '100%',
   },
