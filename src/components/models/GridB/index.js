@@ -4,17 +4,20 @@ import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
 const GridB = React.lazy(() => import('components/models/GridB/GridB.jsx'));
 
-const LazyGridB = ({ id, data, height }) => {
+const LazyGridB = ({ data, sectionTitle }) => {
   const { fromRef, isNearScreen } = useNearScreen({
-    distance: '100px',
+    distance: '200px',
   });
 
   return (
     <Box
+      id={sectionTitle.title}
       component="section"
-      id={id}
       ref={fromRef}
-      sx={{ height: isNearScreen ? 'auto' : height, marginBottom: '20vh' }}
+      sx={{
+        marginBottom: { xs: '10vh', md: '20vh' },
+        minHeight: isNearScreen ? 'auto' : '40vh',
+      }}
     >
       <Suspense fallback={<Loading />}>
         {isNearScreen && <GridB {...data} />}

@@ -8,28 +8,29 @@ const Container = styled((props) => <Box component="div" {...props} />)(
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'center',
-      gap: '1.7em',
+      gap: '3rem',
       [theme.breakpoints.up('md')]: {
         width: size === 'Big' ? '70%' : '60%',
       },
     };
   }
 );
-const Card = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, size }) => {
-    return {
-      flex: 1,
-      minWidth: size === 'Big' ? '200px' : '150px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-
-      [theme.breakpoints.up('md')]: {
-        maxWidth: size === 'Big' ? '350px' : '280px',
-      },
-    };
-  }
-);
+const Card = styled((props) => <Box {...props} />)(({ theme, size }) => {
+  return {
+    flex: 1,
+    minWidth: size === 'Big' ? '280px' : '150px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: size === 'Big' ? '350px' : '280px',
+    },
+    a: {
+      textDecoration: 'none',
+    },
+  };
+});
 
 const Title = styled((props) => (
   <Typography
@@ -40,12 +41,10 @@ const Title = styled((props) => (
   />
 ))(({ theme, color }) => {
   const COLORS = { blue: '#0693e3', orange: '#8f5f25' };
-
   return {
     marginBottom: '0.7em',
     textAlign: 'center',
     fontWeight: 700,
-
     color: COLORS[color],
   };
 });
