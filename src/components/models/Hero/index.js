@@ -5,9 +5,9 @@ import { Loading } from 'components/shared/index';
 
 const Hero = React.lazy(() => import('components/models/Hero/Hero.jsx'));
 
-const LazyHero = ({ id, data, height }) => {
+const LazyHero = ({ id, data, firstChild }) => {
   const { fromRef, isNearScreen } = useNearScreen({
-    distance: '100px',
+    distance: '200px',
   });
 
   return (
@@ -16,8 +16,8 @@ const LazyHero = ({ id, data, height }) => {
       id={id}
       ref={fromRef}
       sx={{
-        height: isNearScreen ? 'auto' : height,
-        marginBottom: '10vh',
+        marginBottom: 0,
+        minHeight: firstChild && !isNearScreen && '130vh',
       }}
     >
       <Suspense fallback={<Loading />}>
