@@ -11,7 +11,6 @@ import {
 import { Link as LinkRouter } from 'react-router-dom';
 
 const HeaderContainer = styled('header')(({ theme }) => ({
-  width: '100vw',
   height: '13vh',
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 0px 0px',
   position: 'sticky',
@@ -20,14 +19,8 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   top: 0,
 
   [theme.breakpoints.up('md')]: {
-    height: '18vh',
-  },
-  [theme.breakpoints.up('lg')]: {
     justifyContent: 'space-between',
-    height: '17vh',
-  },
-  [theme.breakpoints.up('xl')]: {
-    height: '15.5vh',
+    height: '13vh',
   },
 }));
 
@@ -48,13 +41,13 @@ const Logo = styled('img')(({ theme }) => ({
 const Wrapper = styled(Container)(({ theme }) => ({
   height: 'inherit',
   margin: '0 auto',
-  maxWidth: '80%',
+  width: '80vw',
   justifyContent: 'space-between',
   alignItems: 'center',
   display: 'flex',
 
   [theme.breakpoints.up('xl')]: {
-    maxWidth: '70%',
+    width: '65vw',
   },
 }));
 
@@ -101,16 +94,21 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
       vertical: 'top',
       horizontal: 'center',
     }}
+    // container
     BackdropProps={{
       onMouseOver: onMouseOnBackdrop,
+      // invisible: true,
     }}
     disablePortal
     {...props}
   />
 ))(({ theme }) => ({
   zIndex: -1,
+  padding: 0,
   '& .MuiBackdrop-root': {
+    padding: 0,
     backgroundColor: 'transparent',
+    width: '100vw',
     [theme.breakpoints.up('md')]: {
       top: '18vh',
     },
@@ -153,19 +151,17 @@ const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
     };
   }
 );
-const MenuLink = styled(
-  ({ mainLink, to, replace, state, title, isFirst, ...props }) => {
-    return (
-      <MenuItem disableGutters dense {...props}>
-        <Link to={to} state={state}>
-          <Typography component="h3" variant="p">
-            {title}
-          </Typography>
-        </Link>
-      </MenuItem>
-    );
-  }
-)(({ theme, mainLink, isFirst }) => {
+const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
+  return (
+    <MenuItem disableGutters dense {...props}>
+      <Link to={to}>
+        <Typography component="h3" variant="p">
+          {title}
+        </Typography>
+      </Link>
+    </MenuItem>
+  );
+})(({ theme, mainLink, isFirst }) => {
   return {
     backgroundColor: isFirst && mainLink && 'rgba(0,0,0,9%)',
     '& .Mui-selected': {
