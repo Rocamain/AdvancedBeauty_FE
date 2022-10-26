@@ -58,7 +58,7 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
         type === 'center' ? '1.5em  auto 2.5em auto' : '1.5em  1em 2.5em -1em',
       borderColor: '#ffd4a3',
       borderBottomWidth: 'medium',
-      width: type === 'center' ? '10%' : '60%',
+      width: type === 'center' ? '220px' : '180px',
     };
   }
 );
@@ -66,7 +66,7 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
 const Container = styled((props) => <Box component="div" {...props} />)(
   ({ theme, background, show }) => {
     const shadowRight = background.includes('right');
-    console.log(shadowRight);
+
     return {
       width: shadowRight ? '90vw' : '100vw',
       height: show === 'cards' && 'calc(100% + 64px)',
