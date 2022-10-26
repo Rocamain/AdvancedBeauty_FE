@@ -7,16 +7,11 @@ const Footer = React.lazy(() => import('components/main/footer/Footer.jsx'));
 
 const LazyFooter = ({ id, data, height }) => {
   const { fromRef, isNearScreen } = useNearScreen({
-    distance: '100px',
+    distance: '200px',
   });
 
   return (
-    <Box
-      component="section"
-      id={id}
-      ref={fromRef}
-      sx={{ height: isNearScreen ? 'auto' : height, marginBottom: '20vh' }}
-    >
+    <Box component="footer" ref={fromRef}>
       <Suspense fallback={<Loading />}>
         {isNearScreen && <Footer {...data} />}
       </Suspense>
