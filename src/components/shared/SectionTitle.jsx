@@ -18,8 +18,8 @@ export default function SectionTitle({ title, textJustify }) {
         }}
       >
         {title}
+        <Divider type={textJustify ? textJustify : 'center'} />
       </Typography>
-      <Divider type={textJustify ? textJustify : 'center'} />
     </Box>
   );
 }

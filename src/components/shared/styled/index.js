@@ -55,10 +55,11 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
   ({ theme, type }) => {
     return {
       margin:
-        type === 'center' ? '1.5em  auto 2.5em auto' : '1.5em  1em 2.5em -1em',
+        type === 'center' ? '1.5rem  auto 2em auto' : '1.5rem  1rem 2em -1rem',
       borderColor: '#ffd4a3',
       borderBottomWidth: 'medium',
-      width: type === 'center' ? '220px' : '180px',
+      width: type === 'center' ? '20%' : '55%',
+      maxWidth: type === 'center' ? '20%' : '350px',
     };
   }
 );

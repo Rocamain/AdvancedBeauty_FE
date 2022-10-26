@@ -65,7 +65,7 @@ theme = createTheme(theme, {
     h4: {
       fontWeight: 600,
       fontSize: '2.4rem',
-      lineHeight: 1.1,
+      lineHeight: 0.8,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '-0.004em',
     },
@@ -78,10 +78,13 @@ theme = createTheme(theme, {
     },
     h6: {
       fontWeight: 500,
-      fontSize: '1.5rem',
-      lineHeight: 1.6,
+      fontSize: '1.35rem',
+      lineHeight: 1.1,
       fontFamily: ['Open Sans', 'Abel'].join(','),
       letterSpacing: '0.06em',
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '1.5rem',
+      },
     },
     p: {
       fontWeight: 500,
