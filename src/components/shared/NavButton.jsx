@@ -1,20 +1,20 @@
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import { useNavigate, useLocation } from 'react-router-dom';
+export default function NavButton({
+  buttonText,
+  linkTo,
 
-export default function NavButton({ buttonText, section, path, ...props }) {
+  ...props
+}) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
-  const url = Boolean(section) ? `/${path}/#${section}` : `/${path}`;
+  const handleClick = (e, { path, title }) => {
+    const section = title && title.replaceAll(' ', '-');
+    const URLPath = path.replaceAll(' ', '-');
+    const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    if (pathname !== `/${path}`) {
-      window.scrollTo(0, 0);
-    }
-
-    navigate(url, { replace: true });
+    navigate(url);
   };
 
   return (
@@ -22,9 +22,14 @@ export default function NavButton({ buttonText, section, path, ...props }) {
       color="primary"
       disableFocusRipple
       disableRipple
-      onClick={handleClick}
+      onClick={(e) => handleClick(linkTo)}
       variant="contained"
       {...props}
+      sx={{
+        width: { xs: '200px', sm: '150px', xl: '170px' },
+        height: { xs: '60px', sm: '100px', xl: '90px' },
+        fontWeight: 600,
+      }}
     >
       {buttonText}
     </Button>

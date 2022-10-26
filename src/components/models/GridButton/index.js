@@ -6,17 +6,20 @@ const GridButton = React.lazy(() =>
   import('components/models/GridButton/GridButton.jsx')
 );
 
-const LazyGridButton = ({ id, data, height }) => {
+const LazyGridButton = ({ data, firstChild, sectionTitle }) => {
   const { fromRef, isNearScreen } = useNearScreen({
-    distance: '100px',
+    distance: '200px',
   });
 
   return (
     <Box
+      id={sectionTitle.title.replaceAll(' ', '-')}
       component="section"
-      id={id}
       ref={fromRef}
-      sx={{ height: isNearScreen ? 'auto' : height, marginBottom: '10vh' }}
+      sx={{
+        minHeight: firstChild && !isNearScreen && '130vh',
+        marginBottom: '10vh',
+      }}
     >
       <Suspense fallback={<Loading />}>
         {isNearScreen && <GridButton {...data} />}
