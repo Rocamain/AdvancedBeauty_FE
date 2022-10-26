@@ -5,7 +5,6 @@ import {
   Divider as MuiDivider,
   Button as MuiButton,
 } from '@mui/material';
-
 import SendIcon from '@mui/icons-material/Send';
 import leavesBackground from 'assets/leaves-background.jpg';
 import circles from 'assets/circles.jpg';
@@ -19,32 +18,23 @@ const Button = styled((props) => (
   />
 ))(({ theme }) => {
   return {
-    fontWeight: '500',
+    width: 'inherit',
     border: '2px solid #00BCCC',
-    transition: 'all 0.5s ease',
+    transition: 'border 0.6s ease',
     justifyContent: 'flex-start',
-    'span,svg': {
+    'span,svg, p': {
+      fontWeight: '500',
       color: '#00BCCC',
-      opacity: '0.2',
-      transition: 'all 0.5s ease',
-      marginLeft: '-0.7rem',
-    },
-    p: {
-      color: '#00BCCC',
-      transform: 'translateX(-0.2rem)',
-      lineHeight: '0.3rem',
-      transition: 'all 0.5s ease',
+      opacity: '0',
+      transition: 'margin-left 0.6s ease, opacity 0.8s ease, color 0.8s ease',
+      marginLeft: '-0.4em',
     },
     ':hover': {
-      color: '#e2d3e2',
       background: 'transparent',
       border: '2px solid transparent',
-      '& span,svg:first-of-type': {
-        margin: '0',
-        opacity: '1',
-      },
-      '& p:first-of-type': {
-        transform: 'translateX(-5px)',
+      '& span,svg, p': {
+        color: 'orange',
+        marginLeft: '0.1em',
         opacity: '1',
       },
     },
