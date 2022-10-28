@@ -1,6 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { Card, Image, Container } from './styled/index.js';
-import { Divider, Wrapper } from 'components/shared/styled/index.js';
+import { Wrapper } from 'components/shared/styled/index.js';
+import SectionTitle from 'components/shared/SectionTitle.jsx';
 import Button from 'components/shared/Button.jsx';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
@@ -20,28 +21,16 @@ function CardA({
       <Wrapper>
         <Box
           sx={{
-            margin: '0 auto',
+            px: '2em',
+            margin: bookingConfirmation && '0 auto',
             maxWidth: bookingConfirmation
-              ? { xs: '00%', md: '80%' }
+              ? { xs: '00%', md: '100%' }
               : { xs: '100%', md: '50%' },
             position: { md: 'relative' },
             zIndex: '100',
           }}
         >
-          <Box sx={{ width: { md: '80%' }, margin: '0 auto' }}>
-            <Typography
-              component="h2"
-              variant="title"
-              children={sectionTitle.title}
-              sx={{
-                position: 'relative',
-                padding: ['0', '0', '1em 0'],
-                paddingRight: '1em',
-              }}
-            />
-
-            <Divider />
-          </Box>
+          <SectionTitle title={sectionTitle.title} grid={true} />
           {confirmationMsg && <Box component="p" children={confirmationMsg} />}
           <Card>
             <ReactMarkdown
@@ -55,7 +44,13 @@ function CardA({
               }}
             />
 
-            {button && <Button {...button} marginTop="0.5em" />}
+            {button && (
+              <Button
+                value={sectionTitle.title}
+                {...button}
+                marginTop="0.5em"
+              />
+            )}
           </Card>
         </Box>
         {photo && (
