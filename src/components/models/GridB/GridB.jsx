@@ -9,7 +9,7 @@ import style from 'styles/markdown-styles.module.css';
 export default function GridB({ sectionTitle, title, size, cards }) {
   return (
     <Box id={sectionTitle.title.replace(' ', '-')}>
-      {title && <SectionTitle title={title} />}
+      {title && <SectionTitle title={title} grid={false} />}
       <Container size={size}>
         {cards.map(
           (

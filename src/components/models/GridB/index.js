@@ -15,7 +15,7 @@ const LazyGridB = ({ data, sectionTitle }) => {
       component="section"
       ref={fromRef}
       sx={{
-        marginBottom: { xs: '10vh', md: '20vh' },
+        marginBottom: '10vh',
         minHeight: isNearScreen ? 'auto' : '40vh',
       }}
     >
