@@ -22,7 +22,7 @@ export default function NavButton({
       color="primary"
       disableFocusRipple
       disableRipple
-      onClick={(e) => handleClick(linkTo)}
+      onClick={(e) => handleClick(e, linkTo)}
       variant="contained"
       {...props}
       sx={{
