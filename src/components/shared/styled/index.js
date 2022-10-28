@@ -42,14 +42,20 @@ const Button = styled((props) => (
 });
 
 const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
-  ({ theme, type }) => {
+  ({ theme, grid }) => {
     return {
       margin:
-        type === 'center' ? '1.5rem  auto 2em auto' : '1.5rem  1rem 2em -1rem',
+        grid === 'true' ? '1.5rem  1rem 1em -1rem' : '1.5rem  auto 2em auto',
       borderColor: '#ffd4a3',
       borderBottomWidth: 'medium',
-      width: type === 'center' ? '20%' : '55%',
-      maxWidth: type === 'center' ? '20%' : '350px',
+      width: grid === 'true' ? '180px' : '220px',
+
+      [theme.breakpoints.up('md')]: {
+        width: grid === 'true' ? '180px' : '220px',
+      },
+      [theme.breakpoints.up('xll')]: {
+        width: grid === 'true' ? '220px' : '260px',
+      },
     };
   }
 );
@@ -90,8 +96,6 @@ const Container = styled((props) => <Box component="div" {...props} />)(
 const Wrapper = styled((props) => <Box component="div" {...props} />)(
   ({ theme }) => {
     let styles = {
-      width: '100%',
-      margin: '0 auto',
       gap: theme.spacing(12),
       display: 'flex',
       flexWrap: 'wrap',

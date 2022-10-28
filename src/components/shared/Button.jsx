@@ -1,6 +1,6 @@
 import { Button as MuiButton, styled, Box } from '@mui/material';
 import { ArrowRight } from '@mui/icons-material/';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const MyButton = styled(({ type, onClick, ...props }) => (
   <MuiButton
@@ -23,7 +23,6 @@ const MyButton = styled(({ type, onClick, ...props }) => (
   ':hover': {
     backgroundColor: 'orange',
     color: 'white',
-    fontWeight: 600,
     '.MuiButton-endIcon': {
       opacity: 1,
       transform: 'translate(-10px)',
@@ -47,32 +46,46 @@ const MyButton = styled(({ type, onClick, ...props }) => (
 export default function Button({
   linkText,
   linkTo,
-  page,
-  sectionTitle,
   width,
   disabled,
   type,
+  value,
 }) {
   const navigate = useNavigate();
-  const { path, title } = linkTo;
+  const { pathname } = useLocation();
 
-  const url = title ? `/${path}/#${title}` : `/${path}`;
+  const handleClick = (e, { path, title }) => {
+    const section = title && title.replaceAll(' ', '-');
+    const URLPath = path.replaceAll(' ', '-');
+    const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
 
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    navigate(url);
+    if (path === 'Contact' && pathname === '/Services-and-Fares/Promotions') {
+      const contactMessage = e.target.title;
+      const message = `Dear 2U team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
+      navigate(url, {
+        state: { contactMessage: message },
+      });
+    } else {
+      navigate(url);
+    }
   };
 
   return (
-    <Box sx={{ width: width && width, margin: '1em auto', overflow: 'hidden' }}>
+    <Box
+      sx={{
+        width: width && width,
+        overflow: 'hidden',
+      }}
+    >
       <MyButton
         color="primary"
         disabled={disabled}
         disableFocusRipple
         disableRipple
         type={type}
-        onClick={handleClick}
+        title={value}
+        id={value}
+        onClick={(e) => handleClick(e, linkTo)}
         variant="contained"
         sx={{ width: 'inherit' }}
         endIcon={<ArrowRight />}

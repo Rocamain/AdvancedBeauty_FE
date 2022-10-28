@@ -6,12 +6,12 @@ import Icon from 'components/shared/Icon.jsx';
 const GridCards = ({ cards, onLoad }) => {
   const navigate = useNavigate();
 
-  const handleClick = ({ path, title }) => {
-    if (title) {
-      const URLTo = `/${path}/#${title}`.replaceAll(' ', '-');
-      return navigate(URLTo);
-    }
-    return navigate(`/${path}`);
+  const handleClick = (e, { path, title }) => {
+    const section = title && title.replaceAll(' ', '-');
+    const URLPath = path.replaceAll(' ', '-');
+    const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
+
+    navigate(url);
   };
 
   return (
@@ -48,7 +48,7 @@ const GridCards = ({ cards, onLoad }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() => handleClick(card.linkTo)}
+                  handleClick={(e) => handleClick(e, card.linkTo)}
                   isFirstCard={isFirstCard}
                 >
                   <Icon
@@ -97,7 +97,7 @@ const GridCards = ({ cards, onLoad }) => {
               <Grid key={index} item>
                 <Card
                   button={true}
-                  handleClick={() => handleClick(card.linkTo)}
+                  handleClick={(e) => handleClick(e, card.linkTo)}
                 >
                   <Icon
                     showTitle={false}

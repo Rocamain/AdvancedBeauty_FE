@@ -7,7 +7,7 @@ const GridPhoto = React.lazy(() =>
   import('components/models/GridPhoto/GridPhoto.jsx')
 );
 
-const LazyGridPhoto = ({ data, sectionTitle, firstChild }) => {
+const LazyGridPhoto = ({ data, firstChild }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '200px',
   });
@@ -15,7 +15,6 @@ const LazyGridPhoto = ({ data, sectionTitle, firstChild }) => {
   return (
     <Box
       component="section"
-      id={sectionTitle.title.replaceAll(' ', '-')}
       ref={fromRef}
       sx={{
         minHeight: isNearScreen ? 'auto' : '40vh',

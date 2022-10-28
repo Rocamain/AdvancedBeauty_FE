@@ -1,25 +1,23 @@
 import { Box, Typography } from '@mui/material';
 import { Divider } from 'components/shared/styled/index.js';
 
-export default function SectionTitle({ title, textJustify }) {
+export default function SectionTitle({ title, grid }) {
   return (
     <Box
       sx={{
-        width: textJustify ? 'inherit' : ['90vw', '80vw', '65vw'],
-        margin: '0 auto',
-        marginBottom: '0.5em',
+        padding: ['3em 0 0.5em 0', '3em 0 0.5em 0'],
       }}
     >
       <Typography
         component="h2"
         variant="title"
         sx={{
-          textAlign: textJustify ? textJustify : 'center',
+          textAlign: grid ? 'left' : 'center',
         }}
       >
         {title}
-        <Divider type={textJustify ? textJustify : 'center'} />
       </Typography>
+      <Divider grid={grid && grid.toString()} />
     </Box>
   );
 }
