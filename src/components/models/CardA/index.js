@@ -17,7 +17,7 @@ const LazyCardA = ({ data, sectionTitle }) => {
       ref={fromRef}
       sx={{
         minHeight: isNearScreen ? 'auto' : '40vh',
-        marginBottom: { xs: '10vh', md: '20vh' },
+        marginBottom: '10vh',
       }}
     >
       <Suspense fallback={<Loading />}>
