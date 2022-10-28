@@ -84,10 +84,9 @@ const getMarginBottom = ({ type, matchesBigScreens, matchesBigMobiles }) => {
 
 const GridA = React.lazy(() => import('components/models/GridA/GridA.jsx'));
 
-const LazyGridA = ({ data, sectionTitle, firstChild, isScrollToActive }) => {
+const LazyGridA = ({ data, sectionTitle, firstChild }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '400px',
-    isScrollToActive,
   });
   const { hash, pathname } = useLocation();
   const [loaded, setLoaded] = useState(false);
@@ -157,7 +156,7 @@ const LazyGridA = ({ data, sectionTitle, firstChild, isScrollToActive }) => {
       }}
     >
       <Suspense fallback={<Loading title="gridA" />}>
-        {(isNearScreen || isScrollToActive) && <GridA {...data} />}
+        {isNearScreen && <GridA {...data} />}
       </Suspense>
     </Box>
   );

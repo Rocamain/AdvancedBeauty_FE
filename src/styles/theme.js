@@ -4,7 +4,7 @@ import OpenSans from '@fontsource/open-sans';
 import Abel from '@fontsource/abel';
 
 let theme = createTheme();
-const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1300, xl: 1600, xxl: 1900 };
+const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1300, xl: 1600, xxl: 2100 };
 const breakpointsValues = {
   breakpoints: createBreakpoints({
     values: BREAKPOINTS,
@@ -111,6 +111,13 @@ theme = createTheme(theme, {
 
     //  Variants
 
+    body1: {
+      fontWeight: '500',
+      fontSize: '1.7rem',
+      color: '#666',
+      lineHeight: 1.2,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+    },
     heroTitle: {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 700,
@@ -276,13 +283,7 @@ theme = createTheme(theme, {
         fontSize: '1.35rem',
       },
     },
-    gridText: {
-      fontWeight: '400',
-      fontSize: '1.15rem',
-      color: '#666',
-      lineHeight: 1.2,
-      fontFamily: ['Abel', 'Open Sans'].join(','),
-    },
+
     summaryHeader: {
       color: '#c48037',
       fontWeight: '700',
@@ -359,6 +360,13 @@ theme = createTheme(theme, {
             backgroundColor: 'rgba(0, 0, 0, 0.14)',
             color: 'orange',
           },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        '&-MuiOutlinedInput-input': {
+          fontSize: '1.2rem',
         },
       },
     },

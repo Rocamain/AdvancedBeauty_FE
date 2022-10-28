@@ -110,7 +110,7 @@ const CardPhotoContainer = styled((props) => {
 
 const Photo = styled(({ src, ...props }) => {
   const { small, medium } = src.formats;
-  console.log(src.formats);
+
   return (
     <Box
       component="img"
