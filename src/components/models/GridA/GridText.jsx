@@ -13,12 +13,11 @@ export default function GridText({ sectionTitle, content, button }) {
           px: '2em',
           display: { xs: 'flex', sm: 'block' },
           flexDirection: 'column',
-          // paddingTop:
-          //   background === 'none' ? [0, 0, '5m'] : ['2em', '5em', '5m'],
+
           paddingBottom: ['2em', '2em', '4em'],
         }}
       >
-        <SectionTitle title={sectionTitle.title} grid={true} />
+        <SectionTitle title={sectionTitle.title} grid="true" />
         <ReactMarkdown
           className={style.reactMarkDownGridA}
           escapeHTML={true}

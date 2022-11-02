@@ -1,49 +1,65 @@
-import { useEffect } from 'react';
-import useFetchData from 'hooks/useFetchData';
+import useFetchStrapi from 'hooks/useFetchStrapi';
+import Section from 'components/models/index.js';
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery, Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { Loading } from 'components/shared/index';
-import renderComponents from 'components/Main/renderComponents';
-import useScrollTo from 'hooks/useScrollTo';
-import Form from 'components/single/Form/Form.jsx';
+import { getMarginBottom, getMarginTop } from 'components/models/utils';
 
-function Main(props) {
-  const { scrollToRef } = useScrollTo();
+function Main() {
   const { pathname } = useLocation();
-  const path = pathname === '/' ? 'Home' : pathname.replace('/', '');
-  const { loading, data } = useFetchData('strapi', {
-    path,
-  });
+  const { data, loading } = useFetchStrapi(pathname);
+  const theme = useTheme();
 
-  const isContact = pathname === '/Contact';
-
-  useEffect(() => {
-    if (data) {
-      document.title =
-        'Advanced Beauty -' + pathname.replace('/', '').replaceAll('-', ' ');
+  const matchesBigMobiles = useMediaQuery(
+    theme.breakpoints.between('sm', 'md'),
+    {
+      noSsr: true,
     }
-  }, [data, pathname]);
+  );
 
+  const smallMobiles = useMediaQuery(theme.breakpoints.down('sm'), {
+    noSsr: true,
+  });
   if (loading) {
-    <main
-      ref={scrollToRef}
-      style={{ minHeight: '100vh', height: '100%', marginBottom: '10vh' }}
-    >
-      <Loading />
-    </main>;
+    return (
+      <Box
+        sx={{
+          height: '87vh',
+        }}
+      >
+        <Loading />
+      </Box>
+    );
   }
+
   return (
-    <main
-      ref={scrollToRef}
-      style={{ minHeight: '100vh', height: '100%', marginBottom: '10vh' }}
-    >
-      {data &&
-        // This function will receive the data of the path as parameter, that represents an array of objects (components)
-        // and it will imported be dynamically the component required.
-        renderComponents({
-          components: data,
-          path,
-        })}
-      {isContact && <Form />}
+    <main>
+      {data.map((componentInfo, index, array) => {
+        const { sectionTitle } = componentInfo;
+        const isLastSection = index === array.length - 1;
+        return (
+          <Section
+            key={index}
+            sectionData={componentInfo}
+            sectionTitle={sectionTitle}
+            marginBottom={
+              isLastSection
+                ? '10vh'
+                : getMarginBottom(
+                    {
+                      section: componentInfo,
+                      nextSection: array[index + 1],
+                    },
+                    matchesBigMobiles,
+                    smallMobiles
+                  )
+            }
+            marginTop={getMarginTop({ section: componentInfo })}
+          />
+        );
+      })}
+      ;
     </main>
   );
 }

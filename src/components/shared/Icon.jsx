@@ -1,4 +1,3 @@
-import { useState, useLayoutEffect } from 'react';
 import useNearScreen from 'hooks/useNearScreen.js';
 import { keyframes } from '@emotion/react';
 import { Box } from '@mui/material';
@@ -18,21 +17,10 @@ const fadeOutAnimation = keyframes`
     }
   `;
 
-const getWindowHeight = () => {
-  const { innerHeight: height } = window;
-  return height;
-};
-
 export default function Icon({ showTitle, iconFullSize, icon }) {
-  const [distance, setDistance] = useState();
   const { fromRef, isNearScreen } = useNearScreen({
-    distance: distance,
+    distance: '-20%',
   });
-
-  useLayoutEffect(() => {
-    const height = getWindowHeight();
-    setDistance(`${Math.floor(-height / 3)}px`);
-  }, []);
 
   return (
     <div ref={fromRef}>
@@ -45,7 +33,7 @@ export default function Icon({ showTitle, iconFullSize, icon }) {
           height: {
             xs: iconFullSize ? '150px' : '80px',
             md: iconFullSize ? '150px' : '100px',
-            xll: iconFullSize ? '150px' : '128px',
+            xl: iconFullSize ? '150px' : '128px',
           },
         }}
       >

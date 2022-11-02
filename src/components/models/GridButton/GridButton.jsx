@@ -12,7 +12,7 @@ export default function GridButton({ buttons, sectionTitle }) {
       }}
     >
       {sectionTitle && (
-        <SectionTitle title={sectionTitle.title} textJustify="center" />
+        <SectionTitle title={sectionTitle.title} textJustify="center" cardA />
       )}
 
       <Box

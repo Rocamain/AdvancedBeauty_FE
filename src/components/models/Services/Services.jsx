@@ -41,7 +41,7 @@ export default function Services() {
     return (
       <Box
         sx={{
-          width: ['94vw', '80vw', '80vw', '80vw', '70vw'],
+          width: ['100vw', '80vw', '80vw', '80vw', '70vw'],
           margin: '0 auto',
         }}
       >
