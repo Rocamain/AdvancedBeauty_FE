@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import { Divider } from 'components/shared/styled/index.js';
 
-export default function SectionTitle({ title, grid }) {
+export default function SectionTitle({ title, grid, cardA }) {
   return (
     <Box
       sx={{
-        padding: ['3em 0 0.5em 0', '3em 0 0.5em 0'],
+        padding: cardA ? '0em 0 0.5em 0' : '3em 0 0.5em 0',
       }}
     >
       <Typography

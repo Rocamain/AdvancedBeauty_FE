@@ -30,7 +30,7 @@ function CardA({
             zIndex: '100',
           }}
         >
-          <SectionTitle title={sectionTitle.title} grid={true} />
+          <SectionTitle title={sectionTitle.title} grid="true" cardA="true" />
           {confirmationMsg && <Box component="p" children={confirmationMsg} />}
           <Card>
             <ReactMarkdown

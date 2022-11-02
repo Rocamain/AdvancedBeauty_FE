@@ -1,17 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Typography, Grid } from '@mui/material';
 import { Card } from 'components/shared/styled/index.js';
 import Icon from 'components/shared/Icon.jsx';
 
 const GridCards = ({ cards, onLoad }) => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const handleClick = (e, { path, title }) => {
     const section = title && title.replaceAll(' ', '-');
     const URLPath = path.replaceAll(' ', '-');
     const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
 
-    navigate(url);
+    navigate(url, { state: { ...location } });
   };
 
   return (

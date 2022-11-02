@@ -34,17 +34,10 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
   return (
     <>
       <Box
-        component="div"
         sx={{
           display: 'flex',
           alignItems: 'center',
-          marginLeft: [
-            theme.spacing(0),
-            theme.spacing(0),
-            theme.spacing(-3.5),
-            theme.spacing(-9),
-          ],
-          width: { sm: '60%', md: '80%', lg: '70%' },
+          maxWidth: '1200px',
         }}
       >
         {matchesBigScreens && (
@@ -56,48 +49,35 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
             />
           </CardPhotoContainer>
         )}
-        <Box
+
+        <CardWrapper
+          className={cardAnimation}
           sx={{
-            width: {
-              xs: '100%',
-              md: '100%',
-              lg: '70%',
-              margin: '-100px auto',
-              position: 'relative',
-            },
+            display: { xs: 'flex', md: 'block' },
+            justifyContent: ['flex-start'],
+            flexDirection: 'column',
           }}
+          onAnimationEnd={exitAnimationEnd}
         >
-          <CardWrapper
-            className={cardAnimation}
+          <Typography
+            component="h4"
+            variant="cardTitle"
             sx={{
-              display: { xs: 'flex', md: 'block' },
-              justifyContent: ['flex-start'],
-              flexDirection: 'column',
+              paddingBottom: '0.5em',
             }}
-            onAnimationEnd={exitAnimationEnd}
           >
-            <Typography
-              component="h4"
-              variant="cardTitle"
-              sx={{
-                paddingBottom: '1em',
-                color: 'black',
-                textAlign: 'center',
-              }}
-            >
-              {title}
-            </Typography>
-            <Box sx={{ marginBottom: ['0.4m', '1em'] }}>
-              <ReactMarkdown
-                className={style.reactMarkDown}
-                escapeHTML={true}
-                remarkPlugins={[gfm]}
-                children={content}
-              />
-            </Box>
-            {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
-          </CardWrapper>
-        </Box>
+            {title}
+          </Typography>
+
+          <ReactMarkdown
+            className={style.reactMarkDownGridA}
+            escapeHTML={true}
+            remarkPlugins={[gfm]}
+            children={content}
+          />
+
+          {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
+        </CardWrapper>
       </Box>
     </>
   );

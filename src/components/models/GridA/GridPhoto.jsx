@@ -36,7 +36,7 @@ export default function GridPhoto({
         >
           <Box
             component="img"
-            loading="lazy"
+            // loading="lazy"
             alt={alternativeText}
             src={small.url}
             sx={{

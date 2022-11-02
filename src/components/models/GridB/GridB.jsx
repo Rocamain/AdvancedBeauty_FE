@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import useScrollTo from 'hooks/useScrollTo.js';
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 import { Box } from '@mui/material';
 import Icon from 'components/shared/Icon.jsx';
@@ -6,10 +8,16 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from 'styles/markdown-styles.module.css';
 
-export default function GridB({ sectionTitle, title, size, cards }) {
+export default function GridB({ sectionTitle, title, size, cards, marginTop }) {
+  const [loaded, setLoaded] = useState(false);
+  const { scrollRef } = useScrollTo({ sectionTitle, marginTop, loaded });
   return (
-    <Box id={sectionTitle.title.replace(' ', '-')}>
-      {title && <SectionTitle title={title} grid={false} />}
+    <Box
+      id={sectionTitle.title.replace(' ', '-')}
+      ref={scrollRef}
+      onLoad={() => setLoaded(false)}
+    >
+      {title && <SectionTitle title={title} cardA="true" />}
       <Container size={size}>
         {cards.map(
           (
