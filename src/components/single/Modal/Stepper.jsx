@@ -10,7 +10,7 @@ export default function Stepper({ bookingStep }) {
     <Box
       display="flex"
       justifyContent="center"
-      sx={{ marginTop: '1em', marginBottom: '2.5em' }}
+      sx={{ marginTop: '1em', marginBottom: ['1em', '2.5em'] }}
     >
       <StepOne>
         <Slider bookingStep={bookingStep} />

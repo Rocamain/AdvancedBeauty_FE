@@ -1,48 +1,50 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { BookingContext } from 'context/BookingContext';
-import useButtonSelected from 'hooks/useButtonSelected';
 import { Box } from '@mui/material';
 import { TimeAvailableBtn } from 'components/single/Calendar/styled/';
 import { filterHoursByTimeFrame } from 'components/single/Calendar/utils/';
 import dayjs from 'dayjs';
-
-import useFetchData from 'hooks/useFetchData';
+import useFetchBookingDb from 'hooks/useFetchBookingDb';
 
 export default function TimePicker({ timeFrame }) {
   const { setBooking, booking } = useContext(BookingContext);
   const { serviceName, shopName, date } = booking;
-
-  const { data: bookings } = useFetchData('bookingSystem', {
-    action: 'getAvailableTimes',
+  const { bookings } = useFetchBookingDb(
+    'getAvailableTimes',
     serviceName,
     shopName,
-    date,
-  });
+    date
+  );
 
   const availableTimes = bookings?.availableTimes;
   const availableBookings = bookings?.availableBookings;
 
-  const { selected, handleSelector } = useButtonSelected({
-    timeFrame,
-    date,
-  });
+  useEffect(() => {
+    setBooking(({ bookingStep, time, ...rest }) => {
+      return {
+        time: null,
+        bookingStep: 0,
+        ...rest,
+      };
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeFrame]);
 
   const handleClick = (event) => {
     const btnTimeValue = event.target.id;
     const timeIndex = availableTimes.indexOf(btnTimeValue);
     const bookingWithTime = availableBookings[timeIndex];
-
-    const [hours, minutes] = btnTimeValue.split(':');
     const offset = date.$offset;
 
     const appointmentDateWithTime = dayjs(date)
       .subtract(offset)
-      .set('hour', hours)
-      .set('minutes', minutes)
+      .set('hour', 0)
+      .set('minutes', 0)
       .set('seconds', 0)
-      .tz();
+      .set('milliseconds', 0);
 
-    setBooking(({ bookingStep, date, time, ...rest }) => {
+    setBooking(({ bookingStep, time, ...rest }) => {
       return {
         date: appointmentDateWithTime,
         dbBookingDate: bookingWithTime,
@@ -51,8 +53,6 @@ export default function TimePicker({ timeFrame }) {
         ...rest,
       };
     });
-
-    handleSelector(btnTimeValue);
   };
 
   if (availableTimes) {
@@ -75,7 +75,7 @@ export default function TimePicker({ timeFrame }) {
               id={timeAvailable}
               onClick={handleClick}
               variant={
-                selected === availableTimes || selected === 'all'
+                booking.time === timeAvailable || booking.time === null
                   ? 'contained'
                   : 'outlined'
               }

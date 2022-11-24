@@ -30,14 +30,13 @@ const MyButton = styled(({ type, onClick, ...props }) => (
     },
   },
 
-  '& .MuiButton-endIcon': {
+  '.MuiButton-endIcon': {
     transform: 'translate(-30px)',
     width: 0,
     opacity: 0,
     transition: 'transform 0.6s, width 0.3s, opacity 0.2s ease',
-    '& >:nth-of-type(1)': {
+    '>:nth-of-type(1)': {
       fontSize: '2.5rem',
-
       fontWeight: 800,
     },
   },

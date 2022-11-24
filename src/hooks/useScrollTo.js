@@ -1,55 +1,33 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export default function useScrollTo() {
-  const { hash, state, pathname } = useLocation();
-
-  const scrollToRef = useRef(null);
+export default function useScrollTo({
+  sectionTitle,
+  marginTop = 0,
+  isNearScreen,
+}) {
+  const { hash } = useLocation();
+  const scrollRef = useRef(null);
 
   useEffect(() => {
-    let observer;
+    const id = '#' + sectionTitle.title.replaceAll(' ', '-');
 
-    const onChange = (entries) => {
-      const sections = entries[0].target.children;
+    if (scrollRef.current && isNearScreen && id === hash) {
+      const headerHeight = Math.round(
+        document.documentElement.clientHeight * 0.15
+      );
 
-      for (let i = 0; i < sections.length; i++) {
-        const section = sections[i];
-        const hashId = `#${section.id.replaceAll(' ', '-')}`;
-
-        if (hash === hashId) {
-          const HeaderHeight = Math.round(
-            document.documentElement.clientHeight * 0.2
-          );
-
-          const offsetTop = section.offsetTop - HeaderHeight;
-
-          setTimeout(
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth',
-            }),
-            300
-          );
-        }
-      }
-    };
-    // In case the navigator does not support ResizeObserver API,
-    // It will do a dynamic import of the polyfill resize-observer-polyfill
-
-    if (scrollToRef.current) {
-      Promise.resolve(
-        typeof ResizeObserver !== 'undefined'
-          ? ResizeObserver
-          : import('resize-observer-polyfill')
-      ).then(() => {
-        observer = new ResizeObserver(onChange);
-
-        observer.observe(scrollToRef.current);
-      });
-
-      return () => observer && observer.disconnect();
+      const timer = setTimeout(() => {
+        return window.scrollTo({
+          top: scrollRef.current.offsetTop - headerHeight - marginTop,
+          behavior: 'smooth',
+        });
+      }, 25);
+      return () => {
+        clearTimeout(timer);
+      };
     }
-  }, [scrollToRef, state, hash, pathname]);
+  }, [sectionTitle?.title, hash, scrollRef, marginTop, isNearScreen]);
 
-  return { scrollToRef };
+  return { scrollRef };
 }

@@ -1,3 +1,4 @@
+import useScrollTo from 'hooks/useScrollTo.js';
 import { Box } from '@mui/material';
 import { Card, Image, Container } from './styled/index.js';
 import { Wrapper } from 'components/shared/styled/index.js';
@@ -15,54 +16,66 @@ function CardA({
   button,
   photo,
   backgroundType,
+  marginTop,
+  isNearScreen,
 }) {
+  const { scrollRef } = useScrollTo({
+    sectionTitle,
+    marginTop,
+    isNearScreen,
+  });
+
   return (
     <Container backgroundType={backgroundType}>
-      <Wrapper>
-        <Box
-          sx={{
-            px: '2em',
-            margin: bookingConfirmation && '0 auto',
-            maxWidth: bookingConfirmation
-              ? { xs: '00%', md: '100%' }
-              : { xs: '100%', md: '50%' },
-            position: { md: 'relative' },
-            zIndex: '100',
-          }}
-        >
-          <SectionTitle title={sectionTitle.title} grid="true" cardA="true" />
-          {confirmationMsg && <Box component="p" children={confirmationMsg} />}
-          <Card>
-            <ReactMarkdown
-              className={style.reactMarkDownGridA}
-              escapeHTML={true}
-              remarkPlugins={[gfm]}
-              children={content}
-              style={{
-                marginBottom: '1em',
-                minWidth: '200px',
-              }}
-            />
-
-            {button && (
-              <Button
-                value={sectionTitle.title}
-                {...button}
-                marginTop="0.5em"
-              />
-            )}
-          </Card>
-        </Box>
-        {photo && (
+      <Box ref={scrollRef}>
+        <Wrapper>
           <Box
             sx={{
-              display: { xs: 'flex', md: 'block' },
+              px: '2em',
+              margin: bookingConfirmation && '0 auto',
+              maxWidth: bookingConfirmation
+                ? { xs: '00%', md: '100%' }
+                : { xs: '100%', md: '50%' },
+              position: { md: 'relative' },
+              zIndex: '100',
             }}
           >
-            <Image formats={photo?.formats} alt={photo.alternativeText} />
+            <SectionTitle title={sectionTitle.title} grid="true" cardA="true" />
+            {confirmationMsg && (
+              <Box component="p" children={confirmationMsg} />
+            )}
+            <Card>
+              <ReactMarkdown
+                className={style.reactMarkDownGridA}
+                escapeHTML={true}
+                remarkPlugins={[gfm]}
+                children={content}
+                style={{
+                  marginBottom: '1em',
+                  minWidth: '200px',
+                }}
+              />
+
+              {button && (
+                <Button
+                  value={sectionTitle.title}
+                  {...button}
+                  marginTop="0.5em"
+                />
+              )}
+            </Card>
           </Box>
-        )}
-      </Wrapper>
+          {photo && (
+            <Box
+              sx={{
+                display: { xs: 'flex', md: 'block' },
+              }}
+            >
+              <Image formats={photo?.formats} alt={photo.alternativeText} />
+            </Box>
+          )}
+        </Wrapper>
+      </Box>
     </Container>
   );
 }

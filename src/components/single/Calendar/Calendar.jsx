@@ -2,7 +2,7 @@ import { BookingContext } from 'context/BookingContext';
 import { keyframes } from '@emotion/react';
 import { useState, forwardRef, useContext } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import gb from 'dayjs/locale/en-gb';
+import gb from 'dayjs/locale/en-gb.js';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Grid, Box } from '@mui/material';
@@ -12,7 +12,6 @@ import {
   GridContainer,
 } from 'components/single/Calendar/styled';
 import TimeSelector from 'components/single/Calendar/TimeSelector';
-import { Loading } from 'components/shared/index';
 import { isSunday, isBankHoliday } from './utils/index';
 
 export default forwardRef(({ fadeIn, ...props }, ref) => {
@@ -49,15 +48,27 @@ const Calendar = ({ shopName, serviceName, date }) => {
   //   location: shopName,
   // });
 
-  const renderDay = (date, selectedDates, pickersProps) => {
+  const renderDay = (day, selectedDates, pickersProps) => {
     if (
-      isSunday(date)
-      // || isBankHoliday(date, bankHolidays)
+      isSunday(day)
+      // || isBankHoliday(day, bankHolidays)
     ) {
       pickersProps.disabled = true;
-      return <CustomPickersDay className="bank-holiday" {...pickersProps} />;
+
+      return (
+        <CustomPickersDay
+          className="bank-holiday"
+          day={day}
+          {...pickersProps}
+        />
+      );
     }
-    if (true) return <CustomPickersDay day={dayjs(date)} {...pickersProps} />;
+
+    if (day.$D === date.$D) {
+      pickersProps.selected = day.$D === date.$D;
+    }
+
+    return <CustomPickersDay day={date} {...pickersProps} />;
   };
 
   const handleMonthChange = (date) => {
@@ -69,29 +80,29 @@ const Calendar = ({ shopName, serviceName, date }) => {
 
   const handleChange = (newDate) => {
     setBooking(({ date, ...restBooking }) => ({
-      date: dayjs(newDate).tz(),
+      date: dayjs(newDate),
       ...restBooking,
     }));
   };
+  
 
   return (
     // bankHolidays &&
     <GridContainer>
-      <Grid
-        item
-        xs={12}
-        md={5}
-        sx={{ position: 'relative', overflow: 'hidden' }}
-      >
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={gb}>
+      <Grid item xs={12} md={6}>
+        <LocalizationProvider
+          dateAdapter={AdapterDayjs}
+          //
+          adapterLocale={gb}
+        >
           <CalendarPicker
             label="Calendar appointment picker"
-            date={date}
+            data={date}
             minDate={dayjs()}
-            maxDate={dayjs().add(1, 'year')}
-            disablePast={true}
+            maxDate={dayjs(new Date()).add(1, 'year')}
+            disablePast
             renderDay={renderDay}
-            onChange={(day) => handleChange(day)}
+            onChange={handleChange}
             onMonthChange={handleMonthChange}
           />
         </LocalizationProvider>
@@ -102,7 +113,7 @@ const Calendar = ({ shopName, serviceName, date }) => {
         md={5}
         sx={{
           position: 'relative',
-          overflowXp: 'hidden',
+          overflowX: 'hidden',
           marginBottom: '1em',
         }}
       >

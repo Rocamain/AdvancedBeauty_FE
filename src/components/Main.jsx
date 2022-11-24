@@ -10,17 +10,16 @@ function Main() {
   const { pathname } = useLocation();
   const { data, loading } = useFetchStrapi(pathname);
   const theme = useTheme();
-
   const matchesBigMobiles = useMediaQuery(
     theme.breakpoints.between('sm', 'md'),
     {
       noSsr: true,
     }
   );
-
   const smallMobiles = useMediaQuery(theme.breakpoints.down('sm'), {
     noSsr: true,
   });
+
   if (loading) {
     return (
       <Box

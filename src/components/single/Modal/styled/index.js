@@ -22,27 +22,26 @@ const DialogContainer = styled((props) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '85vw',
-    height: '76vh',
+    width: '100vw',
     backgroundImage: `url(${circles})`,
     backgroundSize: 'contain',
     backgroundColor: 'white',
     boxShadow: 24,
     paddingTop: 3,
     paddingBottom: 3,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.up('sm')]: {
       width: '100vw',
+      maxWidth: '650px',
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.up('md')]: {
       maxWidth: 800,
-      minHeight: '80vh',
     },
-    [theme.breakpoints.down('lg')]: {
+    [theme.breakpoints.up('lg')]: {
       height: '65vh',
       maxHeight: 650,
       maxWidth: 1000,
     },
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('xl')]: {
       height: '65vh',
       maxHeight: 700,
       maxWidth: 1000,
@@ -91,9 +90,10 @@ const ModalWrapper = styled(({ children, ...props }) => {
   return {
     display: showSummary && 'flex',
     flexDirection: showSummary && 'column',
-
-    margin: '1em',
-
+    padding: '0 1em 0 1em',
+    margin: '0 auto',
+    width: '90%',
+    maxWidth: '400px',
     '&.summary': {
       visibility: showSummary ? `visible` : 'hidden',
       opacity: 0,
@@ -102,6 +102,17 @@ const ModalWrapper = styled(({ children, ...props }) => {
     '&.header': {
       animation: animation,
       opacity: showSummary && 0,
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '80%',
+      maxWidth: '600px',
+      margin: '0 auto',
+    },
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: '750px',
+    },
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '950px',
     },
   };
 });
@@ -162,12 +173,8 @@ const Input = styled(({ icon, error, ...props }) => {
     [theme.breakpoints.up('sm')]: {
       width: '260px',
     },
-    [theme.breakpoints.up('md')]: {
-      width: '360px',
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '360px',
-    },
+    [theme.breakpoints.up('md')]: {},
+    [theme.breakpoints.up('lg')]: {},
     textarea: {
       color: 'white',
       letterSpacing: '0.05em',

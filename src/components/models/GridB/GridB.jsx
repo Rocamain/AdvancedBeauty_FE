@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useScrollTo from 'hooks/useScrollTo.js';
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 import { Box } from '@mui/material';
@@ -8,15 +7,22 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from 'styles/markdown-styles.module.css';
 
-export default function GridB({ sectionTitle, title, size, cards, marginTop }) {
-  const [loaded, setLoaded] = useState(false);
-  const { scrollRef } = useScrollTo({ sectionTitle, marginTop, loaded });
+export default function GridB({
+  sectionTitle,
+  title,
+  size,
+  cards,
+  marginTop,
+  isNearScreen,
+}) {
+  const { scrollRef } = useScrollTo({
+    sectionTitle,
+    marginTop,
+    isNearScreen,
+  });
+
   return (
-    <Box
-      id={sectionTitle.title.replace(' ', '-')}
-      ref={scrollRef}
-      onLoad={() => setLoaded(false)}
-    >
+    <Box ref={scrollRef}>
       {title && <SectionTitle title={title} cardA="true" />}
       <Container size={size}>
         {cards.map(

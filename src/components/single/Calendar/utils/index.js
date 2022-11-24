@@ -10,7 +10,7 @@ const filterHoursByTimeFrame = ({ availableTimes, timeFrame }) => {
 const isSunday = (date) => {
   const dayOfWeek = dayjs(date).day();
 
-  return dayOfWeek === 6;
+  return dayOfWeek === 0;
 };
 const isBankHoliday = (date, bankHolidays) => {
   const day =

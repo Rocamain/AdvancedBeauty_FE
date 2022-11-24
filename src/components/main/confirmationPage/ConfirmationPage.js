@@ -1,6 +1,5 @@
 import CardA from 'components/models/CardA/CardA.jsx';
 import { Box, Typography } from '@mui/material';
-import dayjs from 'dayjs';
 import { useLocation } from 'react-router-dom';
 
 export default function ConfirmationPage({ props }) {

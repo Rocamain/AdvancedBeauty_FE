@@ -6,19 +6,20 @@ const GridContainer = styled((props) => (
   <MuiGrid
     {...props}
     container
-    rowSpacing={[0, 2, 2, 9]}
-    columnSpacing={[0, 0, 3, 4]}
+    columnSpacing={[0, 0, 2, 5]}
     justifyContent="center"
   />
 ))(({ theme, props }) => {
   return {
     minWidth: 250,
-    width: '85%',
     margin: '0 auto',
+    paddingBottom: '5em',
 
-    [theme.breakpoints.down('md')]: {
-      minWidth: 330,
-      maxWidth: 430,
+    [theme.breakpoints.up('sm')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '100%',
     },
     [theme.breakpoints.up('lg')]: {
       maxWidth: 1300,
@@ -73,7 +74,6 @@ const CalendarPicker = styled(({ ...props }) => {
       views={['day']}
       fullWidth
       {...props}
-      sx={{ minWidth: [220, 330, 330, 380], maxWidth: [300, 500, 300] }}
     />
   );
 })(({ theme }) => {
@@ -81,7 +81,7 @@ const CalendarPicker = styled(({ ...props }) => {
     margin: '0 auto',
     maxHeight: 'none',
     width: '100%',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       fontSize: '1rem',
       width: '90%',
     },
@@ -112,7 +112,7 @@ const CalendarPicker = styled(({ ...props }) => {
 
     '> div:nth-of-type(2)': {
       '> div:nth-of-type(1)': {
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         span: {
           fontSize: '1.2rem',
           fontFamily: ['Open Sans', 'Abel'].join(','),
@@ -173,7 +173,7 @@ const CalendarPicker = styled(({ ...props }) => {
     },
 
     'div[role=row]': {
-      justifyContent: 'space-evenly',
+      justifyContent: 'space-between',
     },
   };
 });

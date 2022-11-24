@@ -17,62 +17,59 @@ const LazyConfirmationPage = React.lazy(() =>
 //  App Component
 
 function App() {
-  const routes = useNavigation();
+  const { navigationLinks } = useNavigation();
 
   return (
-    <>
-      {routes && (
-        <Router>
-          <Routes>
-            <Route path="/" element={<Body routes={{ ...routes }} />}>
+    navigationLinks && (
+      <Router>
+        <Routes>
+          <Route path="/" element={<Body navigationLinks={navigationLinks} />}>
+            <Route
+              path="error"
+              element={
+                <React.Suspense fallback={<Loading />}>
+                  <LazyErrorPage />
+                </React.Suspense>
+              }
+            />
+            <Route
+              path="confirmation"
+              element={
+                <React.Suspense fallback={<Loading />}>
+                  <LazyConfirmationPage />
+                </React.Suspense>
+              }
+            />
+            {navigationLinks.map((navRoute, index) => (
               <Route
-                path="error"
+                key={index}
+                index={navRoute.path === '/' ? true : false}
+                path={navRoute.path !== '/' && navRoute.path}
                 element={
                   <React.Suspense fallback={<Loading />}>
-                    <LazyErrorPage />
+                    <LazyMain />
                   </React.Suspense>
                 }
-              />
-              <Route
-                path="confirmation"
-                element={
-                  <React.Suspense fallback={<Loading />}>
-                    <LazyConfirmationPage />
-                  </React.Suspense>
-                }
-              />
-              {routes.nestedList.map((navRoute, index) => (
-                <Route
-                  key={index}
-                  index={navRoute.path === '/' ? true : false}
-                  path={navRoute.path !== '/' && navRoute.path}
-                  element={
-                    <React.Suspense fallback={<Loading />}>
-                      <LazyMain />
-                    </React.Suspense>
-                  }
-                >
-                  {navRoute.items.map((navSubRoute, index) => (
-                    <Route
-                      key={index}
-                      path={navSubRoute.path}
-                      element={
-                        <React.Suspense fallback={<Loading />}>
-                          <LazyMain />
-                        </React.Suspense>
-                      }
-                    />
-                  ))}
-                </Route>
-              ))}
-            </Route>
+              >
+                {navRoute.items.map((navSubRoute, index) => (
+                  <Route
+                    key={index}
+                    path={navSubRoute.path}
+                    element={
+                      <React.Suspense fallback={<Loading />}>
+                        <LazyMain />
+                      </React.Suspense>
+                    }
+                  />
+                ))}
+              </Route>
+            ))}
+          </Route>
 
-            <Route path="*" element={<h1>Not Found</h1>} />
-          </Routes>
-        </Router>
-      )}
-      ;
-    </>
+          <Route path="*" element={<h1>Not Found</h1>} />
+        </Routes>
+      </Router>
+    )
   );
 }
 

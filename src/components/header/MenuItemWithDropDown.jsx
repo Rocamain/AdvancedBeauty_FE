@@ -8,7 +8,6 @@ export default function MenuItemWithDropDown({
   selectedDrop,
   handleHover,
   isHover,
-  handleSelect,
 }) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -30,8 +29,6 @@ export default function MenuItemWithDropDown({
   };
 
   const handleClick = (e, path) => {
-    e.stopPropagation();
-    // handleSelect(e, path);
     setOpen(false);
   };
 

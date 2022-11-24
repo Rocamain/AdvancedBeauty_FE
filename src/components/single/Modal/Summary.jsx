@@ -23,7 +23,7 @@ export default function Summary({ className }) {
   });
   const navigate = useNavigate();
   const { dbBookingDate, price, serviceName, shopName } = booking;
-  const [error, setError] = useState({ emailError: null, nameError: null });
+const [error, setError] = useState({ emailError: null, nameError: null });
   const { emailError, nameError } = error;
   const { email, name, authorized } = formData;
 
@@ -74,7 +74,6 @@ export default function Summary({ className }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.booking) {
-          console.log('BOOKING RESULT:', data.booking);
           setBooking((booking) => ({
             bookingConfirmed: true,
             ...booking,

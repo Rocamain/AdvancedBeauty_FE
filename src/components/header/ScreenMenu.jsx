@@ -3,7 +3,7 @@ import { Box as Nav, MenuList } from '@mui/material';
 import { MenuLink } from './styled/index';
 import MenuItemWithDropDown from 'components/header/MenuItemWithDropDown';
 
-export default function ScreenMenu({ links, selectedLinks, handleSelect }) {
+export default function ScreenMenu({ links, selectedLinks }) {
   const [hoverTracker, setHoverTracker] = useState(null);
   const { mainLink, dropLink } = selectedLinks;
 
@@ -13,20 +13,12 @@ export default function ScreenMenu({ links, selectedLinks, handleSelect }) {
     }
   };
 
-  const handleClick = (event, path) => {
-    handleSelect(event, path);
-    window.scrollTo(0, 0);
-  };
-
   const haspopup = (navLink) => {
     return navLink?.items.length > 0 ? true : false;
   };
 
   return (
-    <Nav
-      component={'nav'}
-      sx={{ display: 'flex', position: 'relative', zIndex: 1000 }}
-    >
+    <Nav sx={{ display: 'flex', position: 'relative', zIndex: 1000 }}>
       <MenuList
         sx={{
           display: 'flex',
@@ -40,10 +32,9 @@ export default function ScreenMenu({ links, selectedLinks, handleSelect }) {
 
           return haspopup(navLink) ? (
             <MenuItemWithDropDown
+              key={index}
               link={navLink}
               handleHover={handleHover}
-              key={index}
-              handleSelect={handleSelect}
               selectedMain={mainLink}
               selectedDrop={dropLink}
               isHover={title === hoverTracker}
@@ -52,7 +43,6 @@ export default function ScreenMenu({ links, selectedLinks, handleSelect }) {
             <MenuLink
               key={index}
               onMouseOver={(e) => handleHover(title)}
-              onClick={(e) => handleClick(e, path)}
               selected={path === mainLink}
               to={path}
               title={title}

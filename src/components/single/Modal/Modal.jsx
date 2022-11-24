@@ -8,7 +8,7 @@ import Summary from 'components/single/Modal/Summary';
 import Calendar from 'components/single/Calendar/Calendar.jsx';
 import Header from 'components/single/Modal/Header.jsx';
 import { Dialog, ModalWrapper, ExitBtn } from 'components/single/Modal/styled';
-import dayjs, { tz } from 'dayjs';
+import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -16,8 +16,15 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(customParseFormat);
-
 dayjs.tz.setDefault('Europe/Madrid');
+
+const initialBookingState = {
+  date: dayjs(),
+  time: null,
+  bookingStep: 0,
+  emailAuthorization: false,
+  bookingConfirmation: false,
+};
 
 export default function Modal({
   open,
@@ -31,11 +38,7 @@ export default function Modal({
     serviceName,
     shopName,
     price,
-    date: dayjs().tz(),
-    time: null,
-    bookingStep: 0,
-    emailAuthorization: false,
-    bookingConfirmation: false,
+    ...initialBookingState,
   });
 
   const { bookingStep, time, date } = booking;
@@ -104,7 +107,7 @@ export default function Modal({
               onClick={handleStep}
               type={bookingStep > 2 ? 'submit' : null}
               form={bookingStep > 2 ? 'a-form' : null}
-              sx={{ position: 'absolute', right: '0.7em', bottom: '0.7em' }}
+              sx={{ position: 'absolute', right: '0.7em', bottom: '1.5em' }}
             >
               {bookingStep > 1 ? 'Confirm Booking' : 'Continue'}
             </Button>
