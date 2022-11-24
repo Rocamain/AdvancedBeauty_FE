@@ -76,10 +76,18 @@ const getMarginBottom = (
     section.componentName === 'GridA' &&
     nextSection.componentName === 'GridA'
   ) {
-    if (nextSection.show === 'photo' && matchesBigMobiles) {
-      return `calc(10vh + ${
-        marginBottom[section.backgroundType + '-' + section.show] + 0
-      }px)`;
+    if (matchesBigMobiles) {
+      if (
+        nextSection.show === 'photo' &&
+        nextSection.backgroundType !== 'full' &&
+        nextSection.photoColumn === 'second'
+      ) {
+        return `calc(10vh + ${
+          marginTop[section.backgroundType + '-' + section.show] + 0
+        }px)`;
+      } else {
+        return `calc(10vh + ${160}px)`;
+      }
     }
 
     return `calc(10vh + ${

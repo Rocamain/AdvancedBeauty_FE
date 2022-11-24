@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import useScrollTo from 'hooks/useScrollTo.js';
+import { Box } from '@mui/material';
 import { Container, Grid } from 'components/shared/styled/index.js';
 import GridCards from 'components/models/GridA/GridCards';
 import GridText from 'components/models/GridA/GridText';
@@ -15,21 +15,23 @@ export default function GridA({
   show,
   sectionTitle,
   marginTop,
+  isNearScreen,
 }) {
-  const [loaded, setLoaded] = useState(false);
-  const { scrollRef } = useScrollTo({ sectionTitle, loaded, marginTop });
+  const { scrollRef } = useScrollTo({
+    sectionTitle,
+    marginTop,
+    isNearScreen,
+  });
 
   return (
     <Container
       background={backgroundType}
       show={show}
       photoColumn={photoColumn}
-      onLoad={() => setLoaded(true)}
     >
-      <div ref={scrollRef}>
+      <Box ref={scrollRef}>
         <Grid background={backgroundType} show={show} photoColumn={photoColumn}>
           <GridText
-            show={show}
             content={content}
             sectionTitle={sectionTitle}
             button={button}
@@ -45,7 +47,7 @@ export default function GridA({
                 />
               )}
         </Grid>
-      </div>
+      </Box>
     </Container>
   );
 }

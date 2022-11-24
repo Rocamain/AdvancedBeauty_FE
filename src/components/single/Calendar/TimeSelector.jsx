@@ -1,5 +1,3 @@
-import { useContext, useEffect } from 'react';
-import { BookingContext } from 'context/BookingContext';
 import { Button, Box } from '@mui/material';
 import useButtonSelected from 'hooks/useButtonSelected';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -10,29 +8,17 @@ export default function TimeSelector({ date, availableTimes }) {
     date,
     availableTimes,
   });
-  const { setBooking, booking } = useContext(BookingContext);
+
+  const smallPhone = useMediaQuery('(max-width:460px)');
 
   const handleClick = (event) => {
     const btnTimeFrameText = event.target.innerText;
     handleSelector(btnTimeFrameText);
   };
 
-  const smallPhone = useMediaQuery('(max-width:460px)');
-  useEffect(() => {
-    if (selected !== 'all') {
-      setBooking({ ...booking, bookingStep: 0 });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected]);
-
   return (
-    <Box sx={{ pt: '10px' }}>
-      <Box
-        gap={[1, 4, 1]}
-        display="flex"
-        justifyContent={['center', 'center', 'center', 'space-between']}
-        mb="2em"
-      >
+    <Box sx={{ pt: '10px', maxWidth: '95%', margin: '0 auto' }}>
+      <Box gap={[1, 4, 1]} display="flex" justifyContent="center" mb="2em">
         <Button
           onClick={handleClick}
           variant={

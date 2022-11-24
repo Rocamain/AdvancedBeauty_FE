@@ -18,7 +18,6 @@ export default function ScrollTop({ children }) {
   const navigationType = useNavigationType();
   useEffect(() => {
     if (navigationType === 'PUSH' && !Boolean(hash)) {
-      console.log('navLink');
       window.scrollTo({
         top: 0,
       });
@@ -26,6 +25,7 @@ export default function ScrollTop({ children }) {
     if (pathname) {
       document.title = '2U - ' + PATHS[pathname];
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, navigationType]);
 
   return <>{children} </>;

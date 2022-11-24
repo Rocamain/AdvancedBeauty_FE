@@ -65,6 +65,14 @@ const PopoverMenu = styled((props) => (
   />
 ))(({ theme }) => ({
   border: 'none',
+  left: '0 !important',
+
+  [theme.breakpoints.down('sm')]: {
+    left: '0 !important',
+    '.Paper': {
+      left: 0,
+    },
+  },
 
   [theme.breakpoints.up('md')]: {
     display: 'none',
@@ -97,7 +105,6 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
     // container
     BackdropProps={{
       onMouseOver: onMouseOnBackdrop,
-      // invisible: true,
     }}
     disablePortal
     {...props}
@@ -105,7 +112,7 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
 ))(({ theme }) => ({
   zIndex: -1,
   padding: 0,
-  '& .MuiBackdrop-root': {
+  '.MuiBackdrop-root': {
     padding: 0,
     backgroundColor: 'transparent',
     width: '100vw',
@@ -119,16 +126,16 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
       top: '15.5vh',
     },
   },
-  '& .MuiPaper-root': {
+  '.MuiPaper-root': {
     overflow: 'visible',
     [theme.breakpoints.up('md')]: {
-      paddingTop: 'calc(6vh - 3px )',
+      paddingTop: 'calc(6vh - 3px)',
     },
     [theme.breakpoints.up('lg')]: {
       paddingTop: 'calc(5vh)',
     },
   },
-  '& .MuiList-root': {
+  '&.MuiList-root': {
     padding: '20px 0',
     backgroundColor: '#fafafa',
     boxShadow: theme.shadows[10],
@@ -141,11 +148,14 @@ const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
     return {
       padding: '0',
       display: 'block',
-      margin: '0 auto',
-      [theme.breakpoints.down('md')]: {
-        width: '85vw ! important',
-        padding: '1em 0',
 
+      [theme.breakpoints.down('sm')]: {
+        borderTop: `2px solid ${theme.palette.tertiary.main}`,
+      },
+      [theme.breakpoints.between('sm', 'md')]: {
+        width: '85vw ! important',
+        margin: '0 auto',
+        padding: '1em 0',
         borderTop: `2px solid ${theme.palette.tertiary.main}`,
       },
     };
@@ -163,9 +173,14 @@ const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
   );
 })(({ theme, mainLink, isFirst }) => {
   return {
-    backgroundColor: isFirst && mainLink && 'rgba(0,0,0,9%)',
-    '& .Mui-selected': {
-      backgroundColor: 'rgba(117, 201, 204, 0.38)',
+    maxWidth: '80vw',
+    '&.Mui-selected': {
+      backgroundColor: 'rgba(147, 201, 204, 0.4)',
+    },
+    li: {
+      hover: {
+        backgroundColor: 'rgba(04, 201, 204, 0.4)',
+      },
     },
     a: {
       [theme.breakpoints.down('md')]: {
@@ -176,14 +191,19 @@ const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
     h3: {
       color: '#666',
       fontWeight: 600,
+      maxWidth: '80vw',
     },
   };
 });
 
 const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => ({
+  maxWidth: '80vw',
   display: 'block',
   textDecoration: 'none',
   padding: '1em 1.5em',
+  [theme.breakpoints.down('md')]: {
+    padding: '0.5em 1em',
+  },
 }));
 
 export {

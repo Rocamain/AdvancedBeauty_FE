@@ -1,7 +1,8 @@
+import useScrollTo from 'hooks/useScrollTo.js';
 import { useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import {
   CarouselContainer,
   SlideContainer,
@@ -15,7 +16,14 @@ export default function Carousel({
   sectionTitle,
   subtitle,
   slides,
+  marginTop,
+  isNearScreen,
 }) {
+  const { scrollRef } = useScrollTo({
+    sectionTitle,
+    marginTop,
+    isNearScreen,
+  });
   const [slideIndex, setSlideIndex] = useState(0);
   const [exit, setExit] = useState(false);
   const [card, setCard] = useState(() => slides[slideIndex]);
@@ -40,33 +48,37 @@ export default function Carousel({
   };
 
   return (
-    <CarouselContainer url={background.formats}>
-      {matchesBigScreens && (
-        <CarouselHero>
-          <Typography variant="carouselTitle">{sectionTitle.title} </Typography>
-          {subtitle && (
-            <Typography variant="carouselSubtitle">{subtitle}</Typography>
-          )}
-        </CarouselHero>
-      )}
+    <Box ref={scrollRef}>
+      <CarouselContainer url={background.formats}>
+        {matchesBigScreens && (
+          <CarouselHero>
+            <Typography variant="carouselTitle">
+              {sectionTitle.title}{' '}
+            </Typography>
+            {subtitle && (
+              <Typography variant="carouselSubtitle">{subtitle}</Typography>
+            )}
+          </CarouselHero>
+        )}
 
-      {card && (
-        <SlideContainer>
-          <ChevronButton
-            className="ChevronButton ChevronButton-left"
-            value="left"
-            disableRipple={true}
-            onClick={handleClick}
-          />
-          <Card card={card} exit={exit} exitAnimationEnd={exitAnimationEnd} />
-          <ChevronButton
-            className="ChevronButton ChevronButton-right"
-            value="right"
-            disableRipple={true}
-            onClick={(e) => handleClick(e)}
-          />
-        </SlideContainer>
-      )}
-    </CarouselContainer>
+        {card && (
+          <SlideContainer>
+            <ChevronButton
+              className="ChevronButton ChevronButton-left"
+              value="left"
+              disableRipple={true}
+              onClick={handleClick}
+            />
+            <Card card={card} exit={exit} exitAnimationEnd={exitAnimationEnd} />
+            <ChevronButton
+              className="ChevronButton ChevronButton-right"
+              value="right"
+              disableRipple={true}
+              onClick={(e) => handleClick(e)}
+            />
+          </SlideContainer>
+        )}
+      </CarouselContainer>
+    </Box>
   );
 }

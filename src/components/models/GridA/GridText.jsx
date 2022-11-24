@@ -5,7 +5,12 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from 'styles/markdown-styles.module.css';
 
-export default function GridText({ sectionTitle, content, button }) {
+export default function GridText({
+  sectionTitle,
+  content,
+  button,
+  background,
+}) {
   return (
     <Grid item component="div" xs={12} md={6}>
       <Box
@@ -17,7 +22,11 @@ export default function GridText({ sectionTitle, content, button }) {
           paddingBottom: ['2em', '2em', '4em'],
         }}
       >
-        <SectionTitle title={sectionTitle.title} grid="true" />
+        <SectionTitle
+          title={sectionTitle.title}
+          grid
+          cardA={background === 'none' && 'true'}
+        />
         <ReactMarkdown
           className={style.reactMarkDownGridA}
           escapeHTML={true}
