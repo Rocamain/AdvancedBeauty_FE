@@ -4,14 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 export default function useFetchStrapi(pathname) {
   const [data, setData] = useState({ data: false, loading: true });
-  const [refreshed, setRefreshed] = useState(false);
 
   const navigate = useNavigate();
+  const pathDataInfo = data?.[pathname];
 
   useEffect(() => {
-    const pathData = data?.[pathname];
-
-    if (!pathData) {
+    if (!pathDataInfo) {
       const abortController = new AbortController();
 
       fetch(makeStrapiQueryString(pathname), {
@@ -35,20 +33,18 @@ export default function useFetchStrapi(pathname) {
           } else {
             navigate('/error');
           }
-        })
-        .finally(() => {});
+        });
+
       return () => {
         abortController.abort();
       };
     }
-    //  it refreshed in each call to allow the ref to be updated in useNearScreen
-    setRefreshed((prev) => !prev);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  const pathData = data?.[pathname];
-  if (pathData) {
-    return { data: pathData, loading: false };
+  if (pathDataInfo) {
+    return { data: pathDataInfo, loading: false };
   }
 
   return data;
