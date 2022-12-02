@@ -18,10 +18,10 @@ export default function Hero({ content, title, subTitle, cover, button }) {
       <HeroContainer
         className="container"
         cover={cover}
-        isWithContent={isWithContent}
+        content={isWithContent.toString()}
       >
         <HeroHeader>
-          <HeroHeaderWrapper isWithContent={isWithContent}>
+          <HeroHeaderWrapper content={isWithContent.toString()}>
             <Typography component="h1" variant="heroTitle">
               {title}
             </Typography>
@@ -57,14 +57,14 @@ export default function Hero({ content, title, subTitle, cover, button }) {
                 disableRipple
                 variant="contained"
                 children={button.linkText}
-                href={button.linkTo.path}
-                sx={{ padding: '1rem 1.5rem', flex: 0 }}
+                href={button.linkTo.path.replaceAll(' ', '-')}
+                sx={{ padding: '1rem 1.5rem', flex: 0, fontWeight: 600 }}
               />
             </Box>
           )}
         </HeroContentWrapper>
       </HeroContainer>
-      <WavesBackground className="waves" isWithContent={isWithContent} />
+      <WavesBackground className="waves" />
     </Box>
   );
 }

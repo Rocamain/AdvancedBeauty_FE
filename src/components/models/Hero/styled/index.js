@@ -2,7 +2,7 @@ import { Box, styled } from '@mui/material';
 import curves from 'assets/curves.svg';
 import coffee from 'assets/coffee.png';
 
-const HeroContainer = styled(Box)(({ theme, cover, isWithContent }) => {
+const HeroContainer = styled(Box)(({ theme, cover, content }) => {
   return {
     position: 'relative',
     display: 'flex',
@@ -18,7 +18,7 @@ const HeroContainer = styled(Box)(({ theme, cover, isWithContent }) => {
       paddingTop: '3em',
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: isWithContent ? '4em' : '12em',
+      paddingTop: content ? '4em' : '12em',
       justifyContent: 'flex-end',
     },
   };
@@ -31,7 +31,7 @@ const HeroHeader = styled(Box)(({ theme }) => {
     },
   };
 });
-const HeroHeaderWrapper = styled(Box)(({ theme, isWithContent }) => {
+const HeroHeaderWrapper = styled(Box)(({ theme, content }) => {
   return {
     position: 'relative',
     zIndex: 140,
@@ -39,7 +39,7 @@ const HeroHeaderWrapper = styled(Box)(({ theme, isWithContent }) => {
     flexDirection: 'column',
     width: '90%',
     margin: '0 auto',
-    paddingTop: isWithContent ? '0' : '5em',
+    paddingTop: content ? '0' : '5em',
 
     [theme.breakpoints.up('sm')]: {
       width: '80%',
@@ -82,7 +82,7 @@ const HeroContentWrapper = styled(Box)(({ theme }) => {
     },
   };
 });
-const WavesBackground = styled(Box)(({ theme, isWithContent }) => {
+const WavesBackground = styled(Box)(({ theme }) => {
   return {
     position: 'absolute',
     bottom: '0',
