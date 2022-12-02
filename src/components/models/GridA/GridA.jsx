@@ -24,13 +24,9 @@ export default function GridA({
   });
 
   return (
-    <Container
-      background={backgroundType}
-      show={show}
-      photoColumn={photoColumn}
-    >
-      <Box ref={scrollRef}>
-        <Grid background={backgroundType} show={show} photoColumn={photoColumn}>
+    <Box ref={scrollRef}>
+      <Container background={backgroundType} show={show}>
+        <Grid background={backgroundType} show={show} photocolumn={photoColumn}>
           <GridText
             content={content}
             sectionTitle={sectionTitle}
@@ -41,13 +37,14 @@ export default function GridA({
             ? cardLinks && <GridCards cards={cardLinks} />
             : photo && (
                 <GridPhoto
+                  isNearScreen={isNearScreen}
                   background={backgroundType}
                   {...photo}
-                  columnOrder={photoColumn}
+                  order={photoColumn}
                 />
               )}
         </Grid>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }

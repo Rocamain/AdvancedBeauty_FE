@@ -1,6 +1,6 @@
 import useFetchStrapi from 'hooks/useFetchStrapi';
-import Section from 'components/models/index.js';
 import { useLocation } from 'react-router-dom';
+import Section from 'components/models/index.js';
 import { useMediaQuery, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Loading } from 'components/shared/index';
@@ -10,15 +10,8 @@ function Main() {
   const { pathname } = useLocation();
   const { data, loading } = useFetchStrapi(pathname);
   const theme = useTheme();
-  const matchesBigMobiles = useMediaQuery(
-    theme.breakpoints.between('sm', 'md'),
-    {
-      noSsr: true,
-    }
-  );
-  const smallMobiles = useMediaQuery(theme.breakpoints.down('sm'), {
-    noSsr: true,
-  });
+  const bigMobiles = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const smallMobiles = useMediaQuery(theme.breakpoints.down('sm'));
 
   if (loading) {
     return (
@@ -37,11 +30,13 @@ function Main() {
       {data.map((componentInfo, index, array) => {
         const { sectionTitle } = componentInfo;
         const isLastSection = index === array.length - 1;
+
         return (
           <Section
             key={index}
             sectionData={componentInfo}
             sectionTitle={sectionTitle}
+            isLastSection={isLastSection}
             marginBottom={
               isLastSection
                 ? '10vh'
@@ -50,11 +45,15 @@ function Main() {
                       section: componentInfo,
                       nextSection: array[index + 1],
                     },
-                    matchesBigMobiles,
+                    bigMobiles,
                     smallMobiles
                   )
             }
-            marginTop={getMarginTop({ section: componentInfo })}
+            marginTop={
+              (getMarginTop({ section: componentInfo }),
+              bigMobiles,
+              smallMobiles)
+            }
           />
         );
       })}

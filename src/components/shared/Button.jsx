@@ -51,15 +51,15 @@ export default function Button({
   value,
 }) {
   const navigate = useNavigate();
+  const { title, path } = linkTo;
   const { pathname } = useLocation();
+  const section = title && title.replaceAll(' ', '-');
+  const URLPath = path.replaceAll(' ', '-');
+  const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
 
-  const handleClick = (e, { path, title }) => {
-    const section = title && title.replaceAll(' ', '-');
-    const URLPath = path.replaceAll(' ', '-');
-    const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
-
+  const handleClick = (e, { path }) => {
     if (path === 'Contact' && pathname === '/Services-and-Fares/Promotions') {
-      const contactMessage = e.target.title;
+      const contactMessage = value;
       const message = `Dear 2U team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
       navigate(url, {
         state: { contactMessage: message },
@@ -84,6 +84,7 @@ export default function Button({
         type={type}
         title={value}
         id={value}
+        // href={url}
         onClick={(e) => handleClick(e, linkTo)}
         variant="contained"
         sx={{ width: 'inherit' }}

@@ -23,23 +23,28 @@ export default function Icon({ showTitle, iconFullSize, icon }) {
   });
 
   return (
-    <div ref={fromRef}>
+    <Box ref={fromRef}>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          paddingBottom: showTitle ? '1.5em' : '1em',
+          paddingBottom: !iconFullSize
+            ? { xs: '2em', md: '1.2em' }
+            : showTitle
+            ? '5 em'
+            : { xs: '0.5em', md: '1em' },
 
           height: {
-            xs: iconFullSize ? '150px' : '80px',
-            md: iconFullSize ? '150px' : '100px',
-            xl: iconFullSize ? '150px' : '128px',
+            xs: iconFullSize ? '120px' : '90px',
+            sm: iconFullSize ? '130px' : '90px',
+            md: iconFullSize ? '130px' : '95px',
+            xl: iconFullSize ? '140px' : '100px',
           },
         }}
       >
         <Box
           component="img"
-          loading="lazy"
+          // loading="lazy"
           alt={icon.alternativeText}
           sx={{
             opacity: 0,
@@ -53,20 +58,15 @@ export default function Icon({ showTitle, iconFullSize, icon }) {
               xs: `url(${icon.url})`,
             },
 
-            maxWidth: {
-              xs: iconFullSize ? '240px' : '80px',
-              md: iconFullSize ? '220px' : '100px',
-              xll: iconFullSize ? '250px' : '128px',
-            },
-
-            maxHeight: {
-              xs: iconFullSize ? 'auto' : '80px',
-              md: iconFullSize ? 'auto' : '100px',
-              xll: iconFullSize ? 'inherit' : '128px',
-            },
+            // width: 'inherit',
+            // maxHeight: {
+            //   xs: 'inherit',
+            //   // md: iconFullSize ? 'auto' : '100px',
+            //   // xll: iconFullSize ? 'inherit' : '128px',
+            // },
           }}
         />
       </Box>
-    </div>
+    </Box>
   );
 }
