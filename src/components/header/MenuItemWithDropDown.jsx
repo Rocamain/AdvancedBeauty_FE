@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { DropDownMenu } from 'components/header/styled/index';
-import MenuLink from 'components/header/MenuLink.jsx';
+import MenuLink from 'components/header/MenuLink';
+// import { LinksMenu, MenuLink } from './styled/index';
 
 export default function MenuItemWithDropDown({
-  link,
+  path,
+  title,
+  dropdownLinks,
   selectedMain,
   selectedDrop,
   handleHover,
@@ -15,7 +18,6 @@ export default function MenuItemWithDropDown({
 
   useEffect(() => {
     setOpen(false);
-
     if (isHover) {
       setAnchorEl(ref.current);
       setOpen(true);
@@ -28,45 +30,43 @@ export default function MenuItemWithDropDown({
     handleHover(event);
   };
 
-  const handleClick = (e, path) => {
+  const handleClick = () => {
     setOpen(false);
   };
 
-  const id = open
-    ? 'simple-popover-' + link.title.replace(' ', '-').toLowerCase()
+  const mainLinkId = 'dropdown-button-' + title.replace(' ', '-').toLowerCase();
+  const dropDownMainLinkId = open
+    ? 'simple-popover-' + title.replace(' ', '-').toLowerCase()
     : undefined;
-  const linkId =
-    'dropdown-button-' + link.title.replace(' ', '-').toLowerCase();
 
   return (
     <MenuLink
       ref={ref}
-      id={linkId}
+      id={mainLinkId}
       aria-controls={open ? 'dropdown-menu' : null}
       aria-haspopup="true"
       aria-expanded={open ? 'true' : null}
-      onClick={(e) => handleClick(e, link.path)}
-      onMouseOver={() => handleHover(link.title)}
+      onClick={(e) => handleClick(e, path)}
+      onMouseOver={() => handleHover(title)}
       onMouseLeave={handleClose}
-      selected={selectedMain === link.path}
+      selected={selectedMain === path}
       disableGutters
-      title={link.title}
-      to={link.path}
+      title={title}
+      to={path}
     >
       <DropDownMenu
-        id={id}
-        aria-labelledby={linkId}
+        id={dropDownMainLinkId}
+        aria-labelledby={mainLinkId}
         anchorEl={anchorEl}
         open={open}
         onMouseOnBackdrop={handleClose}
         onMouseLeave={handleClose}
       >
-        {link.items.map((dropdownLink, index) => {
-          const { path, title } = dropdownLink;
-
+        {dropdownLinks.map(({ path, title }) => {
           return (
             <MenuLink
-              key={index}
+              dropdownLink
+              key={path}
               onClick={(e) => handleClick(e, path)}
               selected={path.includes(selectedDrop)}
               to={path}
