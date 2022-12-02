@@ -12,33 +12,38 @@ const ACTION_SELECTOR = {
 };
 
 export default function useFetchBookingDb(action, serviceName, shopName, date) {
-  const [data, setData] = useState(false);
+  const [data, setData] = useState(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    fetch(ACTION_SELECTOR[action](serviceName, shopName, date), {
-      signal: abortController.signal,
-    })
-      .then((response) => {
-        if (response) {
-          return response.json();
-        }
-        return Promise.reject();
+    const validArgs =
+      (serviceName && shopName && date && action === 'getAvailableTimes') ||
+      action !== 'getAvailableTimes';
+    if (validArgs) {
+      fetch(ACTION_SELECTOR[action](serviceName, shopName, date), {
+        signal: abortController.signal,
       })
-      .then((data) => {
-        setData(data);
-      })
-      .catch(() => {
-        if (abortController.signal.aborted) {
-          // The user aborted the request
-          setData(false);
-        } else {
-          navigate('/error');
-        }
-      });
+        .then((response) => {
+          if (response) {
+            return response.json();
+          }
+          return Promise.reject();
+        })
+        .then((data) => {
+          setData(data);
+        })
+        .catch((err) => {
+          if (abortController.signal.aborted) {
+            // The user aborted the request
+            setData(false);
+          } else {
+            navigate('/error');
+          }
+        });
+    }
 
     return () => {
       setData(false);

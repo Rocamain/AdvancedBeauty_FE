@@ -1,98 +1,47 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import getBankHolidays from 'services/calendarific/getBankHolidays',
-// import { useOutletContext } from 'react-router-dom';
+import {
+  getBankHolidaysUrlString,
+  getShopBankHolidays,
+} from 'services/calendarific/getBankHolidays';
 
-
-
-export default function useFetchBankHolidays(
-  api,
-  { path, component, id, location, year, action, date, shopName, serviceName }
-) {
+export default function useFetchBankHolidays(year, shop) {
   const [data, setData] = useState(false);
-  const [loading, setIsLoading] = useState(true);
-  const [loaded, setIsLoaded] = useState(false);
-
   const navigate = useNavigate();
 
-  
-
-  // const [sections, setSections] = useOutletContext();
-
   useEffect(() => {
-    const abortController = new AbortController();
-    if (!loaded) {
-      fetch(
-        API_SELECTOR[api]({
-          path,
-          component,
-          id,
-          year,
-          date,
-          location,
-          action,
-          shopName,
-          serviceName,
-        }),
-        {
-          signal: abortController.signal,
-        }
-      )
-        .then((response) => {
-          if (response) {
-            return response.json();
-          }
-          return Promise.reject();
+    if (year || shop) {
+      const abortController = new AbortController();
+
+      const calendarificUrlString = getBankHolidaysUrlString(year);
+      fetch(calendarificUrlString, {
+        signal: abortController.signal,
+      })
+        .then((response) => response.json())
+        .then((bankHolidays) => {
+          
+          const shopBankHols = getShopBankHolidays({ bankHolidays, shop });
+
+          setData(shopBankHols);
         })
-        .then((data) => {
-          if (api === 'calendar') {
-            const { holidays } = data.response;
-
-            const {
-              getISOdates,
-            } = require('services/calendarific/getBankHolidays');
-
-            const shopBankHols = getISOdates({ holidays, location });
-
-            setData(shopBankHols);
-          } else {
-            setData(data?.data || data?.bookings || data[0]);
-          }
-        })
-        .catch(() => {
+        .catch((err) => {
           if (abortController.signal.aborted) {
             // The user aborted the request
             setData(false);
-            setIsLoading(true);
-            setIsLoaded(true);
           } else {
             navigate('/error');
           }
-        })
-        .finally(() => {
-          setIsLoading(false);
         });
-    }
-    return () => {
-      setData(false);
-      setIsLoading(true);
-      // setIsLoaded(false);
-      abortController.abort();
-    };
-  }, [
-    // api,
-    path,
-    // year,
-    // location,
-    // action,
-    // date,
-    // date?.$d,
-    // navigate,
-    // serviceName,
-    // shopName,
-    // component,
-    // id,
-  ]);
 
-  return { data, loading };
+      return () => {
+        // setData(false);
+        abortController.abort();
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shop, year]);
+
+  if (data) {
+    return data;
+  }
 }

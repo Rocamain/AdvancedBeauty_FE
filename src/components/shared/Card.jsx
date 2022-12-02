@@ -32,54 +32,41 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
   })}`;
 
   return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          maxWidth: '1200px',
-        }}
-      >
-        {matchesBigScreens && (
-          <CardPhotoContainer>
-            <Photo
-              alt={photo.alternativeText}
-              src={photo}
-              className={animatedPhoto}
-            />
-          </CardPhotoContainer>
-        )}
-
-        <CardWrapper
-          className={cardAnimation}
-          sx={{
-            display: { xs: 'flex', md: 'block' },
-            justifyContent: ['flex-start'],
-            flexDirection: 'column',
-          }}
-          onAnimationEnd={exitAnimationEnd}
-        >
-          <Typography
-            component="h4"
-            variant="cardTitle"
-            sx={{
-              paddingBottom: '0.5em',
-            }}
-          >
-            {title}
-          </Typography>
-
-          <ReactMarkdown
-            className={style.reactMarkDownGridA}
-            escapeHTML={true}
-            remarkPlugins={[gfm]}
-            children={content}
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        maxWidth: '1200px',
+      }}
+    >
+      {matchesBigScreens && (
+        <CardPhotoContainer>
+          <Photo
+            className={animatedPhoto}
+            alt={photo.alternativeText}
+            src={photo}
           />
-
-          {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
-        </CardWrapper>
-      </Box>
-    </>
+        </CardPhotoContainer>
+      )}
+      <CardWrapper className={cardAnimation} onAnimationEnd={exitAnimationEnd}>
+        <Typography
+          component="h4"
+          variant="cardTitle"
+          sx={{
+            paddingBottom: '0.5em',
+          }}
+        >
+          {title}
+        </Typography>
+        <ReactMarkdown
+          className={style.reactMarkDownGridA}
+          escapeHTML
+          remarkPlugins={[gfm]}
+          children={content}
+        />
+        {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
+      </CardWrapper>
+    </Box>
   );
 };
 

@@ -1,14 +1,14 @@
+import { useContext } from 'react';
+import { BookingContext } from 'context/BookingContext';
 import { Button, Box } from '@mui/material';
 import useButtonSelected from 'hooks/useButtonSelected';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import TimePicker from 'components/single/Calendar/TimePicker';
 
-export default function TimeSelector({ date, availableTimes }) {
-  const { selected, handleSelector } = useButtonSelected({
-    date,
-    availableTimes,
-  });
-
+export default function TimeSelector() {
+  const { booking } = useContext(BookingContext);
+  const { date } = booking;
+  const { selected, handleSelector } = useButtonSelected({ date });
   const smallPhone = useMediaQuery('(max-width:460px)');
 
   const handleClick = (event) => {
@@ -17,7 +17,7 @@ export default function TimeSelector({ date, availableTimes }) {
   };
 
   return (
-    <Box sx={{ pt: '10px', maxWidth: '95%', margin: '0 auto' }}>
+    <Box mb="0" sx={{ pt: '10px', maxWidth: '95%', margin: '0 auto' }}>
       <Box gap={[1, 4, 1]} display="flex" justifyContent="center" mb="2em">
         <Button
           onClick={handleClick}
@@ -29,9 +29,10 @@ export default function TimeSelector({ date, availableTimes }) {
           color={'primary'}
           size={smallPhone ? 'small' : 'big'}
           sx={{
+            fontWeight: 600,
             ':hover': {
               backgroundColor: 'rgba(0, 0, 0, 0.14)',
-              fontWeight: 600,
+              fontWeight: 700,
             },
           }}
         >
@@ -42,9 +43,10 @@ export default function TimeSelector({ date, availableTimes }) {
           variant={selected === 'afternoon' ? 'contained' : 'outlined'}
           size={smallPhone ? 'small' : 'big'}
           sx={{
+            fontWeight: 600,
             ':hover': {
               backgroundColor: 'rgba(0, 0, 0, 0.14)',
-              fontWeight: 600,
+              fontWeight: 700,
             },
           }}
         >

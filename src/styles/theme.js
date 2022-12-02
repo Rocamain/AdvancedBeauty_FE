@@ -17,7 +17,7 @@ theme = createTheme(theme, {
   palette: {
     primary: {
       main: '#75C9CC',
-      secondary: '#fff',
+      secondary: 'rgba(10, 201, 204, 0.6)',
       contrastText: '#fff',
     },
     secondary: {
@@ -30,6 +30,8 @@ theme = createTheme(theme, {
       primary: '#333333',
       secondary: '#75C9CC',
     },
+    linkSelected: 'rgba(147, 201, 204, 0.4)',
+    linkHover: 'rgba(10, 201, 204, 0.6)',
 
     background: {
       primary: 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important',
@@ -50,10 +52,10 @@ theme = createTheme(theme, {
     },
     h2: {
       fontWeight: 500,
-      fontSize: '3.5rem',
+      fontSize: '4rem',
       lineHeight: 1.2,
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      letterSpacing: '-0.008em',
+      letterSpacing: '0.01em',
     },
     h3: {
       fontWeight: 600,
@@ -67,24 +69,21 @@ theme = createTheme(theme, {
       fontSize: '2.4rem',
       lineHeight: 0.8,
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      letterSpacing: '-0.004em',
+      letterSpacing: '0.05em',
     },
     h5: {
       fontWeight: 600,
       fontSize: '2.2rem',
-      lineHeight: 1.1,
+      lineHeight: 1,
       fontFamily: ['Open Sans', 'Abel'].join(','),
       letterSpacing: '-0.003em',
     },
     h6: {
       fontWeight: 500,
       fontSize: '1.35rem',
-      lineHeight: 1.1,
+      lineHeight: 1.4,
       fontFamily: ['Open Sans', 'Abel'].join(','),
       letterSpacing: '0.06em',
-      [theme.breakpoints.up('lg')]: {
-        fontSize: '1.5rem',
-      },
     },
     p: {
       fontWeight: 500,
@@ -93,9 +92,9 @@ theme = createTheme(theme, {
       color: '#666',
       fontFamily: ['Open Sans', 'Abel'].join(','),
       letterSpacing: '0.05em',
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '0.8rem',
-      },
+      // [theme.breakpoints.down('sm')]: {
+      //   fontSize: '0.9rem',
+      // },
     },
     navLink: {
       fontFamily: ['Abel'].join(','),
@@ -212,7 +211,6 @@ theme = createTheme(theme, {
     },
     cardTitle: {
       color: '#666',
-      // color: 'black',
       textAlign: 'center',
       fontSize: '1.4rem',
       lineHeight: 1.1,
@@ -239,18 +237,19 @@ theme = createTheme(theme, {
       },
     },
     cardText: {
-      color: '#666',
+      color: '#777',
       fontFamily: ['Open Sans', 'Abel'].join(','),
-      fontWeight: 300,
-      lineHeight: 1.7,
+      fontWeight: 600,
+      lineHeight: 1.5,
       fontSize: '1.2rem',
+      letterSpacing: '0.07em',
       [theme.breakpoints.up('md')]: {
         fontSize: '1.25rem',
-        fontWeight: 500,
       },
 
       [theme.breakpoints.up('xl')]: {
         fontSize: '1.35rem',
+        fontWeight: 500,
       },
     },
 
