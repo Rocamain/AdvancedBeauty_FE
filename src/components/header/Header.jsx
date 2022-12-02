@@ -20,7 +20,6 @@ import MobileMenu from 'components/header/MobileMenu';
 
 export default function Header({ navigationLinks }) {
   // states and hooks
-
   const { data } = useFetchStrapi('Logo');
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
@@ -46,7 +45,7 @@ export default function Header({ navigationLinks }) {
     data && (
       <>
         <HeaderContainer ref={ref}>
-          <Wrapper fixed>
+          <Wrapper>
             <Logo src={data.photo.url} alt={data.photo.alternativeText} />
             {matchesBigScreens ? (
               <ScreenMenu
@@ -60,7 +59,7 @@ export default function Header({ navigationLinks }) {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleOpen}
               >
-                <MenuIcon />
+                <MenuIcon fontSize="large" />
               </BurgerButton>
             )}
           </Wrapper>

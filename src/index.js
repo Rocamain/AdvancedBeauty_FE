@@ -7,7 +7,7 @@ import '@fontsource/abel';
 import '@fontsource/open-sans';
 
 const container = document.getElementById('root');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container);
 root.render(
   <ThemeProvider theme={theme}>
     <App tab="home" />

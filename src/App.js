@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Body navigationLinks={navigationLinks} />}>
             <Route
-              path="error"
+              path="Error"
               element={
                 <React.Suspense fallback={<Loading />}>
                   <LazyErrorPage />
@@ -33,7 +33,7 @@ function App() {
               }
             />
             <Route
-              path="confirmation"
+              path="Confirmation"
               element={
                 <React.Suspense fallback={<Loading />}>
                   <LazyConfirmationPage />
@@ -64,9 +64,8 @@ function App() {
                 ))}
               </Route>
             ))}
+            <Route path="*" element={<h1>Not Found</h1>} />
           </Route>
-
-          <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Router>
     )

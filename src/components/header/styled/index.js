@@ -1,6 +1,6 @@
 import {
   styled,
-  Container,
+  Box,
   Popover,
   Menu,
   MenuItem,
@@ -10,46 +10,74 @@ import {
 } from '@mui/material';
 import { Link as LinkRouter } from 'react-router-dom';
 
+// General //
+
 const HeaderContainer = styled('header')(({ theme }) => ({
-  height: '13vh',
-  boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 0px 0px',
+  boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 0px 0px',
   position: 'sticky',
-  backgroundColor: 'white',
+  backgroundColor: theme.palette.primary.contrastText,
   zIndex: 1000,
   top: 0,
-
+  padding: '1em 0',
+  gap: '0.5em',
   [theme.breakpoints.up('md')]: {
+    height: '16vh',
+    padding: '0',
     justifyContent: 'space-between',
-    height: '13vh',
   },
 }));
-
-const Logo = styled('img')(({ theme }) => ({
-  maxWidth: '140px',
-
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '200px',
-  },
-  [theme.breakpoints.between('md', 'lg')]: {
-    maxWidth: '30%',
-  },
-  [theme.breakpoints.up('lg')]: {
-    maxWidth: '300px',
-  },
-}));
-
-const Wrapper = styled(Container)(({ theme }) => ({
-  height: 'inherit',
-  margin: '0 auto',
+const Wrapper = styled(Box)(({ theme }) => ({
   width: '80vw',
+  margin: '0 auto',
+  height: 'inherit',
   justifyContent: 'space-between',
   alignItems: 'center',
   display: 'flex',
-
-  [theme.breakpoints.up('xl')]: {
+  maxWidth: 400,
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: 600,
+  },
+  [theme.breakpoints.up('md')]: {
+    width: '90vw',
+    maxWidth: 900,
+  },
+  [theme.breakpoints.up('lg')]: {
+    width: '80vw',
+    maxWidth: 1000,
+  },
+  [theme.breakpoints.up('lg')]: {
     width: '65vw',
+    maxWidth: 1300,
   },
 }));
+
+// General //
+
+const Logo = styled('img')(({ theme }) => ({
+  maxWidth: 180,
+  [theme.breakpoints.between('sm', 'md')]: {
+    maxWidth: 200,
+  },
+  [theme.breakpoints.up('md')]: {
+    maxWidth: 230,
+  },
+  [theme.breakpoints.up('xl')]: {
+    maxWidth: 300,
+  },
+}));
+
+// Mobile
+
+const BurgerButton = styled((props) => (
+  <IconButton aria-haspopup="true" aria-label="menu burger button" {...props} />
+))(({ theme }) => ({
+  color: theme.palette.tertiary.main,
+  [theme.breakpoints.up('md')]: {
+    display: 'none',
+  },
+}));
+
+// Mobile
 
 const PopoverMenu = styled((props) => (
   <Popover
@@ -65,28 +93,35 @@ const PopoverMenu = styled((props) => (
   />
 ))(({ theme }) => ({
   border: 'none',
-  left: '0 !important',
-
-  [theme.breakpoints.down('sm')]: {
-    left: '0 !important',
-    '.Paper': {
-      left: 0,
+  display: 'flex',
+  [theme.breakpoints.up('md')]: {
+    display: 'none',
+  },
+  '.MuiPaper-root': {
+    width: '90vw',
+    margin: '0 auto',
+    [theme.breakpoints.up('sm')]: {
+      width: '80vw',
     },
   },
-
-  [theme.breakpoints.up('md')]: {
-    display: 'none',
-  },
 }));
 
-const BurgerButton = styled((props) => (
-  <IconButton aria-haspopup="true" aria-label="menu burger button" {...props} />
-))(({ theme }) => ({
-  color: theme.palette.tertiary.main,
-  [theme.breakpoints.up('md')]: {
-    display: 'none',
-  },
-}));
+// Mobile
+
+const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
+  ({ theme }) => {
+    return {
+      padding: '1em 0',
+      display: 'flex',
+      flexDirection: 'column',
+      width: 'inherit',
+      borderTop: `2px solid ${theme.palette.secondary.main}`,
+      backgroundColor: '#fafafa',
+    };
+  }
+);
+
+// Big Screens
 
 const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
   <Menu
@@ -102,7 +137,6 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
       vertical: 'top',
       horizontal: 'center',
     }}
-    // container
     BackdropProps={{
       onMouseOver: onMouseOnBackdrop,
     }}
@@ -117,92 +151,92 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
     backgroundColor: 'transparent',
     width: '100vw',
     [theme.breakpoints.up('md')]: {
-      top: '18vh',
-    },
-    [theme.breakpoints.up('lg')]: {
       top: '17vh',
-    },
-    [theme.breakpoints.up('xl')]: {
-      top: '15.5vh',
     },
   },
   '.MuiPaper-root': {
     overflow: 'visible',
     [theme.breakpoints.up('md')]: {
-      paddingTop: 'calc(6vh - 3px)',
-    },
-    [theme.breakpoints.up('lg')]: {
+      width: 270,
       paddingTop: 'calc(5vh)',
     },
+    [theme.breakpoints.up('xl')]: {
+      width: 320,
+    },
   },
-  '&.MuiList-root': {
-    padding: '20px 0',
+  '& .MuiList-root': {
+    padding: '1.3em 0',
     backgroundColor: '#fafafa',
     boxShadow: theme.shadows[10],
-    borderTop: `2px solid ${theme.palette.tertiary.main}`,
+    borderTop: `2px solid ${theme.palette.secondary.main}`,
   },
 }));
 
-const LinksMenu = styled((props) => <MenuList autoFocus {...props} />)(
-  ({ theme }) => {
-    return {
-      padding: '0',
-      display: 'block',
+// General //
 
-      [theme.breakpoints.down('sm')]: {
-        borderTop: `2px solid ${theme.palette.tertiary.main}`,
-      },
-      [theme.breakpoints.between('sm', 'md')]: {
-        width: '85vw ! important',
-        margin: '0 auto',
-        padding: '1em 0',
-        borderTop: `2px solid ${theme.palette.tertiary.main}`,
-      },
-    };
-  }
-);
+//  Mobile all Links, Big screens Links without DropDown
+
 const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
   return (
     <MenuItem disableGutters dense {...props}>
       <Link to={to}>
-        <Typography component="h3" variant="p">
+        <Typography component="h3" variant="h6">
           {title}
         </Typography>
       </Link>
     </MenuItem>
   );
-})(({ theme, mainLink, isFirst }) => {
+})(({ theme, mainLink }) => {
   return {
-    maxWidth: '80vw',
+    borderRadius: '5px',
+    ':hover': {
+      backgroundColor: theme.palette.linkHover,
+    },
     '&.Mui-selected': {
-      backgroundColor: 'rgba(147, 201, 204, 0.4)',
-    },
-    li: {
-      hover: {
-        backgroundColor: 'rgba(04, 201, 204, 0.4)',
-      },
-    },
-    a: {
-      [theme.breakpoints.down('md')]: {
-        padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
-        width: '100%',
+      backgroundColor: theme.palette.linkSelected,
+      '&:hover': {
+        backgroundColor: theme.palette.linkHover,
       },
     },
     h3: {
-      color: '#666',
+      color: `${theme.palette.text.main} !important`,
+      fontSize: '1.05rem',
+      lineHeight: 1.3,
       fontWeight: 600,
-      maxWidth: '80vw',
+    },
+
+    [theme.breakpoints.down('md')]: {
+      whiteSpace: 'inherit',
+      width: '90%',
+      margin: '0 auto',
+      paddingLeft: '2em',
+      a: {
+        width: 'inherit',
+        padding: '0.4em',
+      },
+      h3: {
+        marginLeft: mainLink ? '0em' : '1.2em',
+      },
+    },
+    [theme.breakpoints.up('xl')]: {
+      h3: {
+        fontSize: '1.2rem',
+      },
     },
   };
 });
 
+// Mobile
+
 const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => ({
-  maxWidth: '80vw',
-  display: 'block',
   textDecoration: 'none',
-  padding: '1em 1.5em',
-  [theme.breakpoints.down('md')]: {
-    padding: '0.5em 1em',
+  padding: '0.5em 1em',
+
+  [theme.breakpoints.up('md')]: {
+    padding: '1em 1.2em',
+  },
+  [theme.breakpoints.up('xl')]: {
+    padding: '1em 1.5em',
   },
 }));
 

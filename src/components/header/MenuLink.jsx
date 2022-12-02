@@ -3,10 +3,7 @@ import { MenuItem, Typography } from '@mui/material';
 import { Link } from 'components/header/styled/';
 
 const ForwardMenuLink = forwardRef(
-  (
-    { mainLink, to, replace, state, title, isFirst, children, ...props },
-    ref
-  ) => {
+  ({ dropdownLink, to, title, children, ...props }, ref) => {
     return (
       <MenuItem
         ref={ref}
@@ -14,38 +11,41 @@ const ForwardMenuLink = forwardRef(
         dense
         {...props}
         sx={(theme) => ({
-          backgroundColor: isFirst && mainLink && 'rgba(0,0,0,9%)',
-          color: '#666 !important',
+          borderRadius: '5px',
+          whiteSpace: 'inherit',
+          width: dropdownLink && '90%',
+          margin: dropdownLink && '0.5em',
+          a: { padding: '1em 1.2em' },
+          ':hover': {
+            backgroundColor: theme.palette.linkHover,
+          },
           '&.Mui-selected': {
-            backgroundColor: 'rgba(117, 201, 204, 0.38)',
-            a: {
-              display: 'block',
-              textDecoration: 'none',
-              padding: '1em 1.5em',
-
-              [theme.breakpoints.down('md')]: {
-                color: '#666',
-                padding: mainLink ? '0.5em 1.5em 0.5em' : '0.5em 3em 0.5em',
-              },
+            backgroundColor: theme.palette.linkSelected,
+            '&:hover': {
+              backgroundColor: theme.palette.linkHover,
             },
           },
           h3: {
-            color: '#666',
+            fontSize: '1.05rem',
+            lineHeight: 1.3,
+            color: theme.palette.text.main,
             fontWeight: 600,
+          },
+          [theme.breakpoints.up('xl')]: {
+            h3: {
+              fontSize: '1.2rem !important',
+              color: 'red',
+            },
+            a: { padding: '1em 1.5em' },
           },
         })}
       >
-        <Link
-          to={to}
-          replace={replace}
-          state={state}
-          style={{ textDecoration: 'none' }}
-        >
-          <Typography component="h3" variant="p">
+        <Link to={to} style={{ textDecoration: 'none' }}>
+          <Typography component="h3" variant="h6">
             {title}
           </Typography>
         </Link>
-        {children && children}
+        {children}
       </MenuItem>
     );
   }
