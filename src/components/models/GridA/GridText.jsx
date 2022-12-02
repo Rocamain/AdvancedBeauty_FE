@@ -12,13 +12,12 @@ export default function GridText({
   background,
 }) {
   return (
-    <Grid item component="div" xs={12} md={6}>
+    <Grid item xs={12} md={6} lg={6}>
       <Box
         sx={{
           px: '2em',
           display: { xs: 'flex', sm: 'block' },
           flexDirection: 'column',
-
           paddingBottom: ['2em', '2em', '4em'],
         }}
       >
@@ -29,7 +28,7 @@ export default function GridText({
         />
         <ReactMarkdown
           className={style.reactMarkDownGridA}
-          escapeHTML={true}
+          escapeHTML
           remarkPlugins={[gfm]}
           children={content}
         />

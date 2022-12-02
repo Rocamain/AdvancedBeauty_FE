@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 
 export default function GridPhoto({
   formats,
-  columnOrder,
+  order,
   alternativeText,
   background,
 }) {
@@ -10,7 +10,7 @@ export default function GridPhoto({
   const shadowRight = Boolean(background.includes('right'));
 
   return (
-    <Grid item component="div" xs={12} sm={12} md={6} lg={6} container={true}>
+    <Grid item component="div" xs={12} sm={12} md={6} lg={6} container>
       <Box
         sx={(theme) => ({
           position: 'relative',
@@ -23,7 +23,7 @@ export default function GridPhoto({
             xs: shadowRight ? 'calc(100% + 10vw)' : 'calc(90%)',
             sm: shadowRight ? 'calc(100% + 10vw)' : 'calc(80%)',
             md: shadowRight
-              ? columnOrder === 'right'
+              ? order === 'right'
                 ? 'calc(100% + 10vw)'
                 : 'calc(100% )'
               : background === 'none'
@@ -35,13 +35,13 @@ export default function GridPhoto({
       >
         <Box
           component="img"
-          // loading="lazy"
+          // loading={isNearScreen && 'lazy'}
           alt={alternativeText}
           src={small.url}
           sx={{
             width: {
               xs: 'calc(100%)',
-              md: columnOrder === 'second' ? 'calc(100% + 10vw)' : 'calc(100%)',
+              md: order === 'second' ? 'calc(100% + 10vw)' : 'calc(100%)',
             },
 
             height: 'auto',

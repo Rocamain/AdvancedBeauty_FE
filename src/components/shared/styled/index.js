@@ -46,10 +46,9 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
     return {
       margin:
         grid === 'true' ? '1.5rem  1rem 1em -1rem' : '1.5rem  auto 2em auto',
-      borderColor: '#ffd4a3',
+      borderColor: theme.palette.secondary.main,
       borderBottomWidth: 'medium',
       width: grid === 'true' ? '180px' : '220px',
-
       [theme.breakpoints.up('md')]: {
         width: grid === 'true' ? '180px' : '220px',
       },
@@ -96,12 +95,11 @@ const Container = styled((props) => <Box component="div" {...props} />)(
 const Wrapper = styled((props) => <Box component="div" {...props} />)(
   ({ theme }) => {
     let styles = {
-      gap: theme.spacing(12),
+      gap: theme.spacing(8),
       display: 'flex',
       flexWrap: 'wrap',
       [theme.breakpoints.up('md')]: {
         gap: 0,
-
         flexWrap: 'nowrap',
       },
     };
@@ -110,41 +108,31 @@ const Wrapper = styled((props) => <Box component="div" {...props} />)(
   }
 );
 
-const Card = styled(
-  ({ button, handleClick, buttonTo, page, sectionTitle, ...props }) =>
-    button ? (
-      <Box component="div" {...props}>
-        <button onClick={handleClick}>{props.children}</button>
-      </Box>
-    ) : (
-      <Box component="div" {...props} />
-    )
-)(({ theme, isFirstCard }) => ({
+const Card = styled(({ buttonTo, page, sectionTitle, ...props }) => (
+  <Box component="a" variant="div" {...props} />
+))(({ theme, first }) => ({
+  textDecoration: 'none',
   alignItems: 'flex-start',
-
+  flexDirection: 'column',
+  textAlign: 'center',
+  borderRadius: '5px',
+  border: 'none',
+  background: first
+    ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
+    : 'white',
+  boxShadow: first
+    ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
+    : '0px 50px 80px 0px rgba(12,2,2,0.1)',
+  color: first ? 'white !important' : '#666 !important',
+  padding: theme.spacing(4, 3.5),
+  paddingBottom: theme.spacing(5),
+  cursor: 'pointer',
+  zIndex: 100,
   [theme.breakpoints.up('md')]: {
-    transform: 'scale(1)',
-    transition: 'transform 0.5s',
-  },
-  ':hover': {
-    transform: 'scale(1.03)',
-    transition: 'transform 0.5s',
-  },
-  button: {
-    textAlign: 'center',
-    borderRadius: '5px',
-    border: 'none',
-    background: isFirstCard
-      ? 'linear-gradient(160deg,#75c9cc 0%,#00bccc 100%)'
-      : 'white',
-    boxShadow: isFirstCard
-      ? 'rgb(117, 201, 204) 0px 50px 80px 0px'
-      : '0px 50px 80px 0px rgba(12,2,2,0.1)',
-    color: isFirstCard ? 'white !important' : '#666 !important',
-    padding: theme.spacing(4, 3.5),
-    paddingBottom: theme.spacing(5),
-    cursor: 'pointer',
-    zIndex: 100,
+    transition: 'transform 1250ms',
+    ':hover': {
+      transform: 'scale(1.05)',
+    },
   },
 }));
 
@@ -154,7 +142,7 @@ const ImageContainer = styled(({ url, ...props }) => {
       <Box
         component="img"
         {...props}
-        loading="lazy"
+        // loading="lazy"
         src={url}
         width="128px"
         height="128px"
@@ -170,13 +158,13 @@ const ImageContainer = styled(({ url, ...props }) => {
   height: '100px',
 }));
 
-const Grid = styled(({ show, photoColumn, ...props }) => {
+const Grid = styled(({ show, photocolumn, ...props }) => {
   const direction =
-    photoColumn === 'first' && show === 'photo'
+    photocolumn === 'first' && show === 'photo'
       ? ['column-reverse', 'column-reverse', 'row-reverse', 'row-reverse']
       : 'row';
 
-  return <MuiGrid container direction={direction} component="div" {...props} />;
+  return <MuiGrid container direction={direction} {...props} />;
 })(({ theme, background }) => {
   const backgroundImageSelector = {
     leaves: `url(${leavesBackground})`,
