@@ -44,7 +44,7 @@ export default function GridB({
                 {content && (
                   <ReactMarkdown
                     className={style.reactMarkDown}
-                    escapeHTML={true}
+                    escapeHTML
                     remarkPlugins={[gfm]}
                     children={content}
                   />
