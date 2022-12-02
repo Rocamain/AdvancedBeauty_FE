@@ -19,7 +19,7 @@ export default function GridButton({
     <Box
       ref={scrollRef}
       sx={{
-        width: ['80vw', '65vw'],
+        width: ['80vw', '75vw'],
         margin: '0 auto',
       }}
     >
@@ -38,14 +38,7 @@ export default function GridButton({
         }}
       >
         {buttons.map(({ linkText, linkTo }, index) => (
-          <NavButton
-            key={index}
-            size="large"
-            variant="contained"
-            buttonText={linkText}
-            linkTo={linkTo}
-            value={sectionTitle.title}
-          />
+          <NavButton key={index} buttonText={linkText} linkTo={linkTo} />
         ))}
       </Box>
     </Box>

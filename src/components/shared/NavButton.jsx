@@ -1,5 +1,4 @@
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
 
 export default function NavButton({
   buttonText,
@@ -7,31 +6,35 @@ export default function NavButton({
 
   ...props
 }) {
-  const navigate = useNavigate();
-
-  const handleClick = (e, { path, title }) => {
-    const section = title && title.replaceAll(' ', '-');
-    const URLPath = path.replaceAll(' ', '-');
-    const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
-
-    navigate(url);
-  };
+  const { title, path } = linkTo;
+  const section = title && title.replaceAll(' ', '-');
+  const URLPath = path.replaceAll(' ', '-');
+  const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
 
   return (
     <Button
       color="primary"
       disableFocusRipple
       disableRipple
-      onClick={(e) => handleClick(e, linkTo)}
       variant="contained"
+      size="large"
+      href={url}
       {...props}
       sx={{
-        width: { xs: '200px', sm: '150px', xl: '170px' },
-        height: { xs: '60px', sm: '100px', xl: '90px' },
+        width: {
+          xs: '200px',
+          sm: '150px',
+          md: '170px',
+          lg: '190px',
+          xl: '220px',
+        },
+        height: { xs: '90px', sm: '100px' },
         fontWeight: 600,
       }}
     >
-      {buttonText}
+      <Typography textAlign="center" variant="h6" sx={{ fontWeight: 600 }}>
+        {buttonText}
+      </Typography>
     </Button>
   );
 }

@@ -11,9 +11,7 @@ const FlexContainer = styled((props) => <Box component="div" {...props} />)(
       gap: '2em',
       maxWidth: '100vh',
       margin: '0 auto',
-      [theme.breakpoints.up('md')]: {
-        // justifyContent: 'space-between',
-      },
+
       [theme.breakpoints.up('lg')]: {
         gap: '3em',
         maxWidth: '70vw',
@@ -30,7 +28,7 @@ const Photo = styled(({ src, ...props }) => {
   return (
     <Box
       component="img"
-      loading="lazy"
+      // loading="lazy"
       {...props}
       sx={{
         content: {
@@ -47,10 +45,10 @@ const Photo = styled(({ src, ...props }) => {
     width: '100%',
     height: 'auto',
     verticalAlign: 'middle',
-    borderRadius: '5px',
+    borderRadius: 5,
     objectFit: 'contain',
     boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
-    maxWidth: '500px',
+    maxWidth: 500,
     [theme.breakpoints.up('sm')]: {
       width: '80%',
     },
@@ -59,11 +57,11 @@ const Photo = styled(({ src, ...props }) => {
     },
     [theme.breakpoints.up('lg')]: {
       width: 'calc(50% - 1.5em)',
-      maxWidth: '600px',
+      maxWidth: 600,
     },
     [theme.breakpoints.up('xl')]: {
       width: 'calc(50% - 1.5em)',
-      maxWidth: '700px',
+      maxWidth: 700,
     },
   };
 });
