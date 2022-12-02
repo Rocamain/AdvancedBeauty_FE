@@ -3,39 +3,44 @@ import leavesBackground from 'assets/leaves-background.jpg';
 import circles from 'assets/circles.jpg';
 
 const Card = styled((props) => <Box component="div" {...props} />)(
-  ({ theme }) => ({
+  ({ theme, card }) => ({
     margin: '0 auto',
-    padding: theme.spacing(5, 3, 2, 3),
+    padding: card ? theme.spacing(5, 3) : theme.spacing(5, 3, 2, 3),
     borderRadius: '5px',
     background: '#FFFBF5',
     boxShadow: ' 0px 45px 84px -40px rgb(0 0 0 / 30%)',
+    [theme.breakpoints.up('sm')]: {
+      width: card && '65%',
+      padding: card && theme.spacing(5, 3, 5, 5),
+    },
     [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(5, 3, 2, 7),
-      width: '110%',
+      padding: !card && theme.spacing(5, 3, 5, 7),
+      width: card ? '60%' : '110%',
       marginTop: '6em',
     },
     [theme.breakpoints.up('lg')]: {
-      marginTop: '10em',
-      padding: theme.spacing(5, 5, 2, 13),
+      width: card && '50%',
+      marginTop: !card && '10em',
+      padding: !card && theme.spacing(5, 5, 5, 13),
     },
     [theme.breakpoints.up('xl')]: {
-      marginTop: '12em',
+      marginTop: !card && '12em',
     },
   })
 );
 const Container = styled((props) => {
   return <Box {...props} />;
-})(({ theme, backgroundType }) => {
+})(({ theme, background }) => {
   const backgroundImageSelector = {
     leaves: `url(${leavesBackground})`,
     circles: `url(${circles})`,
   };
   return {
     backgroundImage:
-      backgroundImageSelector[backgroundType] &&
-      backgroundImageSelector[backgroundType],
-    backgroundSize: backgroundImageSelector[backgroundType] && 'contain',
-    backgroundRepeat: backgroundImageSelector[backgroundType] && 'no-repeat',
+      backgroundImageSelector[background] &&
+      backgroundImageSelector[background],
+    backgroundSize: backgroundImageSelector[background] && 'contain',
+    backgroundRepeat: backgroundImageSelector[background] && 'no-repeat',
     width: '80vw',
     margin: '0 auto',
 
@@ -49,8 +54,8 @@ const Image = styled(({ formats, ...props }) => {
   return (
     <Box
       component="img"
+      // loading="lazy"
       {...props}
-      loading="lazy"
       sx={{
         content: {
           xs: `url(${formats.small.url})`,

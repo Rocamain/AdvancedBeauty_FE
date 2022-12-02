@@ -9,13 +9,11 @@ import gfm from 'remark-gfm';
 import style from 'styles/markdown-styles.module.css';
 
 function CardA({
-  bookingConfirmation = false,
-  confirmationMsg,
   content,
   sectionTitle,
   button,
   photo,
-  backgroundType,
+  backgroundType = 'none',
   marginTop,
   isNearScreen,
 }) {
@@ -26,28 +24,21 @@ function CardA({
   });
 
   return (
-    <Container backgroundType={backgroundType}>
+    <Container background={backgroundType}>
       <Box ref={scrollRef}>
         <Wrapper>
           <Box
             sx={{
-              px: '2em',
-              margin: bookingConfirmation && '0 auto',
-              maxWidth: bookingConfirmation
-                ? { xs: '00%', md: '100%' }
-                : { xs: '100%', md: '50%' },
+              maxWidth: { xs: '100%', md: '50%' },
               position: { md: 'relative' },
               zIndex: '100',
             }}
           >
-            <SectionTitle title={sectionTitle.title} grid="true" cardA="true" />
-            {confirmationMsg && (
-              <Box component="p" children={confirmationMsg} />
-            )}
+            <SectionTitle title={sectionTitle.title} grid cardA />
             <Card>
               <ReactMarkdown
                 className={style.reactMarkDownGridA}
-                escapeHTML={true}
+                escapeHTML
                 remarkPlugins={[gfm]}
                 children={content}
                 style={{
@@ -55,7 +46,6 @@ function CardA({
                   minWidth: '200px',
                 }}
               />
-
               {button && (
                 <Button
                   value={sectionTitle.title}
