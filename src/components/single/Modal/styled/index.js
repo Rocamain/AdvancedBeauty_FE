@@ -16,12 +16,12 @@ import { keyframes } from '@emotion/react';
 
 const DialogContainer = styled((props) => {
   return <Box {...props} />;
-})(({ theme, props }) => {
+})(({ theme, small_height }) => {
   return {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    top: small_height ? 0 : '50%',
+    left: 0,
+    transform: !small_height && 'translate(0,-50%)',
     width: '100vw',
     backgroundImage: `url(${circles})`,
     backgroundSize: 'contain',
@@ -29,21 +29,20 @@ const DialogContainer = styled((props) => {
     boxShadow: 24,
     paddingTop: 3,
     paddingBottom: 3,
-    [theme.breakpoints.up('sm')]: {
-      width: '100vw',
-      maxWidth: '650px',
+    [theme.breakpoints.between('sm', 'md')]: {
+      top: '50%',
+      left: '50%',
+      maxWidth: 600,
+      transform: 'translate(-50%,-50%)',
     },
     [theme.breakpoints.up('md')]: {
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%,-50%)',
       maxWidth: 800,
+      minHeight: 538,
     },
     [theme.breakpoints.up('lg')]: {
-      height: '65vh',
-      maxHeight: 650,
-      maxWidth: 1000,
-    },
-    [theme.breakpoints.up('xl')]: {
-      height: '65vh',
-      maxHeight: 700,
       maxWidth: 1000,
     },
   };
@@ -59,60 +58,30 @@ const Dialog = forwardRef((props, ref) => {
 
 const ModalWrapper = styled(({ children, ...props }) => {
   return <Box {...props} children={children} />;
-})(({ theme, showSummary, fadeIn, smallPhone }) => {
-  const fadeOutAnimation = keyframes`
+})(({ theme, fade_out }) => {
+  const fadeInAnimation = keyframes`
 0% {
-  opacity: 0;
+   opacity: 0;
 }
 100% {
   opacity: 1;
+  
 }`;
 
-  const fadeInAnimation = keyframes`
-0% {
-   opacity: 1;
-}
-100% {
-  opacity: 0;
-  visibility: hidden;
-}`;
-
-  let animation;
-
-  if (fadeIn) {
-    animation = `${fadeInAnimation} 0.7s linear forwards 0.2s`;
-  }
-
-  if (showSummary) {
-    animation = `${fadeOutAnimation} 0.7s linear forwards 0.2s`;
-  }
+  let animation = `${fadeInAnimation} 0.7s linear forwards 0.7s`;
 
   return {
-    display: showSummary && 'flex',
-    flexDirection: showSummary && 'column',
-    padding: '0 1em 0 1em',
+    animation: fade_out && animation,
     margin: '0 auto',
     width: '90%',
-    maxWidth: '400px',
-    '&.summary': {
-      visibility: showSummary ? `visible` : 'hidden',
-      opacity: 0,
-      animation: showSummary && animation,
-    },
-    '&.header': {
-      animation: animation,
-      opacity: showSummary && 0,
-    },
     [theme.breakpoints.up('sm')]: {
-      width: '80%',
-      maxWidth: '600px',
-      margin: '0 auto',
-    },
-    [theme.breakpoints.up('sm')]: {
-      maxWidth: '750px',
+      maxWidth: 600,
     },
     [theme.breakpoints.up('md')]: {
-      maxWidth: '950px',
+      maxWidth: 660,
+    },
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: 730,
     },
   };
 });
@@ -121,12 +90,11 @@ const SummaryContainer = styled(({ show, ...props }) => {
   return <Paper {...props} />;
 })(({ theme }) => {
   return {
-    maxWidth: 600,
     justifyContent: 'center',
     flexDirection: 'column',
     padding: '2em 1.5em',
     display: 'flex',
-    gap: '1em',
+    margin: '0 auto 2em auto',
     backgroundImage: theme.palette.background.primary,
   };
 });
@@ -138,6 +106,7 @@ const ExitBtn = styled((props) => {
     position: 'absolute',
     left: '0.2em',
     top: '0.2em',
+    color: theme.palette.primary.main,
   };
 });
 
@@ -166,20 +135,20 @@ const Input = styled(({ icon, error, ...props }) => {
 })(({ theme, smallphone }) => {
   return {
     margin: '1em',
-
     [theme.breakpoints.up('xs')]: {
-      width: !smallphone ? '200px' : '65vw',
+      width: !smallphone ? 200 : '65vw',
     },
     [theme.breakpoints.up('sm')]: {
-      width: '260px',
+      width: 260,
     },
-    [theme.breakpoints.up('md')]: {},
-    [theme.breakpoints.up('lg')]: {},
+    [theme.breakpoints.up('md')]: {
+      width: 300,
+    },
     textarea: {
       color: 'white',
       letterSpacing: '0.05em',
       '::placeholder': {
-        fontWeight: '700',
+        fontWeight: 700,
         opacity: 0.5,
         color: '#333333',
       },

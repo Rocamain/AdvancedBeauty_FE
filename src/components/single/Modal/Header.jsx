@@ -6,10 +6,11 @@ export default function Header({ title, subtitle, className }) {
     <Container className={className}>
       <Typography
         component="h2"
+        variant="h2"
         sx={{
           textAlign: 'center',
           color: '#75C9CC',
-          fontSize: '1.45rem',
+          marginBottom: '0.35em',
           fontWeight: 700,
           backgroundColor: 'transparent ! important',
         }}
@@ -17,12 +18,13 @@ export default function Header({ title, subtitle, className }) {
         {title}
       </Typography>
       <Typography
-        component="h2"
+        component="h3"
+        variant="h6"
         sx={{
-          fontSize: '1.3rem',
+          // fontSize: '1.3rem',
           textAlign: 'center',
-          color: '#444444',
-          fontWeight: 500,
+          color: '#666666',
+          fontWeight: 600,
           backgroundColor: 'transparent ! important',
         }}
       >

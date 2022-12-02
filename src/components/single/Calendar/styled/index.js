@@ -3,32 +3,25 @@ import { Button, Grid as MuiGrid, styled } from '@mui/material';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 
 const GridContainer = styled((props) => (
-  <MuiGrid
-    {...props}
-    container
-    columnSpacing={[0, 0, 2, 5]}
-    justifyContent="center"
-  />
+  <MuiGrid {...props} container justifyContent="center" />
 ))(({ theme, props }) => {
   return {
     minWidth: 250,
     margin: '0 auto',
-    paddingBottom: '5em',
+    marginBottom: '1em',
 
     [theme.breakpoints.up('sm')]: {
-      width: '80%',
+      // width: '80%',
     },
     [theme.breakpoints.up('md')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      maxWidth: 1300,
+      // width: '100%',
+      marginBottom: '3em',
     },
   };
 });
 
 const TimeAvailableBtn = styled((props) => {
-  return <Button fullWidth={true} color={'primary'} {...props} />;
+  return <Button fullWidth color={'primary'} {...props} />;
 })(({ theme, props }) => {
   return { fontSize: '1rem', fontWeight: 900 };
 });
@@ -41,23 +34,28 @@ const CustomPickersDay = styled(({ ...props }) => {
     fontSize: '1.3rem',
     fontFamily: ['Open Sans', 'Helvetica'].join(','),
     backgroundColor: 'transparent',
+    color: '#726c6c',
+    fontWeight: 600,
+
     ':hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.14) !important',
       fontWeight: 700,
-      color: '#75C9CC',
+      color: '#656363e8',
     },
     ':focus': {
       backgroundColor: '#75C9CC !important',
       color: 'white',
     },
-
+    '&.Mui-disabled': {
+      fontWeight: 500,
+    },
     '&.Mui-selected': {
       backgroundColor: '75C9CC !important',
       fontWeight: '700 !important',
     },
     '&.bank-holiday': {
       color: 'orange',
-      fontWeight: 500,
+      fontWeight: 600,
     },
     [theme.breakpoints.down('sm')]: {
       fontSize: '1rem',
@@ -69,8 +67,10 @@ const CustomPickersDay = styled(({ ...props }) => {
 const CalendarPicker = styled(({ ...props }) => {
   return (
     <MuiCalendar
-      reduceAnimations={true}
+      label="Calendar appointment picker"
+      reduceAnimations
       disableHighlightToday
+      disablePast
       views={['day']}
       fullWidth
       {...props}
@@ -81,16 +81,18 @@ const CalendarPicker = styled(({ ...props }) => {
     margin: '0 auto',
     maxHeight: 'none',
     width: '100%',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '1rem',
+    fontSize: 1.8,
+
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.up(400)]: {
       width: '90%',
     },
-
     '&>div:nth-of-type(1)': {
       padding: '0 ! important',
       paddingLeft: '0.5em ! important',
       paddingBottom: '0.3em',
-
       [theme.breakpoints.down('sm')]: {
         paddingLeft: '0.9em ! important',
       },
@@ -109,19 +111,20 @@ const CalendarPicker = styled(({ ...props }) => {
         },
       },
     },
-
     '> div:nth-of-type(2)': {
       '> div:nth-of-type(1)': {
         justifyContent: 'space-between',
         span: {
           fontSize: '1.2rem',
           fontFamily: ['Open Sans', 'Abel'].join(','),
-          fontWeight: '500',
+          fontWeight: '600',
         },
         '& span:nth-of-type(6)': {
+          fontWeight: '600',
           color: 'orange',
         },
         '& span:nth-of-type(7)': {
+          fontWeight: '600',
           color: 'orange',
         },
         [theme.breakpoints.down('sm')]: {
@@ -171,9 +174,12 @@ const CalendarPicker = styled(({ ...props }) => {
         },
       },
     },
-
     'div[role=row]': {
       justifyContent: 'space-between',
+    },
+    '.MuiDayPicker-slideTransition': {
+      minHeight: '100px',
+      marginBottom: '0.5em',
     },
   };
 });

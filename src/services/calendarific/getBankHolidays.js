@@ -1,27 +1,30 @@
 const COUNTIES = {
-  'Palma de Majorca': 'IB',
-  "L'Illa Diagonal": 'CT',
-  'Turo Park': 'CT',
+  'Palma de Majorca': 'ES-IB',
+  "L'Illa Diagonal": 'ES-CT',
+  'Turo Park': 'ES-CT',
 };
 
-const getISOdates = ({ holidays, location }) => {
-  const countyCode = COUNTIES[location];
-  const filterCountyHols = holidays.filter(
-    (holiday) =>
-      holiday.locations === countyCode ||
-      holiday.locations === '14 states' ||
-      holiday.type.includes('National holiday')
+const getShopBankHolidays = ({ bankHolidays, shop }) => {
+  const shopCountyCode = COUNTIES[shop];
+
+  const nationalBankHols = bankHolidays.filter(
+    (holiday) => holiday.global === true
   );
 
-  return filterCountyHols.map((holiday) => {
-    return holiday.date.iso;
+  const countyBankHols = bankHolidays.filter((holiday) => {
+    if (holiday.counties) return holiday?.counties.includes(shopCountyCode);
   });
+
+  const shopBankHolidays = nationalBankHols.concat(countyBankHols);
+
+  return shopBankHolidays.map((holiday) => holiday.date);
 };
 // API is not very reliable, in future need to look for a better API
-const getBankHolidays = ({ year }) => {
-  const queryString = `${process.env.REACT_APP_HOLS_API}?&api_key=${process.env.REACT_APP_HOLS_KEY}&country=es&year=${year}`;
+const getBankHolidaysUrlString = (year) => {
+  const queryString = `https://date.nager.at/api/v3/publicholidays/${year}/ES`;
+  // `${process.env.REACT_APP_HOLS_API}?&api_key=${process.env.REACT_APP_HOLS_KEY}&country=es&year=${year}`;
 
   return queryString;
 };
 
-export { getBankHolidays, getISOdates };
+export { getBankHolidaysUrlString, getShopBankHolidays };

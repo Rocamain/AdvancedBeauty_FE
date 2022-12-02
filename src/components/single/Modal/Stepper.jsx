@@ -5,7 +5,7 @@ import {
   Gap,
   Slider,
 } from 'components/single/Modal/styled/stepper';
-export default function Stepper({ bookingStep }) {
+export default function Stepper({ step }) {
   return (
     <Box
       display="flex"
@@ -13,7 +13,7 @@ export default function Stepper({ bookingStep }) {
       sx={{ marginTop: '1em', marginBottom: ['1em', '2.5em'] }}
     >
       <StepOne>
-        <Slider bookingStep={bookingStep} />
+        <Slider step={step} />
       </StepOne>
       <Gap />
       <StepTwo />

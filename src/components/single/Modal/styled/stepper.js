@@ -34,8 +34,8 @@ const StepOne = styled((props) => {
 
 const Slider = styled(({ ...props }) => {
   return <Box {...props} />;
-})(({ theme, bookingStep }) => {
-  const isActive = bookingStep > 1;
+})(({ theme, step }) => {
+  const isActive = step > 1;
   return {
     position: 'relative',
     backgroundColor: '#75C9CC',
