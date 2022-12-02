@@ -5,13 +5,19 @@ import useNearScreen from 'hooks/useNearScreen.js';
 
 const Footer = React.lazy(() => import('components/main/footer/Footer.jsx'));
 
-const LazyFooter = ({ id, data, height }) => {
+const LazyFooter = ({ data }) => {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '200px',
   });
 
   return (
-    <Box component="footer" ref={fromRef}>
+    <Box
+      component="footer"
+      ref={fromRef}
+      sx={{
+        minHeight: isNearScreen ? '100%' : '50vh',
+      }}
+    >
       <Suspense fallback={<Loading />}>
         {isNearScreen && <Footer {...data} />}
       </Suspense>

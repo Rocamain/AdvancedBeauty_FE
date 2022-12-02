@@ -25,30 +25,23 @@ const SHOPS = {
 };
 
 function Footer() {
-  const { shops } = useFetchBookingDb('getShopsInfo');
+  const shops = useFetchBookingDb('getShopsInfo')?.shops;
 
   if (shops) {
     return (
-      <Box
-        sx={{ backgroundColor: '#333333', color: 'primary.contrastText' }}
-        component="div"
-      >
+      <Box backgroundColor="text.primary" color="primary.contrastText">
         <Grid
           container
-          columnSpacing={['0', '0', 4]}
-          rowSpacing={[0, 8, '0']}
-          sx={{
-            justifyContent: 'center',
-            width: '100%',
-            mx: 'auto',
-            p: '5vh',
-          }}
+          columnSpacing={[0, 0, 4]}
+          rowSpacing={[0, 8, 0]}
+          padding="5vh"
+          justifyContent="center"
         >
           {shops.map(({ city, shopName, street, postcode, phone }) => {
             return (
               <Grid key={shopName} item xs={10} md={4} lg={3}>
-                <Box sx={{ marginBottom: '2em' }}>
-                  <Box sx={{ marginBottom: '2em' }}>
+                <Box marginBottom="2em">
+                  <Box marginBottom="2em">
                     <Typography variant="footerTitle" component="h5">
                       {city}
                     </Typography>
@@ -69,11 +62,10 @@ function Footer() {
                       component="p"
                       variant="footerParagraph"
                     >{`mobile: ${phone}`}</Typography>
-
                     <Typography
                       component="p"
                       variant="footerSubtitle"
-                      sx={{ marginTop: '0.5em' }}
+                      marginTop="0.5em"
                     >
                       Times:
                     </Typography>
@@ -96,7 +88,7 @@ function Footer() {
                   width="90%"
                   height="250"
                   style={{ border: 0 }}
-                  allowFullScreen={true}
+                  allowFullScreen
                 />
               </Grid>
             );
