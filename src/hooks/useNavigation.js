@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-const URL = process.env.REACT_APP_STRAPI_URL;
+const { NODE_ENV, REACT_APP_STRAPI_URL_PROD, REACT_APP_STRAPI_URL_DEV } =
+  process.env;
+const URL =
+  NODE_ENV !== 'production'
+    ? REACT_APP_STRAPI_URL_DEV
+    : REACT_APP_STRAPI_URL_PROD;
 
 const useNavigation = () => {
   const [data, setData] = useState({ navigationLinks: null });
@@ -9,7 +14,7 @@ const useNavigation = () => {
     const fetchData = async () => {
       try {
         const links = await fetch(
-          `${URL}/api/navigation/render/main-navigation?type=TREE`,
+          `https://${URL}/api/navigation/render/main-navigation?type=TREE`,
           { signal: controller.signal }
         );
 

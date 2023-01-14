@@ -1,10 +1,6 @@
-// Hook and data formatter
+import { useLoaderData } from 'react-router-dom';
 import { useState, useRef } from 'react';
-import useFetchStrapi from 'hooks/useFetchStrapi';
 import useMenuLinkSelected from 'hooks/useMenuLinkSelected';
-
-//// components, layouts and style hooks imports
-
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,14 +15,10 @@ import ScreenMenu from 'components/header/ScreenMenu';
 import MobileMenu from 'components/header/MobileMenu';
 
 export default function Header({ navigationLinks }) {
-  // states and hooks
-  const { data } = useFetchStrapi('Logo');
-  const theme = useTheme();
-  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
-    noSsr: true,
-  });
-
+  const { data } = useLoaderData();
   const { selectedLinks } = useMenuLinkSelected();
+  const theme = useTheme();
+  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'));
   const [anchorEl, setAnchorEl] = useState(null);
 
   const ref = useRef(null);
@@ -46,7 +38,11 @@ export default function Header({ navigationLinks }) {
       <>
         <HeaderContainer ref={ref}>
           <Wrapper>
-            <Logo src={data.photo.url} alt={data.photo.alternativeText} />
+            <Logo
+              src={data.photo.url}
+              alt={data.photo.alternativeText}
+              onLoad={() => true}
+            />
             {matchesBigScreens ? (
               <ScreenMenu
                 links={navigationLinks}
@@ -64,18 +60,20 @@ export default function Header({ navigationLinks }) {
             )}
           </Wrapper>
         </HeaderContainer>
-        <PopoverMenu
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-        >
-          <MobileMenu
-            links={navigationLinks}
-            selectedLinks={selectedLinks}
+        {!matchesBigScreens && (
+          <PopoverMenu
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
             onClose={handleClose}
-          />
-        </PopoverMenu>
+          >
+            <MobileMenu
+              links={navigationLinks}
+              selectedLinks={selectedLinks}
+              onClose={handleClose}
+            />
+          </PopoverMenu>
+        )}
       </>
     )
   );
