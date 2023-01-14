@@ -1,16 +1,20 @@
+import {
+  RouterProvider,
+  createRoutesFromElements,
+  createBrowserRouter,
+  Route,
+} from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import useNavigation from 'hooks/useNavigation';
+import fetchStrapiComponentsData from 'services/strapi/fetchStrapiComponentsData';
 import { Loading } from 'components/shared/index';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Body from './components/Body';
-import React from 'react';
+import Error from 'components/main/errorPage/ErrorPage';
+import Main from 'components/main/Main';
 
 //  Lazy Components
 
-const LazyMain = React.lazy(() => import('components/Main'));
-const LazyErrorPage = React.lazy(() =>
-  import('components/main/errorPage/ErrorPage')
-);
-const LazyConfirmationPage = React.lazy(() =>
+const LazyConfirmationPage = lazy(() =>
   import('components/main/confirmationPage/ConfirmationPage')
 );
 
@@ -19,57 +23,70 @@ const LazyConfirmationPage = React.lazy(() =>
 function App() {
   const { navigationLinks } = useNavigation();
 
-  return (
-    navigationLinks && (
-      <Router>
-        <Routes>
-          <Route path="/" element={<Body navigationLinks={navigationLinks} />}>
+  if (navigationLinks) {
+    const routerJSX = createBrowserRouter(
+      createRoutesFromElements(
+        <Route
+          element={<Body navigationLinks={navigationLinks} />}
+          errorElement={<Error />}
+          loader={({ request }) =>
+            fetchStrapiComponentsData({
+              apiRoute: 'logo',
+              signal: request.signal,
+            })
+          }
+          path="/"
+        >
+          {navigationLinks.map(({ related, path }, index) => (
             <Route
-              path="Error"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <LazyErrorPage />
-                </React.Suspense>
+              index={index === 0 && true}
+              key={index}
+              path={path}
+              loader={({ request }) =>
+                fetchStrapiComponentsData({
+                  apiRoute: related.__contentType.split('.')[1],
+                  signal: request.signal,
+                })
               }
+              element={<Main apiRoute={related.__contentType.split('.')[1]} />}
             />
-            <Route
-              path="Confirmation"
-              element={
-                <React.Suspense fallback={<Loading />}>
-                  <LazyConfirmationPage />
-                </React.Suspense>
-              }
-            />
-            {navigationLinks.map((navRoute, index) => (
-              <Route
-                key={index}
-                index={navRoute.path === '/' ? true : false}
-                path={navRoute.path !== '/' && navRoute.path}
-                element={
-                  <React.Suspense fallback={<Loading />}>
-                    <LazyMain />
-                  </React.Suspense>
-                }
-              >
-                {navRoute.items.map((navSubRoute, index) => (
+          ))}
+          {navigationLinks.map((navRoute, index) =>
+            navRoute.items.map(({ related, path, type }, index) => {
+              return (
+                type === 'INTERNAL' && (
                   <Route
                     key={index}
-                    path={navSubRoute.path}
+                    path={path}
+                    loader={({ request }) =>
+                      fetchStrapiComponentsData({
+                        apiRoute: related.__contentType.split('.')[1],
+                        signal: request.signal,
+                      })
+                    }
                     element={
-                      <React.Suspense fallback={<Loading />}>
-                        <LazyMain />
-                      </React.Suspense>
+                      <Main apiRoute={related.__contentType.split('.')[1]} />
                     }
                   />
-                ))}
-              </Route>
-            ))}
-            <Route path="*" element={<h1>Not Found</h1>} />
-          </Route>
-        </Routes>
-      </Router>
-    )
-  );
+                )
+              );
+            })
+          )}
+          <Route element={<Error />} path="error" />
+          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route
+            path="/confirmation"
+            element={
+              <Suspense fallback={<Loading />}>
+                <LazyConfirmationPage />
+              </Suspense>
+            }
+          />
+        </Route>
+      )
+    );
+    return <RouterProvider router={routerJSX} />;
+  }
 }
 
 export default App;
