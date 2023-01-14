@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   getBankHolidaysUrlString,
   getShopBankHolidays,
-} from 'services/calendarific/getBankHolidays';
+} from 'services/backHolidays/getBankHolidays';
 
 export default function useFetchBankHolidays(year, shop) {
   const [data, setData] = useState(false);
@@ -19,7 +19,6 @@ export default function useFetchBankHolidays(year, shop) {
       })
         .then((response) => response.json())
         .then((bankHolidays) => {
-          
           const shopBankHols = getShopBankHolidays({ bankHolidays, shop });
 
           setData(shopBankHols);

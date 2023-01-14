@@ -1,7 +1,7 @@
 const PATH = process.env.REACT_APP_BOOKING;
 
 const getShops = () => {
-  const queryString = `${PATH}/shops`;
+  const queryString = `${PATH}/api/shops`;
 
   return queryString;
 };

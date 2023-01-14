@@ -1,7 +1,7 @@
 const PATH = process.env.REACT_APP_BOOKING;
 
 const getServices = () => {
-  const queryString = `${PATH}/services?orderBy=type`;
+  const queryString = `${PATH}/api/services?orderBy=type`;
 
   return queryString;
 };

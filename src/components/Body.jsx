@@ -1,17 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import Footer from 'components/main/footer/index';
+import { useLocation } from 'react-router-dom';
+import Footer from 'components/footer/index';
 import Header from 'components/header/Header';
-import ScrollTop from 'components/main/ScrollTop/ScrollTop';
+import HeadTitle from 'components/main/headTitle/HeadTitle';
 
 export default function Body({ navigationLinks }) {
-  const [showFooter, setShowFooter] = useState(false);
+  const { hash } = useLocation();
+  const [showFooter, setShowFooter] = useState(Boolean(hash));
+
+  useEffect(() => {
+    setShowFooter(false);
+    if (hash) {
+      setShowFooter(true);
+    }
+  }, [hash]);
 
   return (
-    <ScrollTop>
+    <HeadTitle navigationLinks={navigationLinks}>
       <Header navigationLinks={navigationLinks} />
-      <Outlet context={setShowFooter} />
+      <main>
+        <Outlet
+          context={[showFooter, setShowFooter]}
+          navigationLinks={navigationLinks}
+        />
+      </main>
       {showFooter && <Footer />}
-    </ScrollTop>
+    </HeadTitle>
   );
 }

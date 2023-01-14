@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { Card } from 'components/models/CardA/styled/index.js';
+import { Card } from 'components/main/section/section-components/CardA/styled/index.js';
 import SectionTitle from 'components/shared/SectionTitle.jsx';
-
+import { useNavigate } from 'react-router-dom';
 const ConfirmationMsg = ({ name, email }) => {
   return (
     <Box sx={{ marginBottom: '2em' }}>
@@ -112,29 +113,40 @@ const BookingDetails = ({ serviceName, shopName, price, time, date }) => {
   );
 };
 
-export default function ConfirmationPage({ props }) {
+export default function ConfirmationPage(props) {
   const { state } = useLocation();
-  const { email, name, ...bookingDetails } = state;
+  const navigate = useNavigate();
 
-  return (
-    <main
-      style={{
-        paddingBottom: '10vh',
-        margin: '10vh 0',
-      }}
-    >
-      <Box
-        sx={{
-          margin: '0 auto',
-          width: ['90%', '80%', '65%'],
+  useEffect(() => {
+    if (!state) {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
+
+  if (state) {
+    const { email, name, ...bookingDetails } = state;
+
+    return (
+      <main
+        style={{
+          paddingBottom: '10vh',
+          margin: '10vh 0',
         }}
       >
-        <SectionTitle title="Booking Confirmation" grid cardA />
-        <ConfirmationMsg email={email} name={name} />
-        <Card card="booking">
-          <BookingDetails {...bookingDetails} />
-        </Card>
-      </Box>
-    </main>
-  );
+        <Box
+          sx={{
+            margin: '0 auto',
+            width: ['90%', '80%', '65%'],
+          }}
+        >
+          <SectionTitle title="Booking Confirmation" grid cardA />
+          <ConfirmationMsg email={email} name={name} />
+          <Card card="booking">
+            <BookingDetails {...bookingDetails} />
+          </Card>
+        </Box>
+      </main>
+    );
+  }
 }
