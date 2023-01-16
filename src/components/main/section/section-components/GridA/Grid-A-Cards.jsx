@@ -67,7 +67,6 @@ const GridACards = ({ cards }) => {
       >
         {cards.map(({ cardLinkedTo, photo, title, content }, index) => {
           const url = cardLinkedTo?.URL;
-
           return (
             index % 2 !== 0 && (
               <Card key={index} to={url}>

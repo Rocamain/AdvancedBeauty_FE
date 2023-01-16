@@ -5,11 +5,11 @@ import {
   Divider as MuiDivider,
   Button as MuiButton,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link as LinkRouter } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import leavesBackground from 'assets/leaves-background.jpg';
 import circles from 'assets/circles.jpg';
-import { COMPONENT_SIZES, COMPONENT_SCR_SET } from 'constants/index.js';
+import { COMPONENT_SIZES, COMPONENT_SCR_SET } from 'constants';
 
 const Button = styled((props) => (
   <MuiButton
@@ -109,7 +109,7 @@ const Wrapper = styled((props) => <Box {...props} />)(({ theme }) => {
 });
 
 const Card = styled(({ buttonTo, page, sectionTitle, ...props }) => (
-  <Link variant="div" {...props} />
+  <LinkRouter component="a" variant="div" {...props} />
 ))(({ theme, first }) => ({
   textDecoration: 'none',
   alignItems: 'flex-start',
@@ -174,43 +174,53 @@ const Grid = styled(({ show, photocolumn, ...props }) => {
   };
 
   return {
-    [theme.breakpoints.up('xs')]: {
-      width: '100%',
-      backgroundColor: background === 'full' && '#F4F9FC',
-    },
-    [theme.breakpoints.up('md')]: {
-      backgroundImage: backgroundImageSelector[background],
-      backgroundSize: backgroundImageSelector[background] && 'contain',
-      backgroundRepeat: backgroundImageSelector[background] && 'no-repeat',
+    backgroundImage: backgroundImageSelector[background],
+    backgroundSize: backgroundImageSelector[background] && 'contain',
+    backgroundRepeat: backgroundImageSelector[background] && 'no-repeat',
+    backgroundColor: background === 'full' && '#F4F9FC',
+    [theme.breakpoints.down('md')]: {
+      background,
     },
   };
 });
 
-const Image = styled(({ url, formats, alt, className, componentType }) => {
-  const sizes = COMPONENT_SIZES(componentType);
+const Image = styled(
+  ({
+    className,
+    url,
+    altText,
+    formats,
+    componentType,
+    shadowRight,
+    ...props
+  }) => {
+    const [lg, md, sm] = COMPONENT_SCR_SET(componentType);
+    const sizes = COMPONENT_SIZES(componentType);
 
-  const [lg, md, sm] = COMPONENT_SCR_SET(componentType);
-  return (
-    <Box
-      className={className}
-      component="img"
-      loading="lazy"
-      src={url}
-      srcSet={`${url} ${lg}, ${formats?.medium.url} ${md}, ${formats.small.url} ${sm}`}
-      sizes={sizes}
-      alt={alt}
-    />
-  );
-})(({ theme, url, alt, formats, component }) => {
-  return {
-    objectFit: 'cover',
-    objectPosition: 'center center',
-    maxWidth: '100%',
-    [theme.breakpoints.up('sm')]: {
-      borderRadius: '5px',
-    },
-  };
-});
+    return (
+      <Box
+        component="img"
+        loading="lazy"
+        {...props}
+        className={className}
+        src={url}
+        alt={altText}
+        title={altText}
+        srcSet={`${url} ${lg}, ${formats.medium.url} ${md}, ${formats?.small.url} ${sm}`}
+        sizes={sizes}
+        sx={{ width: shadowRight ? 'inherit' : '100%' }}
+      />
+    );
+  }
+)(({ theme, shadowRight }) => ({
+  minHeight: '230px',
+  objectFit: 'cover',
+  objectPosition: 'center center',
+  boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
+  [theme.breakpoints.up('sm')]: {
+    borderRadius: '5px',
+  },
+}));
 
 export {
   Container,

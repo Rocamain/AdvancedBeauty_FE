@@ -51,21 +51,19 @@ export default function Button({
   value,
 }) {
   const navigate = useNavigate();
-  const { title, path } = linkTo;
   const { pathname } = useLocation();
-  const section = title && title.replaceAll(' ', '-');
-  const URLPath = path.replaceAll(' ', '-');
-  const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
 
-  const handleClick = (e, { path }) => {
-    if (path === 'Contact' && pathname === '/Services-and-Fares/Promotions') {
+  const handleClick = (URL) => {
+    const path = URL.split('#')[0];
+
+    if (path === '/Contact' && pathname === '/Services-and-Fares/Promotions') {
       const contactMessage = value;
       const message = `Dear 2U team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
-      navigate(url, {
+      navigate(URL, {
         state: { contactMessage: message },
       });
     } else {
-      navigate(url);
+      navigate(URL);
     }
   };
 
@@ -84,8 +82,7 @@ export default function Button({
         type={type}
         title={value}
         id={value}
-        // href={url}
-        onClick={(e) => handleClick(e, linkTo)}
+        onClick={() => handleClick(linkTo.URL)}
         variant="contained"
         sx={{ width: 'inherit' }}
         endIcon={<ArrowRight />}

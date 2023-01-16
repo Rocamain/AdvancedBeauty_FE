@@ -43,7 +43,7 @@ const LazySection = ({
 
   useEffect(() => {
     const args = sectionData.withLink
-      ? { ...sectionData, marginTop, isNearScreen: isNearScreen }
+      ? { ...sectionData, isNearScreen: isNearScreen }
       : { ...sectionData };
 
     loadSection({
@@ -74,6 +74,7 @@ const LazySection = ({
           'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)',
         display: sectionData.backgroundType === 'full' ? 'flex' : undefined,
         marginBottom: marginBottom,
+        marginTop: marginTop,
         minHeight: isNearScreen ? '100%' : '50vh',
       }}
     >
