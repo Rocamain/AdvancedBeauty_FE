@@ -1,3 +1,6 @@
+const { NODE_ENV, REACT_APP_STRAPI_URL_PROD, REACT_APP_STRAPI_URL_DEV } =
+  process.env;
+
 const LOGO_QUERY = ['photo.media'];
 
 const MAIN_QUERY = [
@@ -17,5 +20,26 @@ const MAIN_QUERY = [
   'components.cards.icon.media',
   'cards.icon.media',
 ];
+const COMPONENT_SIZES = (componentType) =>
+  ({
+    gridA:
+      '(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw',
+  }[componentType]);
 
-module.exports = { LOGO_QUERY, MAIN_QUERY };
+const COMPONENT_SCR_SET = (componentType) =>
+  ({
+    gridA: ['1024w', '980w', '480w'],
+  }[componentType]);
+
+const URL =
+  NODE_ENV !== 'production'
+    ? REACT_APP_STRAPI_URL_DEV
+    : REACT_APP_STRAPI_URL_PROD;
+
+module.exports = {
+  LOGO_QUERY,
+  MAIN_QUERY,
+  COMPONENT_SIZES,
+  COMPONENT_SCR_SET,
+  URL,
+};
