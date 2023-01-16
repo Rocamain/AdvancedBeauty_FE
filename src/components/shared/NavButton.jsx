@@ -1,25 +1,18 @@
 import { Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-export default function NavButton({
-  buttonText,
-  linkTo,
-
-  ...props
-}) {
-  const { title, path } = linkTo;
-  const section = title && title.replaceAll(' ', '-');
-  const URLPath = path.replaceAll(' ', '-');
-  const url = Boolean(title) ? `/${URLPath}/#${section}` : `/${URLPath}`;
-
+export default function NavButton({ buttonText, linkTo }) {
+  const navigate = useNavigate();
+  const handleCLick = (url) => navigate(url);
   return (
     <Button
+      component="a"
       color="primary"
       disableFocusRipple
       disableRipple
       variant="contained"
       size="large"
-      href={url}
-      {...props}
+      onClick={() => handleCLick(linkTo?.URL)}
       sx={{
         width: {
           xs: '200px',

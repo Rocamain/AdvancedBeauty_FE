@@ -1,26 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
-import { useLocation, useNavigationType } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function useNearScreen({ distance = '100px' }) {
-  const { hash, pathname, state } = useLocation();
+  const { hash } = useLocation();
   const [isNearScreen, setShow] = useState(Boolean(hash));
-  const [buttonBackPressed, setButtonBackPressed] = useState(() =>
-    Boolean(hash) || state?.hash ? true : false
-  );
-
   const fromRef = useRef(null);
-  const navigationType = useNavigationType();
-
-  useEffect(() => {
-    window.onpopstate = () => {
-      setButtonBackPressed(true);
-      
-    };
-  }, [pathname, navigationType]);
 
   useEffect(() => {
     let observer;
-    setShow(false);
     const onChange = (entries) => {
       const el = entries[0];
 
@@ -29,10 +16,6 @@ export default function useNearScreen({ distance = '100px' }) {
         observer.disconnect();
       }
     };
-
-    if (buttonBackPressed) {
-      setShow(true);
-    }
 
     // In case the navigator does not support IntersectionObserver API,
     // It will do a dynamic import of the polyfill intersection-observer
@@ -53,11 +36,10 @@ export default function useNearScreen({ distance = '100px' }) {
       setShow(true);
     }
     return () => {
-      setButtonBackPressed(false);
       observer && observer.disconnect();
       setShow(false);
     };
-  }, [fromRef, distance, hash, buttonBackPressed, isNearScreen]);
+  }, [fromRef, distance, hash, isNearScreen]);
 
   return { isNearScreen, fromRef };
 }

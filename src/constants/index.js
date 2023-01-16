@@ -36,6 +36,13 @@ const URL =
     ? REACT_APP_STRAPI_URL_DEV
     : REACT_APP_STRAPI_URL_PROD;
 
+const ACTION_SELECTOR = {
+  getAvailableTimes: (serviceName, shopName, date) =>
+    getAvailableTimes({ shopName, serviceName, date }),
+  getShopsInfo: () => getShopsInfo(),
+  getServices: () => getServices(),
+};
+
 module.exports = {
   LOGO_QUERY,
   MAIN_QUERY,
