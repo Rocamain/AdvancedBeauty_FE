@@ -1,23 +1,14 @@
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { Typography, Grid, Box } from '@mui/material';
 import { Card } from 'components/shared/styled/index.js';
 import Icon from 'components/shared/Icon.jsx';
 
 const GridACards = ({ cards }) => {
-  const navigate = useNavigate();
-
-  const handleClick = (e, url) => {
-    navigate(url);
-  };
-
   return (
     <Grid
       item
       xs={10}
       sm={10}
       md={6}
-      lg={6}
       display="flex"
       gap="2em"
       sx={(theme) => ({
@@ -42,11 +33,7 @@ const GridACards = ({ cards }) => {
           const url = cardLinkedTo?.URL ? cardLinkedTo?.URL : '/Error';
           if (index % 2 === 0)
             return (
-              <Card
-                key={index}
-                first={isFirstCard ? 'true' : null}
-                onClick={(e) => handleClick(e, url)}
-              >
+              <Card key={index} first={isFirstCard ? 'true' : null} to={url}>
                 <Icon icon={photo} />
                 <Typography
                   component="h4"
@@ -83,7 +70,7 @@ const GridACards = ({ cards }) => {
 
           return (
             index % 2 !== 0 && (
-              <Card key={index} onClick={(e) => handleClick(e, url)}>
+              <Card key={index} to={url}>
                 <Icon icon={photo} />
                 <Typography
                   component="h4"

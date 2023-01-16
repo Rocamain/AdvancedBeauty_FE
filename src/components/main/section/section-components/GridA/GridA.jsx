@@ -18,7 +18,6 @@ export default function GridA({
   isNearScreen,
   withLink,
 }) {
-  console.log('GRidA');
   const { scrollRef } = useScrollTo({
     url: withLink?.URL,
     marginTop,
