@@ -5,9 +5,11 @@ import {
   Divider as MuiDivider,
   Button as MuiButton,
 } from '@mui/material';
+import { Link as LinkRouter } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import leavesBackground from 'assets/leaves-background.jpg';
 import circles from 'assets/circles.jpg';
+import { COMPONENT_SIZES, COMPONENT_SCR_SET } from 'constants';
 
 const Button = styled((props) => (
   <MuiButton
@@ -59,7 +61,7 @@ const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
   }
 );
 
-const Container = styled((props) => <Box component="div" {...props} />)(
+const Container = styled((props) => <Box {...props} />)(
   ({ theme, background, show }) => {
     const shadowRight = background.includes('right');
 
@@ -92,24 +94,22 @@ const Container = styled((props) => <Box component="div" {...props} />)(
     };
   }
 );
-const Wrapper = styled((props) => <Box component="div" {...props} />)(
-  ({ theme }) => {
-    let styles = {
-      gap: theme.spacing(8),
-      display: 'flex',
-      flexWrap: 'wrap',
-      [theme.breakpoints.up('md')]: {
-        gap: 0,
-        flexWrap: 'nowrap',
-      },
-    };
+const Wrapper = styled((props) => <Box {...props} />)(({ theme }) => {
+  let styles = {
+    gap: theme.spacing(8),
+    display: 'flex',
+    flexWrap: 'wrap',
+    [theme.breakpoints.up('md')]: {
+      gap: 0,
+      flexWrap: 'nowrap',
+    },
+  };
 
-    return { ...styles };
-  }
-);
+  return { ...styles };
+});
 
 const Card = styled(({ buttonTo, page, sectionTitle, ...props }) => (
-  <Box component="a" variant="div" {...props} />
+  <LinkRouter component="a" variant="div" {...props} />
 ))(({ theme, first }) => ({
   textDecoration: 'none',
   alignItems: 'flex-start',
@@ -142,7 +142,8 @@ const ImageContainer = styled(({ url, ...props }) => {
       <Box
         component="img"
         {...props}
-        // loading="lazy"
+        loading="lazy"
+        onLoad={() => true}
         src={url}
         width="128px"
         height="128px"
@@ -173,16 +174,61 @@ const Grid = styled(({ show, photocolumn, ...props }) => {
   };
 
   return {
-    [theme.breakpoints.up('xs')]: {
-      width: '100%',
-      backgroundColor: background === 'full' && '#F4F9FC',
-    },
-    [theme.breakpoints.up('md')]: {
-      backgroundImage: backgroundImageSelector[background],
-      backgroundSize: backgroundImageSelector[background] && 'contain',
-      backgroundRepeat: backgroundImageSelector[background] && 'no-repeat',
+    backgroundImage: backgroundImageSelector[background],
+    backgroundSize: backgroundImageSelector[background] && 'contain',
+    backgroundRepeat: backgroundImageSelector[background] && 'no-repeat',
+    backgroundColor: background === 'full' && '#F4F9FC',
+    [theme.breakpoints.down('md')]: {
+      background,
     },
   };
 });
 
-export { Container, Wrapper, Card, ImageContainer, Grid, Divider, Button };
+const Image = styled(
+  ({
+    className,
+    url,
+    altText,
+    formats,
+    componentType,
+    shadowRight,
+    ...props
+  }) => {
+    const [lg, md, sm] = COMPONENT_SCR_SET(componentType);
+    const sizes = COMPONENT_SIZES(componentType);
+
+    return (
+      <Box
+        component="img"
+        loading="lazy"
+        {...props}
+        className={className}
+        src={url}
+        alt={altText}
+        title={altText}
+        srcSet={`${url} ${lg}, ${formats.medium.url} ${md}, ${formats?.small.url} ${sm}`}
+        sizes={sizes}
+        sx={{ width: shadowRight ? 'inherit' : '100%' }}
+      />
+    );
+  }
+)(({ theme, shadowRight }) => ({
+  minHeight: '230px',
+  objectFit: 'cover',
+  objectPosition: 'center center',
+  boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
+  [theme.breakpoints.up('sm')]: {
+    borderRadius: '5px',
+  },
+}));
+
+export {
+  Container,
+  Wrapper,
+  Card,
+  ImageContainer,
+  Grid,
+  Divider,
+  Button,
+  Image,
+};

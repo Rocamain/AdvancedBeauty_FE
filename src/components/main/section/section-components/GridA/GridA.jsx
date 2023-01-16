@@ -14,14 +14,11 @@ export default function GridA({
   photoColumn,
   show,
   title,
-  marginTop,
   isNearScreen,
   withLink,
 }) {
-  console.log('GRidA');
   const { scrollRef } = useScrollTo({
     url: withLink?.URL,
-    marginTop,
     isNearScreen,
   });
 

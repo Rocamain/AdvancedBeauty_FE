@@ -8,8 +8,7 @@ import { getMarginBottom, getMarginTop } from 'components/main/section/utils';
 function Main() {
   const { data } = useLoaderData();
   const theme = useTheme();
-  const bigMobiles = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const smallMobiles = useMediaQuery(theme.breakpoints.down('sm'));
+  const desktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   if (!data) {
     return (
@@ -28,10 +27,13 @@ function Main() {
       <ScrollRestoration />
       {data.map((componentInfo, index, array) => {
         const isLastSection = index === array.length - 1;
+        const isFirstSection = index === 0;
+
         return (
           <Section
             key={index}
             sectionData={componentInfo}
+            isFirstSection={isFirstSection}
             isLastSection={isLastSection}
             marginBottom={
               isLastSection
@@ -41,15 +43,14 @@ function Main() {
                       section: componentInfo,
                       nextSection: array[index + 1],
                     },
-                    bigMobiles,
-                    smallMobiles
+                    desktop
                   )
             }
-            marginTop={
-              (getMarginTop({ section: componentInfo }),
-              bigMobiles,
-              smallMobiles)
-            }
+            marginTop={getMarginTop(
+              { section: componentInfo },
+              desktop,
+              isFirstSection
+            )}
           />
         );
       })}
