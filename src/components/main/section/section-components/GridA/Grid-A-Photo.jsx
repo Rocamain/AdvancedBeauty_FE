@@ -5,7 +5,6 @@ export default function GridAPhoto({
   url,
   formats,
   order,
-  url,
   alternativeText,
   background,
 }) {
