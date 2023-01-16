@@ -10,7 +10,7 @@ import { getId } from 'components/main/section/utils';
 const LoadableDynamicSection = (componentName) => {
   return lazy(() =>
     import(
-      `components/main/section/${componentName}/${componentName}.jsx`
+      `components/main/section/section-components/${componentName}/${componentName}.jsx`
     ).catch(() => console.log(`Error in importing ${componentName}`))
   );
 };
