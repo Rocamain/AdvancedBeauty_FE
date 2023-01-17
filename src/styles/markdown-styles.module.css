@@ -17,6 +17,12 @@ li {
   font-family: 'Abel';
 }
 
+a {
+  color: orange;
+  text-decoration: none;
+  font-weight: 700;
+}
+
 strong {
   color: black;
   font-weight: 900;
@@ -88,7 +94,8 @@ h5 {
 
 @media screen and (min-width: 600px) {
   .reactMarkDown li,
-  p {
+  p,
+  a {
     font-size: 1.2rem;
     font-family: 'Abel';
   }
@@ -107,7 +114,8 @@ h5 {
     font-size: 1.3rem;
   }
   .reactMarkDownGridA li,
-  p {
+  p,
+  a {
     font-size: 1.1rem;
     font-family: 'Abel';
   }
@@ -146,7 +154,8 @@ h5 {
     font-size: 1.3rem;
   }
   .reactMarkDownGridA li,
-  p {
+  p,
+  a {
     font-size: 1.35rem;
   }
   .reactMarkDownGridA h1 {

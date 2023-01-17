@@ -9,7 +9,7 @@ export default function GridAPhoto({
   background,
 }) {
   const shadowRight = Boolean(background.includes('right'));
-  console.log(formats);
+
   return (
     <Grid item xs={12} sm={12} md={6} container>
       <Box

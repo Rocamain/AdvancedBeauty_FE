@@ -27,7 +27,7 @@ const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => {
       position: 'relative',
       zIndex: 800,
       width: '60%',
-      margin: '50px auto 130px auto',
+      margin: '50px auto 150px auto',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
@@ -40,7 +40,7 @@ const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
   display: 'inline-flex',
   justifyContent: 'center',
   backgroundColor: theme.palette.primary.main,
-  height: 270,
+  height: 300,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     height: 200,
@@ -127,11 +127,13 @@ const Photo = styled(({ src, ...props }) => {
 
   return (
     <Box
+      width="600"
+      height="300"
       component="img"
-      onLoad={() => true}
-      // loading="lazy"
+      loading="lazy"
       {...props}
       sx={{
+        // maxHeight: '600px',
         content: {
           md: `url(${small.url})`,
           lg: `url(${small.url})`,

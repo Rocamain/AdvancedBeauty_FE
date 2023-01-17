@@ -2,14 +2,40 @@ import { Button as MuiButton, styled, Box } from '@mui/material';
 import { ArrowRight } from '@mui/icons-material/';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const MyButton = styled(({ type, onClick, ...props }) => (
-  <MuiButton
-    component="a"
-    type={type}
-    onClick={type === 'submit' ? null : onClick}
-    {...props}
-  />
-))(({ theme }) => ({
+const MyButton = styled(({ type, onClick, href, ...props }) => {
+  const isExternalLink = Boolean(href);
+
+  if (isExternalLink) {
+    return (
+      <MuiButton
+        variant="contained"
+        color="primary"
+        endIcon={<ArrowRight />}
+        component="a"
+        disableFocusRipple
+        disableRipple
+        href={href}
+        target={'_blank'}
+        rel={'noopener'}
+        {...props}
+      />
+    );
+  }
+
+  return (
+    <MuiButton
+      variant="contained"
+      color="primary"
+      endIcon={<ArrowRight />}
+      component="a"
+      disableFocusRipple
+      disableRipple
+      type={type}
+      onClick={type === 'submit' ? null : onClick}
+      {...props}
+    />
+  );
+})(({ theme }) => ({
   fontWeight: 600,
   zIndex: 100,
   minWidth: '0',
@@ -53,6 +79,8 @@ export default function Button({
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const isExternalLink = linkTo.type === 'external';
+
   const handleClick = (URL) => {
     const path = URL.split('#')[0];
 
@@ -75,17 +103,12 @@ export default function Button({
       }}
     >
       <MyButton
-        color="primary"
         disabled={disabled}
-        disableFocusRipple
-        disableRipple
         type={type}
         title={value}
         id={value}
         onClick={() => handleClick(linkTo.URL)}
-        variant="contained"
-        sx={{ width: 'inherit' }}
-        endIcon={<ArrowRight />}
+        href={isExternalLink && linkTo.URL}
       >
         {linkText}
       </MyButton>
