@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 export default function NavButton({ buttonText, linkTo }) {
   const navigate = useNavigate();
   const handleCLick = (url) => navigate(url);
+  const isExternal = linkTo.type === 'external';
+
   return (
     <Button
       component="a"
@@ -12,7 +14,10 @@ export default function NavButton({ buttonText, linkTo }) {
       disableRipple
       variant="contained"
       size="large"
-      onClick={() => handleCLick(linkTo?.URL)}
+      onClick={!isExternal && (() => handleCLick(linkTo?.URL))}
+      href={isExternal ? linkTo?.URL : null}
+      target={isExternal ? '_blank' : null}
+      rel={isExternal ? 'no-opener' : null}
       sx={{
         width: {
           xs: '200px',
