@@ -9,7 +9,7 @@ import { Link as LinkRouter } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import leavesBackground from 'assets/leaves-background.jpg';
 import circles from 'assets/circles.jpg';
-import { COMPONENT_SIZES, COMPONENT_SCR_SET } from 'constants';
+import { COMPONENT_SIZES, COMPONENT_SCR_SET } from 'constants/index.js';
 
 const Button = styled((props) => (
   <MuiButton
@@ -143,7 +143,6 @@ const ImageContainer = styled(({ url, ...props }) => {
         component="img"
         {...props}
         loading="lazy"
-        onLoad={() => true}
         src={url}
         width="128px"
         height="128px"

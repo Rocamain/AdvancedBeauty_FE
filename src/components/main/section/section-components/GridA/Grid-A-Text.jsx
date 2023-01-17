@@ -6,7 +6,6 @@ import gfm from 'remark-gfm';
 import style from 'styles/markdown-styles.module.css';
 
 export default function GridAText({ title, content, button, background }) {
-  console.log(title);
   return (
     <Grid item xs={12} md={6}>
       <Box

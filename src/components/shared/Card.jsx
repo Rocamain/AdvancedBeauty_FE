@@ -7,11 +7,14 @@ import {
   CardWrapper,
   Photo,
   CardPhotoContainer,
-} from 'components/models/Carousel/styled';
+} from 'components/main/section/section-components/Carousel/styled';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from 'styles/markdown-styles.module.css';
-import { slideCard, slidePhoto } from 'components/models/Carousel/styles';
+import {
+  slideCard,
+  slidePhoto,
+} from 'components/main/section/section-components/Carousel/styles';
 
 const Card = ({ exit, card, exitAnimationEnd }) => {
   const { photo, content, linkText, linkTo, title } = card;
