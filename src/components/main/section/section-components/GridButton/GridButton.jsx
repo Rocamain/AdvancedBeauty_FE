@@ -3,16 +3,9 @@ import { Box } from '@mui/material';
 import NavButton from 'components/shared/NavButton.jsx';
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 
-export default function GridButton({
-  buttons,
-  title,
-  marginTop,
-  isNearScreen,
-  withLink,
-}) {
+export default function GridButton({ buttons, title, isNearScreen, withLink }) {
   const { scrollRef } = useScrollTo({
     url: withLink?.URL,
-    marginTop,
     isNearScreen,
   });
 
