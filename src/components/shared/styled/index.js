@@ -208,7 +208,10 @@ const Image = styled(
         srcSet={`${url} ${lg}, ${formats.medium.url} ${md}, ${formats.medium.url} ${sm}`}
         sizes={sizes}
         sx={{
+          display: 'block',
+
           width: shadowRight ? 'inherit' : '100%',
+
           boxShadow:
             componentType !== 'cardA' &&
             'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
@@ -219,8 +222,8 @@ const Image = styled(
 )(({ theme }) => ({
   minHeight: '230px',
   objectFit: 'cover',
-  objectPosition: 'center center',
-
+  objectPosition: 'left top',
+  maxHeight: '600px',
   [theme.breakpoints.up('sm')]: {
     borderRadius: '5px',
   },

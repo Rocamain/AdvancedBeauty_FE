@@ -12,17 +12,9 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import style from 'styles/markdown-styles.module.css';
 
-export default function GridB({
-  withLink,
-  title,
-  size,
-  cards,
-  marginTop,
-  isNearScreen,
-}) {
+export default function GridB({ withLink, title, size, cards, isNearScreen }) {
   const { scrollRef } = useScrollTo({
     url: withLink?.URL,
-    marginTop,
     isNearScreen,
   });
 
@@ -49,7 +41,7 @@ export default function GridB({
                   {icon && (
                     <Icon
                       icon={icon}
-                      iconFullSize={iconFullSize}
+                      isSizeBig={size === 'Big'}
                       showTitle={showTitle}
                     />
                   )}

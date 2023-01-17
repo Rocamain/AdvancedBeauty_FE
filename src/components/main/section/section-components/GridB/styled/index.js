@@ -1,20 +1,18 @@
 import { Box, styled, Typography } from '@mui/material';
 
-const Container = styled((props) => <Box component="div" {...props} />)(
-  ({ theme, size }) => {
-    return {
-      width: size === 'Big' ? '80%' : '70%',
-      margin: '0 auto',
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      gap: '3rem',
-      [theme.breakpoints.up('md')]: {
-        width: size === 'Big' ? '70%' : '60%',
-      },
-    };
-  }
-);
+const Container = styled((props) => <Box {...props} />)(({ theme, size }) => {
+  return {
+    width: size === 'Big' ? '80%' : '65%',
+    margin: '0 auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '3rem',
+    [theme.breakpoints.up('md')]: {
+      width: size === 'Big' ? '70%' : '60%',
+    },
+  };
+});
 const Card = styled((props) => <Box {...props} />)(({ theme, size }) => {
   return {
     flex: 1,

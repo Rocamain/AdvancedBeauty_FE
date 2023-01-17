@@ -17,7 +17,7 @@ const fadeOutAnimation = keyframes`
     }
   `;
 
-export default function Icon({ showTitle, iconFullSize, icon }) {
+export default function Icon({ showTitle, isSizeBig, icon }) {
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '-20%',
   });
@@ -28,27 +28,32 @@ export default function Icon({ showTitle, iconFullSize, icon }) {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          paddingBottom: !iconFullSize
+          paddingBottom: !isSizeBig
             ? { xs: '2em', md: '1.2em' }
             : showTitle
             ? '5 em'
             : { xs: '0.5em', md: '1em' },
 
           height: {
-            xs: iconFullSize ? '120px' : '90px',
-            sm: iconFullSize ? '130px' : '90px',
-            md: iconFullSize ? '130px' : '95px',
-            xl: iconFullSize ? '140px' : '100px',
+            xs: isSizeBig ? '120px' : '90px',
+            sm: isSizeBig ? '130px' : '90px',
+            md: isSizeBig ? '130px' : '95px',
+            xl: isSizeBig ? '140px' : '100px',
           },
         }}
       >
         <Box
-          component="img"
-          // loading="lazy"
+          width={isSizeBig ? '280px' : '150px'}
+          height={isSizeBig ? '140px' : '90px'}
+          loading="lazy"
           alt={icon.alternativeText}
           sx={{
+            display: 'block',
             opacity: 0,
-            height: 0,
+            height: '100%',
+            maxHeight: isSizeBig ? '140px' : '90px',
+            maxWidth: '100%',
+            margin: '0 auto',
             animation:
               isNearScreen && `${fadeOutAnimation} 0.7s linear forwards 0.2s`,
 
@@ -61,8 +66,8 @@ export default function Icon({ showTitle, iconFullSize, icon }) {
             // width: 'inherit',
             // maxHeight: {
             //   xs: 'inherit',
-            //   // md: iconFullSize ? 'auto' : '100px',
-            //   // xll: iconFullSize ? 'inherit' : '128px',
+            //   // md: isSizeBig ? 'auto' : '100px',
+            //   // xll: isSizeBig ? 'inherit' : '128px',
             // },
           }}
         />
