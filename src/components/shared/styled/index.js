@@ -205,17 +205,22 @@ const Image = styled(
         src={url}
         alt={altText}
         title={altText}
-        srcSet={`${url} ${lg}, ${formats.medium.url} ${md}, ${formats?.small.url} ${sm}`}
+        srcSet={`${url} ${lg}, ${formats.medium.url} ${md}, ${formats.medium.url} ${sm}`}
         sizes={sizes}
-        sx={{ width: shadowRight ? 'inherit' : '100%' }}
+        sx={{
+          width: shadowRight ? 'inherit' : '100%',
+          boxShadow:
+            componentType !== 'cardA' &&
+            'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
+        }}
       />
     );
   }
-)(({ theme, shadowRight }) => ({
+)(({ theme }) => ({
   minHeight: '230px',
   objectFit: 'cover',
   objectPosition: 'center center',
-  boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
+
   [theme.breakpoints.up('sm')]: {
     borderRadius: '5px',
   },

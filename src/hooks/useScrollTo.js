@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-export default function useScrollTo({ url, marginTop = 0, isNearScreen }) {
+export default function useScrollTo({ url, isNearScreen }) {
   const { hash } = useLocation();
   const scrollRef = useRef(null);
   const theme = useTheme();
@@ -30,7 +30,7 @@ export default function useScrollTo({ url, marginTop = 0, isNearScreen }) {
 
         const timer = setTimeout(() => {
           return window.scrollTo({
-            top: scrollRef.current.offsetTop - headerHeight - marginTop,
+            top: scrollRef.current.offsetTop - headerHeight,
             behavior: bigScreens ? 'smooth' : 'instant',
           });
         }, 40);
@@ -40,7 +40,7 @@ export default function useScrollTo({ url, marginTop = 0, isNearScreen }) {
         };
       }
     }
-  }, [url, hash, scrollRef, marginTop, isNearScreen, bigScreens]);
+  }, [url, hash, scrollRef, isNearScreen, bigScreens]);
 
   return { scrollRef };
 }

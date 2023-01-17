@@ -1,8 +1,8 @@
 import useScrollTo from 'hooks/useScrollTo.js';
 import { Box } from '@mui/material';
-import { Card, Image, Container } from './styled/index.js';
-import { Wrapper } from 'components/shared/styled/index.js';
-import SectionTitle from 'components/shared/SectionTitle.jsx';
+import { Card, Container } from './styled/index.js';
+import { Wrapper, Image } from 'components/shared/styled';
+import SectionTitle from 'components/shared/SectionTitle';
 import Button from 'components/shared/Button.jsx';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
@@ -15,12 +15,10 @@ function CardA({
   photo,
   backgroundType = 'none',
   withLink,
-  marginTop,
   isNearScreen,
 }) {
   const { scrollRef } = useScrollTo({
     url: withLink?.URL,
-    marginTop,
     isNearScreen,
   });
 
@@ -56,7 +54,12 @@ function CardA({
                 display: { xs: 'flex', md: 'block' },
               }}
             >
-              <Image formats={photo?.formats} alt={photo.alternativeText} />
+              <Image
+                url={photo.url}
+                alt={photo.alternativeText}
+                formats={photo.formats}
+                componentType={'cardA'}
+              />
             </Box>
           )}
         </Wrapper>
