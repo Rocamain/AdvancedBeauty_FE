@@ -23,12 +23,15 @@ const MAIN_QUERY = [
 const COMPONENT_SIZES = (componentType) =>
   ({
     gridA:
-      '(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw',
+      '(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1300px, 100vw',
+    cardA:
+      '(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 750px) 750px, (min-width: 751px) 900px, 100vw',
   }[componentType]);
 
 const COMPONENT_SCR_SET = (componentType) =>
   ({
-    gridA: ['1024w', '980w', '480w'],
+    gridA: ['1300w', '980w', '480w'],
+    cardA: ['900w', '750w', '480w'],
   }[componentType]);
 
 const URL =
