@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Hero({ content, title, subTitle, cover, button }) {
   const isWithContent = Boolean(content);
   const navigate = useNavigate();
+  const isExternal = button.linkTo.type === 'external';
 
   const handleClick = (url) => navigate(url);
   return (
@@ -60,7 +61,10 @@ export default function Hero({ content, title, subTitle, cover, button }) {
                 disableRipple
                 variant="contained"
                 children={button.linkText}
-                onClick={() => handleClick(button.linkTo.URL)}
+                onClick={isExternal && (() => handleClick(button.linkTo.URL))}
+                href={isExternal ? button.linkTo?.URL : null}
+                target={isExternal ? '_blank' : null}
+                rel={isExternal ? 'no-opener' : null}
                 sx={{ padding: '1rem 1.5rem', flex: 0, fontWeight: 600 }}
               />
             </Box>
