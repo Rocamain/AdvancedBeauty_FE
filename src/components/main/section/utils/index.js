@@ -1,4 +1,4 @@
-const getMarginTop = ({ section }, desktop, isFirstSection) => {
+const getMarginTop = ({ section }, mediumScreens, isFirstSection) => {
   const marginTopBig = {
     'full-cards': '160px',
     'right-cards': '160px',
@@ -11,22 +11,26 @@ const getMarginTop = ({ section }, desktop, isFirstSection) => {
     'none-photo': '64px',
     'leaves-photo': '64px',
   };
+  const isNotCarouselOrHero =
+    section.componentName !== 'Carousel' && section.componentName !== 'Hero';
 
-  if (desktop) {
+  if (mediumScreens) {
     const marginTop = isFirstSection
       ? `calc(5vh + ${
           marginTopBig[section.backgroundType + '-' + section.show]
         } )`
       : marginTopBig[section.backgroundType + '-' + section.show];
-    return marginTop ? marginTop : 0;
+    return marginTop && isNotCarouselOrHero ? marginTop : 0;
   } else {
     const marginTop = section.backgroundType === 'full' ? '160px' : '0px';
 
-    return isFirstSection ? `calc(5vh + ${marginTop})` : 0;
+    return isFirstSection && isNotCarouselOrHero
+      ? `calc(5vh + ${marginTop})`
+      : 0;
   }
 };
 
-const getMarginBottom = ({ section, nextSection }, desktop) => {
+const getMarginBottom = ({ section, nextSection }, mediumScreens) => {
   const marginBottom = {
     'full-cards': 160,
     'right-cards': 160,
@@ -56,7 +60,7 @@ const getMarginBottom = ({ section, nextSection }, desktop) => {
   //   return '10vh';
   // }
 
-  if (desktop) {
+  if (mediumScreens) {
     if (
       section.componentName !== 'GridA' &&
       nextSection.componentName !== 'GridA'
@@ -64,7 +68,7 @@ const getMarginBottom = ({ section, nextSection }, desktop) => {
       return '10vh';
     }
 
-    if (desktop) {
+    if (mediumScreens) {
     }
 
     if (
@@ -87,7 +91,7 @@ const getMarginBottom = ({ section, nextSection }, desktop) => {
       section.componentName === 'GridA' &&
       nextSection.componentName === 'GridA'
     ) {
-      if (desktop) {
+      if (mediumScreens) {
         if (
           nextSection.show === 'photo' &&
           nextSection.backgroundType !== 'full' &&

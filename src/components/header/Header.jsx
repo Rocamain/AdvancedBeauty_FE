@@ -39,9 +39,9 @@ export default function Header({ navigationLinks }) {
         <HeaderContainer ref={ref}>
           <Wrapper>
             <Logo
-              src={data.photo.url}
-              alt={data.photo.alternativeText}
-              onLoad={() => true}
+              url={data.photo.url}
+              altText={data.photo.alternativeText}
+              formats={data.photo.formats}
             />
             {matchesBigScreens ? (
               <ScreenMenu
