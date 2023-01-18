@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { URL } from 'constants';
+const { REACT_APP_STRAPI_URL } = process.env;
 
 const useNavigation = () => {
   const [data, setData] = useState({ navigationLinks: null });
@@ -9,18 +9,19 @@ const useNavigation = () => {
     const fetchData = async () => {
       try {
         const links = await fetch(
-          `${URL}/api/navigation/render/main-navigation?type=TREE`,
+          `${REACT_APP_STRAPI_URL}/api/navigation/render/main-navigation?type=TREE`,
           { signal: controller.signal }
         );
 
         const linksParsed = await links.json();
-
+        console.log(linksParsed);
         setData({ navigationLinks: linksParsed });
         controller = null;
       } catch (err) {}
     };
 
     if (data.navigationLinks === null) {
+      console.log('hello');
       fetchData();
     }
     return () => {
