@@ -58,8 +58,7 @@ export default function Form({ mobile }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ appointmentOnSubmit: date });
-    console.log({ BookingOnSubmit: booking });
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -90,7 +89,6 @@ export default function Form({ mobile }) {
         }
       })
       .catch((err) => {
-        console.log(err.message);
         navigate('/error');
       });
   };
