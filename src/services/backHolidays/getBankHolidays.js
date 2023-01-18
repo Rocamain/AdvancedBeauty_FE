@@ -1,21 +1,14 @@
-const COUNTIES = {
-  'Palma de Majorca': 'ES-IB',
-  "L'Illa Diagonal": 'ES-CT',
-  'Turo Park': 'ES-CT',
-};
+import COUNTY_CODE from 'constants/index.js';
 
 const getShopBankHolidays = ({ bankHolidays, shop }) => {
-  const shopCountyCode = COUNTIES[shop];
+  const shopCountyCode = COUNTY_CODE(shop);
 
   const nationalBankHols = bankHolidays.filter(
     (holiday) => holiday.global === true
   );
-
-  // eslint-disable-next-line array-callback-return
-  const countyBankHols = bankHolidays.filter((holiday) => {
-    if (holiday.counties) return holiday?.counties.includes(shopCountyCode);
-  });
-
+  const countyBankHols = bankHolidays.filter(
+    (holiday) => holiday?.counties && holiday.counties.includes(shopCountyCode)
+  );
   const shopBankHolidays = nationalBankHols.concat(countyBankHols);
 
   return shopBankHolidays.map((holiday) => holiday.date);
