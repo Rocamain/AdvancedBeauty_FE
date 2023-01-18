@@ -2,9 +2,9 @@ import { Button as MuiButton, styled, Box } from '@mui/material';
 import { ArrowRight } from '@mui/icons-material/';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const MyButton = styled(({ type, onClick, href, ...props }) => {
+const MyButton = styled(({ type, onClick, href, children, ...props }) => {
   const isExternalLink = Boolean(href);
-
+  console.log(props);
   if (isExternalLink) {
     return (
       <MuiButton
@@ -15,8 +15,9 @@ const MyButton = styled(({ type, onClick, href, ...props }) => {
         disableFocusRipple
         disableRipple
         href={href}
-        target={'_blank'}
-        rel={'noopener'}
+        target="_blank"
+        rel="noopener"
+        children={children}
         {...props}
       />
     );
@@ -32,6 +33,7 @@ const MyButton = styled(({ type, onClick, href, ...props }) => {
       disableRipple
       type={type}
       onClick={type === 'submit' ? null : onClick}
+      children={children}
       {...props}
     />
   );

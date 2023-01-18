@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Box, Grid, Typography, Checkbox, Button } from '@mui/material';
+
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 import {
   Header,
@@ -9,35 +11,17 @@ import {
 } from 'components/main/section/section-components/Form/styled/index.js';
 import IconButton from 'components/main/section/section-components/Form/IconButton.jsx';
 import Input from 'components/main/section/section-components/Form/Input.jsx';
-import { inputs } from 'components/main/section/section-components/Form/utils/index.js';
+import { INPUTS } from 'constants/index.js';
+import {
+  initialErrors,
+  initialValues,
+  validation,
+} from 'components/main/section/section-components/Form/utils';
 import shop from 'assets/shop.jpg';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { useNavigate, useLocation } from 'react-router-dom';
 
-const initialValues = {
-  name: '',
-  shop: 'Other',
-  email: '',
-  phone: '',
-  message: '',
-  result: '',
-  checked: false,
-};
-const initialErrors = {
-  name: false,
-  shop: false,
-  email: false,
-  phone: false,
-  message: false,
-};
-const validation = {
-  name: (input) => input.length < 4,
-  email: (input) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input) ? false : true),
-  phone: (input) =>
-    /^[-+/\s]*([0-9][-+/\s]*){9,}$/.test(input) ? false : true,
-  message: (input) => input.length < 4,
-};
+const { REACT_APP_BOOKING } = process.env;
 
 export default function ContactForm() {
   const [values, setValues] = useState(initialValues);
@@ -57,7 +41,9 @@ export default function ContactForm() {
   const isResultCorrect =
     Number(values.result) === numbers.first + numbers.second;
 
-  //  if its received  a state through navigation click event add the message received
+  //  If if passed a message through a navigation state, it will display the message
+  //  in the message box
+
   useEffect(() => {
     if (state?.contactMessage) {
       setValues(({ message, ...prevState }) => ({
@@ -67,7 +53,8 @@ export default function ContactForm() {
     }
   }, [state]);
 
-  // once all requirements have been meet activate the submit button
+  // Once all requirements have been meet activate the submit button
+
   useEffect(() => {
     const passRequirements = values.checked && isResultCorrect && isError;
     setDisabled(true);
@@ -101,18 +88,21 @@ export default function ContactForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
     };
-    fetch('http://localhost:9000/contact', requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        if ((data.msg = 'Email sent')) {
-          setEmailSent(true);
-          setDisabled(true);
-          setValues(initialValues);
+    fetch(`${REACT_APP_BOOKING}/api/contact`, requestOptions)
+      .then((response) => {
+        if (response.status !== 200) {
+          navigate('/error');
+        }
+        setEmailSent(true);
+      })
+      .catch((err) => {
+        if (err) {
+          navigate('/error');
         }
       })
-      .catch((err) => navigate('/error'))
       .finally(() => {
         setValues(initialValues);
+        setDisabled(true);
         setErrors(initialErrors);
       });
   };
@@ -122,11 +112,16 @@ export default function ContactForm() {
       <Wrapper>
         <Header>
           <SectionTitle title="Contact us" grid={true} />
-          <Typography variant="body1" component="p">
-            This website is build with React and Strapi, if you want to change
-            the content, fill up this form or contact me by email, If you can to
-            have more details about the technologies used in this project go to
-            the Change Me section.
+          <Typography
+            variant="body1"
+            component="p"
+            sx={{ marginBottom: '1em' }}
+          >
+            This website is build with React , Strapi and back end server as a
+            booking system, if you want to change the content, fill up this form
+            or contact me by email and I will send send you and invitation to
+            your email. Also you can send me an email or contacting me by
+            linkedIn below
           </Typography>
 
           <Box
@@ -143,14 +138,14 @@ export default function ContactForm() {
               children={<LinkedInIcon />}
             />
             <IconButton
-              href="mailto:fjrocavazquez@gmail.com?subject=Mail from 2U website"
+              href="mailto:fjrocavazquez@gmail.com?subject=Mail from Advance beauty website"
               children={<EmailIcon />}
             />
           </Box>
         </Header>
         <Form id="contact-form" onSubmit={handleSubmit}>
           <Grid container spacing={3} sx={{ marginBottom: '1.5em' }}>
-            {inputs.map(({ id, ...rest }, index) => {
+            {INPUTS.map(({ id, ...rest }, index) => {
               return (
                 <Input
                   key={index}
@@ -253,7 +248,6 @@ export default function ContactForm() {
       >
         <Box
           component="img"
-          onLoad={() => true}
           src={shop}
           sx={{
             maxWidth: '100%',

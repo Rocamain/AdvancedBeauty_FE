@@ -1,6 +1,3 @@
-const { NODE_ENV, REACT_APP_STRAPI_URL_PROD, REACT_APP_STRAPI_URL_DEV } =
-  process.env;
-
 const LOGO_QUERY = ['photo.media'];
 
 const MAIN_QUERY = [
@@ -34,10 +31,40 @@ const COMPONENT_SCR_SET = (componentType) =>
     cardA: ['900w', '750w', '480w'],
   }[componentType]);
 
-const URL =
-  NODE_ENV !== 'production'
-    ? REACT_APP_STRAPI_URL_DEV
-    : REACT_APP_STRAPI_URL_PROD;
+const COUNTY_CODE = (county) =>
+  ({
+    'Palma de Majorca': 'ES-IB',
+    "L'Illa Diagonal": 'ES-CT',
+    'Turo Park': 'ES-CT',
+  }[county]);
+
+const INPUTS = [
+  {
+    id: 'Name',
+    required: true,
+  },
+  {
+    id: 'Email',
+    required: true,
+    type: 'email',
+  },
+  {
+    id: 'Phone',
+    required: false,
+  },
+  {
+    id: 'Shop',
+    select: true,
+    options: true,
+  },
+  {
+    id: 'Message',
+    required: true,
+    multiline: true,
+    fullWith: true,
+    rows: 4,
+  },
+];
 
 module.exports = {
   LOGO_QUERY,
@@ -45,4 +72,6 @@ module.exports = {
   COMPONENT_SIZES,
   COMPONENT_SCR_SET,
   URL,
+  COUNTY_CODE,
+  INPUTS,
 };
