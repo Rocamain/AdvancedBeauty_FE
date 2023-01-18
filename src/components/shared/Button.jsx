@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const MyButton = styled(({ type, onClick, href, children, ...props }) => {
   const isExternalLink = Boolean(href);
-  console.log(props);
+
   if (isExternalLink) {
     return (
       <MuiButton
