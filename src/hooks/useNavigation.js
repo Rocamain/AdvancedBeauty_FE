@@ -14,14 +14,13 @@ const useNavigation = () => {
         );
 
         const linksParsed = await links.json();
-        console.log(linksParsed);
+
         setData({ navigationLinks: linksParsed });
         controller = null;
       } catch (err) {}
     };
 
     if (data.navigationLinks === null) {
-      console.log('hello');
       fetchData();
     }
     return () => {
