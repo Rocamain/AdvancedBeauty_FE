@@ -1,29 +1,25 @@
-const inputs = [
-  {
-    id: 'Name',
-    required: true,
-  },
-  {
-    id: 'Email',
-    required: true,
-    type: 'email',
-  },
-  {
-    id: 'Phone',
-    required: false,
-  },
-  {
-    id: 'Shop',
-    select: true,
-    options: true,
-  },
-  {
-    id: 'Message',
-    required: true,
-    multiline: true,
-    fullWith: true,
-    rows: 4,
-  },
-];
+const validation = {
+  name: (input) => input.length < 4,
+  email: (input) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input) ? false : true),
+  phone: (input) =>
+    /^[-+/\s]*([0-9][-+/\s]*){9,}$/.test(input) ? false : true,
+  message: (input) => input.length < 4,
+};
+const initialValues = {
+  name: '',
+  shop: 'Other',
+  email: '',
+  phone: '',
+  message: '',
+  result: '',
+  checked: false,
+};
+const initialErrors = {
+  name: false,
+  shop: false,
+  email: false,
+  phone: false,
+  message: false,
+};
 
-export { inputs };
+module.exports = { initialErrors, initialValues, validation };

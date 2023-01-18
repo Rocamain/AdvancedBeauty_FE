@@ -40,7 +40,6 @@ const Form = styled((props) => (
     {...props}
     component="form"
     autoComplete="off"
-    noValidate
     sx={{ padding: { xs: '2em', xl: '2.5em' }, mb: { xs: '6em', md: 0 } }}
   />
 ))(({ theme }) => ({

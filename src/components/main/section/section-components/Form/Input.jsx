@@ -13,8 +13,10 @@ export default function Input({
   rows,
   ...restProps
 }) {
-  const { shops } = useFetchBookingDb('getShopsInfo');
-  if (shops) {
+  const data = useFetchBookingDb('getShopsInfo');
+
+  if (data) {
+    const { shops } = data;
     return (
       <Grid item xs={12} sm={12} md={fullWith ? 12 : 6}>
         <TextField
