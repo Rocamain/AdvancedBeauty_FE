@@ -13,8 +13,8 @@ export default function useFetchBankHolidays(year, shop) {
     if (year || shop) {
       const abortController = new AbortController();
 
-      const calendarificUrlString = getBankHolidaysUrlString(year);
-      fetch(calendarificUrlString, {
+      const bankHolsURL = getBankHolidaysUrlString(year);
+      fetch(bankHolsURL, {
         signal: abortController.signal,
       })
         .then((response) => response.json())

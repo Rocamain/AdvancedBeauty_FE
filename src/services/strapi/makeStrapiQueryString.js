@@ -1,5 +1,7 @@
 import qs from 'qs';
-import { MAIN_QUERY, LOGO_QUERY, URL } from 'constants';
+import { MAIN_QUERY, LOGO_QUERY } from 'constants';
+
+const { REACT_APP_STRAPI_URL } = process.env;
 
 const makeStrapiQueryString = (path) => {
   const querySelector = path !== 'logo' ? MAIN_QUERY : LOGO_QUERY;
@@ -12,7 +14,7 @@ const makeStrapiQueryString = (path) => {
     }
   );
 
-  const queryString = `${URL}/api/${path}?${query}`;
+  const queryString = `${REACT_APP_STRAPI_URL}/api/${path}?${query}`;
 
   return queryString;
 };
