@@ -118,7 +118,6 @@ const CoffeeMug = styled((props) => (
 
 const CoffeeImg = styled((props) => (
   <Box
-    onLoad={() => true}
     component="img"
     src={coffee}
     title="shop"
