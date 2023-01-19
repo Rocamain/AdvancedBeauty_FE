@@ -82,10 +82,6 @@ const CalendarPicker = styled(({ ...props }) => {
     maxHeight: 'none',
     width: '100%',
     fontSize: 1.8,
-
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
     [theme.breakpoints.up(400)]: {
       width: '90%',
     },
@@ -110,6 +106,9 @@ const CalendarPicker = styled(({ ...props }) => {
           pointerEvents: 'none',
         },
       },
+    },
+    '.PrivatePickersSlideTransition-root': {
+      // minHeight: '230px !important',
     },
     '> div:nth-of-type(2)': {
       '> div:nth-of-type(1)': {

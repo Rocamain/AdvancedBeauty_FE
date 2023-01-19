@@ -33,7 +33,7 @@ export default forwardRef(({ fadeOut, ...props }, ref) => {
 });
 
 const Summary = () => {
-  const mobile = useMediaQuery('(max-width:500px)');
+  const mobile = useMediaQuery('(max-width:500px)', { noSsr: true });
 
   return (
     <Box sx={{ margin: '2em auto 1.5em auto', minHeight: '300px' }}>
