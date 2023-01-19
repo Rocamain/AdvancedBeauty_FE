@@ -28,7 +28,6 @@ const Photo = styled(({ src, ...props }) => {
   return (
     <Box
       component="img"
-      onLoad={() => true}
       // loading="lazy"
       {...props}
       sx={{
