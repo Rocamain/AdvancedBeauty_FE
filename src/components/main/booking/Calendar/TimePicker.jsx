@@ -50,7 +50,6 @@ export default function TimePicker({ timeFrame }) {
     setBooking(({ bookingStep, time, ...rest }) => {
       return {
         appointment: bookingWithTime,
-
         time: btnTimeValue,
         bookingStep: 1,
         ...rest,
@@ -64,7 +63,6 @@ export default function TimePicker({ timeFrame }) {
       gap={1}
       justifyContent="center"
       gridTemplateColumns="repeat(auto-fill, minmax(min(4em, 100%), 1fr))"
-      // sx={{ minHeight: '90px' }}
     >
       {availableTimes &&
         filterHoursByTimeFrame({

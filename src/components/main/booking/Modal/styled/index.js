@@ -29,10 +29,12 @@ const DialogContainer = styled((props) => {
     boxShadow: 24,
     paddingTop: 3,
     paddingBottom: 3,
+    minHeight: '100%',
     [theme.breakpoints.between('sm', 'md')]: {
       top: '50%',
       left: '50%',
       maxWidth: 600,
+      minHeight: 730,
       transform: 'translate(-50%,-50%)',
     },
     [theme.breakpoints.up('md')]: {
@@ -40,7 +42,7 @@ const DialogContainer = styled((props) => {
       left: '50%',
       transform: 'translate(-50%,-50%)',
       maxWidth: 800,
-      minHeight: 538,
+      minHeight: 650,
     },
     [theme.breakpoints.up('lg')]: {
       maxWidth: 1000,
@@ -50,7 +52,7 @@ const DialogContainer = styled((props) => {
 
 const Dialog = forwardRef((props, ref) => {
   return (
-    <DialogContent tabIndex={-1} ref={ref}>
+    <DialogContent tabIndex={-1} ref={ref} sx={{ height: 'inherit' }}>
       <DialogContainer {...props} />
     </DialogContent>
   );
@@ -106,7 +108,11 @@ const ExitBtn = styled((props) => {
     position: 'absolute',
     left: '0.2em',
     top: '0.2em',
+    fontWeight: 900,
     color: theme.palette.primary.main,
+    svg: {
+      fontSize: '2.3rem',
+    },
   };
 });
 

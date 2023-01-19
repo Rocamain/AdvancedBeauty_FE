@@ -18,7 +18,9 @@ export default function Header({ navigationLinks }) {
   const { data } = useLoaderData();
   const { selectedLinks } = useMenuLinkSelected();
   const theme = useTheme();
-  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'));
+  const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
+    noSsr: true,
+  });
   const [anchorEl, setAnchorEl] = useState(null);
 
   const ref = useRef(null);

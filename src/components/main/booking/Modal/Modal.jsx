@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import useFetchBankHolidays from 'hooks/useFetchBankHolidays';
 import { BookingContext } from 'context/BookingContext';
 import useShowSummary from 'hooks/useShowSummary';
@@ -21,24 +21,12 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import gb from 'dayjs/locale/en-gb.js';
-
+import { INITIAL_BOOKING_STATE } from 'constants/index.js';
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.tz.setDefault('Europe/Madrid');
 dayjs.extend(customParseFormat);
 dayjs.locale(gb);
-dayjs.tz.setDefault('Europe/Madrid');
-
-const initialBookingState = {
-  serviceName: null,
-  shopName: null,
-  date: null,
-  year: dayjs().year(),
-  time: null,
-  price: null,
-  bookingStep: 0,
-  emailAuthorization: false,
-  bookingConfirmation: false,
-};
 
 export default function Modal({
   open,
@@ -48,16 +36,21 @@ export default function Modal({
   serviceType,
   shopName,
 }) {
-  const smallPhoneHeightScreen = useMediaQuery('(max-height:800px)');
+  const smallPhoneHeightScreen = useMediaQuery('(max-height:800px)', {
+    noSsr: true,
+  });
+
   const [booking, setBooking] = useState({
-    ...initialBookingState,
+    ...INITIAL_BOOKING_STATE,
     serviceName,
     shopName,
     price,
+    date: dayjs.tz(),
   });
-
+  const fadeOut = useRef(booking.bookingStep === 0);
   const { bookingStep, year } = booking;
   const bankHolidays = useFetchBankHolidays(year, shopName);
+
   const { calenderRef, summaryRef, showSummary } = useShowSummary(bookingStep);
 
   const isBtnActive = Boolean(bookingStep % 2);
@@ -81,7 +74,7 @@ export default function Modal({
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          disableEnforceFocus
+          disableEnforceFoc
           disableAutoFocus
           sx={{
             overflowY: 'auto',
@@ -91,8 +84,8 @@ export default function Modal({
             <Stepper step={bookingStep} />
             <ExitBtn onClick={handleExitBtn} />
             <ModalWrapper
-              fade_out={bookingStep === 0 ? 'true' : null}
-              sx={{ opacity: bookingStep === 0 ? 0 : 1 }}
+              fade_out={fadeOut ? 'true' : null}
+              sx={{ opacity: fadeOut ? 0 : 1 }}
             >
               <Header title={serviceType} subtitle={serviceName} />
               {showSummary ? (
@@ -104,21 +97,21 @@ export default function Modal({
                   bankHolidays={bankHolidays}
                 />
               )}
-              <MuiButton
-                variant={isBtnActive ? 'contained' : 'disabled'}
-                onClick={handleStep}
-                type={bookingStep > 2 ? 'submit' : null}
-                form={bookingStep > 2 ? 'booking-form' : null}
-                sx={{
-                  float: 'right',
-                  marginBottom: '1.3em',
-                  width: bookingStep > 1 ? '175px' : '100px',
-                  alignSelf: 'end',
-                }}
-              >
-                {bookingStep > 1 ? 'Confirm Booking' : 'Continue'}
-              </MuiButton>
             </ModalWrapper>
+            <MuiButton
+              variant={isBtnActive ? 'contained' : 'disabled'}
+              onClick={handleStep}
+              type={bookingStep > 2 ? 'submit' : null}
+              form={bookingStep > 2 ? 'booking-form' : null}
+              sx={{
+                position: 'absolute',
+                bottom: 20,
+                right: 20,
+                width: bookingStep > 1 ? '175px' : '100px',
+              }}
+            >
+              {bookingStep > 1 ? 'Confirm Booking' : 'Continue'}
+            </MuiButton>
           </Dialog>
         </MuiModal>
       )}

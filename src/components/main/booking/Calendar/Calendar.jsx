@@ -44,12 +44,11 @@ const Calendar = ({ bankHolidays }) => {
   const renderDay = (day, selectedDates, pickersProps) => {
     const isHoliday = isSunday(day) || isBankHoliday(day, bankHolidays);
     const isDisabled = pickersProps.disabled === true || isHoliday;
-    const isSelected = date && day.toString() === date.toString();
 
     if (date && day.format('DD/MM/YYYY') === date.format('DD/MM/YYYY')) {
+      pickersProps.selected = true;
     }
 
-    pickersProps.selected = isSelected;
     pickersProps.disabled = isDisabled;
 
     return (
@@ -62,7 +61,7 @@ const Calendar = ({ bankHolidays }) => {
   };
 
   const handleMonthChange = (date) => {
-    setBooking({ ...booking, date: null });
+    setBooking({ ...booking, bookingStep: 0, date: null });
   };
 
   const handleChange = (newDate) => {

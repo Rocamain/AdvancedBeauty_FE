@@ -8,7 +8,7 @@ export default function TimeSelector() {
   const { booking } = useContext(BookingContext);
   const { date } = booking;
   const { selected, handleSelector } = useButtonSelected({ date });
-  const smallPhone = useMediaQuery('(max-width:460px)');
+  const smallPhone = useMediaQuery('(max-width:460px)', { noSsr: true });
 
   const handleClick = (event) => {
     const btnTimeFrameText = event.target.innerText;
@@ -16,7 +16,15 @@ export default function TimeSelector() {
   };
 
   return (
-    <Box mb="0" sx={{ pt: '10px', maxWidth: '95%', margin: '0 auto' }}>
+    <Box
+      mb="0"
+      sx={{
+        pt: '10px',
+        maxWidth: '95%',
+        margin: '0 auto',
+        minHeight: { sm: '180px' },
+      }}
+    >
       <Box gap={[1, 4, 1]} display="flex" justifyContent="center" mb="2em">
         <Button
           onClick={handleClick}
