@@ -10,12 +10,7 @@ import {
 import { sortTreatments } from 'components/main/section/section-components/Services/utils/index';
 import Modal from 'components/main/booking/Modal/Modal';
 import useFetchBookingDb from 'hooks/useFetchBookingDb';
-
-const SHOP = {
-  '/Services_and_Fares/Services_in_Turo_Park': 'Turo Park',
-  '/Services_and_Fares/Services_in_Palma_de_Majorca': 'Palma de Majorca',
-  "/Services_and_Fares/Services_in_L'Illa_Diagonal": "L'Illa Diagonal",
-};
+import { SHOP } from 'constants/index.js';
 
 export default function Services() {
   const services = useFetchBookingDb('getServices')?.services;
@@ -24,7 +19,12 @@ export default function Services() {
   const [serviceSelected, setServiceSelected] = useState(false);
   const [servicePrice, setServicePrice] = useState(null);
   const isModalOpen = Boolean(serviceSelected);
-  const shopName = SHOP[pathname];
+
+  const title =
+    pathname &&
+    pathname.split('/')[2].replaceAll('-', ' ').replaceAll('_', ' ');
+
+  const shopName = SHOP[title];
 
   const handleOpenModal = (id, value) => {
     setServiceSelected(id);
@@ -45,7 +45,7 @@ export default function Services() {
           margin: '0 auto',
         }}
       >
-        <SectionTitle title={`Services in ${shopName}`} textJustify="left" />
+        <SectionTitle title={title} textJustify="left" />
 
         {sortedTreatments.map(({ name, services }, index) => {
           return (
@@ -80,27 +80,31 @@ export default function Services() {
                         <Box
                           display="flex"
                           variant="p"
+                          component="p"
                           sx={{
                             width: '100%',
                             justifyContent: 'space-between',
                           }}
                         >
                           <Typography className="text" variant="p">
-                            {serviceName}{' '}
+                            {serviceName}
                           </Typography>
 
                           <Typography
                             className="text"
                             value={price}
                             variant="p"
-                            sx={{ whiteSpace: 'nowrap' }}
+                            sx={{
+                              whiteSpace: 'nowrap',
+                              display: 'inline-flex',
+                            }}
                           >
                             {`${price},00`} &#x20AC;
+                            <Typography className="book" variant="p">
+                              Book
+                            </Typography>
                           </Typography>
                         </Box>
-                        <Typography className="book" variant="p">
-                          Book
-                        </Typography>
                       </Box>
                     );
                   })}

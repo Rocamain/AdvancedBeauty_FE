@@ -65,13 +65,39 @@ const INPUTS = [
     rows: 4,
   },
 ];
+const SHOP = {
+  'Services in Turo Park': 'Turo Park',
+  'Services in Palma de Majorca': 'Palma de Majorca',
+  "Services in L'Illa Diagonal": "L'Illa Diagonal",
+};
+
+const SHOP_DB_PATH = (shopName) =>
+  ({
+    'Turo Park': 'turo',
+    'Palma de Majorca': 'palma',
+    "L'Illa Diagonal": 'illa',
+  }[shopName]);
+
+const INITIAL_BOOKING_STATE = {
+  serviceName: null,
+  shopName: null,
+  date: null,
+  year: new Date().getFullYear(),
+  time: null,
+  price: null,
+  bookingStep: 0,
+  emailAuthorization: false,
+  bookingConfirmation: false,
+};
 
 module.exports = {
   LOGO_QUERY,
   MAIN_QUERY,
   COMPONENT_SIZES,
   COMPONENT_SCR_SET,
-  URL,
   COUNTY_CODE,
   INPUTS,
+  SHOP,
+  SHOP_DB_PATH,
+  INITIAL_BOOKING_STATE,
 };

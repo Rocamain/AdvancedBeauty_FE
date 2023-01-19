@@ -74,20 +74,23 @@ const AccordionSummary = styled((props) => (
 
 const AccordionDetails = styled((props) => <MuiAccordionDetails {...props} />)(
   ({ theme }) => ({
-    padding: theme.spacing(0),
+    padding: 0,
     fontFamily: 'Open sans',
     ul: {
-      padding: theme.spacing(0),
+      padding: 0,
     },
 
     li: {
       listStyle: 'none',
-      padding: theme.spacing(1, 3, 1, 4),
       textTransform: 'uppercase',
       fontSize: '0.9rem',
       fontFamily: 'Open sans',
-      transition: 'padding 0.3s ease-in-out',
 
+      p: {
+        padding: theme.spacing(1, 3, 2, 4),
+
+        cursor: 'pointer',
+      },
       '.book': {
         opacity: 0,
         display: 'none',
@@ -97,8 +100,11 @@ const AccordionDetails = styled((props) => <MuiAccordionDetails {...props} />)(
       },
       [theme.breakpoints.up('md')]: {
         ':hover': {
-          padding: theme.spacing(1, 3, 1, 5),
-
+          p: {
+            padding: theme.spacing(1, 4, 2, 4),
+            transition: 'padding 0.3s ease-in-out',
+            pointerEvent: 'auto',
+          },
           background: '#00BCCC',
           '.text': {
             color: theme.palette.primary.contrastText,
@@ -110,6 +116,7 @@ const AccordionDetails = styled((props) => <MuiAccordionDetails {...props} />)(
             color: theme.palette.primary.contrastText,
             fontWeight: 800,
             visibility: 'visible',
+            marginLeft: '1em',
             opacity: 1,
           },
         },
