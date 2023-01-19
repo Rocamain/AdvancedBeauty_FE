@@ -48,7 +48,7 @@ function App() {
                   signal: request.signal,
                 })
               }
-              element={<Main apiRoute={related.__contentType.split('.')[1]} />}
+              element={<Main key={related.__contentType.split('.')[1]} />}
             />
           ))}
           {navigationLinks.map((navRoute, index) =>
@@ -64,9 +64,7 @@ function App() {
                         signal: request.signal,
                       })
                     }
-                    element={
-                      <Main apiRoute={related.__contentType.split('.')[1]} />
-                    }
+                    element={<Main key={related.__contentType.split('.')[1]} />}
                   />
                 )
               );

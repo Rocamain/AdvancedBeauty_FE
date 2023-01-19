@@ -33,7 +33,7 @@ const LazySection = ({
   isLastSection,
 }) => {
   const [section, setSection] = useState(null);
-  const setShowFooter = useOutletContext()[1];
+  const [show, setShowFooter] = useOutletContext();
   const { pathname } = useLocation();
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '200px',
@@ -56,8 +56,11 @@ const LazySection = ({
 
   //  this effect, is used to alow to render the footer when we reach the last section
   useEffect(() => {
-    if (isLastSection & isNearScreen) {
-      setShowFooter(true);
+    if (isLastSection) {
+      if (isNearScreen) {
+        setShowFooter(true);
+      }
+      return () => setShowFooter(false);
     }
     return () => setShowFooter(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
