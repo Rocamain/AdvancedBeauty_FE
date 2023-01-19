@@ -6,12 +6,16 @@ import Header from 'components/header/Header';
 import HeadTitle from 'components/main/headTitle/HeadTitle';
 
 export default function Body({ navigationLinks }) {
-  const { hash } = useLocation();
-  const [showFooter, setShowFooter] = useState(Boolean(hash));
+  const { hash, pathname } = useLocation();
+  const [showFooter, setShowFooter] = useState(false);
 
   useEffect(() => {
     setShowFooter(false);
-    if (hash) {
+    if (
+      Boolean(hash) ||
+      pathname === '/confirmation' ||
+      pathname === '/error'
+    ) {
       setShowFooter(true);
     }
   }, [hash]);

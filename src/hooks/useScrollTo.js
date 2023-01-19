@@ -7,7 +7,7 @@ export default function useScrollTo({ url, isNearScreen }) {
   const { hash } = useLocation();
   const scrollRef = useRef(null);
   const theme = useTheme();
-  const bigScreens = useMediaQuery(theme.breakpoints.up('md'));
+  const bigScreens = useMediaQuery(theme.breakpoints.up('md'), { noSsr: true });
 
   useEffect(() => {
     if (url) {
