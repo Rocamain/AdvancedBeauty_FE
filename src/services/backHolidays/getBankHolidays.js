@@ -1,4 +1,4 @@
-import COUNTY_CODE from 'constants/index.js';
+import { COUNTY_CODE } from 'constants/index.js';
 
 const getShopBankHolidays = ({ bankHolidays, shop }) => {
   const shopCountyCode = COUNTY_CODE(shop);

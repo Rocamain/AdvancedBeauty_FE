@@ -14,6 +14,7 @@ export default function useFetchBankHolidays(year, shop) {
       const abortController = new AbortController();
 
       const bankHolsURL = getBankHolidaysUrlString(year);
+
       fetch(bankHolsURL, {
         signal: abortController.signal,
       })
