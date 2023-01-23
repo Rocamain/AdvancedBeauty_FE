@@ -24,15 +24,7 @@ export default function GridB({ withLink, title, size, cards, isNearScreen }) {
       <Container size={size}>
         {cards.map(
           (
-            {
-              icon,
-              title,
-              subTitle,
-              content,
-              showTitle,
-              titleColor,
-              iconFullSize,
-            },
+            { icon, title, subtitle, content, showTitle, titleColor },
             index
           ) => {
             return (
@@ -49,7 +41,7 @@ export default function GridB({ withLink, title, size, cards, isNearScreen }) {
                   {showTitle && (
                     <>
                       <Title children={title} color={titleColor} />
-                      {subTitle && <SubTitle children={subTitle} />}
+                      {subtitle && <SubTitle children={subtitle} />}
                     </>
                   )}
                 </Box>
