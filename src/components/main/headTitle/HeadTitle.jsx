@@ -20,7 +20,7 @@ export default function HeadTitle({ children, navigationLinks }) {
 
   useEffect(() => {
     if (pathname) {
-      document.title = `2U - ${title}`;
+      document.title = `AB - ${title}`;
     }
   }, [pathname, title]);
 
