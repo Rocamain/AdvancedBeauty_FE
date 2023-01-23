@@ -10,11 +10,7 @@ const GridContainer = styled((props) => (
     margin: '0 auto',
     marginBottom: '1em',
 
-    [theme.breakpoints.up('sm')]: {
-      // width: '80%',
-    },
     [theme.breakpoints.up('md')]: {
-      // width: '100%',
       marginBottom: '3em',
     },
   };
@@ -107,9 +103,7 @@ const CalendarPicker = styled(({ ...props }) => {
         },
       },
     },
-    '.PrivatePickersSlideTransition-root': {
-      // minHeight: '230px !important',
-    },
+
     '> div:nth-of-type(2)': {
       '> div:nth-of-type(1)': {
         justifyContent: 'space-between',
@@ -132,45 +126,6 @@ const CalendarPicker = styled(({ ...props }) => {
             fontSize: '1rem',
           },
         },
-        // [theme.breakpoints.up('sm')]: {
-        //   '& span:nth-of-type(1)': {
-        //     ':after': {
-        //       content: '"on"',
-        //     },
-        //   },
-        //   '& span:nth-of-type(2)': {
-        //     ':after': {
-        //       content: '"ue"',
-        //     },
-        //   },
-        //   '& span:nth-of-type(3)': {
-        //     ':after': {
-        //       content: '"ed"',
-        //     },
-        //   },
-        //   '& span:nth-of-type(4)': {
-        //     ':after': {
-        //       content: '"hu"',
-        //     },
-        //   },
-        //   '& span:nth-of-type(5)': {
-        //     ':after': {
-        //       content: '"ri"',
-        //     },
-        //   },
-        //   '& span:nth-of-type(6)': {
-        //     color: 'orange',
-        //     ':after': {
-        //       content: '"at"',
-        //     },
-        //   },
-        //   '& span:nth-of-type(7)': {
-        //     color: 'orange',
-        //     ':after': {
-        //       content: '"un"',
-        //     },
-        //   },
-        // },
       },
     },
     'div[role=row]': {

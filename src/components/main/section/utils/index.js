@@ -60,10 +60,6 @@ const getMarginBottom = (
     'leaves-photo': 64,
   };
 
-  // if (smallMobiles) {
-  //   return '10vh';
-  // }
-
   if (mediumScreens) {
     if (
       section.componentName !== 'GridA' &&

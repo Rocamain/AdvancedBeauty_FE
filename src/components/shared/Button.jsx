@@ -100,7 +100,6 @@ export default function Button({
     <Box
       sx={{
         width: width && width,
-        overflow: 'hidden',
       }}
     >
       <MyButton

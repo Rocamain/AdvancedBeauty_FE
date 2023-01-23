@@ -62,13 +62,6 @@ export default function Icon({ showTitle, isSizeBig, icon }) {
             content: {
               xs: `url(${icon.url})`,
             },
-
-            // width: 'inherit',
-            // maxHeight: {
-            //   xs: 'inherit',
-            //   // md: isSizeBig ? 'auto' : '100px',
-            //   // xll: isSizeBig ? 'inherit' : '128px',
-            // },
           }}
         />
       </Box>

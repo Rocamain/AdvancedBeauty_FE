@@ -92,9 +92,6 @@ theme = createTheme(theme, {
       color: '#666',
       fontFamily: ['Open Sans', 'Abel'].join(','),
       letterSpacing: '0.05em',
-      // [theme.breakpoints.down('sm')]: {
-      //   fontSize: '0.9rem',
-      // },
     },
     navLink: {
       fontFamily: ['Abel'].join(','),
