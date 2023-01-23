@@ -3,6 +3,7 @@ html {
   margin-top: 0px;
   box-sizing: border-box;
   white-space: inherit;
+  overflow-y: hidden;
 }
 
 body {

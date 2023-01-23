@@ -195,7 +195,7 @@ theme = createTheme(theme, {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 700,
       fontSize: '6.5rem',
-      lineHeight: 0.8,
+      lineHeight: 0.9,
       color: '#00BCCC',
       letterSpacing: '-0.017em',
       textShadow: '10px 0px 15px white',
@@ -205,33 +205,35 @@ theme = createTheme(theme, {
     carouselSubtitle: {
       color: '#666',
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      fontWeight: 500,
-      lineHeight: 1,
-      fontSize: '2.8rem',
+      fontWeight: 700,
+      lineHeight: 1.1,
+      fontSize: '3.2rem',
     },
     cardTitle: {
-      color: '#666',
+      color: '#333',
       textAlign: 'center',
-      fontSize: '1.4rem',
-      lineHeight: 1.1,
-      fontWeight: 600,
+      fontSize: '1.6rem',
+      letterSpacing: '0.04em',
+      lineHeight: 1.3,
+      fontWeight: 700,
+      padding: 0,
       fontFamily: ['Open Sans', 'Abel'].join(','),
+
+      [theme.breakpoints.down(300)]: {
+        wordBreak: 'break-all',
+      },
       [theme.breakpoints.up('sm')]: {
         fontWeight: 600,
-        fontSize: '1.65rem',
-        lineHeight: 1,
+        fontSize: '1.7rem',
+        lineHeight: 1.2,
+        letterSpacing: '0.03em',
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.8rem',
-        color: '#666',
-        fontWeight: 500,
+        fontSize: '1.9rem',
+        letterSpacing: '0.035em',
+        fontWeight: 600,
       },
-      [theme.breakpoints.up('lg')]: {
-        fontSize: '2rem',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '2.2rem',
-      },
+
       [theme.breakpoints.up('xxl')]: {
         fontSize: '2.5rem',
       },

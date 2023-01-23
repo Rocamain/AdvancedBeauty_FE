@@ -39,7 +39,6 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
       sx={{
         display: 'flex',
         alignItems: 'center',
-        maxWidth: '1200px',
       }}
     >
       {matchesBigScreens && (
@@ -57,6 +56,7 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
           variant="cardTitle"
           sx={{
             paddingBottom: '0.5em',
+            px: { sm: '1em' },
           }}
         >
           {title}
