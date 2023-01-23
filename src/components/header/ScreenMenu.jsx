@@ -23,7 +23,7 @@ export default function ScreenMenu({ links, selectedLinks }) {
         sx={{
           display: 'flex',
           gap: { md: '0.5em', xl: '1em' },
-          alignItems: 'center',
+          alignItems: 'stretch',
           padding: 0,
         }}
       >

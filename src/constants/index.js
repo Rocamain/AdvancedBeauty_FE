@@ -16,6 +16,8 @@ const MAIN_QUERY = [
   'components.cards',
   'components.cards.icon.media',
   'cards.icon.media',
+  'Hero.cover.media',
+  'Hero.button.linkTo',
 ];
 const COMPONENT_SIZES = (componentType) =>
   ({
@@ -65,18 +67,6 @@ const INPUTS = [
     rows: 4,
   },
 ];
-const SHOP = {
-  'Services in Turo Park': 'Turo Park',
-  'Services in Palma de Majorca': 'Palma de Majorca',
-  "Services in L'Illa Diagonal": "L'Illa Diagonal",
-};
-
-const SHOP_DB_PATH = (shopName) =>
-  ({
-    'Turo Park': 'turo',
-    'Palma de Majorca': 'palma',
-    "L'Illa Diagonal": 'illa',
-  }[shopName]);
 
 const INITIAL_BOOKING_STATE = {
   serviceName: null,
@@ -97,7 +87,5 @@ module.exports = {
   COMPONENT_SCR_SET,
   COUNTY_CODE,
   INPUTS,
-  SHOP,
-  SHOP_DB_PATH,
   INITIAL_BOOKING_STATE,
 };

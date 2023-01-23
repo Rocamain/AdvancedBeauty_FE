@@ -18,8 +18,9 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   backgroundColor: theme.palette.primary.contrastText,
   zIndex: 1000,
   top: 0,
-  padding: '1em 0',
+  // padding: '1em 0',
   gap: '0.5em',
+  height: '13vh',
   [theme.breakpoints.up('md')]: {
     height: '16vh',
     padding: '0',
@@ -34,6 +35,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   display: 'flex',
   maxWidth: 400,
+  gap: '1em',
   [theme.breakpoints.up('sm')]: {
     maxWidth: 600,
   },
@@ -72,6 +74,7 @@ const Logo = styled(({ url, altText, formats, ...props }) => {
   );
 })(({ theme }) => ({
   maxWidth: 180,
+  margin: 0,
   [theme.breakpoints.between('sm', 'md')]: {
     maxWidth: 200,
   },
@@ -245,7 +248,9 @@ const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
 
 // Mobile
 
-const Link = styled((props) => <LinkRouter {...props} />)(({ theme }) => ({
+const Link = styled(({ to, ...props }) => {
+  return <LinkRouter to={to} {...props} />;
+})(({ theme }) => ({
   textDecoration: 'none',
   padding: '0.5em 1em',
 

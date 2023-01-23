@@ -13,7 +13,7 @@ export default function GridAText({ title, content, button, background }) {
           px: '2em',
           display: { xs: 'flex', sm: 'block' },
           flexDirection: 'column',
-          paddingBottom: ['2em', '2em', '4em'],
+          paddingBottom: ['2em', '2em', '2em'],
         }}
       >
         <SectionTitle
@@ -22,7 +22,7 @@ export default function GridAText({ title, content, button, background }) {
           cardA={background === 'none' && 'true'}
         />
         <ReactMarkdown
-          className={style.reactMarkDownGridA}
+          className={style.reactMarkDown}
           escapeHTML
           remarkPlugins={[gfm]}
           children={content}

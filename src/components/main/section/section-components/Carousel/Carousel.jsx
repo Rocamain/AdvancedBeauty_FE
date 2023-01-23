@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useMediaQuery, Typography } from '@mui/material';
+import { useState, useRef, useEffect } from 'react';
+import { useMediaQuery, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
   CarouselContainer,
@@ -11,6 +11,8 @@ import Card from 'components/shared/Card';
 
 export default function Carousel({ background, title, subtitle, slides }) {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [height, setHeight] = useState();
+  const ref = useRef(null);
   const [exit, setExit] = useState(false);
   const [card, setCard] = useState(() => slides[slideIndex]);
   const theme = useTheme();
@@ -18,6 +20,14 @@ export default function Carousel({ background, title, subtitle, slides }) {
     noSsr: true,
   });
 
+  useEffect(() => {
+    if (ref.current && !height) {
+      const cardHeight =
+        ref.current.children[0].children[0].getBoundingClientRect().height;
+
+      setHeight(cardHeight);
+    }
+  }, [ref, height]);
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
     const newIndex = (slideIndex + increment + slides.length) % slides.length;
@@ -33,32 +43,62 @@ export default function Carousel({ background, title, subtitle, slides }) {
   };
 
   return (
-    <CarouselContainer url={background.formats}>
+    <CarouselContainer
+      sx={{ padding: [height * 0.1 + 'px 0', height * 0.1 + 'px 0'] }}
+      url={background.formats}
+    >
       {matchesBigScreens && (
         <CarouselHero>
-          <Typography variant="carouselTitle">{title}</Typography>
+          <Typography
+            component="h1"
+            variant="carouselTitle"
+            sx={{ mb: '15px' }}
+          >
+            {title}
+          </Typography>
           {subtitle && (
-            <Typography variant="carouselSubtitle">{subtitle}</Typography>
+            <Typography
+              component="h2"
+              variant="carouselSubtitle"
+              sx={{ mb: '10px', textAlign: 'right' }}
+            >
+              {subtitle}
+            </Typography>
           )}
         </CarouselHero>
       )}
 
       {card && (
-        <SlideContainer>
-          <ChevronButton
-            className="ChevronButton ChevronButton-left"
-            value="left"
-            disableRipple
-            onClick={handleClick}
-          />
-          <Card card={card} exit={exit} exitAnimationEnd={exitAnimationEnd} />
-          <ChevronButton
-            className="ChevronButton ChevronButton-right"
-            value="right"
-            disableRipple
-            onClick={(e) => handleClick(e)}
-          />
-        </SlideContainer>
+        <Box
+          ref={ref}
+          sx={{
+            margin: {
+              xs: height * 0.2 + 'px 0',
+              md: height * 0.22 + 'px 0',
+              lg: height * 0.16 + 'px 0',
+            },
+          }}
+        >
+          <SlideContainer
+            sx={{ height: [height * 0.6 + 'px', height * 0.5 + 'px'] }}
+          >
+            <ChevronButton
+              className="ChevronButton ChevronButton-left"
+              value="left"
+              disableRipple
+              onClick={handleClick}
+            />
+
+            <Card card={card} exit={exit} exitAnimationEnd={exitAnimationEnd} />
+
+            <ChevronButton
+              className="ChevronButton ChevronButton-right"
+              value="right"
+              disableRipple
+              onClick={(e) => handleClick(e)}
+            />
+          </SlideContainer>
+        </Box>
       )}
     </CarouselContainer>
   );

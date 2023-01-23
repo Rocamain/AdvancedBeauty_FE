@@ -60,7 +60,6 @@ const LazySection = ({
       if (isNearScreen) {
         setShowFooter(true);
       }
-      return () => setShowFooter(false);
     }
     return () => setShowFooter(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps

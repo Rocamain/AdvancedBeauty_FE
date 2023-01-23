@@ -36,7 +36,7 @@ function CardA({
             {title && <SectionTitle title={title} grid cardA />}
             <Card>
               <ReactMarkdown
-                className={style.reactMarkDownGridA}
+                className={style.reactMarkDown}
                 escapeHTML
                 remarkPlugins={[gfm]}
                 children={content}

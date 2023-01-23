@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { MAIN_QUERY, LOGO_QUERY } from 'constants';
+import { MAIN_QUERY, LOGO_QUERY } from 'constants/index';
 
 const { REACT_APP_STRAPI_URL } = process.env;
 

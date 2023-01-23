@@ -242,7 +242,6 @@ export default function ContactForm() {
       <Box
         sx={{
           width: ['100%', '100%', '50%', '40%'],
-          // display: 'inline-block',
           height: '80%',
         }}
       >

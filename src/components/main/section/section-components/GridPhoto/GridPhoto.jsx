@@ -1,13 +1,11 @@
 import { Box } from '@mui/material';
-// import Wrapper from 'components/shared/Wrapper.jsx';
 import ImageListItem, {
   imageListItemClasses,
 } from '@mui/material/ImageListItem';
 
 export default function GridPhoto({ photos }) {
   return (
-    // <Wrapper>
-    <Box sx={{ maxWidth: '900px', marginInline: 'auto' }}>
+    <Box>
       <Box
         sx={{
           display: 'grid',
@@ -33,7 +31,7 @@ export default function GridPhoto({ photos }) {
               height="768"
               src={url}
               alt={alternativeText}
-              srcSet={`${url} 1024w, ${formats.medium.url} 980w, ${formats.small.url} 480w`}
+              srcSet={`${formats.large} 1024w, ${formats.medium} 980w, ${formats.small} 480w`}
               sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw"
               style={{
                 objectFit: 'cover',
@@ -47,6 +45,5 @@ export default function GridPhoto({ photos }) {
         ))}
       </Box>
     </Box>
-    // </Wrapper>
   );
 }
