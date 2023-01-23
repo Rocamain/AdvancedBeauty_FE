@@ -11,7 +11,7 @@ const MyButton = styled(({ type, onClick, href, children, ...props }) => {
         variant="contained"
         color="primary"
         endIcon={<ArrowRight />}
-        component="a"
+        LinkComponent="a"
         disableFocusRipple
         disableRipple
         href={href}
@@ -40,20 +40,19 @@ const MyButton = styled(({ type, onClick, href, children, ...props }) => {
 })(({ theme }) => ({
   fontWeight: 600,
   zIndex: 100,
-  minWidth: '0',
-  maxWidth: '80%',
-  fontSize: '0.9rem',
+  fontSize: '1rem',
   borderLeft: '15px solid transparent',
   borderRight: '15px solid transparent',
-  margin: '0 auto',
+  padding: 0,
   textAlign: 'center',
   transition: 'background-color 0.65s !important',
   ':hover': {
-    backgroundColor: 'orange',
+    paddingRight: '0.5rem',
+    backgroundColor: 'grey',
     color: 'white',
     '.MuiButton-endIcon': {
       opacity: 1,
-      transform: 'translate(-10px)',
+      transform: 'translate(-14px)',
       width: '6px',
     },
   },
@@ -71,8 +70,8 @@ const MyButton = styled(({ type, onClick, href, children, ...props }) => {
 }));
 
 export default function Button({
-  linkText,
   linkTo,
+  linkText,
   width,
   disabled,
   type,
@@ -88,7 +87,7 @@ export default function Button({
 
     if (path === '/Contact' && pathname === '/Services-and-Fares/Promotions') {
       const contactMessage = value;
-      const message = `Dear 2U team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
+      const message = `Dear AB team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
       navigate(URL, {
         state: { contactMessage: message },
       });

@@ -10,61 +10,66 @@ const CarouselContainer = styled((props) => <Paper {...props} />)(
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    padding: theme.spacing(25, 0, 26, 0),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(16, 0),
-    },
     [theme.breakpoints.up('md')]: {
       backgroundImage: `url(${url.large.url})`,
       padding: theme.spacing(0),
-      paddingBottom: theme.spacing(24),
     },
   })
 );
 const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => {
   return {
+    margin: '0 auto',
     [theme.breakpoints.up('md')]: {
       position: 'relative',
       zIndex: 800,
-      width: '60%',
-      margin: '50px auto 150px auto',
+      // width: '65%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
+      maxWidth: 700,
+      marginRight: '10vw',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '75%',
+      marginRight: '20vw',
+      maxWidth: '800px',
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: '75%',
+      marginRight: '30vw',
+      maxWidth: '1200px',
     },
   };
 });
 
-const SlideContainer = styled((props) => <Box {...props} />)(({ theme }) => ({
-  display: 'inline-flex',
-  justifyContent: 'center',
-  backgroundColor: theme.palette.primary.main,
-  height: 300,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    height: 200,
-  },
-  [theme.breakpoints.up('md')]: {
-    height: 225,
-    '.chevronIcon-left': {
-      transform: 'translateX(-20vw)',
-      transition: 'transform 1s',
+const SlideContainer = styled((props) => <Box {...props} />)(
+  ({ theme, height }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: theme.palette.primary.main,
+    alignItems: 'stretch',
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      '.chevronIcon-left': {
+        transform: 'translateX(-20vw)',
+        transition: 'transform 1s',
+      },
+      ':hover .chevronIcon-left': {
+        transform: 'translateX(0)',
+        transition: 'transform 1s',
+      },
+      '.chevronIcon-right': {
+        transform: 'translateX(20vw)',
+        transition: 'transform 1s',
+      },
+      ':hover .chevronIcon-right': {
+        transform: 'translateX(0)',
+        transition: 'transform 1s',
+      },
     },
-    ':hover .chevronIcon-left': {
-      transform: 'translateX(0)',
-      transition: 'transform 1s',
-    },
-    '.chevronIcon-right': {
-      transform: 'translateX(20vw)',
-      transition: 'transform 1s',
-    },
-    ':hover .chevronIcon-right': {
-      transform: 'translateX(0)',
-      transition: 'transform 1s',
-    },
-  },
-}));
+  })
+);
 
 const ChevronButton = styled((props) => {
   const { value } = props;
@@ -109,7 +114,11 @@ const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
       padding: theme.spacing(5, 4, 5, 4),
     },
     [theme.breakpoints.up('lg')]: {
-      width: 600,
+      width: 800,
+      paddingLeft: theme.spacing(10),
+    },
+    [theme.breakpoints.up('xll')]: {
+      width: 1200,
       paddingLeft: theme.spacing(10),
     },
   })
@@ -133,7 +142,6 @@ const Photo = styled(({ src, ...props }) => {
       loading="lazy"
       {...props}
       sx={{
-        // maxHeight: '600px',
         content: {
           md: `url(${small.url})`,
           lg: `url(${small.url})`,
