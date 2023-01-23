@@ -10,7 +10,7 @@ export default function useFetchBankHolidays(year, shop) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (year || shop) {
+    if ((year && shop) || !data[shop]) {
       const abortController = new AbortController();
 
       const bankHolsURL = getBankHolidaysUrlString(year);
@@ -22,7 +22,7 @@ export default function useFetchBankHolidays(year, shop) {
         .then((bankHolidays) => {
           const shopBankHols = getShopBankHolidays({ bankHolidays, shop });
 
-          setData(shopBankHols);
+          setData({ [shop]: shopBankHols });
         })
         .catch((err) => {
           if (abortController.signal.aborted) {
@@ -41,7 +41,5 @@ export default function useFetchBankHolidays(year, shop) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shop, year]);
 
-  if (data) {
-    return data;
-  }
+  return data?.[shop];
 }
