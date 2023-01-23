@@ -35,6 +35,7 @@ export default function Modal({
   price,
   serviceType,
   shopName,
+  bookingAPI,
 }) {
   const smallPhoneHeightScreen = useMediaQuery('(max-height:800px)', {
     noSsr: true,
@@ -44,6 +45,7 @@ export default function Modal({
     ...INITIAL_BOOKING_STATE,
     serviceName,
     shopName,
+    bookingAPI,
     price,
     date: dayjs.tz(),
   });
@@ -74,7 +76,7 @@ export default function Modal({
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          disableEnforceFoc
+          disableEnforceFocus
           disableAutoFocus
           sx={{
             overflowY: 'auto',
