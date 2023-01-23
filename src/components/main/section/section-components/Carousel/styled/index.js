@@ -22,7 +22,6 @@ const CarouselHero = styled((props) => <Box {...props} />)(({ theme }) => {
     [theme.breakpoints.up('md')]: {
       position: 'relative',
       zIndex: 800,
-      // width: '65%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',

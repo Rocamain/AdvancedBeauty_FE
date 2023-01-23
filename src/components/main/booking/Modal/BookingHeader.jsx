@@ -21,7 +21,6 @@ export default function BookingHeader({ title, subtitle, className }) {
         component="h3"
         variant="h6"
         sx={{
-          // fontSize: '1.3rem',
           textAlign: 'center',
           color: '#666666',
           fontWeight: 600,
