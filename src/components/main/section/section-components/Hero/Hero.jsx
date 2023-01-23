@@ -10,7 +10,7 @@ import {
 import { Divider } from 'components/shared/styled/';
 import { useNavigate } from 'react-router-dom';
 
-export default function Hero({ content, title, subTitle, cover, button }) {
+export default function Hero({ content, title, subtitle, cover, button }) {
   const isWithContent = Boolean(content);
   const navigate = useNavigate();
   const isExternal = button?.linkTo?.type === 'external';
@@ -29,7 +29,7 @@ export default function Hero({ content, title, subTitle, cover, button }) {
               {title}
             </Typography>
             <Typography component="h3" variant="heroSubtitle">
-              {subTitle}
+              {subtitle}
             </Typography>
             {!isWithContent && <Divider />}
           </HeroHeaderWrapper>
