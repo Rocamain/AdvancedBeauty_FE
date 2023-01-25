@@ -79,17 +79,10 @@ const Container = styled((props) => <Box {...props} />)(
           : ' 0 auto',
       },
       [theme.breakpoints.up('md')]: {
-        width: shadowRight ? '80vw' : '80vw',
-        marginLeft: shadowRight && '10vw',
-      },
-      [theme.breakpoints.up('xl')]: {
-        width: '65vw',
+        maxWidth: '1500px',
+        width: shadowRight ? '55vw' : '65vw',
         marginLeft: shadowRight && '17.5vw',
-      },
-      [theme.breakpoints.up('xxl')]: {
-        width: shadowRight ? '50vw' : '60vw',
-        margin: '0 auto',
-        marginLeft: shadowRight && '20vw',
+        marginRight: shadowRight && '27.5vw',
       },
     };
   }
@@ -205,13 +198,13 @@ const Image = styled(
         src={url}
         alt={altText}
         title={altText}
-        srcSet={`${url} ${lg}, ${formats.medium.url} ${md}, ${formats.medium.url} ${sm}`}
+        srcSet={`${url} ${lg}, ${url} ${md}, ${formats.medium.url} ${sm}`}
         sizes={sizes}
         sx={{
           display: 'block',
-
-          width: shadowRight ? 'inherit' : '100%',
-
+          objectFit: 'contain',
+          maxWidth: shadowRight ? '100%' : '100%',
+          mx: 'auto',
           boxShadow:
             componentType !== 'cardA' &&
             'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
@@ -220,10 +213,10 @@ const Image = styled(
     );
   }
 )(({ theme }) => ({
-  minHeight: '230px',
-  objectFit: 'cover',
+  margin: 0,
+  objectFit: 'fill',
   objectPosition: 'left top',
-  maxHeight: '600px',
+  maxHeight: 'inherit',
   [theme.breakpoints.up('sm')]: {
     borderRadius: '5px',
   },

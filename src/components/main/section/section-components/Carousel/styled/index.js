@@ -67,6 +67,14 @@ const SlideContainer = styled((props) => <Box {...props} />)(
         transition: 'transform 1s',
       },
     },
+    '@media (hover: none) and (pointer: coarse)': {
+      '.chevronIcon-right': {
+        transform: 'translateX(0)',
+      },
+      '.chevronIcon-left': {
+        transform: 'translateX(0)',
+      },
+    },
   })
 );
 
@@ -86,13 +94,13 @@ const ChevronButton = styled((props) => {
   );
 })(({ theme, value }) => ({
   color: theme.palette.primary.contrastText,
-  backgroundColor: 'transparent',
+  // backgroundColor: 'transparent',
   borderRadius: 0,
-  padding: 0,
-  flex: 1,
-  minWidth: '13vw',
+  // padding: 0,
+  // flex: 1,
+  // minWidth: '13vw',
   [theme.breakpoints.up('md')]: {
-    minWidth: '10vw',
+    // minWidth: '10vw',
     flex: value === 'right' ? 1 : 2,
   },
 }));

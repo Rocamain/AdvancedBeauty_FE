@@ -85,7 +85,6 @@ export default function Carousel({ background, title, subtitle, slides }) {
             <ChevronButton
               className="ChevronButton ChevronButton-left"
               value="left"
-              disableRipple
               onClick={handleClick}
             />
 
@@ -94,7 +93,6 @@ export default function Carousel({ background, title, subtitle, slides }) {
             <ChevronButton
               className="ChevronButton ChevronButton-right"
               value="right"
-              disableRipple
               onClick={(e) => handleClick(e)}
             />
           </SlideContainer>

@@ -2,27 +2,7 @@ import { Button as MuiButton, styled, Box } from '@mui/material';
 import { ArrowRight } from '@mui/icons-material/';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const MyButton = styled(({ type, onClick, href, children, ...props }) => {
-  const isExternalLink = Boolean(href);
-
-  if (isExternalLink) {
-    return (
-      <MuiButton
-        variant="contained"
-        color="primary"
-        endIcon={<ArrowRight />}
-        LinkComponent="a"
-        disableFocusRipple
-        disableRipple
-        href={href}
-        target="_blank"
-        rel="noopener"
-        children={children}
-        {...props}
-      />
-    );
-  }
-
+const MyButton = styled(({ type, onClick, ...props }) => {
   return (
     <MuiButton
       variant="contained"
@@ -33,7 +13,6 @@ const MyButton = styled(({ type, onClick, href, children, ...props }) => {
       disableRipple
       type={type}
       onClick={type === 'submit' ? null : onClick}
-      children={children}
       {...props}
     />
   );
@@ -42,14 +21,15 @@ const MyButton = styled(({ type, onClick, href, children, ...props }) => {
   zIndex: 100,
   fontSize: '1rem',
   borderLeft: '15px solid transparent',
-  borderRight: '15px solid transparent',
-  padding: 0,
+  borderRight: '0.5em solid transparent',
+  padding: '0.5em 0.5em 0.5em 0',
   textAlign: 'center',
   transition: 'background-color 0.65s !important',
   ':hover': {
-    paddingRight: '0.5rem',
-    backgroundColor: 'grey',
-    color: 'white',
+    borderRight: 0,
+    paddingRight: '1.5em',
+    backgroundColor: 'rgba(0, 0, 0, 0.14)',
+    color: 'orange',
     '.MuiButton-endIcon': {
       opacity: 1,
       transform: 'translate(-14px)',
@@ -96,7 +76,23 @@ export default function Button({
     }
   };
 
-  return (
+  return isExternalLink ? (
+    <Box
+      sx={{
+        width: width && width,
+      }}
+    >
+      <MyButton
+        disabled={disabled}
+        type={type}
+        title={value}
+        id={value}
+        href={linkTo.URL}
+      >
+        {linkText}
+      </MyButton>
+    </Box>
+  ) : (
     <Box
       sx={{
         width: width && width,
@@ -108,7 +104,6 @@ export default function Button({
         title={value}
         id={value}
         onClick={() => handleClick(linkTo.URL)}
-        href={isExternalLink && linkTo.URL}
       >
         {linkText}
       </MyButton>
