@@ -8,7 +8,7 @@ const GridACards = ({ cards }) => {
       item
       xs={10}
       sm={10}
-      md={6}
+      lg={6}
       display="flex"
       gap="2em"
       sx={(theme) => ({

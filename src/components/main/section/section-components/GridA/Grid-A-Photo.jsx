@@ -14,19 +14,21 @@ export default function GridAPhoto({
     <Grid item xs={12} sm={12} md={6} container>
       <Box
         sx={(theme) => ({
-          position: { md: 'relative' },
+          position: { sm: 'relative' },
           top: {
             md: theme.spacing(-8),
           },
           marginBottom: shadowRight ? 0 : '3em',
           zIndex: 200,
-          width: {
+          minWidth: {
             xs: shadowRight ? 'calc(100% + 10vw)' : '90%',
-            sm: shadowRight ? 'calc(100% + 10vw)' : 'calc(100% - 4em)',
+            sm: shadowRight ? 'calc(100% + 10vw)' : '90%',
+
             md:
               shadowRight && order === 'second' ? 'calc(100% + 10vw)' : '100%',
           },
-          margin: '0 auto',
+          margin: { xs: '2em auto 0 auto', md: 0 },
+          maxHeight: '600px',
         })}
       >
         <Image
@@ -34,6 +36,7 @@ export default function GridAPhoto({
           alt={alternativeText}
           formats={formats}
           componentType={'gridA'}
+          shadowRight={shadowRight}
         />
       </Box>
     </Grid>

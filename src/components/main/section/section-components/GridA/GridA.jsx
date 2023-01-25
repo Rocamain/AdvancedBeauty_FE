@@ -24,12 +24,18 @@ export default function GridA({
 
   return (
     <Container background={backgroundType} show={show}>
-      <Box ref={withLink?.URL && scrollRef}>
-        <Grid background={backgroundType} show={show} photocolumn={photoColumn}>
+      <Box ref={withLink?.URL ? scrollRef : null}>
+        <Grid
+          background={backgroundType}
+          show={show}
+          photocolumn={photoColumn}
+          sx={{ gap: [0] }}
+        >
           <GridText
             content={content}
             title={title}
             button={button}
+            show={show}
             background={backgroundType}
           />
           {show === 'cards'
@@ -39,7 +45,7 @@ export default function GridA({
                   isNearScreen={isNearScreen}
                   background={backgroundType}
                   {...photo}
-                  order={photoColumn}
+                  order={photoColumn ? photoColumn : undefined}
                 />
               )}
         </Grid>

@@ -8,9 +8,8 @@ import {
   Photo,
   CardPhotoContainer,
 } from 'components/main/section/section-components/Carousel/styled';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
-import style from 'styles/markdown-styles.module.css';
+import Markdown from 'components/shared/MarkDown';
+
 import {
   slideCard,
   slidePhoto,
@@ -51,22 +50,20 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
         </CardPhotoContainer>
       )}
       <CardWrapper className={cardAnimation} onAnimationEnd={exitAnimationEnd}>
-        <Typography
-          component="h4"
-          variant="cardTitle"
-          sx={{
-            paddingBottom: '0.5em',
-            px: { sm: '1em' },
-          }}
-        >
-          {title}
-        </Typography>
-        <ReactMarkdown
-          className={style.reactMarkDownGridA}
-          escapeHTML
-          remarkPlugins={[gfm]}
-          children={content}
-        />
+        <Box sx={{ marginBottom: '1.7em' }}>
+          <Typography
+            component="h4"
+            variant="carouselCardTitle"
+            sx={{
+              paddingBottom: '1.1em',
+              px: '1em',
+            }}
+          >
+            {title}
+          </Typography>
+
+          <Markdown content={content} carousel />
+        </Box>
         {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
       </CardWrapper>
     </Box>
