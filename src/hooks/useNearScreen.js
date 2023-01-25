@@ -24,7 +24,6 @@ export default function useNearScreen({ distance = '100px' }) {
     // It will do a dynamic import of the polyfill intersection-observer
 
     if (fromRef.current && !Boolean(hash)) {
-      console.log('Run');
       Promise.resolve(
         typeof IntersectionObserver !== 'undefined'
           ? IntersectionObserver
