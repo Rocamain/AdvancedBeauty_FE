@@ -9,6 +9,7 @@ const ForwardMenuLink = forwardRef(
         ref={ref}
         disableGutters
         dense
+        className="MuiTypography-h6"
         {...props}
         sx={(theme) => ({
           borderRadius: '5px',
@@ -25,23 +26,14 @@ const ForwardMenuLink = forwardRef(
               backgroundColor: theme.palette.linkHover,
             },
           },
-          h3: {
-            fontSize: '1.05rem',
-            lineHeight: 1.3,
-            color: theme.palette.text.main,
-            fontWeight: 600,
-          },
-          [theme.breakpoints.up('xl')]: {
-            h3: {
-              fontSize: '1.2rem !important',
-              color: 'red',
-            },
-            a: { padding: '1em 1.5em' },
-          },
         })}
       >
         <Link to={to} style={{ textDecoration: 'none' }}>
-          <Typography component="h3" variant="h6">
+          <Typography
+            component="h3"
+            variant="h6"
+            sx={{ fontFamily: 'Open Sans' }}
+          >
             {title}
           </Typography>
         </Link>

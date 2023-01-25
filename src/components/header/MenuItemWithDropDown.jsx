@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { DropDownMenu } from 'components/header/styled/index';
 import MenuLink from 'components/header/MenuLink';
-// import { LinksMenu, MenuLink } from './styled/index';
 
 export default function MenuItemWithDropDown({
   path,

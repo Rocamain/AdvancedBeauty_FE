@@ -57,7 +57,7 @@ export default function Header({ navigationLinks }) {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleOpen}
               >
-                <MenuIcon fontSize="large" />
+                <MenuIcon fontSize="large" sx={{ fontSize: '2.5rem' }} />
               </BurgerButton>
             )}
           </Wrapper>
