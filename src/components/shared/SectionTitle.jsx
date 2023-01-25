@@ -1,23 +1,23 @@
 import { Box, Typography } from '@mui/material';
 import { Divider } from 'components/shared/styled/index.js';
 
-export default function SectionTitle({ title, grid, cardA }) {
+export default function SectionTitle({ title, gridA, left }) {
   return (
     <Box
       sx={{
-        padding: cardA ? '0em 0 0.5em 0' : '3em 0 0.5em 0',
+        padding: gridA ? '0 0 1.5em 0' : '0 0 4em 0',
       }}
     >
       <Typography
         component="h2"
-        variant="title"
+        variant="sectionTitle"
         sx={{
-          textAlign: grid ? 'left' : 'center',
+          textAlign: gridA || left ? 'left' : 'center',
         }}
       >
         {title}
       </Typography>
-      <Divider grid={grid && grid.toString()} />
+      <Divider grid={gridA || left ? 'true' : undefined} />
     </Box>
   );
 }
