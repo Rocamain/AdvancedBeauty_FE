@@ -19,7 +19,7 @@ export default function BookingHeader({ title, subtitle, className }) {
       </Typography>
       <Typography
         component="h3"
-        variant="h6"
+        variant="h5"
         sx={{
           textAlign: 'center',
           color: '#666666',
