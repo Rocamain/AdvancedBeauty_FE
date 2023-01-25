@@ -15,7 +15,7 @@ const PATH = process.env.REACT_APP_BOOKING;
 
 export default function Form({ mobile }) {
   const { booking, setBooking } = useContext(BookingContext);
-  const { date, serviceName, shopName } = booking;
+  const { serviceName, shopName } = booking;
 
   const [formData, setFormData] = useState({
     email: '',

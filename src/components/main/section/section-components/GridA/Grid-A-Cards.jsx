@@ -3,6 +3,9 @@ import { Card } from 'components/shared/styled/index.js';
 import Icon from 'components/shared/Icon.jsx';
 
 const GridACards = ({ cards }) => {
+  const cardsFirstColumn = cards.filter((card, index) => index % 2 === 0);
+  const cardsSecondColumn = cards.filter((card, index) => index % 2 !== 0);
+
   return (
     <Grid
       item
@@ -28,12 +31,13 @@ const GridACards = ({ cards }) => {
         flexDirection="column"
         sx={{ width: { sm: '50%' } }}
       >
-        {cards.map(({ cardLinkedTo, photo, title, content }, index) => {
-          const isFirstCard = index === 0;
-          const url = cardLinkedTo?.URL ? cardLinkedTo?.URL : '/Error';
-          if (index % 2 === 0)
+        {cardsFirstColumn.map(
+          ({ cardLinkedTo, photo, title, content }, index) => {
+            const isFirstCard = index === 0;
+            const url = cardLinkedTo?.URL ? cardLinkedTo?.URL : '/Error';
+
             return (
-              <Card key={index} first={isFirstCard ? 'true' : null} to={url}>
+              <Card key={title} first={isFirstCard ? 'true' : null} to={url}>
                 <Icon icon={photo} />
                 <Typography
                   component="h4"
@@ -54,7 +58,8 @@ const GridACards = ({ cards }) => {
                 />
               </Card>
             );
-        })}
+          }
+        )}
       </Box>
 
       {/* SECOND COLUMN */}
@@ -65,11 +70,11 @@ const GridACards = ({ cards }) => {
         flexDirection="column"
         sx={{ width: { sm: '50%' } }}
       >
-        {cards.map(({ cardLinkedTo, photo, title, content }, index) => {
-          const url = cardLinkedTo?.URL;
-          return (
-            index % 2 !== 0 && (
-              <Card key={index} to={url}>
+        {cardsSecondColumn.map(
+          ({ cardLinkedTo, photo, title, content }, index) => {
+            const url = cardLinkedTo?.URL;
+            return (
+              <Card key={title} to={url}>
                 <Icon icon={photo} />
                 <Typography
                   component="h4"
@@ -82,9 +87,9 @@ const GridACards = ({ cards }) => {
                 />
                 <Typography component="p" variant="p" children={content} />
               </Card>
-            )
-          );
-        })}
+            );
+          }
+        )}
       </Box>
     </Grid>
   );
