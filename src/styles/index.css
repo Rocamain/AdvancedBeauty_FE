@@ -16,6 +16,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (hover: none) and (pointer: coarse) {
+  html {
+    overflow-x: hidden !important;
+  }
+}
+
 code {
   font-family: abel, open sans;
 }

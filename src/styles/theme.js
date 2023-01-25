@@ -4,7 +4,7 @@ import OpenSans from '@fontsource/open-sans';
 import Abel from '@fontsource/abel';
 
 let theme = createTheme();
-const BREAKPOINTS = { xs: 0, sm: 600, md: 900, lg: 1300, xl: 1600, xxl: 2100 };
+const BREAKPOINTS = { xs: 0, sm: 600, md: 1040, lg: 1300, xl: 1600, xxl: 2100 };
 const breakpointsValues = {
   breakpoints: createBreakpoints({
     values: BREAKPOINTS,
@@ -17,102 +17,99 @@ theme = createTheme(theme, {
   palette: {
     primary: {
       main: '#75C9CC',
-      secondary: 'rgba(10, 201, 204, 0.6)',
       contrastText: '#fff',
     },
     secondary: {
       main: '#ffd4a3',
-      contrastText: '#fff',
     },
-    tertiary: { main: '#0693e3', contrastText: '#fff' },
+    tertiary: { main: '#0693e3' },
     text: {
-      main: '#666',
+      main: '#888',
       primary: '#333333',
-      secondary: '#75C9CC',
     },
     linkSelected: 'rgba(147, 201, 204, 0.4)',
     linkHover: 'rgba(10, 201, 204, 0.6)',
 
     background: {
-      primary: 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)!important',
-      secondary: 'linear-gradient(90deg,##fcb900 0%,#ff6900 100%)!important',
+      primary: 'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)',
     },
   },
 
   typography: {
     fontFamily: ['Abel', 'Open Sans'].join(','),
-    fontSize: 8,
-    color: '#666',
+    fontSize: 16,
+
     h1: {
-      fontWeight: 400,
+      color: '#333333',
+      fontWeight: 500,
       fontSize: '5rem',
-      lineHeight: 1.16,
+      lineHeight: 0.9,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '-0.017em',
     },
     h2: {
+      color: '#333333',
       fontWeight: 500,
       fontSize: '4rem',
-      lineHeight: 1.2,
+      lineHeight: 1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.01em',
     },
     h3: {
+      color: '#333333',
       fontWeight: 600,
       fontSize: '3rem',
-      lineHeight: 1.2,
+      lineHeight: 1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '-0.008em',
     },
     h4: {
+      color: '#333333',
       fontWeight: 600,
       fontSize: '2.4rem',
-      lineHeight: 0.8,
+      lineHeight: 1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.05em',
     },
     h5: {
+      color: '#333333',
       fontWeight: 600,
-      fontSize: '2.2rem',
-      lineHeight: 1,
-      fontFamily: ['Open Sans', 'Abel'].join(','),
-      letterSpacing: '-0.003em',
+      fontSize: '2rem',
+      lineHeight: 1.15,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
+      letterSpacing: '0.03em',
     },
     h6: {
-      fontWeight: 500,
-      fontSize: '1.35rem',
-      lineHeight: 1.4,
-      fontFamily: ['Open Sans', 'Abel'].join(','),
+      color: '#333333',
+      fontWeight: 600,
+      fontSize: '1.4rem',
+      lineHeight: 1.1,
+      fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.06em',
     },
     p: {
-      fontWeight: 500,
+      color: '#888',
+      fontWeight: 600,
       fontSize: '1rem',
       lineHeight: 1.4,
-      color: '#666',
       fontFamily: ['Open Sans', 'Abel'].join(','),
-      letterSpacing: '0.05em',
-    },
-    navLink: {
-      fontFamily: ['Abel'].join(','),
-      fontWeight: 500,
-      fontSize: '1rem',
-      lineHeight: 1.1,
-      wordBreak: 'break-word',
-      wordWrap: 'break-word',
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '1.3rem',
-      },
+      letterSpacing: '0.08em',
     },
 
     //  Variants
 
-    body1: {
+    form: {
       fontWeight: '500',
-      fontSize: '1.7rem',
+      fontSize: '1.3rem',
       color: '#666',
       lineHeight: 1.2,
       fontFamily: ['Abel', 'Open Sans'].join(','),
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1.5rem',
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '1.7rem',
+      },
     },
     heroTitle: {
       fontFamily: ['Abel', 'Open Sans'].join(','),
@@ -206,7 +203,7 @@ theme = createTheme(theme, {
       lineHeight: 1.1,
       fontSize: '3.2rem',
     },
-    cardTitle: {
+    carouselCardTitle: {
       color: '#333',
       textAlign: 'center',
       fontSize: '1.6rem',
@@ -230,12 +227,90 @@ theme = createTheme(theme, {
         letterSpacing: '0.035em',
         fontWeight: 600,
       },
+    },
+    carouselCardParagraph: {
+      color: '#666',
+      fontSize: '1.05rem',
+      letterSpacing: '0.07em',
+      lineHeight: 1.2,
+      fontWeight: 600,
+      marginBottom: '1em',
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+
+      [theme.breakpoints.up('sm')]: {
+        fontWeight: 600,
+        fontSize: '1.15rem',
+        lineHeight: 1.2,
+        letterSpacing: '0.06em',
+      },
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '1.25rem',
+        letterSpacing: '0.035em',
+        fontWeight: 600,
+      },
 
       [theme.breakpoints.up('xxl')]: {
-        fontSize: '2.5rem',
+        fontSize: '1.4rem',
       },
     },
-    cardText: {
+    carouselCardHeadOne: {
+      color: '#666',
+      fontSize: '1.35rem',
+      letterSpacing: '0.08em',
+      lineHeight: 1.2,
+      fontWeight: 600,
+      marginBottom: '1.2em',
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+
+      [theme.breakpoints.up('sm')]: {
+        fontWeight: 600,
+        fontSize: '1.5rem',
+        lineHeight: 1.2,
+        letterSpacing: '0.06em',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.7rem',
+      },
+    },
+    carouselCardHeadTwo: {
+      color: '#666',
+      fontSize: '1.25rem',
+      letterSpacing: '0.08em',
+      lineHeight: 1.2,
+      fontWeight: 600,
+      marginBottom: '1.1em',
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+
+      [theme.breakpoints.up('sm')]: {
+        fontWeight: 600,
+        fontSize: '1.35rem',
+        lineHeight: 1.2,
+        letterSpacing: '0.06em',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.45rem',
+      },
+    },
+    carouselCardHeadThree: {
+      color: '#666',
+      fontSize: '1.1rem',
+      letterSpacing: '0.08em',
+      lineHeight: 1.2,
+      fontWeight: 600,
+      marginBottom: '1.1em',
+      fontFamily: ['Open Sans', 'Abel'].join(','),
+
+      [theme.breakpoints.up('sm')]: {
+        fontWeight: 600,
+        fontSize: '1.15rem',
+        lineHeight: 1.2,
+        letterSpacing: '0.06em',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.25rem',
+      },
+    },
+    confirmationText: {
       color: '#777',
       fontFamily: ['Open Sans', 'Abel'].join(','),
       fontWeight: 600,
@@ -252,7 +327,7 @@ theme = createTheme(theme, {
       },
     },
 
-    title: {
+    sectionTitle: {
       wordBreak: 'break-word',
       wordWrap: 'break-word',
       color: '#666',
@@ -268,17 +343,22 @@ theme = createTheme(theme, {
         fontSize: '2.8rem',
       },
     },
-    content: {
+    heroContent: {
       wordBreak: 'break-word',
       wordWrap: 'break-word',
       fontWeight: '500',
-      fontSize: '1.1rem',
-      letterSpacing: '0.03em',
+      fontSize: '1.3rem',
+      letterSpacing: '0.08em',
       color: '#444',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '1.35rem',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.4rem',
+        letterSpacing: '0.06em',
+      },
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '1.6rem',
+        letterSpacing: '0.03em',
       },
     },
 
@@ -290,8 +370,11 @@ theme = createTheme(theme, {
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
 
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('lg')]: {
         fontSize: '1.45rem',
+      },
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '1.25rem',
       },
     },
     conditions: {
@@ -301,32 +384,56 @@ theme = createTheme(theme, {
       fontWeight: '700',
       letterSpacing: '0.09em',
       fontFamily: ['Abel', 'Open Sans'].join(','),
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '1rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.05rem',
+      },
     },
     footerTitle: {
       padding: '1em 0',
       color: '#75C9CC',
       fontWeight: 700,
-      fontSize: '2rem',
+      fontSize: '1.6rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.012em',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '2rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '2.3rem',
+      },
     },
     footerSubtitle: {
       color: '#FFFFFF',
       fontWeight: 700,
-      fontSize: '1rem',
+      fontSize: '1.15rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.1em',
       marginBottom: '0.5em',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.2rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.35rem',
+      },
     },
     footerParagraph: {
       color: '#FFFFFF',
       fontWeight: 500,
-      fontSize: '0.85rem',
+      fontSize: '1rem',
       lineHeight: 1.2,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.1em',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.1rem',
+      },
+      [theme.breakpoints.up('xxl')]: {
+        fontSize: '1.2rem',
+      },
     },
   },
   // Components override.
@@ -337,7 +444,7 @@ theme = createTheme(theme, {
           font-family: 'Abel';
           font-style: normal;
           font-display: swap;
-          font-weight: 400;
+          font-weight: 500;
           src: local('Abel'), local('Abel-Regular'), url(${Abel}) format('Abel');
           unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
         }
@@ -345,7 +452,7 @@ theme = createTheme(theme, {
           font-family: 'Open sans';
           font-style: normal;
           font-display: swap;
-          font-weight: 400;
+          font-weight: 500;
           src: local('Open sans'), local('Open sans-Regular'), url(${OpenSans}) format('Open sans');
           unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
         }
