@@ -1,17 +1,16 @@
-import { createRoot } from 'react-dom/client';
-
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './styles/theme';
+import theme from 'styles/theme';
 import './styles/index.css';
-import App from './App';
+import App from 'App';
 import '@fontsource/abel';
 import '@fontsource/open-sans';
+import React from 'react';
+import ReactDOM from 'react-dom';
+const root = document.getElementById('root');
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-
-root.render(
+ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App tab="home" />
-  </ThemeProvider>
+    <App />
+  </ThemeProvider>,
+  root
 );

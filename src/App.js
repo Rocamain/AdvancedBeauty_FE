@@ -4,11 +4,12 @@ import {
   createBrowserRouter,
   Route,
 } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { lazy, Suspense } from 'react';
 import useNavigation from 'hooks/useNavigation';
 import fetchStrapiComponentsData from 'services/strapi/fetchStrapiComponentsData';
 import { Loading } from 'components/shared/index';
-import Body from './components/Body';
+import Body from 'components/Body';
 import Error from 'components/main/errorPage/ErrorPage';
 import Main from 'components/main/Main';
 
@@ -85,6 +86,8 @@ function App() {
     );
     return <RouterProvider router={routerJSX} />;
   }
+
+  return <Box />;
 }
 
 export default App;
