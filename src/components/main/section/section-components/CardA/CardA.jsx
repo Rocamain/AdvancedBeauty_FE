@@ -4,9 +4,7 @@ import { Card, Container } from './styled/index.js';
 import { Wrapper, Image } from 'components/shared/styled';
 import SectionTitle from 'components/shared/SectionTitle';
 import Button from 'components/shared/Button.jsx';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
-import style from 'styles/markdown-styles.module.css';
+import Markdown from 'components/shared/MarkDown';
 
 function CardA({
   content,
@@ -35,16 +33,7 @@ function CardA({
           >
             {title && <SectionTitle title={title} grid cardA />}
             <Card>
-              <ReactMarkdown
-                className={style.reactMarkDown}
-                escapeHTML
-                remarkPlugins={[gfm]}
-                children={content}
-                style={{
-                  marginBottom: '1em',
-                  minWidth: '200px',
-                }}
-              />
+              <Markdown content={content} />
               {button && <Button value={title} {...button} marginTop="0.5em" />}
             </Card>
           </Box>
