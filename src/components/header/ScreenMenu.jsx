@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box as Nav, MenuList } from '@mui/material';
-import { MenuLink } from './styled/index';
+import MenuLink from 'components/header/MenuLink.jsx';
 import MenuItemWithDropDown from 'components/header/MenuItemWithDropDown';
 
 const hasDropdownLinks = (items) => {

@@ -88,9 +88,15 @@ const Logo = styled(({ url, altText, formats, ...props }) => {
 
 // Mobile
 
-const BurgerButton = styled((props) => (
-  <IconButton aria-haspopup="true" aria-label="menu burger button" {...props} />
-))(({ theme }) => ({
+const BurgerButton = styled((props) => {
+  return (
+    <IconButton
+      aria-haspopup="true"
+      aria-label="menu burger button"
+      {...props}
+    />
+  );
+})(({ theme }) => ({
   color: theme.palette.tertiary.main,
   [theme.breakpoints.up('md')]: {
     display: 'none',
@@ -164,6 +170,7 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
     {...props}
   />
 ))(({ theme }) => ({
+  color: '#333333',
   zIndex: -1,
   padding: 0,
   '.MuiBackdrop-root': {
@@ -171,14 +178,14 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
     backgroundColor: 'transparent',
     width: '100vw',
     [theme.breakpoints.up('md')]: {
-      top: '17vh',
+      top: '16vh',
     },
   },
   '.MuiPaper-root': {
     overflow: 'visible',
     [theme.breakpoints.up('md')]: {
       width: 270,
-      paddingTop: 'calc(5vh)',
+      paddingTop: 'calc(4vh)',
     },
     [theme.breakpoints.up('xl')]: {
       width: 320,
@@ -186,7 +193,7 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
   },
   '& .MuiList-root': {
     padding: '1.3em 0',
-    backgroundColor: '#fafafa',
+    backgroundColor: '#F4F9FC',
     boxShadow: theme.shadows[10],
     borderTop: `2px solid ${theme.palette.secondary.main}`,
   },
@@ -200,7 +207,11 @@ const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
   return (
     <MenuItem disableGutters dense {...props}>
       <Link to={to}>
-        <Typography component="h3" variant="h6">
+        <Typography
+          component="h3"
+          variant="h6"
+          sx={{ fontFamily: 'Open Sans' }}
+        >
           {title}
         </Typography>
       </Link>
@@ -219,7 +230,7 @@ const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
       },
     },
     h3: {
-      color: `${theme.palette.text.main} !important`,
+      color: '#333333',
       fontSize: '1.05rem',
       lineHeight: 1.3,
       fontWeight: 600,
