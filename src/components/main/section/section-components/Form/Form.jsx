@@ -111,12 +111,8 @@ export default function ContactForm() {
     <FlexContainer>
       <Wrapper>
         <Header>
-          <SectionTitle title="Contact us" grid={true} />
-          <Typography
-            variant="body1"
-            component="p"
-            sx={{ marginBottom: '1em' }}
-          >
+          <SectionTitle title="Contact us" grid />
+          <Typography variant="form" component="p" sx={{ marginBottom: '1em' }}>
             This website is build with React , Strapi and back end server as a
             booking system, if you want to change the content, fill up this form
             or contact me by email and I will send send you and invitation to
