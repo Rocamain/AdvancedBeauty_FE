@@ -1,32 +1,36 @@
 import { Grid, Box } from '@mui/material';
 import Button from 'components/shared/Button';
-import SectionTitle from 'components/shared/SectionTitle.jsx';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
-import style from 'styles/markdown-styles.module.css';
+import SectionTitle from 'components/shared/SectionTitle';
+import Markdown from 'components/shared/MarkDown';
 
-export default function GridAText({ title, content, button, background }) {
+export default function GridAText({
+  title,
+  content,
+  button,
+  background,
+  show,
+}) {
+  const showCards = show === 'cards';
   return (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={showCards ? 12 : 6} lg={6}>
       <Box
         sx={{
-          px: '2em',
+          p:
+            background === 'none' || background === 'leaves'
+              ? '0em 2em 0em 2em'
+              : '2.5em 2em 3.5em 2em',
           display: { xs: 'flex', sm: 'block' },
           flexDirection: 'column',
-          paddingBottom: ['2em', '2em', '2em'],
         }}
       >
         <SectionTitle
           title={title}
-          grid
-          cardA={background === 'none' && 'true'}
+          gridA
+          cardA={background === 'none' ? true : undefined}
         />
-        <ReactMarkdown
-          className={style.reactMarkDown}
-          escapeHTML
-          remarkPlugins={[gfm]}
-          children={content}
-        />
+        <Box sx={{ marginBottom: button && '1em' }}>
+          <Markdown content={content} />
+        </Box>
         {button && <Button {...button} value={title} />}
       </Box>
     </Grid>
