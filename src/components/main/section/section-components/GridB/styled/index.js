@@ -31,12 +31,7 @@ const Card = styled((props) => <Box {...props} />)(({ theme, size }) => {
 });
 
 const Title = styled((props) => (
-  <Typography
-    component="h5"
-    variant="h5"
-    {...props}
-    sx={{ fontsize: '1.5rem' }}
-  />
+  <Typography component="h5" variant="h3" {...props} />
 ))(({ theme, color }) => {
   const COLORS = { blue: '#0693e3', orange: '#8f5f25' };
   return {
@@ -52,7 +47,10 @@ const SubTitle = styled((props) => (
     component="h6"
     variant="h6"
     {...props}
-    sx={{ fontsize: '1.1rem', color: 'text.main' }}
+    sx={{
+      fontsize: { xs: '1em', sm: '1.05rem', xxl: '1.15rem' },
+      color: '#2e2a2ac7',
+    }}
   />
 ))(({ theme, color }) => {
   return {
