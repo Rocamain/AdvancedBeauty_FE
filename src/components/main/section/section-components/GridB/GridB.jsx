@@ -8,9 +8,7 @@ import {
   Title,
   SubTitle,
 } from 'components/main/section/section-components/GridB/styled';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
-import style from 'styles/markdown-styles.module.css';
+import Markdown from 'components/shared/MarkDown';
 
 export default function GridB({ withLink, title, size, cards, isNearScreen }) {
   const { scrollRef } = useScrollTo({
@@ -20,7 +18,7 @@ export default function GridB({ withLink, title, size, cards, isNearScreen }) {
 
   return (
     <Box ref={withLink?.URL && scrollRef}>
-      {title && <SectionTitle title={title} cardA="true" />}
+      {title && <SectionTitle title={title} />}
       <Container size={size}>
         {cards.map(
           (
@@ -45,14 +43,7 @@ export default function GridB({ withLink, title, size, cards, isNearScreen }) {
                     </>
                   )}
                 </Box>
-                {content && (
-                  <ReactMarkdown
-                    className={style.reactMarkDown}
-                    escapeHTML
-                    remarkPlugins={[gfm]}
-                    children={content}
-                  />
-                )}
+                {content && <Markdown gridB content={content} />}
               </Card>
             );
           }
