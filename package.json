@@ -25,7 +25,7 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "scripts": {
-    "start": " DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "start": "react-scripts start",
     "dev": "env-cmd -f ./.env.dev npm run-script start",
     "build-dev": "env-cmd -f ./.env npm run-script start",
     "build-prod": "env-cmd -f ./.env npm run-script build",
