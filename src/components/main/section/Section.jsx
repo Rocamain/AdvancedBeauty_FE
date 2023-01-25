@@ -3,7 +3,6 @@ import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
 import { useLocation, useOutletContext } from 'react-router';
 import useNearScreen from 'hooks/useNearScreen.js';
-import { getId } from 'components/main/section/utils';
 
 // Dynamic import
 
@@ -26,12 +25,7 @@ const loadSection = async ({ componentName, ...sectionData }) => {
 // Component
 //
 
-const LazySection = ({
-  sectionData,
-  marginBottom,
-  marginTop,
-  isLastSection,
-}) => {
+const LazySection = ({ sectionData, isFirstSection }) => {
   const [section, setSection] = useState(null);
   const [show, setShowFooter] = useOutletContext();
   const { pathname } = useLocation();
@@ -56,27 +50,23 @@ const LazySection = ({
 
   //  this effect, is used to alow to render the footer when we reach the last section
   useEffect(() => {
-    if (isLastSection) {
+    if (isFirstSection && !show) {
       if (isNearScreen) {
         setShowFooter(true);
       }
     }
-    return () => setShowFooter(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNearScreen]);
 
   return (
     <Box
-      component="section"
       ref={fromRef}
-      id={sectionData?.withLink?.URL && getId(sectionData?.withLink?.URL)}
       sx={{
         backgroundImage:
           sectionData.backgroundType === 'full' &&
           'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)',
         display: sectionData.backgroundType === 'full' ? 'flex' : undefined,
-        marginBottom: marginBottom,
-        marginTop: marginTop,
         minHeight: isNearScreen ? '100%' : '50vh',
       }}
     >

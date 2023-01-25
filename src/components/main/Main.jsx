@@ -4,18 +4,14 @@ import {
   useLoaderData,
   useOutletContext,
 } from 'react-router-dom';
-import { useMediaQuery, Box } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
 import Section from 'components/main/section/Section';
-import { getMarginBottom, getMarginTop } from 'components/main/section/utils';
+import SectionMargin from 'components/main/section/SectionMargin.js';
 
 function Main() {
   const [sections, setSections] = useState(false);
   const { data } = useLoaderData();
-
-  const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
   const setShowFooter = useOutletContext()[1];
 
   useEffect(() => {
@@ -30,7 +26,6 @@ function Main() {
   }, [data]);
 
   if (!sections) {
-    
     return (
       <Box
         sx={{
@@ -47,32 +42,15 @@ function Main() {
     <>
       <ScrollRestoration />
       {data.map((componentInfo, index, array) => {
-        const isLastSection = index === array.length - 1;
         const isFirstSection = index === 0;
 
         return (
-          <Section
-            key={index}
-            sectionData={componentInfo}
-            isFirstSection={isFirstSection}
-            isLastSection={isLastSection}
-            marginBottom={
-              isLastSection
-                ? '10vh'
-                : getMarginBottom(
-                    {
-                      section: componentInfo,
-                      nextSection: array[index + 1],
-                    },
-                    desktop
-                  )
-            }
-            marginTop={getMarginTop(
-              { section: componentInfo },
-              desktop,
-              isFirstSection
-            )}
-          />
+          <SectionMargin key={index} section={componentInfo}>
+            <Section
+              sectionData={componentInfo}
+              isFirstSection={isFirstSection}
+            />
+          </SectionMargin>
         );
       })}
       ;
