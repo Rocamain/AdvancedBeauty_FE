@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Typography, Box } from '@mui/material';
 import SectionTitle from 'components/shared/SectionTitle';
 import {
@@ -10,21 +9,14 @@ import {
 import { sortTreatments } from 'components/main/section/section-components/Services/utils/index';
 import Modal from 'components/main/booking/Modal/Modal';
 import useFetchBookingDb from 'hooks/useFetchBookingDb';
-import { SHOP } from 'constants/index.js';
 
-export default function Services() {
+export default function Services({ shopName, bookingAPI }) {
   const services = useFetchBookingDb('getServices')?.services;
-  const { pathname } = useLocation();
+
   const [sectionExpanded, setSectionExpanded] = useState(null);
   const [serviceSelected, setServiceSelected] = useState(false);
   const [servicePrice, setServicePrice] = useState(null);
   const isModalOpen = Boolean(serviceSelected);
-
-  const title =
-    pathname &&
-    pathname.split('/')[2].replaceAll('-', ' ').replaceAll('_', ' ');
-
-  const shopName = SHOP[title];
 
   const handleOpenModal = (id, value) => {
     setServiceSelected(id);
@@ -45,7 +37,7 @@ export default function Services() {
           margin: '0 auto',
         }}
       >
-        <SectionTitle title={title} textJustify="left" />
+        <SectionTitle title={`Treatments in ${shopName}`} left />
 
         {sortedTreatments.map(({ name, services }, index) => {
           return (
@@ -58,7 +50,7 @@ export default function Services() {
                 aria-controls={`panel-${name}-content`}
                 id={`panel-${name}-header`}
               >
-                <Typography component="h4" variant="h4">
+                <Typography component="h4" variant="h4" sx={{ color: 'white' }}>
                   {name}
                 </Typography>
               </AccordionSummary>
@@ -119,6 +111,7 @@ export default function Services() {
             handleClose={handleClose}
             serviceName={serviceSelected}
             shopName={shopName}
+            bookingAPI={bookingAPI}
             price={servicePrice}
             serviceType={sectionExpanded}
           />
