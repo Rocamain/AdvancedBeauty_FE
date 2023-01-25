@@ -10,18 +10,25 @@ import {
 import { Divider } from 'components/shared/styled/';
 import { useNavigate } from 'react-router-dom';
 
-export default function Hero({ content, title, subtitle, cover, button }) {
+export default function Hero({
+  content,
+  title,
+  subtitle,
+  cover,
+  button,
+  showContent,
+}) {
   const isWithContent = Boolean(content);
   const navigate = useNavigate();
   const isExternal = button?.linkTo?.type === 'external';
 
   const handleClick = (url) => navigate(url);
   return (
-    <Box sx={{ position: 'relative', marginBottom: ['5vh', '7vh'] }}>
+    <Box sx={{ position: 'relative' }}>
       <HeroContainer
         className="container"
         cover={cover}
-        content={isWithContent.toString()}
+        content={showContent.toString()}
       >
         <HeroHeader>
           <HeroHeaderWrapper content={isWithContent.toString()}>
@@ -35,19 +42,19 @@ export default function Hero({ content, title, subtitle, cover, button }) {
           </HeroHeaderWrapper>
         </HeroHeader>
         <HeroContentWrapper>
-          {content && <CoffeeMug />}
-          {content && (
+          {showContent && <CoffeeMug />}
+          {showContent && (
             <Box
               sx={{
-                width: '80%',
+                width: '70%',
                 margin: '0 auto',
                 padding: '1em 0.5em',
               }}
             >
               <Typography
                 component="p"
-                variant="content"
-                sx={{ fontWeight: [600, 500] }}
+                variant="heroContent"
+                sx={{ fontWeight: [700, 800] }}
               >
                 {content}
               </Typography>
@@ -67,7 +74,18 @@ export default function Hero({ content, title, subtitle, cover, button }) {
                 href={isExternal ? button.linkTo?.URL : null}
                 target={isExternal ? '_blank' : null}
                 rel={isExternal ? 'no-opener' : null}
-                sx={{ padding: '1rem 1.5rem', flex: 0, fontWeight: 600 }}
+                sx={{
+                  fontSize: ['1rem', '1.05rem', '1.1rem'],
+                  maxWidth: '160px',
+                  minWidth: '100px',
+                  padding: ['1em 0.5em', '1.1em'],
+                  letterSpacing: '0.07em',
+                  lineHeight: 1.3,
+                  flex: 0,
+                  fontWeight: 1000,
+                  textAlign: 'center',
+                  fontFamily: 'Open Sans',
+                }}
               />
             </Box>
           )}

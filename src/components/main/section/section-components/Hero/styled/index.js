@@ -14,11 +14,12 @@ const HeroContainer = styled(Box)(({ theme, cover, content }) => {
     backgroundColor: '#FFFFFF',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '50%',
+
     [theme.breakpoints.up('sm')]: {
-      paddingTop: '3em',
+      paddingTop: '4em',
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: content ? '4em' : '12em',
+      paddingTop: content ? '6em' : '12em',
       justifyContent: 'flex-end',
     },
   };
@@ -65,14 +66,14 @@ const HeroContentWrapper = styled(Box)(({ theme }) => {
     alignItems: 'center',
     [theme.breakpoints.up('sm')]: {
       width: '80%',
-    },
-    [theme.breakpoints.up('md')]: {
-      margin: '0 auto',
       display: 'flex',
       flexDirection: 'row',
     },
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('md')]: {
       width: '70%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '60%',
     },
     [theme.breakpoints.up('xl')]: {
       width: '50%',
@@ -95,7 +96,7 @@ const WavesBackground = styled(Box)(({ theme }) => {
 });
 
 const CoffeeMug = styled((props) => (
-  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+  <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
     <CoffeeImg />
   </Box>
 ))(({ theme }) => {
@@ -104,7 +105,7 @@ const CoffeeMug = styled((props) => (
     img: {
       display: 'none !important',
     },
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('md')]: {
       width: '25%',
       display: 'flex',
       alignSelf: 'end',
@@ -123,10 +124,10 @@ const CoffeeImg = styled((props) => (
     title="shop"
     alt="shop"
     srcSet={`${coffee} 1200w, ${coffee} 980w, ${coffee} 900w`}
-    sizes="(min-width: 900px) and (max-width: 1200px) 95vw, (min-width: 1700px) 90vw, 100vw"
+    sizes="(min-width: 600px) and (max-width: 1200px) 95vw, (min-width: 1700px) 90vw, 100vw"
     sx={{
-      display: { xs: 'none', md: 'block' },
-      maxWidth: { md: '150px', lg: '290px', xl: '321px' },
+      display: { xs: 'none', sm: 'block' },
+      maxWidth: { sm: '120px', md: '150px', lg: '290px', xl: '321px' },
       width: '100%',
       height: 'auto',
     }}
