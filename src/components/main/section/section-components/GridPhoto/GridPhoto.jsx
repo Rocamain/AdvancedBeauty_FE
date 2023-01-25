@@ -23,26 +23,28 @@ export default function GridPhoto({ photos }) {
           },
         }}
       >
-        {photos.map(({ url, formats, alternativeText }, index) => (
-          <ImageListItem key={index} sx={{ borderRadius: '125px' }}>
-            <img
-              loading="lazy"
-              width="1024"
-              height="768"
-              src={url}
-              alt={alternativeText}
-              srcSet={`${formats.large} 1024w, ${formats.medium} 980w, ${formats.small} 480w`}
-              sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw"
-              style={{
-                objectFit: 'cover',
-                objectPosition: 'center center',
-                width: '100%',
-                height: '100%',
-                borderRadius: '5px',
-              }}
-            />
-          </ImageListItem>
-        ))}
+        {photos.map(({ url, formats, alternativeText }, index) => {
+          return (
+            <ImageListItem key={index} sx={{ borderRadius: '125px' }}>
+              <img
+                loading="lazy"
+                width="1024"
+                height="768"
+                src={url}
+                alt={alternativeText}
+                srcSet={`${formats.large.url} 1024w, ${formats.medium.url} 980w, ${formats.small.url} 480w`}
+                sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw"
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center center',
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '5px',
+                }}
+              />
+            </ImageListItem>
+          );
+        })}
       </Box>
     </Box>
   );
