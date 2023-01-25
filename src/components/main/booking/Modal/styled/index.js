@@ -29,15 +29,15 @@ const DialogContainer = styled((props) => {
     boxShadow: 24,
     paddingTop: 3,
     paddingBottom: 3,
-    minHeight: 'calc(140%)',
-    [theme.breakpoints.between('350', 'sm')]: {
-      minHeight: 'calc(100% + 140px)',
+    minHeight: 'calc(100%)',
+    [theme.breakpoints.between('xs', '280')]: {
+      minHeight: 'calc(100% + 4em)',
     },
     [theme.breakpoints.between('sm', 'md')]: {
       top: '50%',
       left: '50%',
       maxWidth: 600,
-      minHeight: 730,
+      minHeight: 720,
       transform: 'translate(-50%,-50%)',
     },
     [theme.breakpoints.up('md')]: {
@@ -155,6 +155,7 @@ const Input = styled(({ icon, error, ...props }) => {
     },
     textarea: {
       color: 'white',
+      fontWeight: 700,
       letterSpacing: '0.05em',
       '::placeholder': {
         fontWeight: 700,

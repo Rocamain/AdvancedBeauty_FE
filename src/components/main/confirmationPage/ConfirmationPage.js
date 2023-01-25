@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const ConfirmationMsg = ({ name, email }) => {
   return (
     <Box sx={{ marginBottom: '2em' }}>
-      <Typography variant="cardText" component="p">
+      <Typography variant="confirmationText" component="p">
         {`Hi ${name}!!! Soon you will received a confirmation to your email: ${email}`}
       </Typography>
     </Box>
@@ -45,65 +45,65 @@ const BookingDetails = ({ serviceName, shopName, price, time, date }) => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography
               component="h6"
-              variant="cardText"
+              variant="confirmationText"
               color="orange"
               minWidth="100px"
             >
               Service:
             </Typography>
-            <Typography component="p" variant="cardText">
+            <Typography component="p" variant="confirmationText">
               {serviceName}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography
               component="h6"
-              variant="cardText"
+              variant="confirmationText"
               color="orange"
               minWidth="100px"
             >
               Shop:
             </Typography>
-            <Typography component="p" variant="cardText">
+            <Typography component="p" variant="confirmationText">
               {shopName}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography
               component="h6"
-              variant="cardText"
+              variant="confirmationText"
               color="orange"
               minWidth="100px"
             >
               Date:
             </Typography>
-            <Typography component="p" variant="cardText">
+            <Typography component="p" variant="confirmationText">
               {dateString}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography
               component="h6"
-              variant="cardText"
+              variant="confirmationText"
               color="orange"
               minWidth="100px"
             >
               Time:
             </Typography>
-            <Typography component="p" variant="cardText">
+            <Typography component="p" variant="confirmationText">
               {time}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography
               component="h6"
-              variant="cardText"
+              variant="confirmationText"
               color="orange"
               minWidth="100px"
             >
               Price:
             </Typography>
-            <Typography component="p" variant="cardText">
+            <Typography component="p" variant="confirmationText">
               {price} &#x20AC;
             </Typography>
           </Box>
