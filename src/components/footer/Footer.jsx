@@ -33,9 +33,10 @@ function Footer() {
         <Grid
           container
           columnSpacing={[0, 0, 4]}
-          rowSpacing={[0, 8, 0]}
           padding="5vh"
           justifyContent="center"
+          alignItems="center"
+          gap={['5em', '5em', 0]}
         >
           {shops.map(({ city, shopName, street, postcode, phone }) => {
             return (
