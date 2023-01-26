@@ -128,25 +128,18 @@ export default function ConfirmationPage(props) {
     const { email, name, ...bookingDetails } = state;
 
     return (
-      <main
-        style={{
-          paddingBottom: '10vh',
-          margin: '10vh 0',
+      <Box
+        sx={{
+          margin: '0 auto',
+          width: ['90%', '80%', '65%'],
         }}
       >
-        <Box
-          sx={{
-            margin: '0 auto',
-            width: ['90%', '80%', '65%'],
-          }}
-        >
-          <SectionTitle title="Booking Confirmation" grid cardA />
-          <ConfirmationMsg email={email} name={name} />
-          <Card card="booking">
-            <BookingDetails {...bookingDetails} />
-          </Card>
-        </Box>
-      </main>
+        <SectionTitle title="Booking Confirmation" grid cardA />
+        <ConfirmationMsg email={email} name={name} />
+        <Card card="booking">
+          <BookingDetails {...bookingDetails} />
+        </Card>
+      </Box>
     );
   }
 }
