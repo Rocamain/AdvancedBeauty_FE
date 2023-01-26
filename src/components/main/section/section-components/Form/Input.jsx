@@ -1,5 +1,4 @@
 import { TextField, Grid, MenuItem } from '@mui/material';
-import useFetchBookingDb from 'hooks/useFetchBookingDb';
 
 export default function Input({
   options,
@@ -11,54 +10,54 @@ export default function Input({
   value,
   multiline,
   rows,
+  type,
+  shops,
   ...restProps
 }) {
-  const data = useFetchBookingDb('getShopsInfo');
-
-  if (data) {
-    const { shops } = data;
-    return (
-      <Grid item xs={12} sm={12} md={fullWith ? 12 : 6}>
-        <TextField
-          id={id}
-          label={label}
-          value={value}
-          select={options && true}
-          onChange={onChange}
-          onBlur={onBlur}
-          multiline={multiline}
-          rows={rows}
-          size="small"
-          {...restProps}
-          sx={
-            id === 'result'
-              ? {
-                  width: '40px !important',
-                  backgroundColor: '#eee',
-                  marginLeft: '5px',
-                  fontSize: '1rem !important',
-                  input: {
-                    p: '8px !important',
-                  },
-                }
-              : {
-                  width: '100%',
-                  backgroundColor: '#eee',
-                  fontSize: '1rem !important',
-                }
-          }
-        >
-          {options &&
-            shops.map(({ shopName }, index) => (
-              <MenuItem key={index} value={shopName}>
-                {shopName}
-              </MenuItem>
-            ))}
-          <MenuItem key={4} value={'Other'}>
-            Other
-          </MenuItem>
-        </TextField>
-      </Grid>
-    );
-  }
+  return (
+    <Grid item xs={12} sm={12} md={fullWith ? 12 : 6}>
+      <TextField
+        id={id}
+        label={label}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        multiline={multiline}
+        rows={rows}
+        size="small"
+        type={type}
+        {...restProps}
+        sx={
+          id === 'result'
+            ? {
+                width: '40px !important',
+                backgroundColor: '#eee',
+                marginLeft: '5px',
+                fontSize: '1rem !important',
+                input: {
+                  p: '8px !important',
+                },
+              }
+            : {
+                width: '100%',
+                backgroundColor: '#eee',
+                fontSize: '1rem !important',
+              }
+        }
+      >
+        {options &&
+          shops.map(({ shopName }, index) => (
+            <MenuItem key={shopName} value={shopName} type="text">
+              {shopName}
+            </MenuItem>
+          ))}
+        <MenuItem key="Other" value="Other">
+          Other
+        </MenuItem>
+        <MenuItem key="Strapi" value="Strapi">
+          Strapi access
+        </MenuItem>
+      </TextField>
+    </Grid>
+  );
 }

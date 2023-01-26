@@ -20,12 +20,7 @@ export default function TimePicker({ timeFrame }) {
   const { setBooking, booking } = useContext(BookingContext);
   const { serviceName, date, bookingAPI } = booking;
 
-  const bookings = useFetchBookingDb(
-    'getAvailableTimes',
-    serviceName,
-    bookingAPI,
-    date
-  )?.bookings;
+  const bookings = useFetchBookingDb(serviceName, bookingAPI, date);
 
   useEffect(() => {
     setBooking(({ bookingStep, time, ...rest }) => {
@@ -58,30 +53,32 @@ export default function TimePicker({ timeFrame }) {
   };
 
   return (
-    <Box
-      display="grid"
-      gap={1}
-      justifyContent="center"
-      gridTemplateColumns="repeat(auto-fill, minmax(min(4em, 100%), 1fr))"
-    >
-      {availableTimes &&
-        filterHoursByTimeFrame({
-          availableTimes,
-          timeFrame,
-        }).map((timeAvailable, index) => (
-          <Box key={index} id={timeAvailable}>
-            <TimeAvailableBtn
-              id={timeAvailable}
-              onClick={handleClick}
-              variant={
-                booking.time === timeAvailable || booking.time === null
-                  ? 'contained'
-                  : 'outlined'
-              }
-              children={timeAvailable}
-            />
-          </Box>
-        ))}
-    </Box>
+    bookings && (
+      <Box
+        display="grid"
+        gap={1}
+        justifyContent="center"
+        gridTemplateColumns="repeat(auto-fill, minmax(min(4em, 100%), 1fr))"
+      >
+        {availableTimes &&
+          filterHoursByTimeFrame({
+            availableTimes,
+            timeFrame,
+          }).map((timeAvailable, index) => (
+            <Box key={index} id={timeAvailable}>
+              <TimeAvailableBtn
+                id={timeAvailable}
+                onClick={handleClick}
+                variant={
+                  booking.time === timeAvailable || booking.time === null
+                    ? 'contained'
+                    : 'outlined'
+                }
+                children={timeAvailable}
+              />
+            </Box>
+          ))}
+      </Box>
+    )
   );
 }

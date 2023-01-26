@@ -1,31 +1,13 @@
-import { useState, useEffect } from 'react';
-import {
-  ScrollRestoration,
-  useLoaderData,
-  useOutletContext,
-} from 'react-router-dom';
+import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
 import Section from 'components/main/section/Section';
 import SectionMargin from 'components/main/section/SectionMargin.js';
 
 function Main() {
-  const [sections, setSections] = useState(false);
-  const { data } = useLoaderData();
-  const setShowFooter = useOutletContext()[1];
+  const { components } = useLoaderData();
 
-  useEffect(() => {
-    if (data) {
-      setSections(data);
-      setShowFooter(false);
-    }
-    return () => {
-      setSections(false);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  if (!sections) {
+  if (!components) {
     return (
       <Box
         sx={{
@@ -41,7 +23,7 @@ function Main() {
   return (
     <>
       <ScrollRestoration />
-      {data.map((componentInfo, index, array) => {
+      {components.map((componentInfo, index) => {
         const isFirstSection = index === 0;
 
         return (

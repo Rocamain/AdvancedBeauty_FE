@@ -1,7 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useLoaderData } from 'react-router-dom';
 import { Box, Grid, Typography, Checkbox, Button } from '@mui/material';
-
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 import {
   Header,
@@ -20,12 +19,12 @@ import {
 import shop from 'assets/shop.jpg';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-
 const { REACT_APP_BOOKING } = process.env;
 
 export default function ContactForm() {
-  const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState(initialErrors);
+  const { shops } = useLoaderData();
+  const [values, setValues] = useState({ ...initialValues });
+  const [errors, setErrors] = useState({ ...initialErrors });
   const [disabled, setDisabled] = useState(true);
   const [mailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
@@ -108,150 +107,157 @@ export default function ContactForm() {
   };
 
   return (
-    <FlexContainer>
-      <Wrapper>
-        <Header>
-          <SectionTitle title="Contact us" grid />
-          <Typography variant="form" component="p" sx={{ marginBottom: '1em' }}>
-            This website is build with React , Strapi and back end server as a
-            booking system, if you want to change the content, fill up this form
-            or contact me by email and I will send send you and invitation to
-            your email. Also you can send me an email or contacting me by
-            linkedIn below
-          </Typography>
+    shops && (
+      <FlexContainer>
+        <Wrapper>
+          <Header>
+            <SectionTitle title="Contact us" grid />
+            <Typography
+              variant="form"
+              component="p"
+              sx={{ marginBottom: '1em' }}
+            >
+              This website is build with React , Strapi and back end server as a
+              booking system, if you want to change the content, fill up this
+              form or contact me by email and I will send send you and
+              invitation to your email. Also you can send me an email or
+              contacting me by linkedIn below
+            </Typography>
 
-          <Box
-            sx={{
-              display: 'flex',
-              gap: '0.2em',
-              position: 'relative',
-            }}
-          >
-            <IconButton
-              href="https://www.linkedin.com/in/francisco-javier-roca-vazquez/"
-              target="_blank"
-              rel="noopener"
-              children={<LinkedInIcon />}
-            />
-            <IconButton
-              href="mailto:fjrocavazquez@gmail.com?subject=Mail from Advance beauty website"
-              children={<EmailIcon />}
-            />
-          </Box>
-        </Header>
-        <Form id="contact-form" onSubmit={handleSubmit}>
-          <Grid container spacing={3} sx={{ marginBottom: '1.5em' }}>
-            {INPUTS.map(({ id, ...rest }, index) => {
-              return (
-                <Input
-                  key={index}
-                  id={id.toLowerCase()}
-                  label={id}
-                  error={Boolean(errors[id.toLowerCase()])}
-                  {...rest}
-                  value={values[id.toLowerCase()]}
-                  onChange={handleChange}
-                />
-              );
-            })}
-          </Grid>
-          <Box
-            sx={{
-              display: { sm: 'flex', md: 'block', xl: 'flex' },
-              fontSize: '0.9rem',
-              justifyContent: { sm: 'space-between', xl: 'space-between' },
-              gap: { xl: '1em' },
-              marginBottom: '2em',
-            }}
-          >
             <Box
               sx={{
                 display: 'flex',
-                alignItems: 'center',
-                gap: '0.5em',
-                mb: { xs: '1em', sm: 0, md: '1em', xl: 0 },
+                gap: '0.2em',
+                position: 'relative',
               }}
             >
-              {mailSent ? (
-                <Typography sx={{ color: 'red' }}>
-                  Your query is been sent, you will received an email soon.
-                </Typography>
-              ) : (
-                <>
-                  <Checkbox
-                    disableRipple
-                    onChange={handleCheck}
-                    inputProps={{ 'aria-label': 'checkbox send approval' }}
-                    type="checkbox"
-                    checked={values.checked}
-                    sx={{ padding: 0, backgroundColor: '#eee' }}
-                  />
-                  <Typography>
-                    Click to allow us to send you an email
-                  </Typography>
-                </>
-              )}
+              <IconButton
+                href="https://www.linkedin.com/in/francisco-javier-roca-vazquez/"
+                target="_blank"
+                rel="noopener"
+                children={<LinkedInIcon />}
+              />
+              <IconButton
+                href="mailto:fjrocavazquez@gmail.com?subject=Mail from Advance beauty website"
+                children={<EmailIcon />}
+              />
             </Box>
-            {!mailSent && (
+          </Header>
+          <Form id="contact-form" onSubmit={handleSubmit}>
+            <Grid container spacing={3} sx={{ marginBottom: '1.5em' }}>
+              {INPUTS.map(({ id, ...rest }, index) => {
+                return (
+                  <Input
+                    key={index}
+                    id={id.toLowerCase()}
+                    label={id}
+                    shops={id === 'Subject' ? shops : null}
+                    error={Boolean(errors[id.toLowerCase()])}
+                    {...rest}
+                    value={values[id.toLowerCase()]}
+                    onChange={handleChange}
+                  />
+                );
+              })}
+            </Grid>
+            <Box
+              sx={{
+                display: { sm: 'flex', md: 'block', xl: 'flex' },
+                fontSize: '0.9rem',
+                justifyContent: { sm: 'space-between', xl: 'space-between' },
+                gap: { xl: '1em' },
+                marginBottom: '2em',
+              }}
+            >
               <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  alignSelf: { xl: 'right' },
-                  justifyContent: 'right',
-                  gap: '0.3em',
+                  gap: '0.5em',
+                  mb: { xs: '1em', sm: 0, md: '1em', xl: 0 },
                 }}
               >
-                <Typography>
-                  {numbers.first} + {numbers.second} =
-                </Typography>
-                <Input
-                  id="result"
-                  value={values.result}
-                  size="small"
-                  onChange={handleChange}
-                />
+                {mailSent ? (
+                  <Typography sx={{ color: 'red' }}>
+                    Your query is been sent, you will received an email soon.
+                  </Typography>
+                ) : (
+                  <>
+                    <Checkbox
+                      disableRipple
+                      onChange={handleCheck}
+                      inputProps={{ 'aria-label': 'checkbox send approval' }}
+                      type="checkbox"
+                      checked={values.checked}
+                      sx={{ padding: 0, backgroundColor: '#eee' }}
+                    />
+                    <Typography>
+                      Click to allow us to send you an email
+                    </Typography>
+                  </>
+                )}
               </Box>
-            )}
-          </Box>
+              {!mailSent && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    alignSelf: { xl: 'right' },
+                    justifyContent: 'right',
+                    gap: '0.3em',
+                  }}
+                >
+                  <Typography>
+                    {numbers.first} + {numbers.second} =
+                  </Typography>
+                  <Input
+                    id="result"
+                    value={values.result}
+                    size="small"
+                    onChange={handleChange}
+                  />
+                </Box>
+              )}
+            </Box>
 
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1.5em',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <Button
-              disabled={disabled}
-              type="submit"
-              value="submit"
-              variant="contained"
-              size="large"
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1.5em',
+                justifyContent: 'flex-end',
+              }}
             >
-              SUBMIT
-            </Button>
-          </Box>
-        </Form>
-      </Wrapper>
-      <Box
-        sx={{
-          width: ['100%', '100%', '50%', '40%'],
-          height: '80%',
-        }}
-      >
+              <Button
+                disabled={disabled}
+                type="submit"
+                value="submit"
+                variant="contained"
+                size="large"
+              >
+                SUBMIT
+              </Button>
+            </Box>
+          </Form>
+        </Wrapper>
         <Box
-          component="img"
-          src={shop}
           sx={{
-            maxWidth: '100%',
-            height: 'auto',
-            objectFit: 'cover',
-            boxShadow: '0px 45px 84px -40px rgba(0,0,0,0.3)',
+            width: ['100%', '100%', '50%', '40%'],
+            height: '80%',
           }}
-        />
-      </Box>
-    </FlexContainer>
+        >
+          <Box
+            component="img"
+            src={shop}
+            sx={{
+              maxWidth: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+              boxShadow: '0px 45px 84px -40px rgba(0,0,0,0.3)',
+            }}
+          />
+        </Box>
+      </FlexContainer>
+    )
   );
 }
