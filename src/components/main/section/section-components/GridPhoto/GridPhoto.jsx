@@ -28,8 +28,8 @@ export default function GridPhoto({ photos }) {
             <ImageListItem key={index} sx={{ borderRadius: '125px' }}>
               <img
                 loading="lazy"
-                width="1024"
-                height="768"
+                width="100%"
+                height="100%"
                 src={url}
                 alt={alternativeText}
                 srcSet={`${formats.large.url} 1024w, ${formats.medium.url} 980w, ${formats.small.url} 480w`}

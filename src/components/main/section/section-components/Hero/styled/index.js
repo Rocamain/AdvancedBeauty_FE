@@ -14,6 +14,7 @@ const HeroContainer = styled(Box)(({ theme, cover, content }) => {
     backgroundColor: '#FFFFFF',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '50%',
+    maxWidth: '100%',
 
     [theme.breakpoints.up('sm')]: {
       paddingTop: '4em',
@@ -90,7 +91,8 @@ const WavesBackground = styled(Box)(({ theme }) => {
     backgroundImage: `url(${curves})`,
     backgroundRepeatY: 'no-repeat',
     backgroundSize: '100% 100%',
-    width: '100vw',
+    width: '100%',
+
     height: '70%',
   };
 });
