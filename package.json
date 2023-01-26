@@ -22,7 +22,8 @@
     "react-router-dom": "^6.6.0",
     "react-scripts": "5.0.1",
     "remark-gfm": "^3.0.1",
-    "resize-observer-polyfill": "^1.5.1"
+    "resize-observer-polyfill": "^1.5.1",
+    "serve": "^14.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
