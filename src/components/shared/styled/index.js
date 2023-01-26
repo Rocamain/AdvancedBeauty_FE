@@ -177,15 +177,7 @@ const Grid = styled(({ show, photocolumn, ...props }) => {
 });
 
 const Image = styled(
-  ({
-    className,
-    url,
-    altText,
-    formats,
-    componentType,
-    shadowRight,
-    ...props
-  }) => {
+  ({ className, url, alt, formats, componentType, shadowRight, ...props }) => {
     const [lg, md, sm] = COMPONENT_SCR_SET(componentType);
     const sizes = COMPONENT_SIZES(componentType);
 
@@ -196,14 +188,15 @@ const Image = styled(
         {...props}
         className={className}
         src={url}
-        alt={altText}
-        title={altText}
+        alt={alt}
+        title={alt}
         srcSet={`${url} ${lg}, ${url} ${md}, ${formats.medium.url} ${sm}`}
         sizes={sizes}
         sx={{
           display: 'block',
           objectFit: 'contain',
-          maxWidth: shadowRight ? '100%' : '100%',
+          maxWidth: '100%',
+          position: 'relative',
           mx: 'auto',
           boxShadow:
             componentType !== 'cardA' &&

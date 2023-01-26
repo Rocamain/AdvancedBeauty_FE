@@ -1,7 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import useMenuLinkSelected from 'hooks/useMenuLinkSelected';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
@@ -15,17 +15,19 @@ import ScreenMenu from 'components/header/ScreenMenu';
 import MobileMenu from 'components/header/MobileMenu';
 
 export default function Header({ navigationLinks }) {
-  const { data } = useLoaderData();
+  const { logo } = useLoaderData();
+
   const { selectedLinks } = useMenuLinkSelected();
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
   const [anchorEl, setAnchorEl] = useState(null);
-
   const ref = useRef(null);
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : null;
+
+  
 
   const handleOpen = () => {
     setAnchorEl(ref.current);
@@ -36,14 +38,16 @@ export default function Header({ navigationLinks }) {
   };
 
   return (
-    data && (
-      <>
+    logo && (
+      <Box>
         <HeaderContainer ref={ref}>
           <Wrapper>
             <Logo
-              url={data.photo.url}
-              altText={data.photo.alternativeText}
-              formats={data.photo.formats}
+              url={logo.url}
+              altText={logo.alternativeText}
+              formats={logo.formats}
+              width={350}
+              height={110}
             />
             {matchesBigScreens ? (
               <ScreenMenu
@@ -76,7 +80,7 @@ export default function Header({ navigationLinks }) {
             />
           </PopoverMenu>
         )}
-      </>
+      </Box>
     )
   );
 }

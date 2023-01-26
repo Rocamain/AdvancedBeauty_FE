@@ -106,6 +106,8 @@ export default function MarkDown({ content, carousel = false, gridB = false }) {
           return (
             <Box
               component="img"
+              width="50%"
+              height="auto"
               {...props}
               sx={{
                 display: 'block',

@@ -21,9 +21,10 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   // padding: '1em 0',
   gap: '0.5em',
   height: '13vh',
+  padding: '0',
   [theme.breakpoints.up('md')]: {
     height: '16vh',
-    padding: '0',
+    ,
     justifyContent: 'space-between',
   },
 }));
@@ -55,22 +56,20 @@ const Wrapper = styled(Box)(({ theme }) => ({
 
 // General //
 
-const Logo = styled(({ url, altText, formats, ...props }) => {
+const Logo = styled(({ width, height, url, altText, formats, ...props }) => {
   return (
-    <>
-      <Box
-        component="img"
-        width="300"
-        height="100"
-        loading="lazy"
-        src={url}
-        alt={altText}
-        title={altText}
-        srcSet={`${formats.thumbnail.url} 700w,${formats.small.url} 1200w,`}
-        sizes="(min-width: 0px) and (max-width: 700px) 700px,(min-width: 701px) 1200px 100vw"
-        {...props}
-      />
-    </>
+    <Box
+      component="img"
+      width={width}
+      height={height}
+      loading="lazy"
+      src={url}
+      alt={altText}
+      title={altText}
+      srcSet={`${formats.thumbnail.url} 700w,${formats.small.url} 1200w,`}
+      sizes="(min-width: 0px) and (max-width: 700px) 700px,(min-width: 701px) 1200px 100vw"
+      {...props}
+    />
   );
 })(({ theme }) => ({
   maxWidth: 180,
