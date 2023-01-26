@@ -14,7 +14,8 @@ export default function Body({ navigationLinks }) {
     if (
       Boolean(hash) ||
       pathname === '/confirmation' ||
-      pathname === '/error'
+      pathname === '/error' ||
+      pathname === '/not_found'
     ) {
       setShowFooter(true);
     }
