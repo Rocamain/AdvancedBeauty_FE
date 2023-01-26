@@ -1,46 +1,39 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getAvailableTimes from 'services/booking/getAvailableTimes';
-import getShopsInfo from 'services/booking/getShopsInfo';
-import getServices from 'services/booking/getServices';
 
-const ACTION_SELECTOR = {
-  getAvailableTimes: (serviceName, shopName, date) =>
-    getAvailableTimes({ shopName, serviceName, date }),
-  getShopsInfo: () => getShopsInfo(),
-  getServices: () => getServices(),
-};
-
-export default function useFetchBookingDb(action, serviceName, shopName, date) {
-  const [data, setData] = useState(null);
+export default function useFetchBookingDb(serviceName, shopName, date) {
+  const [data, setData] = useState(false);
 
   const navigate = useNavigate();
+  const url = getAvailableTimes({ shopName, serviceName, date });
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    const validArgs =
-      (serviceName && shopName && date && action === 'getAvailableTimes') ||
-      action !== 'getAvailableTimes';
-    if (validArgs) {
-      fetch(ACTION_SELECTOR[action](serviceName, shopName, date), {
+    if (url) {
+      fetch(url, {
         signal: abortController.signal,
       })
         .then((response) => {
-          if (response) {
-            return response.json();
-          }
-          return Promise.reject();
+          return response.json();
         })
         .then((data) => {
-          setData(data);
+          if (data.msg) {
+            const err = new Error();
+            err.msg = data.msg;
+            throw err;
+          }
+
+          setData(data.bookings);
         })
         .catch((err) => {
-          if (abortController.signal.aborted) {
-            // The user aborted the request
+          if (err) {
+            navigate('/error', { state: { err: { msg: err } } });
             setData(false);
-          } else {
-            navigate('/error');
+          }
+          if (abortController.signal.aborted) {
+            setData(false);
           }
         });
     }
@@ -49,8 +42,7 @@ export default function useFetchBookingDb(action, serviceName, shopName, date) {
       setData(false);
       abortController.abort();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [serviceName, shopName, date]);
+  }, [url, navigate]);
 
   return data;
 }

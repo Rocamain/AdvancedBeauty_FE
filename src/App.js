@@ -7,16 +7,17 @@ import {
 import { Box } from '@mui/material';
 import { lazy, Suspense } from 'react';
 import useNavigation from 'hooks/useNavigation';
-import fetchStrapiComponentsData from 'services/strapi/fetchStrapiComponentsData';
+import fetchData from 'services/fetchData';
 import { Loading } from 'components/shared/index';
 import Body from 'components/Body';
-import Error from 'components/main/errorPage/ErrorPage';
+import ErrorPage from 'components/main/pages/errorPage/ErrorPage';
+import NotFoundPage from 'components/main/pages/notFoundPage/NotFoundPage';
 import Main from 'components/main/Main';
 
 //  Lazy Components
 
 const LazyConfirmationPage = lazy(() =>
-  import('components/main/confirmationPage/ConfirmationPage')
+  import('components/main/pages/confirmationPage/ConfirmationPage')
 );
 
 //  App Component
@@ -29,9 +30,8 @@ function App() {
       createRoutesFromElements(
         <Route
           element={<Body navigationLinks={navigationLinks} />}
-          errorElement={<Error />}
           loader={({ request }) =>
-            fetchStrapiComponentsData({
+            fetchData({
               apiRoute: 'logo',
               signal: request.signal,
             })
@@ -44,7 +44,7 @@ function App() {
               key={index}
               path={path}
               loader={({ request }) =>
-                fetchStrapiComponentsData({
+                fetchData({
                   apiRoute: related.__contentType.split('.')[1],
                   signal: request.signal,
                 })
@@ -60,19 +60,22 @@ function App() {
                     key={index}
                     path={path}
                     loader={({ request }) =>
-                      fetchStrapiComponentsData({
+                      fetchData({
                         apiRoute: related.__contentType.split('.')[1],
                         signal: request.signal,
                       })
                     }
                     element={<Main key={related.__contentType.split('.')[1]} />}
+                    errorElement={
+                      <ErrorPage key={related.__contentType.split('.')[1]} />
+                    }
                   />
                 )
               );
             })
           )}
-          <Route element={<Error />} path="error" />
-          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route element={<ErrorPage />} path="error" />
+          <Route path="/*" element={<NotFoundPage />} />
           <Route
             path="/confirmation"
             element={

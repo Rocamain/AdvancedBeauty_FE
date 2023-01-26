@@ -7,7 +7,7 @@ const validation = {
 };
 const initialValues = {
   name: '',
-  shop: 'Other',
+  shop: '',
   email: '',
   phone: '',
   message: '',
