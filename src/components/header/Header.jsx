@@ -27,8 +27,6 @@ export default function Header({ navigationLinks }) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : null;
 
-  
-
   const handleOpen = () => {
     setAnchorEl(ref.current);
   };
@@ -46,8 +44,6 @@ export default function Header({ navigationLinks }) {
               url={logo.url}
               altText={logo.alternativeText}
               formats={logo.formats}
-              width={350}
-              height={110}
             />
             {matchesBigScreens ? (
               <ScreenMenu
