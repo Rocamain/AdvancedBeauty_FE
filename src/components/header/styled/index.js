@@ -18,13 +18,11 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   backgroundColor: theme.palette.primary.contrastText,
   zIndex: 1000,
   top: 0,
-  // padding: '1em 0',
   gap: '0.5em',
   height: '13vh',
   padding: '0',
   [theme.breakpoints.up('md')]: {
     height: '16vh',
-    ,
     justifyContent: 'space-between',
   },
 }));
