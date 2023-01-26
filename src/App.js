@@ -3,6 +3,7 @@ import {
   createRoutesFromElements,
   createBrowserRouter,
   Route,
+  Navigate,
 } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { lazy, Suspense } from 'react';
@@ -74,8 +75,6 @@ function App() {
               );
             })
           )}
-          <Route element={<ErrorPage />} path="error" />
-          <Route path="/*" element={<NotFoundPage />} />
           <Route
             path="/confirmation"
             element={
@@ -84,6 +83,9 @@ function App() {
               </Suspense>
             }
           />
+          <Route element={<ErrorPage />} path="error" />
+          <Route path="/not_found" element={<NotFoundPage />} />
+          <Route path="/*" element={<Navigate to="not_found" />} />
         </Route>
       )
     );
