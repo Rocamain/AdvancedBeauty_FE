@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useLocation, ScrollRestoration } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import FooterContent from 'components/footer/index';
 import Header from 'components/header/Header';
 import HeadTitle from 'components/main/headTitle/HeadTitle';
@@ -22,16 +21,17 @@ export default function Body({ navigationLinks }) {
   }, [hash, pathname]);
 
   return (
-    <HeadTitle navigationLinks={navigationLinks}>
-      <Header navigationLinks={navigationLinks} />
-      <ScrollRestoration />
-      <main>
+    <>
+      <HeadTitle navigationLinks={navigationLinks}>
+        <Header navigationLinks={navigationLinks} />
+
         <Outlet
           context={[showFooter, setShowFooter]}
           navigationLinks={navigationLinks}
         />
-      </main>
-      <footer>{showFooter && <FooterContent />}</footer>
-    </HeadTitle>
+
+        <footer> {showFooter && <FooterContent />}</footer>
+      </HeadTitle>
+    </>
   );
 }

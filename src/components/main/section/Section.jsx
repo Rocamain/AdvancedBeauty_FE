@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
-import { useLocation, useOutletContext } from 'react-router';
+import { useLocation } from 'react-router';
 import useNearScreen from 'hooks/useNearScreen.js';
 
 // Dynamic import
@@ -25,9 +25,9 @@ const loadSection = async ({ componentName, ...sectionData }) => {
 // Component
 //
 
-const LazySection = ({ sectionData, isFirstSection }) => {
+const LazySection = ({ sectionData, isLastSection, isFirst }) => {
   const [section, setSection] = useState(null);
-  const [show, setShowFooter] = useOutletContext();
+
   const { pathname } = useLocation();
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '200px',
@@ -49,15 +49,6 @@ const LazySection = ({ sectionData, isFirstSection }) => {
   }, [pathname]);
 
   //  this effect, is used to alow to render the footer when we reach the last section
-  useEffect(() => {
-    if (isFirstSection && !show) {
-      if (isNearScreen) {
-        setShowFooter(true);
-      }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNearScreen]);
 
   return (
     <Box
@@ -70,7 +61,9 @@ const LazySection = ({ sectionData, isFirstSection }) => {
         minHeight: isNearScreen ? '100%' : '50vh',
       }}
     >
-      <Suspense fallback={<Loading />}>{isNearScreen && section}</Suspense>
+      <Suspense fallback={<Loading />}>
+        {(isNearScreen || isFirst) && section}
+      </Suspense>
     </Box>
   );
 };
