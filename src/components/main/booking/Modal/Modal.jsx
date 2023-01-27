@@ -78,9 +78,11 @@ export default function Modal({
           aria-describedby="modal-modal-description"
           disableEnforceFocus
           disableAutoFocus
-          sx={{
-            overflowY: 'auto',
-          }}
+          sx={
+            {
+              // overflowY: 'auto',
+            }
+          }
         >
           <Dialog small_height={smallPhoneHeightScreen ? 'true' : null}>
             <Stepper step={bookingStep} />

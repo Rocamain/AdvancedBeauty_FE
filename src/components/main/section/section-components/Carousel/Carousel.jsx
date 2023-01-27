@@ -47,7 +47,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
       sx={{
         padding: { md: '3em 0' },
         maxWidth: '100%',
-        overflowX: 'hidden',
+        // overflowX: 'hidden',
         minHeight: {
           xs: Math.floor(height + height * 0.45) + 'px',
           md: Math.floor(height + height * 0.7) + 'px',

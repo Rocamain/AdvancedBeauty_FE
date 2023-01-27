@@ -1,4 +1,4 @@
-import {  useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -8,8 +8,6 @@ export default function useScrollTo({ url, isNearScreen }) {
   const scrollRef = useRef(null);
   const theme = useTheme();
   const bigScreens = useMediaQuery(theme.breakpoints.up('md'), { noSsr: true });
-
-  
 
   useLayoutEffect(() => {
     const hashId = hash.split('#')[1];
@@ -40,7 +38,7 @@ export default function useScrollTo({ url, isNearScreen }) {
         };
       }
     }
-  }, [url, hash]);
+  }, [url, hash, bigScreens, isNearScreen]);
 
   return { scrollRef };
 }
