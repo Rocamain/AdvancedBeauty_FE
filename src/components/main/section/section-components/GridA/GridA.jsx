@@ -29,7 +29,7 @@ export default function GridA({
           background={backgroundType}
           show={show}
           photocolumn={photoColumn}
-          sx={{ gap: [0] }}
+          sx={{ gap: { xs: '3.5em', md: 0 } }}
         >
           <GridText
             content={content}

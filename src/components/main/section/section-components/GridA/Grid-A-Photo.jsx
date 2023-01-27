@@ -20,15 +20,27 @@ export default function GridAPhoto({
           },
           marginBottom: shadowRight ? 0 : '3em',
           zIndex: 200,
-          minWidth: {
-            xs: shadowRight ? 'calc(100% + 10vw)' : '90%',
-            sm: shadowRight ? 'calc(100% + 10vw)' : '90%',
 
+          minWidth: {
+            xs:
+              shadowRight && order === 'second'
+                ? 'calc(100% + 10vw)'
+                : undefined,
+            sm:
+              shadowRight && order === 'second'
+                ? 'calc(100% + 10vw)'
+                : undefined,
             md:
-              shadowRight && order === 'second' ? 'calc(100% + 10vw)' : '100%',
+              shadowRight && order === 'second'
+                ? 'calc(100% + 10vw)'
+                : undefined,
           },
           margin: { xs: '2em auto 0 auto', md: 0 },
           maxHeight: '600px',
+          width: {
+            sm: !shadowRight ? '80%' : undefined,
+            md: !shadowRight ? '100%' : undefined,
+          },
         })}
       >
         <Image

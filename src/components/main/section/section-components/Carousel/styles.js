@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 const slidePhoto = makeStyles((theme) => ({
   photoEntering: {
     boxShadow: '0px 12px 18px -6px rgb(0 0 0 / 30%)',
-    transform: 'translateX(-25%)',
+    transform: 'translateX(-3em)',
     opacity: 0,
     animation: `$photoIn 1200ms ${theme.transitions.easing.easeInOut} forwards 500ms`,
   },
@@ -32,7 +32,7 @@ const slidePhoto = makeStyles((theme) => ({
     },
     '100%': {
       opacity: 0,
-      transform: 'translateX(-15%)',
+      transform: 'translateX(-3em)',
     },
   },
 }));
@@ -40,7 +40,7 @@ const slidePhoto = makeStyles((theme) => ({
 const slideCard = makeStyles((theme) => ({
   cardEntering: {
     animation: `$cardIn 900ms ${theme.transitions.easing.easeInOut} forwards 600ms`,
-    transform: 'translateY(15%)',
+    transform: 'translateY(3em)',
     opacity: 0,
   },
   '@keyframes cardIn': {
@@ -67,7 +67,7 @@ const slideCard = makeStyles((theme) => ({
     },
     '100%': {
       opacity: 0,
-      transform: 'translateY(15%)',
+      transform: 'translateY(3em)',
     },
   },
 }));

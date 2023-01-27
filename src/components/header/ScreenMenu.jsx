@@ -18,8 +18,15 @@ export default function ScreenMenu({ links, selectedLinks }) {
   };
 
   return (
-    <Nav sx={{ display: 'flex', position: 'relative', zIndex: 1000 }}>
+    <Nav
+      sx={{
+        display: 'flex',
+        position: 'relative',
+        zIndex: 1000,
+      }}
+    >
       <MenuList
+        autoFocus={false}
         sx={{
           display: 'flex',
           gap: { md: '0.5em', xl: '1em' },

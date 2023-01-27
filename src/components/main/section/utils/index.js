@@ -15,7 +15,10 @@ const getPaddingTop = ({ section, pads, laptop, desktop }) => {
   if (desktop && paddingTop) {
     return paddingTop;
   }
-  if (laptop && section.show === 'photo') {
+  if (
+    laptop &&
+    (section.show === 'photo' || section.backgroundType === 'full')
+  ) {
     return paddingTop;
   }
   if (pads && section.backgroundType === 'full') {

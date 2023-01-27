@@ -15,15 +15,19 @@ import { Link as LinkRouter } from 'react-router-dom';
 const HeaderContainer = styled('header')(({ theme }) => ({
   boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 0px 0px',
   position: 'sticky',
+  maxWidth: '100%',
   backgroundColor: theme.palette.primary.contrastText,
   zIndex: 1000,
   top: 0,
+  right: 0,
   gap: '0.5em',
   height: '13vh',
-  padding: '0',
+
+  width: '100vw',
   [theme.breakpoints.up('md')]: {
     height: '16vh',
     justifyContent: 'space-between',
+    padding: 0,
   },
 }));
 const Wrapper = styled(Box)(({ theme }) => ({
@@ -152,6 +156,7 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
     disableRestoreFocus
     disableAutoFocusItem
     keepMounted
+    disableScrollLock
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'center',
@@ -173,13 +178,12 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
   '.MuiBackdrop-root': {
     padding: 0,
     backgroundColor: 'transparent',
-    width: '100vw',
+
     [theme.breakpoints.up('md')]: {
       top: '16vh',
     },
   },
   '.MuiPaper-root': {
-    overflow: 'visible',
     [theme.breakpoints.up('md')]: {
       width: 270,
       paddingTop: 'calc(4vh)',
@@ -260,6 +264,7 @@ const Link = styled(({ to, ...props }) => {
   return <LinkRouter to={to} {...props} />;
 })(({ theme }) => ({
   textDecoration: 'none',
+  width: '100%',
   padding: '0.5em 1em',
 
   [theme.breakpoints.up('md')]: {

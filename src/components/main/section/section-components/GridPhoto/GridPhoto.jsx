@@ -5,7 +5,7 @@ import ImageListItem, {
 
 export default function GridPhoto({ photos }) {
   return (
-    <Box>
+    <Box sx={{ width: { sm: '80%' }, margin: '0 auto' }}>
       <Box
         sx={{
           display: 'grid',

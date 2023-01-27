@@ -1,25 +1,19 @@
 html {
-  height: 100% !important;
+  padding: 0 !important;
   margin: 0px;
   box-sizing: border-box;
   white-space: inherit;
 }
 
 body {
+  font-family: abel, open sans;
   margin: 0;
   padding: 0 !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
+  max-width: 100%;
   height: 100% !important;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  html {
-    overflow-x: hidden !important;
-  }
 }
 
 code {

@@ -44,7 +44,15 @@ export default function Carousel({ background, title, subtitle, slides }) {
 
   return (
     <CarouselContainer
-      sx={{ padding: [height * 0.1 + 'px 0', height * 0.1 + 'px 0'] }}
+      sx={{
+        padding: { md: '3em 0' },
+        maxWidth: '100%',
+        overflowX: 'hidden',
+        minHeight: {
+          xs: Math.floor(height + height * 0.45) + 'px',
+          md: Math.floor(height + height * 0.7) + 'px',
+        },
+      }}
       url={background.formats}
     >
       {matchesBigScreens && (
@@ -74,8 +82,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
           sx={{
             margin: {
               xs: height * 0.2 + 'px 0',
-              md: height * 0.22 + 'px 0',
-              lg: height * 0.16 + 'px 0',
+              md: height * 0.3 + 'px 0',
             },
           }}
         >
