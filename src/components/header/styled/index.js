@@ -15,6 +15,7 @@ import { Link as LinkRouter } from 'react-router-dom';
 const HeaderContainer = styled('header')(({ theme }) => ({
   boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 0px 0px',
   position: 'sticky',
+  overscrollBehavior: 'contain',
   maxWidth: '100%',
   backgroundColor: theme.palette.primary.contrastText,
   zIndex: 1000,
