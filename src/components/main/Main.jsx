@@ -14,29 +14,29 @@ function Main() {
           height: '87vh',
         }}
       >
-        <ScrollRestoration />
         <Loading />
       </Box>
     );
   }
 
   return (
-    <>
+    <main>
       <ScrollRestoration />
       {components.map((componentInfo, index) => {
-        const isFirstSection = index === 0;
-
+        const lastSection = index === components.length - 1;
+        const isFirst = index <= 1;
         return (
           <SectionMargin key={index} section={componentInfo}>
             <Section
+              isFirst={isFirst}
               sectionData={componentInfo}
-              isFirstSection={isFirstSection}
+              isLastSection={lastSection}
             />
           </SectionMargin>
         );
       })}
       ;
-    </>
+    </main>
   );
 }
 

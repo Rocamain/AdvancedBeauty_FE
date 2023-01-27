@@ -28,7 +28,7 @@ export default function ContactForm() {
   const [disabled, setDisabled] = useState(true);
   const [mailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const location = useLocation();
 
   const numbers = useMemo(() => {
     const first = Math.floor(Math.random() * 21);
@@ -44,13 +44,14 @@ export default function ContactForm() {
   //  in the message box
 
   useEffect(() => {
-    if (state?.contactMessage) {
+    console.log(location);
+    if (location.state?.contactMessage) {
       setValues(({ message, ...prevState }) => ({
         ...prevState,
-        message: state.contactMessage,
+        message: location.state.contactMessage,
       }));
     }
-  }, [state]);
+  }, [location]);
 
   // Once all requirements have been meet activate the submit button
 

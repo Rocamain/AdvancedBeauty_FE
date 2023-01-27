@@ -1,7 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import useMenuLinkSelected from 'hooks/useMenuLinkSelected';
-import { useMediaQuery, Box } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
@@ -16,7 +16,6 @@ import MobileMenu from 'components/header/MobileMenu';
 
 export default function Header({ navigationLinks }) {
   const { logo } = useLoaderData();
-
   const { selectedLinks } = useMenuLinkSelected();
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
@@ -37,7 +36,7 @@ export default function Header({ navigationLinks }) {
 
   return (
     logo && (
-      <Box>
+      <>
         <HeaderContainer ref={ref}>
           <Wrapper>
             <Logo
@@ -76,7 +75,7 @@ export default function Header({ navigationLinks }) {
             />
           </PopoverMenu>
         )}
-      </Box>
+      </>
     )
   );
 }
