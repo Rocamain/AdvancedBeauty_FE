@@ -14,16 +14,10 @@ const Card = styled((props) => <Box {...props} />)(({ theme, card }) => ({
   },
   [theme.breakpoints.up('md')]: {
     padding: !card && theme.spacing(5, 3, 5, 7),
-    width: card ? '60%' : '110%',
-    marginTop: '6em',
+    width: card ? '60%' : '105%',
   },
   [theme.breakpoints.up('lg')]: {
     width: card && '50%',
-    marginTop: !card && '10em',
-    padding: !card && theme.spacing(5, 5, 5, 13),
-  },
-  [theme.breakpoints.up('xl')]: {
-    marginTop: !card && '12em',
   },
 }));
 const Container = styled((props) => {

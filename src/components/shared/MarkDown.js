@@ -106,13 +106,12 @@ export default function MarkDown({ content, carousel = false, gridB = false }) {
           return (
             <Box
               component="img"
-              width="50%"
+              width={['90%', '50%']}
               height="auto"
               {...props}
               sx={{
                 display: 'block',
-                minWidth: '300px',
-                width: '50%',
+                margin: '1em 0',
                 marginInline: 'auto',
                 marginBottom: '1em',
                 maxWidth: '100%',

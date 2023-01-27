@@ -12,7 +12,7 @@ const CarouselContainer = styled((props) => <Paper {...props} />)(
     backgroundSize: 'cover',
     [theme.breakpoints.up('md')]: {
       backgroundImage: `url(${url.large.url})`,
-      padding: theme.spacing(0),
+      display: 'block',
     },
   })
 );
@@ -96,11 +96,11 @@ const ChevronButton = styled((props) => {
   color: theme.palette.primary.contrastText,
   // backgroundColor: 'transparent',
   borderRadius: 0,
-  // padding: 0,
-  // flex: 1,
-  // minWidth: '13vw',
+  padding: 0,
+  flex: 1,
+  minWidth: '13vw',
   [theme.breakpoints.up('md')]: {
-    // minWidth: '10vw',
+    minWidth: '10vw',
     flex: value === 'right' ? 1 : 2,
   },
 }));
@@ -146,7 +146,6 @@ const Photo = styled(({ src, ...props }) => {
       width="600"
       height="300"
       component="img"
-      loading="lazy"
       {...props}
       sx={{
         content: {
