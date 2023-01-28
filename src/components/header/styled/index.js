@@ -15,19 +15,16 @@ import { Link as LinkRouter } from 'react-router-dom';
 const HeaderContainer = styled('header')(({ theme }) => ({
   boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 0px 0px',
   position: 'sticky',
-  maxWidth: '100%',
   backgroundColor: theme.palette.primary.contrastText,
   zIndex: 1000,
   top: 0,
   right: 0,
   gap: '0.5em',
   height: '13vh',
-
-  width: '100vw',
+  padding: 0,
   [theme.breakpoints.up('md')]: {
-    height: '16vh',
+    height: '18vh',
     justifyContent: 'space-between',
-    padding: 0,
   },
 }));
 const Wrapper = styled(Box)(({ theme }) => ({
@@ -62,28 +59,28 @@ const Logo = styled(({ width, height, url, altText, formats, ...props }) => {
   return (
     <Box
       component="img"
-      width={width}
-      height={height}
+      width="100%"
       loading="lazy"
       src={url}
       alt={altText}
       title={altText}
-      srcSet={`${formats.thumbnail.url} 700w,${formats.small.url} 1200w,`}
-      sizes="(min-width: 0px) and (max-width: 700px) 700px,(min-width: 701px) 1200px 100vw"
+      // srcSet={`${formats.thumbnail.url} 700w,${formats.small.url} 1200w,`}
+      // sizes="(min-width: 0px) and (max-width: 700px) 700px,(min-width: 701px) 1200px 100vw"
       {...props}
     />
   );
 })(({ theme }) => ({
-  maxWidth: 180,
+  maxHeight: 100,
   margin: 0,
   [theme.breakpoints.between('sm', 'md')]: {
-    maxWidth: 200,
+    height: 'auto',
+    maxWidth: '100%',
   },
   [theme.breakpoints.up('md')]: {
-    maxWidth: 230,
+    // maxHeight: 130,
   },
   [theme.breakpoints.up('xl')]: {
-    maxWidth: 300,
+    // maxHeight: 150,
   },
 }));
 
