@@ -45,13 +45,12 @@ export default function Carousel({ background, title, subtitle, slides }) {
   return (
     <CarouselContainer
       sx={{
-        padding: { md: '3em 0' },
-        maxWidth: '100%',
+        // padding: '10em 0',
+
         // overflowX: 'hidden',
-        minHeight: {
-          xs: Math.floor(height + height * 0.45) + 'px',
-          md: Math.floor(height + height * 0.7) + 'px',
-        },
+        // display: 'flex',
+        // alignContent: 'center',
+        position: 'relative',
       }}
       url={background.formats}
     >
@@ -77,17 +76,13 @@ export default function Carousel({ background, title, subtitle, slides }) {
       )}
 
       {card && (
-        <Box
-          ref={ref}
-          sx={{
-            margin: {
-              xs: height * 0.2 + 'px 0',
-              md: height * 0.3 + 'px 0',
-            },
-          }}
-        >
-          <SlideContainer
-            sx={{ height: [height * 0.6 + 'px', height * 0.5 + 'px'] }}
+        <Box sx={{ position: 'relative', top: '200px' }}>
+          <SlideContainer sx={{ height: '400px' }}></SlideContainer>
+
+          <Box
+            display="flex"
+            height="400px"
+            sx={{ position: 'relative', top: '-400px' }}
           >
             <ChevronButton
               className="ChevronButton ChevronButton-left"
@@ -102,7 +97,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               value="right"
               onClick={(e) => handleClick(e)}
             />
-          </SlideContainer>
+          </Box>
         </Box>
       )}
     </CarouselContainer>
