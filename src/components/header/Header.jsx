@@ -1,7 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import useMenuLinkSelected from 'hooks/useMenuLinkSelected';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
@@ -39,11 +39,13 @@ export default function Header({ navigationLinks }) {
       <>
         <HeaderContainer ref={ref}>
           <Wrapper>
-            <Logo
-              url={logo.url}
-              altText={logo.alternativeText}
-              formats={logo.formats}
-            />
+            <Box>
+              <Logo
+                url={logo.url}
+                altText={logo.alternativeText}
+                formats={logo.formats}
+              />
+            </Box>
             {matchesBigScreens ? (
               <ScreenMenu
                 links={navigationLinks}
