@@ -57,9 +57,9 @@ export default function Carousel({ background, title, subtitle, slides }) {
 
       {card && (
         <Box sx={{ position: 'relative', top: '200px' }}>
-          {/*<SlideContainer sx={{ height: '400px' }}></SlideContainer>
+          <SlideContainer sx={{ height: '400px' }}></SlideContainer>
 
-           <Box
+          <Box
             display="flex"
             height="400px"
             sx={{ position: 'relative', top: '-400px' }}
@@ -77,7 +77,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               value="right"
               onClick={(e) => handleClick(e)}
             />
-          </Box>*/}
+          </Box>
         </Box>
       )}
     </CarouselContainer>

@@ -6,15 +6,17 @@ const CarouselContainer = styled((props) => <Paper {...props} />)(
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    height: '1000px',
+    // justifyContent: 'center',
+    backgroundRepeat: 'no-repeat',
+    // height: '1000px',
     background: `url(${formats.large.url})`,
     // backgroundAttachment: 'fixed',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    // backgroundPosition: 'center',
+    backgroundSize: 'contain',
     [theme.breakpoints.up('md')]: {
       backgroundImage: `url(${url})`,
-      display: 'block',
+      // display: 'block',
+      backgroundSize: 'cover',
     },
   })
 );
