@@ -2,16 +2,16 @@ import { Box, Paper, IconButton, styled } from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
 const CarouselContainer = styled((props) => <Paper {...props} />)(
-  ({ theme, url }) => ({
+  ({ theme, url: { url, formats } }) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundImage: `url(${url.small.url})`,
+    background: `url(${formats.large.url})`,
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     [theme.breakpoints.up('md')]: {
-      backgroundImage: `url(${url.large.url})`,
+      backgroundImage: `url(${url})`,
       display: 'block',
     },
   })
