@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useMediaQuery, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -11,8 +11,6 @@ import Card from 'components/shared/Card';
 
 export default function Carousel({ background, title, subtitle, slides }) {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [height, setHeight] = useState();
-  const ref = useRef(null);
   const [exit, setExit] = useState(false);
   const [card, setCard] = useState(() => slides[slideIndex]);
   const theme = useTheme();
@@ -20,14 +18,6 @@ export default function Carousel({ background, title, subtitle, slides }) {
     noSsr: true,
   });
 
-  useEffect(() => {
-    if (ref.current && !height) {
-      const cardHeight =
-        ref.current.children[0].children[0].getBoundingClientRect().height;
-
-      setHeight(cardHeight);
-    }
-  }, [ref, height]);
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
     const newIndex = (slideIndex + increment + slides.length) % slides.length;
@@ -43,17 +33,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
   };
 
   return (
-    <CarouselContainer
-      sx={{
-        // padding: '10em 0',
-
-        // overflowX: 'hidden',
-        // display: 'flex',
-        // alignContent: 'center',
-        position: 'relative',
-      }}
-      url={background.formats}
-    >
+    <CarouselContainer url={background}>
       {matchesBigScreens && (
         <CarouselHero>
           <Typography

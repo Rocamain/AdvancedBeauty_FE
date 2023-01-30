@@ -3,6 +3,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
 const CarouselContainer = styled((props) => <Paper {...props} />)(
   ({ theme, url: { url, formats } }) => ({
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
