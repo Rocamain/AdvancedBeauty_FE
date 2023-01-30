@@ -29,10 +29,10 @@ const Card = ({ card, exit, slideIndex, exitAnimationEnd }) => {
     [photoAnimationStyles.photoExiting]: exit,
   })}`;
 
-  // let cardAnimation = `${clsx({
-  //   [cardAnimationStyles.cardEntering]: !exit,
-  //   [cardAnimationStyles.cardExiting]: exit,
-  // })}`;
+  let cardAnimation = `${clsx({
+    [cardAnimationStyles.cardEntering]: !exit,
+    [cardAnimationStyles.cardExiting]: exit,
+  })}`;
 
   return (
     <Box
@@ -51,9 +51,7 @@ const Card = ({ card, exit, slideIndex, exitAnimationEnd }) => {
         </CardPhotoContainer>
       )} */}
 
-      <CardWrapper
-      // className={cardAnimation} onAnimationEnd={exitAnimationEnd}
-      >
+      <CardWrapper className={cardAnimation} onAnimationEnd={exitAnimationEnd}>
         <Box sx={{ marginBottom: '1.7em' }}>
           <Typography
             component="h4"

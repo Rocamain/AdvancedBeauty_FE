@@ -27,9 +27,10 @@ export default function Carousel({ background, title, subtitle, slides }) {
 
     const newIndex = (slideIndex + increment + slides.length) % slides.length;
     setSlideIndex(newIndex);
-    //
+    setExit(true);
     console.log('clicked', newIndex, slides);
   };
+
   const exitAnimationEnd = (e) => {
     const isExitAnimation = e.animationName.includes('cardOut');
     if (isExitAnimation) {
@@ -80,7 +81,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               slideIndex={slideIndex}
               slides={slides}
               exit={exit}
-              card={slides[slideIndex]}
+              card={card}
               exitAnimationEnd={exitAnimationEnd}
             />
 
