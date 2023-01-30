@@ -7,8 +7,9 @@ const CarouselContainer = styled((props) => <Paper {...props} />)(
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    height: '1000px',
     background: `url(${formats.large.url})`,
-    backgroundAttachment: 'fixed',
+    // backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     [theme.breakpoints.up('md')]: {
