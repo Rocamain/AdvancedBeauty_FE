@@ -70,7 +70,12 @@ export default function Carousel({ background, title, subtitle, slides }) {
               onClick={handleClick}
             />
 
-            <Card card={card} exit={exit} exitAnimationEnd={exitAnimationEnd} />
+            <Card
+              slides={slides}
+              card={card}
+              exit={exit}
+              exitAnimationEnd={exitAnimationEnd}
+            />
 
             <ChevronButton
               className="ChevronButton ChevronButton-right"

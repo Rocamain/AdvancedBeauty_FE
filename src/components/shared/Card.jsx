@@ -25,9 +25,12 @@ const Card = ({ exit, card, exitAnimationEnd }) => {
   let photoAnimationStyles = slidePhoto();
   let cardAnimationStyles = slideCard();
 
-  let animatedPhoto = `${clsx(photoAnimationStyles.photoEntering, {
-    [photoAnimationStyles.photoExiting]: exit,
-  })}`;
+  let animatedPhoto = `${clsx(
+    { [photoAnimationStyles.photoEntering]: !exit },
+    {
+      [photoAnimationStyles.photoExiting]: exit,
+    }
+  )}`;
 
   let cardAnimation = `${clsx(cardAnimationStyles.cardEntering, {
     [cardAnimationStyles.cardExiting]: exit,
