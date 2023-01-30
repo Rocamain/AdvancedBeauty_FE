@@ -38,11 +38,11 @@ const slidePhoto = makeStyles((theme) => ({
 }));
 
 const slideCard = makeStyles((theme) => ({
-  carWaiting: {
-    display: 'none',
-  },
+  // carWaiting: {
+  //   display: 'none',
+  // },
   cardEntering: {
-    animation: `$cardIn 900ms ${theme.transitions.easing.easeInOut} forwards 600ms`,
+    animation: `$cardIn 900ms ${theme.transitions.easing.easeInOut} forwards`,
     transform: 'translateY(3em)',
     opacity: 0,
   },
@@ -59,20 +59,20 @@ const slideCard = makeStyles((theme) => ({
     },
   },
   cardExiting: {
-    animation: `$cardOut 500ms ${theme.transitions.easing.easeInOut}`,
+    animation: `$cardOut 800ms ${theme.transitions.easing.easeInOut} forwards`,
     transform: 'translateY(0)',
   },
 
   '@keyframes cardOut': {
     '0%': {
+      opacity: 0.8,
+    },
+    '70%': {
       opacity: 0.4,
     },
-    '99%': {
+    '100%': {
       opacity: 0,
       transform: 'translateY(3em)',
-    },
-    '100%': {
-      display: 'none',
     },
   },
 }));
