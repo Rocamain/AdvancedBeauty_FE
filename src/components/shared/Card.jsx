@@ -21,7 +21,7 @@ const Card = ({ card, exit, slideIndex, exitAnimationEnd }) => {
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
-  console.log(title, 'enter:', !exit, 'exit:', exit);
+  console.log(card);
   let photoAnimationStyles = slidePhoto();
   let cardAnimationStyles = slideCard();
 
@@ -29,10 +29,10 @@ const Card = ({ card, exit, slideIndex, exitAnimationEnd }) => {
     [photoAnimationStyles.photoExiting]: exit,
   })}`;
 
-  let cardAnimation = `${clsx({
-    [cardAnimationStyles.cardEntering]: !exit,
-    [cardAnimationStyles.cardExiting]: exit,
-  })}`;
+  // let cardAnimation = `${clsx({
+  //   [cardAnimationStyles.cardEntering]: !exit,
+  //   [cardAnimationStyles.cardExiting]: exit,
+  // })}`;
 
   return (
     <Box
@@ -41,7 +41,7 @@ const Card = ({ card, exit, slideIndex, exitAnimationEnd }) => {
         alignItems: 'center',
       }}
     >
-      {matchesBigScreens && (
+      {/* {matchesBigScreens && (
         <CardPhotoContainer>
           <Photo
             className={animatedPhoto}
@@ -49,9 +49,11 @@ const Card = ({ card, exit, slideIndex, exitAnimationEnd }) => {
             src={photo}
           />
         </CardPhotoContainer>
-      )}
+      )} */}
 
-      <CardWrapper className={cardAnimation} onAnimationEnd={exitAnimationEnd}>
+      <CardWrapper
+      // className={cardAnimation} onAnimationEnd={exitAnimationEnd}
+      >
         <Box sx={{ marginBottom: '1.7em' }}>
           <Typography
             component="h4"

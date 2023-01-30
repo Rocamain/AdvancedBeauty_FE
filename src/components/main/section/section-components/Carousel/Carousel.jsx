@@ -20,9 +20,15 @@ export default function Carousel({ background, title, subtitle, slides }) {
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
+    console.log(
+      { increment },
+      (slideIndex + increment + slides.length) % slides.length
+    );
+
     const newIndex = (slideIndex + increment + slides.length) % slides.length;
-    setExit(true);
     setSlideIndex(newIndex);
+    //
+    console.log('clicked', newIndex, slides);
   };
   const exitAnimationEnd = (e) => {
     const isExitAnimation = e.animationName.includes('cardOut');
@@ -74,7 +80,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               slideIndex={slideIndex}
               slides={slides}
               exit={exit}
-              card={card}
+              card={slides[slideIndex]}
               exitAnimationEnd={exitAnimationEnd}
             />
 
