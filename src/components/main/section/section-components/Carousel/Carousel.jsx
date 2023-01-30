@@ -71,8 +71,8 @@ export default function Carousel({ background, title, subtitle, slides }) {
             />
 
             <Card
+              slideIndex={slideIndex}
               slides={slides}
-              card={card}
               exit={exit}
               exitAnimationEnd={exitAnimationEnd}
             />

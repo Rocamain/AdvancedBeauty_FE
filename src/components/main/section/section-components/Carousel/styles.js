@@ -38,6 +38,9 @@ const slidePhoto = makeStyles((theme) => ({
 }));
 
 const slideCard = makeStyles((theme) => ({
+  carWaiting: {
+    display: 'none',
+  },
   cardEntering: {
     animation: `$cardIn 900ms ${theme.transitions.easing.easeInOut} forwards 600ms`,
     transform: 'translateY(3em)',
