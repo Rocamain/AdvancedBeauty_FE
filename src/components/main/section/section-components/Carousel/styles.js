@@ -38,6 +38,9 @@ const slidePhoto = makeStyles((theme) => ({
 }));
 
 const slideCard = makeStyles((theme) => ({
+  carWaiting: {
+    display: 'none',
+  },
   cardEntering: {
     animation: `$cardIn 900ms ${theme.transitions.easing.easeInOut} forwards 600ms`,
     transform: 'translateY(3em)',
@@ -57,7 +60,6 @@ const slideCard = makeStyles((theme) => ({
   },
   cardExiting: {
     animation: `$cardOut 500ms ${theme.transitions.easing.easeInOut}`,
-
     transform: 'translateY(0)',
   },
 
@@ -65,9 +67,12 @@ const slideCard = makeStyles((theme) => ({
     '0%': {
       opacity: 0.4,
     },
-    '100%': {
+    '99%': {
       opacity: 0,
       transform: 'translateY(3em)',
+    },
+    '100%': {
+      display: 'none',
     },
   },
 }));
