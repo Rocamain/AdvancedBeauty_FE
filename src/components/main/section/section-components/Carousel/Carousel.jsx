@@ -34,6 +34,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
   const exitAnimationEnd = (e) => {
     const isExitAnimation = e.animationName.includes('cardOut');
     if (isExitAnimation) {
+      console.log('animation End');
       setExit(false);
       setCard(slides[slideIndex]);
     }
@@ -77,13 +78,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               onClick={handleClick}
             />
 
-            <Card
-              slideIndex={slideIndex}
-              slides={slides}
-              exit={exit}
-              card={card}
-              exitAnimationEnd={exitAnimationEnd}
-            />
+            <Card exit={exit} card={card} exitAnimationEnd={exitAnimationEnd} />
 
             <ChevronButton
               className="ChevronButton ChevronButton-right"

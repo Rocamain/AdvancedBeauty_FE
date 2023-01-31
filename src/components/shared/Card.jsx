@@ -17,7 +17,8 @@ import {
   slidePhoto,
 } from 'components/main/section/section-components/Carousel/styles';
 
-const Card = ({ card, exit, enter, slideIndex, exitAnimationEnd }) => {
+const Card = ({ card, exit, exitAnimationEnd }) => {
+  console.log({ card: card.title, exit, enter: !exit });
   const theme = useTheme();
   const { photo, content, linkText, linkTo, title } = card;
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
