@@ -1,7 +1,5 @@
-import { useRef, usEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
-
 import clsx from 'clsx';
 import { Typography, Box } from '@mui/material';
 import Button from 'components/shared/Button';
@@ -11,14 +9,12 @@ import {
   CardPhotoContainer,
 } from 'components/main/section/section-components/Carousel/styled';
 import Markdown from 'components/shared/MarkDown';
-
 import {
   slideCard,
   slidePhoto,
 } from 'components/main/section/section-components/Carousel/styles';
 
 const Card = ({ card, exit, exitAnimationEnd }) => {
-  console.log({ card: card.title, exit, enter: !exit });
   const theme = useTheme();
   const { photo, content, linkText, linkTo, title } = card;
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
@@ -44,7 +40,7 @@ const Card = ({ card, exit, exitAnimationEnd }) => {
         alignItems: 'center',
       }}
     >
-      {/* {matchesBigScreens && (
+      {matchesBigScreens && (
         <CardPhotoContainer>
           <Photo
             className={animatedPhoto}
@@ -52,34 +48,27 @@ const Card = ({ card, exit, exitAnimationEnd }) => {
             src={photo}
           />
         </CardPhotoContainer>
-      )} */}
-
-      <Box
+      )}
+      <CardWrapper
         className={cardAnimation}
         onAnimationEnd={exitAnimationEnd}
         id={exit ? 'card out' : 'card in'}
-        // sx={{ transform: 'translateY(3em)', opacity: 0 }}
       >
-        <CardWrapper
-        //
-        >
-          <Box sx={{ marginBottom: '1.7em' }}>
-            <Typography
-              component="h4"
-              variant="carouselCardTitle"
-              sx={{
-                paddingBottom: '1.1em',
-                px: '1em',
-              }}
-            >
-              {title}
-            </Typography>
-
-            <Markdown content={content} carousel />
-          </Box>
-          {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
-        </CardWrapper>
-      </Box>
+        <Box sx={{ marginBottom: '1.7em' }}>
+          <Typography
+            component="h4"
+            variant="carouselCardTitle"
+            sx={{
+              paddingBottom: '1.1em',
+              px: '1em',
+            }}
+          >
+            {title}
+          </Typography>
+          <Markdown content={content} carousel />
+        </Box>
+        {linkTo && <Button linkText={linkText} linkTo={linkTo} />}
+      </CardWrapper>
     </Box>
   );
 };
