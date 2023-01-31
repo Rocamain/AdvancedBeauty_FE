@@ -71,9 +71,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               onClick={handleClick}
               disableRipple
             />
-
             <Card exit={exit} card={card} exitAnimationEnd={exitAnimationEnd} />
-
             <ChevronButton
               className="ChevronButton ChevronButton-right"
               value="right"
