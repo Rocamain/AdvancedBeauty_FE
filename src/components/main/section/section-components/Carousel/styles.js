@@ -5,7 +5,7 @@ const slidePhoto = makeStyles((theme) => ({
     boxShadow: '0px 12px 18px -6px rgb(0 0 0 / 30%)',
     transform: 'translateX(-3em)',
     opacity: 0,
-    animation: `$photoIn 1200ms ${theme.transitions.easing.easeInOut} forwards 500ms`,
+    animation: `$photoIn 1000ms ${theme.transitions.easing.easeInOut} forwards 200ms`,
   },
   '@keyframes photoIn': {
     '0%': {
@@ -21,7 +21,7 @@ const slidePhoto = makeStyles((theme) => ({
   },
   photoExiting: {
     transform: 'translateX(0)',
-    animation: `$photoOut 900ms ${theme.transitions.easing.easeInOut}`,
+    animation: `$photoOut 700ms ${theme.transitions.easing.easeInOut}`,
     opacity: 1,
   },
 
@@ -38,12 +38,9 @@ const slidePhoto = makeStyles((theme) => ({
 }));
 
 const slideCard = makeStyles((theme) => ({
-  // carWaiting: {
-  //   display: 'none',
-  // },
   cardEntering: {
-    animation: `$cardIn 900ms ${theme.transitions.easing.easeInOut} forwards`,
-    transform: 'translateY(3em)',
+    animation: `$cardIn 800ms ${theme.transitions.easing.easeInOut} forwards`,
+    transform: 'translateY(3.5em)',
     opacity: 0,
   },
   '@keyframes cardIn': {
@@ -51,7 +48,7 @@ const slideCard = makeStyles((theme) => ({
       opacity: 0,
     },
     '50%': {
-      opacity: 0.2,
+      opacity: 0.5,
     },
     '100%': {
       opacity: 1,
@@ -59,7 +56,7 @@ const slideCard = makeStyles((theme) => ({
     },
   },
   cardExiting: {
-    animation: `$cardOut 800ms ${theme.transitions.easing.easeInOut} forwards`,
+    animation: `$cardOut 600ms ${theme.transitions.easing.easeInOut} forwards`,
     transform: 'translateY(0)',
   },
 

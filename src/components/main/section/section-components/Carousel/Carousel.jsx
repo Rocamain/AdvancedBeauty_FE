@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMediaQuery, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -7,16 +7,22 @@ import {
   CarouselHero,
   ChevronButton,
 } from 'components/main/section/section-components/Carousel/styled';
-import Card from 'components/shared/Card';
+import Card from 'components/main/section/section-components/Carousel/Card';
 
 export default function Carousel({ background, title, subtitle, slides }) {
   const [slideIndex, setSlideIndex] = useState(0);
   const [exit, setExit] = useState(false);
-  const [card, setCard] = useState(() => slides[slideIndex]);
+  const [card, setCard] = useState(null);
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
+
+  useEffect(() => {
+    if (!exit) {
+      setCard(slides[slideIndex]);
+    }
+  }, [slideIndex, slides, exit]);
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
@@ -34,7 +40,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
   };
 
   return (
-    <CarouselContainer url={background}>
+    <CarouselContainer url={background.url}>
       {matchesBigScreens && (
         <CarouselHero>
           <Typography
@@ -57,13 +63,24 @@ export default function Carousel({ background, title, subtitle, slides }) {
       )}
 
       {card && (
-        <Box sx={{ position: 'relative', top: '200px' }}>
-          <SlideContainer sx={{ height: '400px' }}></SlideContainer>
+        <Box
+          id="slide container"
+          sx={{
+            height: ['300px', '300px'],
+            margin: 'auto',
+            width: '100%',
+          }}
+        >
+          <SlideContainer sx={{ height: ['300px', '300px'] }} />
 
           <Box
             display="flex"
-            height="400px"
-            sx={{ position: 'relative', top: '-400px' }}
+            height={['300px', '300px']}
+            sx={{
+              position: 'relative',
+              top: ['-300px', '-300px'],
+              alignItems: 'center',
+            }}
           >
             <ChevronButton
               className="ChevronButton ChevronButton-left"
@@ -71,7 +88,15 @@ export default function Carousel({ background, title, subtitle, slides }) {
               onClick={handleClick}
               disableRipple
             />
-            <Card exit={exit} card={card} exitAnimationEnd={exitAnimationEnd} />
+            {
+              <Box id="carousel-card">
+                <Card
+                  exit={exit}
+                  card={card}
+                  exitAnimationEnd={exitAnimationEnd}
+                />
+              </Box>
+            }
             <ChevronButton
               className="ChevronButton ChevronButton-right"
               value="right"
