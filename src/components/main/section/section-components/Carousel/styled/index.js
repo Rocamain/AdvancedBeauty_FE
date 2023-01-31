@@ -6,17 +6,12 @@ const CarouselContainer = styled((props) => <Paper {...props} />)(
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     backgroundRepeat: 'no-repeat',
-    // height: '1000px',
-    background: `url(${formats.large.url})`,
-    // backgroundAttachment: 'fixed',
-    // backgroundPosition: 'center',
-    backgroundSize: 'contain',
+    backgroundImage: `url(${url})`,
+    backgroundSize: 'cover',
     [theme.breakpoints.up('md')]: {
       backgroundImage: `url(${url})`,
-      // display: 'block',
-      backgroundSize: 'cover',
     },
   })
 );
@@ -112,13 +107,14 @@ const ChevronButton = styled((props) => {
 const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
   ({ theme }) => ({
     boxSizing: 'border-box',
-    width: '100%',
+    // width: '100%',
     padding: theme.spacing(5, 3),
     borderRadius: 5,
     display: 'flex',
     justifyContent: 'flex-start',
     flexDirection: 'column',
     backgroundColor: theme.palette.primary.contrastText,
+
     [theme.breakpoints.up('md')]: {
       display: 'block',
       width: 500,

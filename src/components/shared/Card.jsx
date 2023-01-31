@@ -57,6 +57,7 @@ const Card = ({ card, exit, exitAnimationEnd }) => {
       <Box
         className={cardAnimation}
         onAnimationEnd={exitAnimationEnd}
+        id={exit ? 'card out' : 'card in'}
         // sx={{ transform: 'translateY(3em)', opacity: 0 }}
       >
         <CardWrapper

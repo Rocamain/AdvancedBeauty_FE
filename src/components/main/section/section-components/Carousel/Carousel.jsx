@@ -20,21 +20,14 @@ export default function Carousel({ background, title, subtitle, slides }) {
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
-    console.log(
-      { increment },
-      (slideIndex + increment + slides.length) % slides.length
-    );
-
     const newIndex = (slideIndex + increment + slides.length) % slides.length;
     setSlideIndex(newIndex);
     setExit(true);
-    console.log('clicked', newIndex, slides);
   };
 
   const exitAnimationEnd = (e) => {
-    const isExitAnimation = e.animationName.includes('cardOut');
+    const isExitAnimation = e.target.id === 'card out';
     if (isExitAnimation) {
-      console.log('animation End');
       setExit(false);
       setCard(slides[slideIndex]);
     }
@@ -76,6 +69,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               className="ChevronButton ChevronButton-left"
               value="left"
               onClick={handleClick}
+              disableRipple
             />
 
             <Card exit={exit} card={card} exitAnimationEnd={exitAnimationEnd} />
@@ -84,6 +78,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
               className="ChevronButton ChevronButton-right"
               value="right"
               onClick={(e) => handleClick(e)}
+              disableRipple
             />
           </Box>
         </Box>
