@@ -2,16 +2,20 @@ import { Box, Paper, IconButton, styled } from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
 const CarouselContainer = styled((props) => <Paper {...props} />)(
-  ({ theme, url: { url, formats } }) => ({
+  ({ theme, url }) => ({
     position: 'relative',
     display: 'flex',
+    height: '700px',
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundImage: `url(${url})`,
     backgroundSize: 'cover',
+    [theme.breakpoints.down(300)]: {
+      height: '800px',
+    },
     [theme.breakpoints.up('md')]: {
-      backgroundImage: `url(${url})`,
+      padding: '3em 0',
     },
   })
 );
@@ -93,7 +97,7 @@ const ChevronButton = styled((props) => {
   );
 })(({ theme, value }) => ({
   color: theme.palette.primary.contrastText,
-  // backgroundColor: 'transparent',
+  height: '100%',
   borderRadius: 0,
   padding: 0,
   flex: 1,
@@ -104,10 +108,9 @@ const ChevronButton = styled((props) => {
   },
 }));
 
-const CardWrapper = styled((props) => <Box elevation={24} {...props} />)(
+const CardWrapper = styled((props) => <Paper elevation={24} {...props} />)(
   ({ theme }) => ({
     boxSizing: 'border-box',
-    // width: '100%',
     padding: theme.spacing(5, 3),
     borderRadius: 5,
     display: 'flex',

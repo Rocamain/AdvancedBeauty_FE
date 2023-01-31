@@ -1,7 +1,5 @@
-import { useTheme } from '@mui/material/styles';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, Typography, Box, useTheme } from '@mui/material';
 import clsx from 'clsx';
-import { Typography, Box } from '@mui/material';
 import Button from 'components/shared/Button';
 import {
   CardWrapper,
@@ -14,7 +12,7 @@ import {
   slidePhoto,
 } from 'components/main/section/section-components/Carousel/styles';
 
-const Card = ({ card, exit, exitAnimationEnd }) => {
+const Card = ({ card, exit, exitAnimationEnd, bottom }) => {
   const theme = useTheme();
   const { photo, content, linkText, linkTo, title } = card;
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
@@ -38,6 +36,7 @@ const Card = ({ card, exit, exitAnimationEnd }) => {
       sx={{
         display: 'flex',
         alignItems: 'center',
+        position: 'relative',
       }}
     >
       {matchesBigScreens && (
