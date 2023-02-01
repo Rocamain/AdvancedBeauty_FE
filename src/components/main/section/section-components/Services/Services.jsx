@@ -12,7 +12,7 @@ import Modal from 'components/main/booking/Modal/Modal';
 
 export default function Services({ shopName, bookingAPI }) {
   const { services } = useLoaderData();
-
+  console.log(shopName, 'services');
   const [sectionExpanded, setSectionExpanded] = useState(null);
   const [serviceSelected, setServiceSelected] = useState(false);
   const [servicePrice, setServicePrice] = useState(null);

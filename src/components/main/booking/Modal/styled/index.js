@@ -29,9 +29,9 @@ const DialogContainer = styled((props) => {
     boxShadow: 24,
     paddingTop: 3,
     paddingBottom: 3,
-    minHeight: 'calc(100%)',
+
     [theme.breakpoints.between('xs', '280')]: {
-      minHeight: 'calc(100% + 4em)',
+      height: '900px',
     },
     [theme.breakpoints.between('sm', 'md')]: {
       top: '50%',
