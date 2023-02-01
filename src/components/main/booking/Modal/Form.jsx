@@ -29,9 +29,10 @@ export default function Form({ mobile }) {
   const { email, name, authorized } = formData;
 
   useEffect(() => {
-    setBooking({ ...booking, bookingStep: 2 });
     if (authorized && hasNoError(emailError) && hasNoError(nameError)) {
-      setBooking({ ...booking, bookingStep: 3, ...formData });
+      setBooking({ ...booking, bookingStep: 'confirmation', ...formData });
+    } else {
+      setBooking({ ...booking, bookingStep: 'summary', ...formData });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorized, emailError, nameError]);

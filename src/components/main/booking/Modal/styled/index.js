@@ -17,7 +17,6 @@ import { keyframes } from '@emotion/react';
 const DialogContainer = styled((props) => {
   return <Box {...props} />;
 })(({ theme, small_height }) => {
-  console.log('Dialog, Container', small_height);
   return {
     position: 'absolute',
     top: small_height ? 0 : '50%',
@@ -65,19 +64,20 @@ const Dialog = forwardRef((props, ref) => {
 const ModalWrapper = styled(({ children, ...props }) => {
   return <Box {...props} children={children} />;
 })(({ theme, fade_out }) => {
-  //   const fadeInAnimation = keyframes`
-  // 0% {
-  //    opacity: 0;
-  // }
-  // 100% {
-  //   opacity: 1;
+  const fadeInAnimation = keyframes`
+  0% {
+     opacity: 0;
+  }
+  100% {
+    opacity: 1;
 
-  // }`;
+  }`;
 
-  // let animation = `${fadeInAnimation} 0.7s linear forwards 0.7s`;
+  let animation = `${fadeInAnimation} 0.7s linear forwards 0.7s`;
 
   return {
-    // animation: fade_out && animation,
+    opacity: 0,
+    animation: fade_out ? animation : undefined,
     margin: '0 auto',
     width: '90%',
     [theme.breakpoints.up('sm')]: {

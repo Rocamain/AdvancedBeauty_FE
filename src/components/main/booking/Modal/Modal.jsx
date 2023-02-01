@@ -49,13 +49,14 @@ export default function Modal({
     price,
     date: dayjs.tz(),
   });
-  const fadeOut = useRef(booking.bookingStep === 0);
+  const fadeOut = useRef(booking.bookingStep === 'initial');
   const { bookingStep, year } = booking;
   const bankHolidays = useFetchBankHolidays(year, shopName);
-
   const { calenderRef, summaryRef, showSummary } = useShowSummary(bookingStep);
 
-  const isBtnActive = Boolean(bookingStep % 2);
+  const isBtnActive = Boolean(
+    bookingStep === 'time selected' || bookingStep === 'confirmation'
+  );
 
   const handleExitBtn = () => {
     handleClose();
@@ -63,7 +64,7 @@ export default function Modal({
 
   const handleStep = () => {
     setBooking(({ bookingStep, ...rest }) => ({
-      bookingStep: bookingStep + 1,
+      bookingStep: 'summary',
       ...rest,
     }));
   };
@@ -82,20 +83,14 @@ export default function Modal({
           <Dialog small_height={smallPhoneHeightScreen ? 'true' : null}>
             <Stepper step={bookingStep} />
             <ExitBtn onClick={handleExitBtn} />
-            <ModalWrapper
-            // fade_out={fadeOut ? 'true' : null}
-            // sx={{ opacity: fadeOut ? 0 : 1 }}
-            >
-              <Header
-                title={serviceType ? serviceType : 'something'}
-                subtitle={serviceName}
-              />
+            <ModalWrapper fade_out={fadeOut && fadeOut}>
+              <Header title={serviceType} subtitle={serviceName} />
               {showSummary ? (
                 <Summary ref={summaryRef} fadeOut={showSummary} />
               ) : (
                 <Calendar
                   ref={calenderRef}
-                  fadeIn={bookingStep > 1}
+                  fadeIn={bookingStep === 'summary'}
                   bankHolidays={bankHolidays}
                 />
               )}
@@ -103,16 +98,16 @@ export default function Modal({
             <MuiButton
               variant={isBtnActive ? 'contained' : 'disabled'}
               onClick={handleStep}
-              type={bookingStep > 2 ? 'submit' : null}
-              form={bookingStep > 2 ? 'booking-form' : null}
+              type={bookingStep === 'summary' ? 'submit' : null}
+              form={bookingStep === 'summary' ? 'booking-form' : null}
               sx={{
                 position: 'absolute',
                 bottom: 20,
                 right: 20,
-                width: bookingStep > 1 ? '175px' : '100px',
+                width: bookingStep !== 'initial' ? '175px' : '100px',
               }}
             >
-              {bookingStep > 1 ? 'Confirm Booking' : 'Continue'}
+              {bookingStep !== 'initial' ? 'Confirm Booking' : 'Continue'}
             </MuiButton>
           </Dialog>
         </MuiModal>
