@@ -87,8 +87,8 @@ const AccordionDetails = styled((props) => <MuiAccordionDetails {...props} />)(
       fontFamily: 'Open sans',
 
       p: {
-        padding: theme.spacing(1, 3, 2, 4),
-
+        padding: theme.spacing(2),
+        margin: 0,
         cursor: 'pointer',
       },
       '.book': {
@@ -96,12 +96,15 @@ const AccordionDetails = styled((props) => <MuiAccordionDetails {...props} />)(
         display: 'none',
       },
       '.book,.text': {
-        fontWeight: 700,
+        fontWeight: 800,
+        fontFamily: 'Abel',
+        color: '#666',
       },
       [theme.breakpoints.up('md')]: {
         ':hover': {
           p: {
-            padding: theme.spacing(1, 4, 2, 4),
+            padding: theme.spacing(2, 4, 2, 2),
+            height: '100%',
             transition: 'padding 0.3s ease-in-out',
             pointerEvent: 'auto',
           },

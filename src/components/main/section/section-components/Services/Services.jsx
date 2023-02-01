@@ -12,7 +12,7 @@ import Modal from 'components/main/booking/Modal/Modal';
 
 export default function Services({ shopName, bookingAPI }) {
   const { services } = useLoaderData();
-  console.log(shopName, 'services');
+  
   const [sectionExpanded, setSectionExpanded] = useState(null);
   const [serviceSelected, setServiceSelected] = useState(false);
   const [servicePrice, setServicePrice] = useState(null);
@@ -32,7 +32,7 @@ export default function Services({ shopName, bookingAPI }) {
   return (
     <Box
       sx={{
-        width: ['100vw', '80vw', '80vw', '80vw', '70vw'],
+        width: ['85vw', '80vw', '80vw', '80vw', '70vw'],
         margin: '0 auto',
       }}
     >
@@ -49,7 +49,7 @@ export default function Services({ shopName, bookingAPI }) {
               aria-controls={`panel-${name}-content`}
               id={`panel-${name}-header`}
             >
-              <Typography component="h4" variant="h4" sx={{ color: 'white' }}>
+              <Typography component="h4" variant="h5" sx={{ color: 'white' }}>
                 {name}
               </Typography>
             </AccordionSummary>
@@ -63,10 +63,6 @@ export default function Services({ shopName, bookingAPI }) {
                       onClick={() => handleOpenModal(serviceName, price)}
                       display="flex"
                       component="li"
-                      sx={{
-                        width: 'inherit',
-                        gap: '1em',
-                      }}
                     >
                       <Box
                         display="flex"
@@ -75,6 +71,7 @@ export default function Services({ shopName, bookingAPI }) {
                         sx={{
                           width: '100%',
                           justifyContent: 'space-between',
+                          gap: '0.5em',
                         }}
                       >
                         <Typography className="text" variant="p">
