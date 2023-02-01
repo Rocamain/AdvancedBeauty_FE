@@ -63,9 +63,9 @@ export default function Button({
   const isExternalLink = linkTo.type === 'external';
 
   const handleClick = (to) => {
-    console.log(to === '/contact');
+    
     if (to === '/contact' && pathname === '/services_and_fares/promotions/') {
-      console.log('YAHH');
+      
       const contactMessage = value;
 
       const message = `Dear AB team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;

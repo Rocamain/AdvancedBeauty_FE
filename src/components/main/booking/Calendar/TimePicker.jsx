@@ -19,7 +19,7 @@ dayjs.tz.setDefault('Europe/Madrid');
 export default function TimePicker({ timeFrame }) {
   const { setBooking, booking } = useContext(BookingContext);
   const { serviceName, date, bookingAPI } = booking;
-
+  
   const bookings = useFetchBookingDb(serviceName, bookingAPI, date);
 
   useEffect(() => {

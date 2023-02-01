@@ -44,7 +44,6 @@ export default function ContactForm() {
   //  in the message box
 
   useEffect(() => {
-    console.log(location);
     if (location.state?.contactMessage) {
       setValues(({ message, ...prevState }) => ({
         ...prevState,

@@ -3,15 +3,16 @@ import useFetchBankHolidays from 'hooks/useFetchBankHolidays';
 import { BookingContext } from 'context/BookingContext';
 import useShowSummary from 'hooks/useShowSummary';
 import {
-  Modal as MuiModal,
+  // Modal as MuiModal,
+  Box,
   Button as MuiButton,
-  useMediaQuery,
 } from '@mui/material/';
 import Stepper from 'components/main/booking/Modal/Stepper';
 import Summary from 'components/main/booking/Modal/Summary';
 import Calendar from 'components/main/booking/Calendar/Calendar.jsx';
 import Header from 'components/main/booking/Modal/BookingHeader.jsx';
 import {
+  // DialogContent,
   Dialog,
   ModalWrapper,
   ExitBtn,
@@ -37,10 +38,6 @@ export default function Modal({
   shopName,
   bookingAPI,
 }) {
-  const smallPhoneHeightScreen = useMediaQuery('(max-height:800px)', {
-    noSsr: true,
-  });
-
   const [booking, setBooking] = useState({
     ...INITIAL_BOOKING_STATE,
     serviceName,
@@ -72,45 +69,40 @@ export default function Modal({
   return (
     <BookingContext.Provider value={{ booking, setBooking }}>
       {bankHolidays && (
-        <MuiModal
+        <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          disableEnforceFocus
-          disableAutoFocus
+          aria-labelledby="booking calendar"
+          aria-describedby="booking calendar, choose a date"
+          scroll="paper"
         >
-          <Dialog small_height={smallPhoneHeightScreen ? 'true' : null}>
-            <Stepper step={bookingStep} />
-            <ExitBtn onClick={handleExitBtn} />
-            <ModalWrapper fade_out={fadeOut && fadeOut}>
-              <Header title={serviceType} subtitle={serviceName} />
-              {showSummary ? (
-                <Summary ref={summaryRef} fadeOut={showSummary} />
-              ) : (
-                <Calendar
-                  ref={calenderRef}
-                  fadeIn={bookingStep === 'summary'}
-                  bankHolidays={bankHolidays}
-                />
-              )}
-            </ModalWrapper>
+          {/* <DialogContainer> */}
+          <Stepper step={bookingStep} />
+          <ExitBtn onClick={handleExitBtn} />
+          <ModalWrapper fade_out={fadeOut && fadeOut}>
+            <Header title={serviceType} subtitle={serviceName} />
+            {showSummary ? (
+              <Summary ref={summaryRef} fadeOut={showSummary} />
+            ) : (
+              <Calendar
+                ref={calenderRef}
+                fadeIn={bookingStep === 'summary'}
+                bankHolidays={bankHolidays}
+              />
+            )}
+          </ModalWrapper>
+          <Box sx={{ margin: '1em', alignSelf: 'end' }}>
             <MuiButton
               variant={isBtnActive ? 'contained' : 'disabled'}
               onClick={handleStep}
               type={bookingStep === 'summary' ? 'submit' : null}
               form={bookingStep === 'summary' ? 'booking-form' : null}
-              sx={{
-                position: 'absolute',
-                bottom: 20,
-                right: 20,
-                width: bookingStep !== 'initial' ? '175px' : '100px',
-              }}
+              sx={{ marginLeft: 'auto' }}
             >
               {bookingStep !== 'initial' ? 'Confirm Booking' : 'Continue'}
             </MuiButton>
-          </Dialog>
-        </MuiModal>
+          </Box>
+        </Dialog>
       )}
     </BookingContext.Provider>
   );
