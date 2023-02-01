@@ -51,9 +51,8 @@ export default function Modal({
   });
   const fadeOut = useRef(booking.bookingStep === 0);
   const { bookingStep, year } = booking;
-  console.log(shopName);
   const bankHolidays = useFetchBankHolidays(year, shopName);
-  console.log(bankHolidays);
+
   const { calenderRef, summaryRef, showSummary } = useShowSummary(bookingStep);
 
   const isBtnActive = Boolean(bookingStep % 2);
@@ -83,25 +82,24 @@ export default function Modal({
           <Dialog small_height={smallPhoneHeightScreen ? 'true' : null}>
             <Stepper step={bookingStep} />
             <ExitBtn onClick={handleExitBtn} />
-            {/* <ModalWrapper 
+            <ModalWrapper
             // fade_out={fadeOut ? 'true' : null}
             // sx={{ opacity: fadeOut ? 0 : 1 }}
             >
-            */}
-            <Header
-              title={serviceType ? serviceType : 'something'}
-              subtitle={serviceName}
-            />
-            {showSummary ? (
-              <Summary ref={summaryRef} fadeOut={showSummary} />
-            ) : (
-              <Calendar
-                ref={calenderRef}
-                fadeIn={bookingStep > 1}
-                bankHolidays={bankHolidays}
+              <Header
+                title={serviceType ? serviceType : 'something'}
+                subtitle={serviceName}
               />
-            )}
-            {/* </ModalWrapper> */}
+              {showSummary ? (
+                <Summary ref={summaryRef} fadeOut={showSummary} />
+              ) : (
+                <Calendar
+                  ref={calenderRef}
+                  fadeIn={bookingStep > 1}
+                  bankHolidays={bankHolidays}
+                />
+              )}
+            </ModalWrapper>
             <MuiButton
               variant={isBtnActive ? 'contained' : 'disabled'}
               onClick={handleStep}
