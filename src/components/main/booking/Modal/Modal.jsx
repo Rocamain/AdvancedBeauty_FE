@@ -53,7 +53,7 @@ export default function Modal({
   const { bookingStep, year } = booking;
   console.log(shopName);
   const bankHolidays = useFetchBankHolidays(year, shopName);
-
+  console.log(bankHolidays);
   const { calenderRef, summaryRef, showSummary } = useShowSummary(bookingStep);
 
   const isBtnActive = Boolean(bookingStep % 2);
@@ -79,18 +79,13 @@ export default function Modal({
           aria-describedby="modal-modal-description"
           disableEnforceFocus
           disableAutoFocus
-          sx={
-            {
-              // overflowY: 'auto',
-            }
-          }
         >
           <Dialog small_height={smallPhoneHeightScreen ? 'true' : null}>
             <Stepper step={bookingStep} />
             <ExitBtn onClick={handleExitBtn} />
             <ModalWrapper
-              fade_out={fadeOut ? 'true' : null}
-              sx={{ opacity: fadeOut ? 0 : 1 }}
+            // fade_out={fadeOut ? 'true' : null}
+            // sx={{ opacity: fadeOut ? 0 : 1 }}
             >
               <Header title={serviceType} subtitle={serviceName} />
               {showSummary ? (

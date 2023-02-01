@@ -21,6 +21,7 @@ export default function TimePicker({ timeFrame }) {
   const { serviceName, date, bookingAPI } = booking;
 
   const bookings = useFetchBookingDb(serviceName, bookingAPI, date);
+  console.log(bookings);
 
   useEffect(() => {
     setBooking(({ bookingStep, time, ...rest }) => {
