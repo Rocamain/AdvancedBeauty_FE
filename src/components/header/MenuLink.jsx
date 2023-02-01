@@ -32,7 +32,7 @@ const ForwardMenuLink = forwardRef(
           <Typography
             component="h3"
             variant="h6"
-            sx={{ fontFamily: 'Open Sans' }}
+            sx={{ fontFamily: 'Open Sans', textAlign: 'center' }}
           >
             {title}
           </Typography>

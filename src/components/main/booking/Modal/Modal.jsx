@@ -51,6 +51,7 @@ export default function Modal({
   });
   const fadeOut = useRef(booking.bookingStep === 0);
   const { bookingStep, year } = booking;
+  console.log(shopName);
   const bankHolidays = useFetchBankHolidays(year, shopName);
 
   const { calenderRef, summaryRef, showSummary } = useShowSummary(bookingStep);
