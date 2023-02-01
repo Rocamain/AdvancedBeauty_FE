@@ -58,7 +58,7 @@ const LazySection = ({ sectionData, isLastSection, isFirst }) => {
           sectionData.backgroundType === 'full' &&
           'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)',
         display: sectionData.backgroundType === 'full' ? 'flex' : undefined,
-        minHeight: isNearScreen ? '100%' : '50vh',
+        minHeight: isNearScreen ? '100%' : '100vh',
       }}
     >
       <Suspense fallback={<Loading />}>

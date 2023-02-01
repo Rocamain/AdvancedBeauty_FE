@@ -76,10 +76,9 @@ export default function Modal({
           aria-describedby="booking calendar, choose a date"
           scroll="paper"
         >
-          {/* <DialogContainer> */}
           <Stepper step={bookingStep} />
           <ExitBtn onClick={handleExitBtn} />
-          <ModalWrapper fade_out={fadeOut && fadeOut}>
+          <ModalWrapper fade_out={fadeOut.current ? 'fadeout' : undefined}>
             <Header title={serviceType} subtitle={serviceName} />
             {showSummary ? (
               <Summary ref={summaryRef} fadeOut={showSummary} />
