@@ -64,24 +64,14 @@ const Logo = styled(({ width, height, url, altText, formats, ...props }) => {
       src={url}
       alt={altText}
       title={altText}
-      // srcSet={`${formats.thumbnail.url} 700w,${formats.small.url} 1200w,`}
-      // sizes="(min-width: 0px) and (max-width: 700px) 700px,(min-width: 701px) 1200px 100vw"
+      srcSet={`${formats.small.url} 700w,${formats.medium.url} 1200w,`}
+      sizes="(min-width: 0px) and (max-width: 700px) 700px,(min-width: 701px) 1200px 100vw"
       {...props}
     />
   );
 })(({ theme }) => ({
-  maxHeight: 100,
   margin: 0,
-  [theme.breakpoints.between('sm', 'md')]: {
-    height: 'auto',
-    maxWidth: '100%',
-  },
-  [theme.breakpoints.up('md')]: {
-    // maxHeight: 130,
-  },
-  [theme.breakpoints.up('xl')]: {
-    // maxHeight: 150,
-  },
+  maxHeight: '10vw',
 }));
 
 // Mobile
