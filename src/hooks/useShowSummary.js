@@ -11,6 +11,7 @@ export default function useShowSummary(bookingStep) {
     let calendarRefCurrent = calenderRef?.current;
 
     if (calendarRefCurrent && bookingStep > 1) {
+      console.log('showSummary');
       handleAnimationEnd = () => {
         setShowSummary(true);
       };

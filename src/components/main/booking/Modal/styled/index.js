@@ -17,11 +17,12 @@ import { keyframes } from '@emotion/react';
 const DialogContainer = styled((props) => {
   return <Box {...props} />;
 })(({ theme, small_height }) => {
+  console.log('Dialog, Container', small_height);
   return {
     position: 'absolute',
     top: small_height ? 0 : '50%',
     left: 0,
-    transform: !small_height && 'translate(0,-50%)',
+    // transform: !small_height && 'translate(0,-50%)',
     width: '100vw',
     backgroundImage: `url(${circles})`,
     backgroundSize: 'contain',
@@ -29,7 +30,7 @@ const DialogContainer = styled((props) => {
     boxShadow: 24,
     paddingTop: 3,
     paddingBottom: 3,
-
+    height: '100%',
     [theme.breakpoints.between('xs', '280')]: {
       height: '900px',
     },
@@ -55,7 +56,7 @@ const DialogContainer = styled((props) => {
 
 const Dialog = forwardRef((props, ref) => {
   return (
-    <DialogContent tabIndex={-1} ref={ref} sx={{ height: 'inherit' }}>
+    <DialogContent tabIndex={-1} ref={ref} sx={{ height: '720px' }}>
       <DialogContainer {...props} />
     </DialogContent>
   );
@@ -64,19 +65,19 @@ const Dialog = forwardRef((props, ref) => {
 const ModalWrapper = styled(({ children, ...props }) => {
   return <Box {...props} children={children} />;
 })(({ theme, fade_out }) => {
-  const fadeInAnimation = keyframes`
-0% {
-   opacity: 0;
-}
-100% {
-  opacity: 1;
-  
-}`;
+  //   const fadeInAnimation = keyframes`
+  // 0% {
+  //    opacity: 0;
+  // }
+  // 100% {
+  //   opacity: 1;
 
-  let animation = `${fadeInAnimation} 0.7s linear forwards 0.7s`;
+  // }`;
+
+  // let animation = `${fadeInAnimation} 0.7s linear forwards 0.7s`;
 
   return {
-    animation: fade_out && animation,
+    // animation: fade_out && animation,
     margin: '0 auto',
     width: '90%',
     [theme.breakpoints.up('sm')]: {

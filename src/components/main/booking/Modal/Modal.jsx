@@ -83,21 +83,25 @@ export default function Modal({
           <Dialog small_height={smallPhoneHeightScreen ? 'true' : null}>
             <Stepper step={bookingStep} />
             <ExitBtn onClick={handleExitBtn} />
-            <ModalWrapper
+            {/* <ModalWrapper 
             // fade_out={fadeOut ? 'true' : null}
             // sx={{ opacity: fadeOut ? 0 : 1 }}
             >
-              <Header title={serviceType} subtitle={serviceName} />
-              {showSummary ? (
-                <Summary ref={summaryRef} fadeOut={showSummary} />
-              ) : (
-                <Calendar
-                  ref={calenderRef}
-                  fadeIn={bookingStep > 1}
-                  bankHolidays={bankHolidays}
-                />
-              )}
-            </ModalWrapper>
+            */}
+            <Header
+              title={serviceType ? serviceType : 'something'}
+              subtitle={serviceName}
+            />
+            {showSummary ? (
+              <Summary ref={summaryRef} fadeOut={showSummary} />
+            ) : (
+              <Calendar
+                ref={calenderRef}
+                fadeIn={bookingStep > 1}
+                bankHolidays={bankHolidays}
+              />
+            )}
+            {/* </ModalWrapper> */}
             <MuiButton
               variant={isBtnActive ? 'contained' : 'disabled'}
               onClick={handleStep}
