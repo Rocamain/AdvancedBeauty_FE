@@ -10,32 +10,28 @@ export default function useFetchBookingDb(serviceName, shopName, date) {
 
   useEffect(() => {
     const abortController = new AbortController();
+    let mounted = true;
 
-    if (url) {
-      fetch(url, {
-        signal: abortController.signal,
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          if (data.msg) {
-            const err = new Error();
-            err.msg = data.msg;
-            throw err;
-          }
-
-          setData(data.bookings);
-        })
-        .catch((err) => {
-          if (err) {
-            navigate('/error', { state: { err: { msg: err } } });
-            setData(false);
-          }
-          if (abortController.signal.aborted) {
-            setData(false);
-          }
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url, {
+          signal: abortController.signal,
         });
+        const responseJson = await response.json();
+        if (mounted) {
+          setData(responseJson.bookings);
+        }
+      } catch (error) {
+        if (abortController.signal.aborted) {
+          return;
+        } else {
+          const err = { msg: error };
+          navigate('/error', { state: err });
+        }
+      }
+    };
+    if (url && mounted) {
+      fetchData();
     }
 
     return () => {

@@ -9,12 +9,11 @@ export default function useShowSummary(bookingStep) {
   useEffect(() => {
     let handleAnimationEnd;
     let calendarRefCurrent = calenderRef?.current;
+    handleAnimationEnd = () => {
+      setShowSummary(true);
+    };
 
-    if (calendarRefCurrent && bookingStep > 1) {
-      handleAnimationEnd = () => {
-        setShowSummary(true);
-      };
-
+    if (calendarRefCurrent && bookingStep === 'summary') {
       calendarRefCurrent.addEventListener('animationend', handleAnimationEnd);
     }
     return () => {

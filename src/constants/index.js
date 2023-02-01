@@ -75,7 +75,7 @@ const INITIAL_BOOKING_STATE = {
   year: new Date().getFullYear(),
   time: null,
   price: null,
-  bookingStep: 0,
+  bookingStep: 'initial',
   emailAuthorization: false,
   bookingConfirmation: false,
 };

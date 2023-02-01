@@ -3,15 +3,16 @@ import useFetchBankHolidays from 'hooks/useFetchBankHolidays';
 import { BookingContext } from 'context/BookingContext';
 import useShowSummary from 'hooks/useShowSummary';
 import {
-  Modal as MuiModal,
+  // Modal as MuiModal,
+  Box,
   Button as MuiButton,
-  useMediaQuery,
 } from '@mui/material/';
 import Stepper from 'components/main/booking/Modal/Stepper';
 import Summary from 'components/main/booking/Modal/Summary';
 import Calendar from 'components/main/booking/Calendar/Calendar.jsx';
 import Header from 'components/main/booking/Modal/BookingHeader.jsx';
 import {
+  // DialogContent,
   Dialog,
   ModalWrapper,
   ExitBtn,
@@ -37,10 +38,6 @@ export default function Modal({
   shopName,
   bookingAPI,
 }) {
-  const smallPhoneHeightScreen = useMediaQuery('(max-height:800px)', {
-    noSsr: true,
-  });
-
   const [booking, setBooking] = useState({
     ...INITIAL_BOOKING_STATE,
     serviceName,
@@ -49,14 +46,14 @@ export default function Modal({
     price,
     date: dayjs.tz(),
   });
-  const fadeOut = useRef(booking.bookingStep === 0);
+  const fadeOut = useRef(booking.bookingStep === 'initial');
   const { bookingStep, year } = booking;
-  console.log(shopName);
   const bankHolidays = useFetchBankHolidays(year, shopName);
-
   const { calenderRef, summaryRef, showSummary } = useShowSummary(bookingStep);
 
-  const isBtnActive = Boolean(bookingStep % 2);
+  const isBtnActive = Boolean(
+    bookingStep === 'time selected' || bookingStep === 'confirmation'
+  );
 
   const handleExitBtn = () => {
     handleClose();
@@ -64,7 +61,7 @@ export default function Modal({
 
   const handleStep = () => {
     setBooking(({ bookingStep, ...rest }) => ({
-      bookingStep: bookingStep + 1,
+      bookingStep: 'summary',
       ...rest,
     }));
   };
@@ -72,53 +69,39 @@ export default function Modal({
   return (
     <BookingContext.Provider value={{ booking, setBooking }}>
       {bankHolidays && (
-        <MuiModal
+        <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          disableEnforceFocus
-          disableAutoFocus
-          sx={
-            {
-              // overflowY: 'auto',
-            }
-          }
+          aria-labelledby="booking calendar"
+          aria-describedby="booking calendar, choose a date"
+          scroll="paper"
         >
-          <Dialog small_height={smallPhoneHeightScreen ? 'true' : null}>
-            <Stepper step={bookingStep} />
-            <ExitBtn onClick={handleExitBtn} />
-            <ModalWrapper
-              fade_out={fadeOut ? 'true' : null}
-              sx={{ opacity: fadeOut ? 0 : 1 }}
-            >
-              <Header title={serviceType} subtitle={serviceName} />
-              {showSummary ? (
-                <Summary ref={summaryRef} fadeOut={showSummary} />
-              ) : (
-                <Calendar
-                  ref={calenderRef}
-                  fadeIn={bookingStep > 1}
-                  bankHolidays={bankHolidays}
-                />
-              )}
-            </ModalWrapper>
+          <Stepper step={bookingStep} />
+          <ExitBtn onClick={handleExitBtn} />
+          <ModalWrapper fade_out={fadeOut.current ? 'fadeout' : undefined}>
+            <Header title={serviceType} subtitle={serviceName} />
+            {showSummary ? (
+              <Summary ref={summaryRef} fadeOut={showSummary} />
+            ) : (
+              <Calendar
+                ref={calenderRef}
+                fadeIn={bookingStep === 'summary'}
+                bankHolidays={bankHolidays}
+              />
+            )}
+          </ModalWrapper>
+          <Box sx={{ margin: '1em', alignSelf: 'end' }}>
             <MuiButton
               variant={isBtnActive ? 'contained' : 'disabled'}
               onClick={handleStep}
-              type={bookingStep > 2 ? 'submit' : null}
-              form={bookingStep > 2 ? 'booking-form' : null}
-              sx={{
-                position: 'absolute',
-                bottom: 20,
-                right: 20,
-                width: bookingStep > 1 ? '175px' : '100px',
-              }}
+              type={bookingStep === 'summary' ? 'submit' : null}
+              form={bookingStep === 'summary' ? 'booking-form' : null}
+              sx={{ marginLeft: 'auto' }}
             >
-              {bookingStep > 1 ? 'Confirm Booking' : 'Continue'}
+              {bookingStep !== 'initial' ? 'Confirm Booking' : 'Continue'}
             </MuiButton>
-          </Dialog>
-        </MuiModal>
+          </Box>
+        </Dialog>
       )}
     </BookingContext.Provider>
   );

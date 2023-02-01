@@ -19,14 +19,14 @@ dayjs.tz.setDefault('Europe/Madrid');
 export default function TimePicker({ timeFrame }) {
   const { setBooking, booking } = useContext(BookingContext);
   const { serviceName, date, bookingAPI } = booking;
-
+  
   const bookings = useFetchBookingDb(serviceName, bookingAPI, date);
 
   useEffect(() => {
     setBooking(({ bookingStep, time, ...rest }) => {
       return {
         time: null,
-        bookingStep: 0,
+        bookingStep: 'calendar',
         ...rest,
       };
     });
@@ -42,11 +42,11 @@ export default function TimePicker({ timeFrame }) {
     const timeIndex = availableTimes.indexOf(btnTimeValue);
     const bookingWithTime = availableBookings[timeIndex];
 
-    setBooking(({ bookingStep, time, ...rest }) => {
+    setBooking(({ time, bookingStep, ...rest }) => {
       return {
         appointment: bookingWithTime,
         time: btnTimeValue,
-        bookingStep: 1,
+        bookingStep: 'time selected',
         ...rest,
       };
     });

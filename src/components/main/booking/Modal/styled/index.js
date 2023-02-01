@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import { styled } from '@mui/material';
 import {
   Box,
@@ -7,76 +6,63 @@ import {
   TextField,
   InputAdornment,
   Checkbox as MuiCheckbox,
-  DialogContent,
+  Dialog as MuiDialog,
 } from '@mui/material/';
 
 import NorthWestSharpIcon from '@mui/icons-material/NorthWestSharp';
 import circles from 'assets/circles.jpg';
 import { keyframes } from '@emotion/react';
 
-const DialogContainer = styled((props) => {
-  return <Box {...props} />;
-})(({ theme, small_height }) => {
+const Dialog = styled((props) => {
+  return <MuiDialog {...props} />;
+})(({ theme }) => {
   return {
-    position: 'absolute',
-    top: small_height ? 0 : '50%',
-    left: 0,
-    transform: !small_height && 'translate(0,-50%)',
-    width: '100vw',
-    backgroundImage: `url(${circles})`,
-    backgroundSize: 'contain',
-    backgroundColor: 'white',
-    boxShadow: 24,
-    paddingTop: 3,
-    paddingBottom: 3,
+    '.MuiDialog-paper': {
+      width: '100vw',
+      backgroundImage: `url(${circles})`,
+      backgroundSize: 'cover',
+      height: '100%',
+      top: 0,
+      minWidth: 'none',
+      maxHeight: 'none',
+      marginInline: 0,
 
-    [theme.breakpoints.between('xs', '280')]: {
-      height: '900px',
-    },
-    [theme.breakpoints.between('sm', 'md')]: {
-      top: '50%',
-      left: '50%',
-      maxWidth: 600,
-      minHeight: 720,
-      transform: 'translate(-50%,-50%)',
-    },
-    [theme.breakpoints.up('md')]: {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%,-50%)',
-      maxWidth: 800,
-      minHeight: 650,
-    },
-    [theme.breakpoints.up('lg')]: {
-      maxWidth: 1000,
+      [theme.breakpoints.between('xs', '280')]: {
+        height: '900px',
+      },
+      [theme.breakpoints.between('sm', 'md')]: {
+        maxWidth: 600,
+        maxHeight: 750,
+      },
+      [theme.breakpoints.up('md')]: {
+        maxHeight: 640,
+        maxWidth: 800,
+      },
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: 1000,
+      },
     },
   };
-});
-
-const Dialog = forwardRef((props, ref) => {
-  return (
-    <DialogContent tabIndex={-1} ref={ref} sx={{ height: 'inherit' }}>
-      <DialogContainer {...props} />
-    </DialogContent>
-  );
 });
 
 const ModalWrapper = styled(({ children, ...props }) => {
   return <Box {...props} children={children} />;
 })(({ theme, fade_out }) => {
   const fadeInAnimation = keyframes`
-0% {
-   opacity: 0;
-}
-100% {
-  opacity: 1;
-  
-}`;
+  0% {
+     opacity: 0;
+  }
+  100% {
+    opacity: 1;
+
+  }`;
 
   let animation = `${fadeInAnimation} 0.7s linear forwards 0.7s`;
 
   return {
-    animation: fade_out && animation,
+    flex: 1,
+    opacity: 0,
+    animation: fade_out ? animation : undefined,
     margin: '0 auto',
     width: '90%',
     [theme.breakpoints.up('sm')]: {

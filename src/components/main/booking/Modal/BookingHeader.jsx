@@ -12,7 +12,6 @@ export default function BookingHeader({ title, subtitle, className }) {
           color: '#75C9CC',
           marginBottom: '0.35em',
           fontWeight: 700,
-          backgroundColor: 'transparent ! important',
         }}
       >
         {title}
@@ -24,7 +23,6 @@ export default function BookingHeader({ title, subtitle, className }) {
           textAlign: 'center',
           color: '#666666',
           fontWeight: 600,
-          backgroundColor: 'transparent ! important',
         }}
       >
         {subtitle}

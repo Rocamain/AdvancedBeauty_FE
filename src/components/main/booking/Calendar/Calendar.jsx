@@ -61,7 +61,7 @@ const Calendar = ({ bankHolidays }) => {
   };
 
   const handleMonthChange = (date) => {
-    setBooking({ ...booking, bookingStep: 0, date: null });
+    setBooking({ ...booking, date: null });
   };
 
   const handleChange = (newDate) => {
@@ -89,7 +89,12 @@ const Calendar = ({ bankHolidays }) => {
           />
         </LocalizationProvider>
       </Grid>
-      <Grid item xs={12} md={5} sx={{ paddingLeft: { md: 2 } }}>
+      <Grid
+        item
+        xs={12}
+        md={5}
+        sx={{ paddingLeft: { md: 2 }, minHeight: '130px' }}
+      >
         <TimeSelector />
       </Grid>
     </GridContainer>

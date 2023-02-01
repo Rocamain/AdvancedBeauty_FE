@@ -16,7 +16,7 @@ export default forwardRef(({ fadeOut, ...props }, ref) => {
       opacity: 1;
     }
   `;
-
+  
   return (
     <Box
       style={{ opacity: 0 }}
