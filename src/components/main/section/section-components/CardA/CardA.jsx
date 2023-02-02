@@ -44,10 +44,12 @@ function CardA({
               }}
             >
               <Image
+                height={[290, 500, 340, 380, 'auto']}
+                width="100%"
                 url={photo.url}
                 alt={photo.alternativeText}
                 formats={photo.formats}
-                componentType={'cardA'}
+                componentType="cardA"
               />
             </Box>
           )}
