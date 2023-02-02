@@ -20,7 +20,6 @@ export default function GridAPhoto({
           },
           marginBottom: shadowRight ? 0 : '3em',
           zIndex: 200,
-
           minWidth: {
             xs:
               shadowRight && order === 'second'
@@ -32,22 +31,24 @@ export default function GridAPhoto({
                 : undefined,
             md:
               shadowRight && order === 'second'
-                ? 'calc(100% + 10vw)'
+                ? 'calc(100% + 5vw)'
                 : undefined,
           },
-          margin: { xs: '2em auto 0 auto', md: 0 },
-          maxHeight: '600px',
+          margin: { xs: '2em auto 0 auto', sm: '2em 2em 0 2em', md: 0 },
+
           width: {
-            sm: !shadowRight ? '80%' : undefined,
+            sm: !shadowRight ? '100%' : undefined,
             md: !shadowRight ? '100%' : undefined,
           },
         })}
       >
         <Image
+          height={[340, 400, 340, 380, 430, 470]}
+          width={{ lg: '100%' }}
           url={url}
           alt={alternativeText}
           formats={formats}
-          componentType={'gridA'}
+          componentType="gridA"
           shadowRight={shadowRight}
         />
       </Box>
