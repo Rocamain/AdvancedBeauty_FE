@@ -1,53 +1,6 @@
-import { Button as MuiButton, styled, Box } from '@mui/material';
-import { ArrowRight } from '@mui/icons-material/';
+import { Box } from '@mui/material';
+import { PrimaryButton } from 'components/shared/styled';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-const MyButton = styled(({ type, onClick, ...props }) => {
-  return (
-    <MuiButton
-      variant="contained"
-      color="primary"
-      endIcon={<ArrowRight />}
-      component="a"
-      disableFocusRipple
-      disableRipple
-      type={type}
-      onClick={type === 'submit' ? null : onClick}
-      {...props}
-    />
-  );
-})(({ theme }) => ({
-  fontWeight: 600,
-  zIndex: 100,
-  fontSize: '1rem',
-  borderLeft: '15px solid transparent',
-  borderRight: '0.5em solid transparent',
-  padding: '0.5em 0.5em 0.5em 0',
-  textAlign: 'center',
-  transition: 'background-color 0.65s !important',
-  ':hover': {
-    borderRight: 0,
-    paddingRight: '1.5em',
-    backgroundColor: 'rgba(0, 0, 0, 0.14)',
-    color: 'orange',
-    '.MuiButton-endIcon': {
-      opacity: 1,
-      transform: 'translate(-14px)',
-      width: '6px',
-    },
-  },
-
-  '.MuiButton-endIcon': {
-    transform: 'translate(-30px)',
-    width: 0,
-    opacity: 0,
-    transition: 'transform 0.6s, width 0.3s, opacity 0.2s ease',
-    '>:nth-of-type(1)': {
-      fontSize: '2.5rem',
-      fontWeight: 800,
-    },
-  },
-}));
 
 export default function Button({
   linkTo,
@@ -56,6 +9,7 @@ export default function Button({
   disabled,
   type,
   value,
+  ...props
 }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -63,9 +17,7 @@ export default function Button({
   const isExternalLink = linkTo.type === 'external';
 
   const handleClick = (to) => {
-    
     if (to === '/contact' && pathname === '/services_and_fares/promotions/') {
-      
       const contactMessage = value;
 
       const message = `Dear AB team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
@@ -83,15 +35,17 @@ export default function Button({
         width: width && width,
       }}
     >
-      <MyButton
+      <PrimaryButton
         disabled={disabled}
         type={type}
         title={value}
         id={value}
         href={linkTo.URL}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {linkText}
-      </MyButton>
+      </PrimaryButton>
     </Box>
   ) : (
     <Box
@@ -99,7 +53,7 @@ export default function Button({
         width: width && width,
       }}
     >
-      <MyButton
+      <PrimaryButton
         disabled={disabled}
         type={type}
         title={value}
@@ -107,7 +61,7 @@ export default function Button({
         onClick={() => handleClick(linkTo.URL)}
       >
         {linkText}
-      </MyButton>
+      </PrimaryButton>
     </Box>
   );
 }
