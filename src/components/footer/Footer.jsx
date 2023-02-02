@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { Box, Grid, Typography } from '@mui/material';
-import { Button } from 'components/shared/styled/';
+import { SecondaryButton } from 'components/shared/styled/';
 import { SHOPS } from 'constants/index.js';
 
 function Footer() {
@@ -54,12 +54,12 @@ function Footer() {
                       variant="footerParagraph"
                     >{`Mondays to Saturdays from ${SHOPS[shopName].openingTimes[0]} to ${SHOPS[shopName].openingTimes[1]}`}</Typography>
                   </Box>
-                  <Button
+                  <SecondaryButton
                     href="https://api.whatsapp.com/send?phone=+44568807804&text=Hola"
                     target="_blank"
                   >
                     Whatsapp
-                  </Button>
+                  </SecondaryButton>
                 </Box>
                 <iframe
                   title={shopName}
