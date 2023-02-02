@@ -25,20 +25,19 @@ export default function GridPhoto({ photos }) {
       >
         {photos.map(({ url, formats, alternativeText }, index) => {
           return (
-            <ImageListItem key={index} sx={{ borderRadius: '125px' }}>
-              <img
+            <ImageListItem key={index}>
+              <Box
+                component="img"
                 loading="lazy"
+                height={['320px', '450px', '340px', '350px', '380px']}
                 width="100%"
-                height="100%"
                 src={url}
                 alt={alternativeText}
-                srcSet={`${formats.large.url} 1024w, ${formats.medium.url} 980w, ${formats.small.url} 480w`}
+                srcSet={`${formats.medium.url} 1024w, ${formats.medium.url} 980w, ${formats.small.url} 480w`}
                 sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw"
                 style={{
                   objectFit: 'cover',
-                  objectPosition: 'center center',
-                  width: '100%',
-                  height: '100%',
+                  maxWidth: '100%',
                   borderRadius: '5px',
                 }}
               />
