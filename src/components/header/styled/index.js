@@ -15,7 +15,7 @@ import { Link as LinkRouter } from 'react-router-dom';
 const HeaderContainer = styled('header')(({ theme }) => ({
   boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 0px 0px',
   position: 'sticky',
-  backgroundColor: theme.palette.primary.contrastText,
+  backgroundColor: '#F4F9FC',
   zIndex: 1000,
   top: 0,
   right: 0,
@@ -44,7 +44,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.up('lg')]: {
     width: '80vw',
-    maxWidth: 1000,
+    maxWidth: 1200,
   },
   [theme.breakpoints.up('lg')]: {
     width: '65vw',
@@ -71,6 +71,7 @@ const Logo = styled(({ width, height, url, altText, formats, ...props }) => {
   );
 })(({ theme }) => ({
   maxWidth: '100%',
+  objectFit: 'contain',
 }));
 
 // Mobile

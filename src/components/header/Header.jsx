@@ -41,7 +41,7 @@ export default function Header({ navigationLinks }) {
           <Wrapper>
             <Box
               sx={{
-                padding: '0.3em 0',
+                width: ['60%', '50%', '30%'],
               }}
             >
               <Logo
