@@ -39,7 +39,11 @@ export default function Header({ navigationLinks }) {
       <>
         <HeaderContainer ref={ref}>
           <Wrapper>
-            <Box>
+            <Box
+              sx={{
+                width: ['60%', '50%', '30%'],
+              }}
+            >
               <Logo
                 url={logo.url}
                 altText={logo.alternativeText}
@@ -52,14 +56,16 @@ export default function Header({ navigationLinks }) {
                 selectedLinks={selectedLinks}
               />
             ) : (
-              <BurgerButton
-                aria-describedby={id}
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleOpen}
-              >
-                <MenuIcon fontSize="large" sx={{ fontSize: '2.5rem' }} />
-              </BurgerButton>
+              <Box>
+                <BurgerButton
+                  aria-describedby={id}
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleOpen}
+                >
+                  <MenuIcon fontSize="large" sx={{ fontSize: '2.5rem' }} />
+                </BurgerButton>
+              </Box>
             )}
           </Wrapper>
         </HeaderContainer>
