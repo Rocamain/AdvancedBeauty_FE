@@ -20,10 +20,9 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   top: 0,
   right: 0,
   gap: '0.5em',
-  height: '13vh',
+
   padding: 0,
   [theme.breakpoints.up('md')]: {
-    height: '18vh',
     justifyContent: 'space-between',
   },
 }));
@@ -60,6 +59,7 @@ const Logo = styled(({ width, height, url, altText, formats, ...props }) => {
     <Box
       component="img"
       width="100%"
+      height={[95, 110, 120, 140, 160, 190]}
       loading="lazy"
       src={url}
       alt={altText}
@@ -70,8 +70,7 @@ const Logo = styled(({ width, height, url, altText, formats, ...props }) => {
     />
   );
 })(({ theme }) => ({
-  margin: 0,
-  maxHeight: '10vw',
+  maxWidth: '100%',
 }));
 
 // Mobile
