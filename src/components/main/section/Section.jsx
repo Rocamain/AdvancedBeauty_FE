@@ -1,7 +1,6 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
-import { useLocation } from 'react-router';
 import useNearScreen from 'hooks/useNearScreen.js';
 
 // Dynamic import
@@ -16,53 +15,50 @@ const LoadableDynamicSection = (componentName) => {
 
 //  Loads the arguments of the  as props in the section Component
 
-const loadSection = async ({ componentName, ...sectionData }) => {
+const loadSection = async ({ componentName, onLoad, ...sectionData }) => {
   const SectionContent = await LoadableDynamicSection(componentName);
-  return <SectionContent {...sectionData} />;
+  return <SectionContent {...sectionData} onLoad={onLoad} />;
 };
 
-//
 // Component
-//
 
-const LazySection = ({ sectionData, isLastSection, isFirst }) => {
+const LazySection = ({ sectionData, show }) => {
   const [section, setSection] = useState(null);
 
-  const { pathname } = useLocation();
   const { fromRef, isNearScreen } = useNearScreen({
+    show: show,
     distance: '200px',
   });
 
-  // Set the arguments/props of section according if it withLink, that mean that section can be linked .
+  // Lazy components returns a promise, when the promise is resolve we set the component
 
   useEffect(() => {
-    const args = sectionData.withLink
-      ? { ...sectionData, isNearScreen: isNearScreen }
-      : { ...sectionData };
-
-    loadSection({
-      ...args,
-    }).then((section) => {
-      return setSection(section);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
-  //  this effect, is used to alow to render the footer when we reach the last section
+    let mounted = true;
+    if (mounted) {
+      loadSection({
+        ...sectionData,
+      }).then((section) => {
+        return setSection(section);
+      });
+      mounted = false;
+    }
+  }, [sectionData]);
 
   return (
     <Box
       ref={fromRef}
-      sx={{
-        backgroundImage:
-          sectionData.backgroundType === 'full' &&
-          'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)',
-        display: sectionData.backgroundType === 'full' ? 'flex' : undefined,
-        minHeight: isNearScreen ? '100%' : '100vh',
+      sx={(theme) => {
+        return {
+          backgroundImage:
+            sectionData.backgroundType === 'full' &&
+            theme.palette.background.primary,
+          display: sectionData.backgroundType === 'full' ? 'flex' : undefined,
+          minHeight: isNearScreen ? '100%' : '100vh',
+        };
       }}
     >
       <Suspense fallback={<Loading />}>
-        {(isNearScreen || isFirst) && section}
+        {(isNearScreen || show) && section}
       </Suspense>
     </Box>
   );
