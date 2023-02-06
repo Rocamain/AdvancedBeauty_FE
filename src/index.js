@@ -3,15 +3,13 @@ import theme from 'styles/theme';
 import './styles/index.css';
 import App from 'App';
 import '@fontsource/abel';
-import '@fontsource/open-sans';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
-const root = document.getElementById('root');
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-ReactDOM.render(
+root.render(
   <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>,
-  root
+    <App tab="home" />
+  </ThemeProvider>
 );
