@@ -5,14 +5,14 @@ const slidePhoto = makeStyles((theme) => ({
     boxShadow: '0px 12px 18px -6px rgb(0 0 0 / 30%)',
     transform: 'translateX(-3em)',
     opacity: 0,
-    animation: `$photoIn 1000ms ${theme.transitions.easing.easeInOut} forwards 200ms`,
+    animation: `$photoIn 1000ms ${theme.transitions.easing.easeInOut} forwards`,
   },
   '@keyframes photoIn': {
     '0%': {
       opacity: 0,
     },
     '50%': {
-      opacity: 0.2,
+      opacity: 0.4,
     },
     '100%': {
       opacity: 1,
@@ -21,14 +21,14 @@ const slidePhoto = makeStyles((theme) => ({
   },
   photoExiting: {
     transform: 'translateX(0)',
-    animation: `$photoOut 700ms ${theme.transitions.easing.easeInOut}`,
+    animation: `$photoOut 700ms ${theme.transitions.easing.easeInOut} forwards`,
     opacity: 1,
   },
 
   '@keyframes photoOut': {
     transform: 'translateX(0)',
     '0%': {
-      opacity: 0.5,
+      opacity: 1,
     },
     '100%': {
       opacity: 0,
@@ -39,7 +39,7 @@ const slidePhoto = makeStyles((theme) => ({
 
 const slideCard = makeStyles((theme) => ({
   cardEntering: {
-    animation: `$cardIn 800ms ${theme.transitions.easing.easeInOut} forwards`,
+    animation: `$cardIn 700ms ${theme.transitions.easing.easeInOut} forwards 200ms`,
     transform: 'translateY(3.5em)',
     opacity: 0,
   },

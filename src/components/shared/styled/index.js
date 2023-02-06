@@ -76,6 +76,7 @@ const Container = styled((props) => <Box {...props} />)(
     const shadowRight = background.includes('right');
 
     return {
+      margin: 'auto',
       width: shadowRight ? '90vw' : '100vw',
       height: show === 'cards' && 'calc(100% + 64px)',
       boxSizing: 'border-box',
@@ -180,7 +181,7 @@ const Image = styled(
   ({ className, url, alt, formats, componentType, shadowRight, ...props }) => {
     const [lg, md, sm] = COMPONENT_SCR_SET(componentType);
     const sizes = COMPONENT_SIZES(componentType);
-
+    console.log(formats);
     return (
       <Box
         component="img"
@@ -190,7 +191,9 @@ const Image = styled(
         src={url}
         alt={alt}
         title={alt}
-        srcSet={`${url} ${lg}, ${formats.medium.url} ${md}, ${formats.small.url} ${sm}`}
+        srcSet={`${formats?.large?.url ? formats?.large?.url : url} ${lg}, ${
+          formats.medium.url
+        } ${md}, ${formats.small.url} ${sm}`}
         sizes={sizes}
         sx={{
           boxShadow:
@@ -258,7 +261,7 @@ const PrimaryButton = styled(({ type, onClick, ...props }) => {
       '.MuiButton-endIcon': {
         opacity: 1,
         transform: 'translate(0)',
-        width: '6px',
+        width: '8px',
       },
     },
   },

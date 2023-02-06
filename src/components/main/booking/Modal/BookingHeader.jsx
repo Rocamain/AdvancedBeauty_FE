@@ -9,7 +9,7 @@ export default function BookingHeader({ title, subtitle, className }) {
         variant="h2"
         sx={{
           textAlign: 'center',
-          color: '#75C9CC',
+          color: 'primary.main',
           marginBottom: '0.35em',
           fontWeight: 700,
         }}

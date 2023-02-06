@@ -39,14 +39,14 @@ const CustomPickersDay = styled(({ ...props }) => {
       color: '#656363e8',
     },
     ':focus': {
-      backgroundColor: '#75C9CC !important',
+      backgroundColor: `${theme.palette.primary.main} !important`,
       color: 'white',
     },
     '&.Mui-disabled': {
       fontWeight: 500,
     },
     '&.Mui-selected': {
-      backgroundColor: '75C9CC !important',
+      backgroundColor: 'primary.main !important',
       fontWeight: '700 !important',
     },
     '&.bank-holiday': {
