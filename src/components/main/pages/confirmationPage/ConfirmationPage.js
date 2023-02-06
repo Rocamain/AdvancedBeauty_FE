@@ -41,7 +41,7 @@ export default function ConfirmationPage(props) {
         >
           <SectionTitle title="Booking Confirmation" grid cardA />
           <ConfirmationMsg email={email} name={name} />
-          <Card card="booking">
+          <Card card="booking" background="leaves">
             <BookingDetails {...bookingDetails} />
           </Card>
         </Box>
