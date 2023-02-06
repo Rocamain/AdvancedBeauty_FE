@@ -1,4 +1,3 @@
-import useScrollTo from 'hooks/useScrollTo.js';
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 import { Box } from '@mui/material';
 import Icon from 'components/shared/Icon.jsx';
@@ -10,14 +9,9 @@ import {
 } from 'components/main/section/section-components/GridB/styled';
 import Markdown from 'components/shared/MarkDown';
 
-export default function GridB({ withLink, title, size, cards, isNearScreen }) {
-  const { scrollRef } = useScrollTo({
-    url: withLink?.URL,
-    isNearScreen,
-  });
-
+export default function GridB({ title, size, cards }) {
   return (
-    <Box ref={withLink?.URL && scrollRef}>
+    <>
       {title && <SectionTitle title={title} />}
       <Container size={size}>
         {cards.map(
@@ -49,6 +43,6 @@ export default function GridB({ withLink, title, size, cards, isNearScreen }) {
           }
         )}
       </Container>
-    </Box>
+    </>
   );
 }
