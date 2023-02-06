@@ -1,33 +1,21 @@
 import { useMediaQuery, Typography, Box, useTheme } from '@mui/material';
 import clsx from 'clsx';
 import Button from 'components/shared/Button';
-import {
-  CardWrapper,
-  Photo,
-  CardPhotoContainer,
-} from 'components/main/section/section-components/Carousel/styled';
+import { CardWrapper } from 'components/main/section/section-components/Carousel/styled';
+import PhotoCarousel from 'components/main/section/section-components/Carousel/PhotoCarousel.jsx';
 import Markdown from 'components/shared/MarkDown';
-import {
-  slideCard,
-  slidePhoto,
-} from 'components/main/section/section-components/Carousel/styles';
+import { slideCard } from 'components/main/section/section-components/Carousel/styles';
 
-const Card = ({ card, exit, exitAnimationEnd, bottom }) => {
+const Card = ({ card, exitAnimationEnd, enter, exit }) => {
   const theme = useTheme();
   const { photo, content, linkText, linkTo, title } = card;
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
 
-  let photoAnimationStyles = slidePhoto();
-  let cardAnimationStyles = slideCard();
-
-  let animatedPhoto = `${clsx(photoAnimationStyles.photoEntering, {
-    [photoAnimationStyles.photoExiting]: exit,
-  })}`;
-
-  let cardAnimation = `${clsx({
-    [cardAnimationStyles.cardEntering]: !exit,
+  const cardAnimationStyles = slideCard();
+  const cardAnimation = `${clsx(cardAnimationStyles.cardIle, {
+    [cardAnimationStyles.cardEntering]: enter,
     [cardAnimationStyles.cardExiting]: exit,
   })}`;
 
@@ -40,13 +28,12 @@ const Card = ({ card, exit, exitAnimationEnd, bottom }) => {
       }}
     >
       {matchesBigScreens && (
-        <CardPhotoContainer>
-          <Photo
-            className={animatedPhoto}
-            alt={photo.alternativeText}
-            src={photo}
-          />
-        </CardPhotoContainer>
+        <PhotoCarousel
+          alt={photo.alternativeText}
+          src={photo.url}
+          exit={exit}
+          enter={enter}
+        />
       )}
       <CardWrapper
         className={cardAnimation}

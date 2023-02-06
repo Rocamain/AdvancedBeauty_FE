@@ -11,36 +11,97 @@ import Card from 'components/main/section/section-components/Carousel/Card';
 
 export default function Carousel({ background, title, subtitle, slides }) {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [exit, setExit] = useState(false);
-  const [card, setCard] = useState(null);
+  const [animationExit, setAnimationExit] = useState(false);
+  const [animationEnter, setAnimationEnter] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const [isPhotoLoaded, setPhotoLoaded] = useState(false);
+  const [card, setCard] = useState(slides[slideIndex]);
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
     noSsr: true,
   });
 
+  // EFFECT FOR MOBILES. On mount wait 2 seconds to start animation.
+
   useEffect(() => {
-    if (!exit) {
-      setCard(slides[slideIndex]);
+    let timer;
+
+    if (matchesBigScreens === false && initialLoad) {
+      timer = setTimeout(() => {
+        setInitialLoad(false);
+        setAnimationEnter(true);
+      }, 2000);
     }
-  }, [slideIndex, slides, exit]);
+
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ON BIG SCREENS. Once the image is loaded On wait 2 seconds to start animation.
+
+  const onLoad = () => {
+    // time out will apply on initial load,
+
+    if (initialLoad) {
+      setTimeout(() => {
+        // set image as loaded
+
+        setPhotoLoaded(true);
+        setInitialLoad(false);
+      }, 2000);
+    }
+    if (!initialLoad) {
+      setPhotoLoaded(true);
+      setAnimationExit(false);
+    }
+  };
+
+  // Once the isPhotoLoaded start the animation to enter the card
+
+  useEffect(() => {
+    if (matchesBigScreens && isPhotoLoaded) {
+      setAnimationEnter(true);
+    }
+  }, [matchesBigScreens, isPhotoLoaded, card]);
+
+  // On click set the exit the card and set a the new index.
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
     const newIndex = (slideIndex + increment + slides.length) % slides.length;
+
     setSlideIndex(newIndex);
-    setExit(true);
+    setAnimationExit(true);
+    setAnimationEnter(false);
+    setPhotoLoaded(false);
   };
 
+  // On Exit  animation End set the new card with index set on click event
   const exitAnimationEnd = (e) => {
     const isExitAnimation = e.target.id === 'card out';
+
     if (isExitAnimation) {
-      setExit(false);
+      if (matchesBigScreens && !initialLoad) {
+        // On big screen will check is the image is already loaded, as load event will note triggered.
+
+        const currentPhoto = card.photo.url;
+        const newPhoto = slides[slideIndex].photo.url;
+        const isAlreadyLoaded = currentPhoto === newPhoto;
+
+        if (isAlreadyLoaded) {
+          setAnimationExit(false);
+          setPhotoLoaded(true);
+        }
+      } else {
+        // on Mobile once the animation end will reverse the states on exit and enter
+        setAnimationExit(false);
+        setAnimationEnter(true);
+      }
       setCard(slides[slideIndex]);
     }
   };
-
   return (
-    <CarouselContainer url={background.url}>
+    <CarouselContainer onLoad={onLoad} url={background.url}>
       {matchesBigScreens && (
         <CarouselHero>
           <Typography
@@ -54,58 +115,50 @@ export default function Carousel({ background, title, subtitle, slides }) {
             <Typography
               component="h2"
               variant="carouselSubtitle"
-              sx={{ mb: '10px', textAlign: 'right' }}
+              sx={{ textAlign: 'right' }}
             >
               {subtitle}
             </Typography>
           )}
         </CarouselHero>
       )}
-
-      {card && (
+      <Box
+        sx={{
+          height: '300px',
+          margin: 'auto',
+          width: '100%',
+        }}
+      >
+        <SlideContainer sx={{ height: '300px' }} />
         <Box
-          id="slide container"
+          display="flex"
+          height="300px"
           sx={{
-            height: ['300px', '300px'],
-            margin: 'auto',
-            width: '100%',
+            position: 'relative',
+            top: '-300px',
+            alignItems: 'center',
           }}
         >
-          <SlideContainer sx={{ height: ['300px', '300px'] }} />
-
-          <Box
-            display="flex"
-            height={['300px', '300px']}
-            sx={{
-              position: 'relative',
-              top: ['-300px', '-300px'],
-              alignItems: 'center',
-            }}
-          >
-            <ChevronButton
-              className="ChevronButton ChevronButton-left"
-              value="left"
-              onClick={handleClick}
-              disableRipple
-            />
-            {
-              <Box id="carousel-card">
-                <Card
-                  exit={exit}
-                  card={card}
-                  exitAnimationEnd={exitAnimationEnd}
-                />
-              </Box>
-            }
-            <ChevronButton
-              className="ChevronButton ChevronButton-right"
-              value="right"
-              onClick={(e) => handleClick(e)}
-              disableRipple
-            />
-          </Box>
+          <ChevronButton
+            className="ChevronButton ChevronButton-left"
+            value="left"
+            onClick={handleClick}
+            disableRipple
+          />
+          <Card
+            enter={animationEnter}
+            exit={animationExit}
+            card={card}
+            exitAnimationEnd={exitAnimationEnd}
+          />
+          <ChevronButton
+            className="ChevronButton ChevronButton-right"
+            value="right"
+            onClick={(e) => handleClick(e)}
+            disableRipple
+          />
         </Box>
-      )}
+      </Box>
     </CarouselContainer>
   );
 }
