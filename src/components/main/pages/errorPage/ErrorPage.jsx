@@ -5,8 +5,8 @@ export default function ErrorPage() {
   let error = useRouteError();
 
   return (
-    <>
+    <main>
       <Error error={error} />
-    </>
+    </main>
   );
 }
