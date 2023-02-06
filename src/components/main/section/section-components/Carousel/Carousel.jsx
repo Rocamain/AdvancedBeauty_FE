@@ -21,7 +21,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
     noSsr: true,
   });
 
-  // EFFECT FOR MOBILES. On mount wait 2 seconds to start animation.
+  // EFFECT FOR MOBILES. On mount wait 1 second to start animation.
 
   useEffect(() => {
     let timer;
@@ -30,14 +30,14 @@ export default function Carousel({ background, title, subtitle, slides }) {
       timer = setTimeout(() => {
         setInitialLoad(false);
         setAnimationEnter(true);
-      }, 2000);
+      }, 1000);
     }
 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ON BIG SCREENS. Once the image is loaded On wait 2 seconds to start animation.
+  // ON BIG SCREENS. Once the image is loaded On wait 1 second to start animation.
 
   const onLoad = () => {
     // time out will apply on initial load,
@@ -48,7 +48,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
 
         setPhotoLoaded(true);
         setInitialLoad(false);
-      }, 2000);
+      }, 1000);
     }
     if (!initialLoad) {
       setPhotoLoaded(true);
