@@ -37,7 +37,7 @@ export default function Header({ navigationLinks }) {
   return (
     logo && (
       <>
-        <HeaderContainer ref={ref}>
+        <HeaderContainer id="header" ref={ref}>
           <Wrapper>
             <Box
               sx={{

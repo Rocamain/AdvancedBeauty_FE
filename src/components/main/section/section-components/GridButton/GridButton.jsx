@@ -1,16 +1,9 @@
-import useScrollTo from 'hooks/useScrollTo.js';
 import { Box, Button } from '@mui/material';
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 
-export default function GridButton({ buttons, title, isNearScreen, withLink }) {
-  const { scrollRef } = useScrollTo({
-    url: withLink?.URL,
-    isNearScreen,
-  });
-
+export default function GridButton({ buttons, title }) {
   return (
     <Box
-      ref={withLink?.URL && scrollRef}
       sx={{
         width: ['80vw', '75vw'],
         margin: '0 auto',
