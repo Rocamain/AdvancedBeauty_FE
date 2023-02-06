@@ -14,7 +14,7 @@ const Accordion = styled((props) => (
     display: 'none',
   },
   '.MuiCollapse-root': {
-    border: `1px solid #00BCCC`,
+    border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: '0px 0px 5px 5px',
     borderTop: `0px`,
   },
@@ -32,11 +32,11 @@ const AccordionSummary = styled((props) => (
     {...props}
   />
 ))(({ theme }) => ({
-  background: '#00BCCC',
+  background: theme.palette.primary.main,
   padding: theme.spacing(1, 4),
   color: 'white',
   fontWeight: 500,
-  border: `1px solid #00BCCC`,
+  border: `1px solid ${theme.palette.primary.main}.main`,
   borderRadius: '5px',
   flexDirection: 'row-reverse',
   h4: { fontWeight: 600 },
@@ -108,7 +108,7 @@ const AccordionDetails = styled((props) => <MuiAccordionDetails {...props} />)(
             transition: 'padding 0.3s ease-in-out',
             pointerEvent: 'auto',
           },
-          background: '#00BCCC',
+          background: theme.palette.primary.main,
           '.text': {
             color: theme.palette.primary.contrastText,
             fontWeight: 800,

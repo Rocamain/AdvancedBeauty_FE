@@ -1,6 +1,7 @@
 import { Box, Paper, IconButton, styled } from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
+
 const CarouselContainer = styled((props) => <Paper {...props} />)(
   ({ theme, url }) => ({
     position: 'relative',
@@ -117,7 +118,8 @@ const CardWrapper = styled((props) => <Paper elevation={24} {...props} />)(
     justifyContent: 'flex-start',
     flexDirection: 'column',
     backgroundColor: theme.palette.primary.contrastText,
-
+    transform: 'translateY(3.5em)',
+    opacity: 0,
     [theme.breakpoints.up('md')]: {
       display: 'block',
       width: 500,
@@ -137,26 +139,25 @@ const CardWrapper = styled((props) => <Paper elevation={24} {...props} />)(
 const CardPhotoContainer = styled((props) => {
   return <Box elevation={24} {...props} />;
 })(({ theme }) => ({
-  width: '50%',
   maxWidth: 300,
 }));
 
-const Photo = styled(({ src, ...props }) => {
-  const { small, medium } = src.formats;
+const Photo = styled(({ ...props }) => {
+  // const { small, medium } = src.formats;
 
   return (
     <Box
-      width="600"
-      height="300"
+      width="300"
+      height="600"
       component="img"
       {...props}
-      sx={{
-        content: {
-          md: `url(${small.url})`,
-          lg: `url(${small.url})`,
-          xl: `url(${medium.url})`,
-        },
-      }}
+      // sx={{
+      //   content: {
+      //     md: `url(${small.url})`,
+      //     lg: `url(${small.url})`,
+      //     xl: `url(${medium.url})`,
+      //   },
+      // }}
     />
   );
 })(({ theme }) => ({
@@ -167,6 +168,8 @@ const Photo = styled(({ src, ...props }) => {
   borderRadius: 5,
   maxWidth: 'calc(100% + 10px)',
   objectFit: 'contain',
+  transform: 'translateX(-3em)',
+  opacity: 0,
   [theme.breakpoints.up('lg')]: {
     maxWidth: 'calc(100% + 40px)',
   },
