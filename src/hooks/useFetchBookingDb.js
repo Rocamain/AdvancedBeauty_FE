@@ -17,9 +17,16 @@ export default function useFetchBookingDb(serviceName, shopName, date) {
         const response = await fetch(url, {
           signal: abortController.signal,
         });
-        const responseJson = await response.json();
-        if (mounted) {
-          setData(responseJson.bookings);
+
+        if (response.ok) {
+          const responseJson = await response.json();
+          if (mounted) {
+            setData(responseJson.bookings);
+          }
+        } else {
+          const err = new Error();
+          err.msg = 'Error on Booking process';
+          throw err;
         }
       } catch (error) {
         if (abortController.signal.aborted) {
