@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://drive.google.com/uc?export=view&id=1wsr8uxYJJAm82iHpktyeBZsmVkGHK3pe">
+  <source media="(prefers-color-scheme: light)" srcset="https://drive.google.com/uc?export=view&id=1wsr8uxYJJAm82iHpktyeBZsmVkGHK3pe">
+  <img alt="Logo Advantage Beauty in light Mode mode." srcset="https://drive.google.com/uc?export=view&id=1wsr8uxYJJAm82iHpktyeBZsmVkGHK3pe">
+</picture>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tech
 
-## Available Scripts
+[![react](https://img.shields.io/badge/react-18.0.2-lightblue)](https://reactjs.org/)
+[![mui](https://img.shields.io/badge/Mui-5.11.6-blue)](https://www.mui.com)
+[![day-js](https://img.shields.io/badge/day-js-1.11.6-black)](https://day.js.org/)
+[![react-router-dom](https://img.shields.io/badge/react-router-dom-6.6.0-green)](https://reactrouter.com/)
 
-In the project directory, you can run:
+# DESCRIPTION
 
-### `npm start`
+Advance Beauty is front end created with react library, where you do can get information from a beauty center and make bookings.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[Advanced beauty](https://advanced-beauty-fe.vercel.app/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### What the project does.
 
-### `npm test`
+- Display the content provide the content according the CMS
+- Makes bookings to a data base api
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Goals
 
-### `npm run build`
+My main goal was to learn and create a full project with all the required needs for a functional beauty center. This back end is part of a major project which includes:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. [Advanced beauty Booking Api](https://advancedbeauty-be-production.up.railway.app/).
+2. [Advanced beauty CMS](https://advancedbeautycms-production.up.railway.app/admin)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Repos:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1- [Booking Api](https://github.com/Rocamain/AdvancedBeauty-BE)
+2- [Strapi/CMS](https://github.com/Rocamain/AdvancedBeauty_CMS)
 
-### `npm run eject`
+##### Personal goals:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Master my skill with use of react and react router
+- Create a calendar localize in specific time zone.
+- Implement a front end with a nice ui.
+- Learn new libraries.
+- Achieve a good loading performance.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Challenges
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Start form the scratch a project without knowledge of the most the libraries, mui, and day-js
+- Create a navigation in conjunction with lazy component and the use of intersection observer.
+- Update and migrate packages like react router.
+- Learn Styled engine from Mui to style components.
+- Learn to use dev tool from chrome and react extension
+- use a third party Api, to get the back holidays for different locations.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+##### Future improvements:
 
-## Learn More
+- Check how to implement a continuos integration with Github and test.
+- Implement Cache policy on react packages.
+- Implement a cookies policy.
+- Continue the implementation of cypress.
+- Clean code and try to make more DRY.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# GET STARTED
 
-### Code Splitting
+If you just want to test the app, you don't need to follow the installation steps. It already on production. [Web](https://advanced-beauty-fe.vercel.app/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This project relies on CMS and booking system, unless you build those two repositories you will need to use the ones I made. which you can find them in env file.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Install.
 
-### Making a Progressive Web App
+```
+npm install --legacy-peer-deps
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+as mui relies on react 16.
 
-### Advanced Configuration
+## Run it
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+npm run dev
+```
 
-### Deployment
+## Test it
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+npm run cypress open
+```
 
-### `npm run build` fails to minify
+# Let's keep in touch
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [LinkedIn](https://www.linkedin.com/in/francisco-javier-roca-vazquez/)
+- [CV](https://example.com)
+- [Portfolio](https://example.com)
