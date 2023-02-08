@@ -4,7 +4,7 @@ import OpenSans from '@fontsource/open-sans';
 import Abel from '@fontsource/abel';
 
 let theme = createTheme();
-const BREAKPOINTS = { xs: 0, sm: 600, md: 1040, lg: 1300, xl: 1600, xxl: 2100 };
+const BREAKPOINTS = { xs: 0, sm: 500, md: 950, lg: 1300, xl: 1600, xxl: 2100 };
 const breakpointsValues = {
   breakpoints: createBreakpoints({
     values: BREAKPOINTS,
@@ -16,7 +16,7 @@ theme = createTheme(theme, { ...breakpointsValues });
 theme = createTheme(theme, {
   palette: {
     primary: {
-      main: '#75C9CC',
+      main: '#00BCCC',
       contrastText: '#fff',
     },
     secondary: {
@@ -74,7 +74,7 @@ theme = createTheme(theme, {
     h5: {
       color: '#333333',
       fontWeight: 600,
-      fontSize: '2rem',
+      fontSize: '2.2rem',
       lineHeight: 1.15,
       fontFamily: ['Abel', 'Open Sans'].join(','),
       letterSpacing: '0.03em',
@@ -91,7 +91,7 @@ theme = createTheme(theme, {
       color: '#888',
       fontWeight: 600,
       fontSize: '1rem',
-      lineHeight: 1.4,
+      lineHeight: 1.2,
       fontFamily: ['Open Sans', 'Abel'].join(','),
       letterSpacing: '0.08em',
     },
@@ -115,7 +115,7 @@ theme = createTheme(theme, {
       fontFamily: ['Abel', 'Open Sans'].join(','),
       fontWeight: 700,
       fontSize: '4rem',
-      color: '#00BCCC !important',
+      color: '#00BCCC',
       letterSpacing: '-0.017em',
       textAlign: 'center',
       textShadow: '0.05em 0.08em 0.12em #ffff !important',
@@ -135,18 +135,13 @@ theme = createTheme(theme, {
       [theme.breakpoints.up('lg')]: {
         fontSize: '8rem',
       },
-      [theme.breakpoints.up('xl')]: {
+      [theme.breakpoints.up(1600)]: {
         fontSize: '9rem',
         lineHeight: 0.94,
         letterSpacing: '-0.257rem',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '8.5rem',
-        lineHeight: 0.94,
-        letterSpacing: '-0.257rem',
-      },
-      [theme.breakpoints.up('xxl')]: {
-        fontSize: '10.5rem',
         lineHeight: 0.94,
         letterSpacing: '-0.257rem',
       },
@@ -174,14 +169,11 @@ theme = createTheme(theme, {
       [theme.breakpoints.up('lg')]: {
         fontSize: '3.7rem',
       },
-      [theme.breakpoints.up('xl')]: {
+      [theme.breakpoints.up(1600)]: {
         fontSize: '4.2rem',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '5rem',
-      },
-      [theme.breakpoints.up('xxxl')]: {
-        fontSize: '7rem',
       },
     },
 
@@ -243,13 +235,13 @@ theme = createTheme(theme, {
         lineHeight: 1.2,
         letterSpacing: '0.06em',
       },
-      [theme.breakpoints.up('xl')]: {
+      [theme.breakpoints.up(1600)]: {
         fontSize: '1.25rem',
         letterSpacing: '0.035em',
         fontWeight: 600,
       },
 
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '1.4rem',
       },
     },
@@ -268,7 +260,7 @@ theme = createTheme(theme, {
         lineHeight: 1.2,
         letterSpacing: '0.06em',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '1.7rem',
       },
     },
@@ -287,7 +279,7 @@ theme = createTheme(theme, {
         lineHeight: 1.2,
         letterSpacing: '0.06em',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up('lg')]: {
         fontSize: '1.45rem',
       },
     },
@@ -306,7 +298,7 @@ theme = createTheme(theme, {
         lineHeight: 1.2,
         letterSpacing: '0.06em',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up('lg')]: {
         fontSize: '1.25rem',
       },
     },
@@ -321,7 +313,7 @@ theme = createTheme(theme, {
         fontSize: '1.25rem',
       },
 
-      [theme.breakpoints.up('xl')]: {
+      [theme.breakpoints.up(1600)]: {
         fontSize: '1.35rem',
         fontWeight: 500,
       },
@@ -356,7 +348,7 @@ theme = createTheme(theme, {
         fontSize: '1.4rem',
         letterSpacing: '0.06em',
       },
-      [theme.breakpoints.up('xl')]: {
+      [theme.breakpoints.up(1600)]: {
         fontSize: '1.6rem',
         letterSpacing: '0.03em',
       },
@@ -387,13 +379,13 @@ theme = createTheme(theme, {
       [theme.breakpoints.up('lg')]: {
         fontSize: '1rem',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '1.05rem',
       },
     },
     footerTitle: {
       padding: '1em 0',
-      color: '#75C9CC',
+      color: '#00BCCC',
       fontWeight: 700,
       fontSize: '1.6rem',
       lineHeight: 1.1,
@@ -402,7 +394,7 @@ theme = createTheme(theme, {
       [theme.breakpoints.up('md')]: {
         fontSize: '2rem',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '2.3rem',
       },
     },
@@ -417,7 +409,7 @@ theme = createTheme(theme, {
       [theme.breakpoints.up('md')]: {
         fontSize: '1.2rem',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '1.35rem',
       },
     },
@@ -431,7 +423,7 @@ theme = createTheme(theme, {
       [theme.breakpoints.up('md')]: {
         fontSize: '1.1rem',
       },
-      [theme.breakpoints.up('xxl')]: {
+      [theme.breakpoints.up(2100)]: {
         fontSize: '1.2rem',
       },
     },

@@ -55,7 +55,7 @@ function Footer() {
                     >{`Mondays to Saturdays from ${SHOPS[shopName].openingTimes[0]} to ${SHOPS[shopName].openingTimes[1]}`}</Typography>
                   </Box>
                   <SecondaryButton
-                    href="https://api.whatsapp.com/send?phone=+44568807804&text=Hola"
+                    href="https://api.whatsapp.com/send?phone=+44754354496&text=Hola Javi! I am testing your website"
                     target="_blank"
                   >
                     Whatsapp

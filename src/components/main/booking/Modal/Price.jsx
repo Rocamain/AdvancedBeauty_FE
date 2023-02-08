@@ -9,7 +9,7 @@ export default function Price() {
       display="flex"
       sx={{ justifyContent: 'flex-end', gap: '1em', marginRight: '0.3em' }}
     >
-      <Typography component="h5" variant="h5" sx={{ color: '#75C9CC' }}>
+      <Typography component="h5" variant="h5" sx={{ color: 'primary.main' }}>
         Total cost:
       </Typography>
       <Typography component="h5" variant="h5" sx={{ color: '#c48037' }}>

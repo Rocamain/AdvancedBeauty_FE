@@ -37,7 +37,7 @@ const Slider = styled(({ ...props }) => {
   const isActive = step > 1;
   return {
     position: 'relative',
-    backgroundColor: '#75C9CC',
+    backgroundColor: theme.palette.primary.main,
     width: '4em',
     height: '10px',
     borderRadius: '5px',

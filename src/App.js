@@ -38,6 +38,7 @@ function App() {
             })
           }
           path="/"
+          errorElement={<Navigate to="error" />}
         >
           {navigationLinks.map(({ related, path }, index) => (
             <Route
@@ -51,6 +52,7 @@ function App() {
                 })
               }
               element={<Main key={related.__contentType.split('.')[1]} />}
+              errorElement={<Navigate to="error" />}
             />
           ))}
           {navigationLinks.map((navRoute, index) =>
@@ -67,9 +69,7 @@ function App() {
                       })
                     }
                     element={<Main key={related.__contentType.split('.')[1]} />}
-                    errorElement={
-                      <ErrorPage key={related.__contentType.split('.')[1]} />
-                    }
+                    errorElement={<Navigate to="error" />}
                   />
                 )
               );
