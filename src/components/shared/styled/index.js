@@ -77,7 +77,7 @@ const Container = styled((props) => <Box {...props} />)(
 
     return {
       margin: 'auto',
-      width: shadowRight ? '90vw' : '100vw',
+      width: shadowRight ? '80vw' : '100vw',
       height: show === 'cards' && 'calc(100% + 64px)',
       boxSizing: 'border-box',
       boxShadow: shadowRight
@@ -92,7 +92,6 @@ const Container = styled((props) => <Box {...props} />)(
           : ' 0 auto',
       },
       [theme.breakpoints.up('md')]: {
-        maxWidth: '1100px',
         width: shadowRight ? '75vw' : '80vw',
         marginLeft: 'auto',
 
@@ -103,7 +102,7 @@ const Container = styled((props) => <Box {...props} />)(
           : null,
       },
       [theme.breakpoints.up('xl')]: {
-        width: shadowRight ? 'calc(1100px - 5vw)' : '65vw',
+        width: shadowRight ? 'calc(60vw - 5vh)' : '65vw',
         position: shadowRight && 'relative',
         marginRight: 'auto',
         transform: shadowRight && 'translateX(-2.5vw)',
@@ -179,14 +178,15 @@ const Grid = styled(({ show, photocolumn, ...props }) => {
 
 const Image = styled(
   ({ className, url, alt, formats, componentType, shadowRight, ...props }) => {
+    if (componentType === 'logo') {
+      return <img loading="lazy" src={url} alt={alt} {...props} />;
+    }
     const [lg, md, sm] = COMPONENT_SCR_SET(componentType);
     const sizes = COMPONENT_SIZES(componentType);
-    console.log(formats);
+
     return (
-      <Box
-        component="img"
+      <img
         loading="lazy"
-        {...props}
         className={className}
         src={url}
         alt={alt}
@@ -195,22 +195,16 @@ const Image = styled(
           formats.medium.url
         } ${md}, ${formats.small.url} ${sm}`}
         sizes={sizes}
-        sx={{
-          boxShadow:
-            componentType !== 'cardA' &&
-            'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
-        }}
+        {...props}
       />
     );
   }
 )(({ theme }) => ({
   maxWidth: '100%',
+  boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
   objectFit: 'cover',
-  [theme.breakpoints.up('sm')]: {
-    objectPosition: 'left top',
-    position: 'relative',
-    borderRadius: '5px',
-  },
+  objectPosition: 'left top',
+  borderRadius: '5px',
 }));
 
 const PrimaryButton = styled(({ type, onClick, ...props }) => {
