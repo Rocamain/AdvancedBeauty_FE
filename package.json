@@ -16,15 +16,12 @@
     "dayjs": "^1.11.6",
     "env-cmd": "^10.1.0",
     "intersection-observer": "^0.12.2",
-    "js-cookie": "^3.0.1",
     "react": "^18.0.2",
     "react-dom": "^18.0.2",
     "react-markdown": "^8.0.3",
     "react-router-dom": "^6.6.0",
     "react-scripts": "5.0.1",
-    "remark-gfm": "^3.0.1",
-    "resize-observer-polyfill": "^1.5.1",
-    "serve": "^14.2.0"
+    "remark-gfm": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
