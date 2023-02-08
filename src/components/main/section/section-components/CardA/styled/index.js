@@ -37,7 +37,8 @@ const Container = styled((props) => {
     margin: '0 auto',
 
     [theme.breakpoints.up('xl')]: {
-      width: '60vw',
+      width: '65vw',
+      maxWidth: '1100px',
     },
   };
 });
