@@ -52,28 +52,6 @@ const Wrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-// General //
-
-const Logo = styled(({ width, height, url, altText, formats, ...props }) => {
-  return (
-    <Box
-      component="img"
-      width="100%"
-      height={[95, 110, 120, 140, 160, 190]}
-      loading="lazy"
-      src={url}
-      alt={altText}
-      title={altText}
-      srcSet={`${formats.small.url} 700w,${formats.medium.url} 1200w,`}
-      sizes="(min-width: 0px) and (max-width: 700px) 700px,(min-width: 701px) 1200px 100vw"
-      {...props}
-    />
-  );
-})(({ theme }) => ({
-  maxWidth: '100%',
-  objectFit: 'contain',
-}));
-
 // Mobile
 
 const BurgerButton = styled((props) => {
@@ -264,7 +242,6 @@ const Link = styled(({ to, ...props }) => {
 
 export {
   HeaderContainer,
-  Logo,
   Wrapper,
   PopoverMenu,
   BurgerButton,
