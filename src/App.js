@@ -26,6 +26,8 @@ const LazyConfirmationPage = lazy(() =>
 function App() {
   const { navigationLinks } = useNavigation();
 
+  console.log(navigationLinks);
+
   if (navigationLinks) {
     const routerJSX = createBrowserRouter(
       createRoutesFromElements(
