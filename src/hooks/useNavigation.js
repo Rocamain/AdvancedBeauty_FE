@@ -17,7 +17,9 @@ const useNavigation = () => {
 
         setData({ navigationLinks: linksParsed });
         controller = null;
-      } catch (err) {}
+      } catch (err) {
+        console.log({ err });
+      }
     };
 
     if (data.navigationLinks === null) {
