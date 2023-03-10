@@ -34,7 +34,7 @@ export default function GridAPhoto({
                 ? 'calc(100% + 5vw)'
                 : undefined,
           },
-          margin: { xs: '2em auto 0 auto', sm: '2em 2em 0 2em', md: 0 },
+          margin: { xs: '2em auto 0 auto', sm: 0 },
 
           width: {
             sm: !shadowRight ? '100%' : undefined,
@@ -43,13 +43,15 @@ export default function GridAPhoto({
         })}
       >
         <Image
-          height={[340, 400, 340, 380, 430, 470]}
-          width={{ lg: '100%' }}
+          width="100%"
           url={url}
           alt={alternativeText}
           formats={formats}
           componentType="gridA"
           shadowRight={shadowRight}
+          sx={{
+            height: [340, 540, 340, 380, 450, 490],
+          }}
         />
       </Box>
     </Grid>
