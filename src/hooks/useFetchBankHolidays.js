@@ -34,7 +34,6 @@ export default function useFetchBankHolidays(year, shop) {
         });
 
       return () => {
-        // setData(false);
         abortController.abort();
       };
     }

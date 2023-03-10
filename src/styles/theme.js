@@ -4,7 +4,7 @@ import OpenSans from '@fontsource/open-sans';
 import Abel from '@fontsource/abel';
 
 let theme = createTheme();
-const BREAKPOINTS = { xs: 0, sm: 500, md: 950, lg: 1300, xl: 1600, xxl: 2100 };
+const BREAKPOINTS = { xs: 0, sm: 500, md: 900, lg: 1300, xl: 1600, xxl: 2100 };
 const breakpointsValues = {
   breakpoints: createBreakpoints({
     values: BREAKPOINTS,

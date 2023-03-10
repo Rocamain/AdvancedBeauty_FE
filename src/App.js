@@ -26,8 +26,6 @@ const LazyConfirmationPage = lazy(() =>
 function App() {
   const { navigationLinks } = useNavigation();
 
-  console.log(navigationLinks);
-
   if (navigationLinks) {
     const routerJSX = createBrowserRouter(
       createRoutesFromElements(
@@ -40,7 +38,8 @@ function App() {
             })
           }
           path="/"
-          errorElement={<Navigate to="error" />}
+          err
+          orElement={<Navigate to="error" />}
         >
           {navigationLinks.map(({ related, path }, index) => (
             <Route

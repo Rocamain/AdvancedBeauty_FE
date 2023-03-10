@@ -40,13 +40,13 @@ export default function Header({ navigationLinks }) {
         <Wrapper>
           <Box
             sx={{
-              width: ['60%', '50%', '30%'],
+              display: 'flex',
             }}
           >
             {logo && (
               <Logo
-                height={[80, 100, 120, 140, 160]}
-                width="100%"
+                height={[60, 90, 95, 120, 130]}
+                width="auto"
                 url={logo.formats.thumbnail.url}
                 formats={logo.formats}
                 alt={logo.alternativeText}
