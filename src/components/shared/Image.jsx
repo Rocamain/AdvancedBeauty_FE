@@ -14,10 +14,10 @@ export default function Image({ height, ...props }) {
   const smallLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'), {
     noSsr: true,
   });
-  const laptop = useMediaQuery(theme.breakpoints.between('lg', 'xl'), {
+  const laptop = useMediaQuery(theme.breakpoints.between('lg', 'xxl'), {
     noSsr: true,
   });
-  const deskTop = useMediaQuery(theme.breakpoints.up('xl'), {
+  const deskTop = useMediaQuery(theme.breakpoints.up('xxl'), {
     noSsr: true,
   });
   useEffect(() => {
@@ -38,5 +38,5 @@ export default function Image({ height, ...props }) {
     }
   }, [mobile, pad, smallLaptop, laptop, deskTop, height]);
 
-  return <StyledImg height={imgHeight + 'px'} {...props} />;
+  return imgHeight && <StyledImg height={imgHeight + 'px'} {...props} />;
 }

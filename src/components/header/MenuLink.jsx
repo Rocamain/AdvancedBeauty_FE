@@ -14,9 +14,8 @@ const ForwardMenuLink = forwardRef(
         sx={(theme) => ({
           borderRadius: '5px',
           whiteSpace: 'inherit',
-          width: dropdownLink && '90%',
-          margin: dropdownLink && '0.5em',
-          a: { padding: '1em 1.2em' },
+
+          a: { padding: dropdownLink ? '1em 1.2em 1.1em 2em' : '1em 1.2em' },
           ':hover': {
             backgroundColor: theme.palette.linkHover,
           },

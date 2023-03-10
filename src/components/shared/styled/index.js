@@ -179,7 +179,15 @@ const Grid = styled(({ show, photocolumn, ...props }) => {
 const Image = styled(
   ({ className, url, alt, formats, componentType, shadowRight, ...props }) => {
     if (componentType === 'logo') {
-      return <img loading="lazy" src={url} alt={alt} {...props} />;
+      return (
+        <img
+          loading="lazy"
+          src={url}
+          alt={alt}
+          {...props}
+          style={{ objectFit: 'contain' }}
+        />
+      );
     }
     const [lg, md, sm] = COMPONENT_SCR_SET(componentType);
     const sizes = COMPONENT_SIZES(componentType);
@@ -195,6 +203,7 @@ const Image = styled(
           formats.medium.url
         } ${md}, ${formats.small.url} ${sm}`}
         sizes={sizes}
+        style={{ objectFit: 'cover' }}
         {...props}
       />
     );
@@ -202,7 +211,7 @@ const Image = styled(
 )(({ theme }) => ({
   maxWidth: '100%',
   boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
-  objectFit: 'cover',
+
   objectPosition: 'left top',
   borderRadius: '5px',
 }));

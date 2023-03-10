@@ -21,7 +21,6 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   right: 0,
   gap: '0.5em',
 
-  padding: 0,
   [theme.breakpoints.up('md')]: {
     justifyContent: 'space-between',
   },
@@ -29,6 +28,7 @@ const HeaderContainer = styled('header')(({ theme }) => ({
 const Wrapper = styled(Box)(({ theme }) => ({
   width: '80vw',
   margin: '0 auto',
+
   height: 'inherit',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -39,15 +39,16 @@ const Wrapper = styled(Box)(({ theme }) => ({
     maxWidth: 600,
   },
   [theme.breakpoints.up('md')]: {
-    width: '90vw',
+    width: '95vw',
     maxWidth: 900,
+    padding: '8px 0',
   },
   [theme.breakpoints.up('lg')]: {
     width: '80vw',
     maxWidth: 1200,
   },
   [theme.breakpoints.up('lg')]: {
-    width: '65vw',
+    width: '70vw',
     maxWidth: 1300,
   },
 }));
@@ -143,25 +144,33 @@ const DropDownMenu = styled(({ onMouseOnBackdrop, ...props }) => (
   '.MuiBackdrop-root': {
     padding: 0,
     backgroundColor: 'transparent',
-
     [theme.breakpoints.up('md')]: {
-      top: '16vh',
+      top: '110px',
+    },
+    [theme.breakpoints.up('lg')]: {
+      top: '135px',
+    },
+    [theme.breakpoints.up('xxl')]: {
+      top: '145px',
     },
   },
   '.MuiPaper-root': {
     [theme.breakpoints.up('md')]: {
       width: 270,
-      paddingTop: 'calc(4vh)',
+      backgroundColor: 'transparent',
+      paddingTop: '26px',
     },
-    [theme.breakpoints.up('xl')]: {
+    [theme.breakpoints.up('lg')]: {
+      paddingTop: '38px',
       width: 320,
+    },
+    [theme.breakpoints.up('xxl')]: {
+      paddingTop: '43px',
     },
   },
   '& .MuiList-root': {
-    padding: '1.3em 0',
     backgroundColor: '#F4F9FC',
-    boxShadow: theme.shadows[10],
-    borderTop: `2px solid ${theme.palette.secondary.main}`,
+    borderTop: `4px solid ${theme.palette.secondary.main}`,
   },
 }));
 

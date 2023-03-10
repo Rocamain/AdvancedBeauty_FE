@@ -24,7 +24,7 @@ export default function Button({
       const contactMessage = value;
 
       const message = `Dear AB team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
-      console.log('yeah', { message });
+
       navigate(to, {
         state: { contactMessage: message },
       });

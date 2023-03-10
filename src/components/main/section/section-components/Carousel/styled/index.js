@@ -143,7 +143,7 @@ const CardPhotoContainer = styled((props) => {
 }));
 
 const Photo = styled(({ ...props }) => {
-  // const { small, medium } = src.formats;
+  
 
   return (
     <Box
@@ -151,13 +151,7 @@ const Photo = styled(({ ...props }) => {
       height="600"
       component="img"
       {...props}
-      // sx={{
-      //   content: {
-      //     md: `url(${small.url})`,
-      //     lg: `url(${small.url})`,
-      //     xl: `url(${medium.url})`,
-      //   },
-      // }}
+     
     />
   );
 })(({ theme }) => ({
