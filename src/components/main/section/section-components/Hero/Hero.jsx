@@ -1,4 +1,5 @@
 import { Box, Typography, Button } from '@mui/material';
+
 import {
   HeroContainer,
   WavesBackground,
@@ -8,7 +9,7 @@ import {
   CoffeeMug,
 } from 'components/main/section/section-components/Hero/styled';
 import { Divider } from 'components/shared/styled/';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Hero({
   content,
@@ -19,10 +20,9 @@ export default function Hero({
   showContent,
 }) {
   const isWithContent = Boolean(content);
-  const navigate = useNavigate();
+
   const isExternal = button?.linkTo?.type === 'external';
 
-  const handleClick = (url) => navigate(url);
   return (
     <HeroContainer
       className="container"
@@ -62,15 +62,12 @@ export default function Hero({
         {button && (
           <Box>
             <Button
-              component="a"
+              component={Link}
               disableFocusRipple
               disableRipple
               variant="contained"
               children={button.linkText}
-              onClick={
-                !isExternal ? () => handleClick(button.linkTo.URL) : undefined
-              }
-              href={isExternal ? button.linkTo?.URL : null}
+              to={button.linkTo?.URL}
               target={isExternal ? '_blank' : null}
               rel={isExternal ? 'no-opener' : null}
               sx={{

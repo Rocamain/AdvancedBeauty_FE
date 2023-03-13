@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
-import { useNavigate, ScrollRestoration } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { Card } from 'components/main/section/section-components/CardA/styled/index.js';
+import {
+  Card,
+  Container,
+} from 'components/main/section/section-components/CardA/styled/index.js';
 import BookingDetails from 'components/main/pages/confirmationPage/BookingDetails';
 import Hero from 'components/main/section/section-components/Hero/Hero.jsx';
 import cover from 'assets/CardA_Photo.jpg';
@@ -32,13 +35,11 @@ export default function ConfirmationPage(props) {
 
     return (
       <main>
-        <ScrollRestoration />
         <Hero
           title="Thanks for your reservation"
           subtitle="Booking Confirmation"
           cover={cover}
           showContent={false}
-          sx={{ color: 'orange' }}
         />
         <Box
           sx={{
@@ -46,10 +47,12 @@ export default function ConfirmationPage(props) {
             width: ['90%', '80%', '65%'],
           }}
         >
-          <ConfirmationMsg email={email} name={name} />
-          <Card card="booking" background="leaves">
-            <BookingDetails {...bookingDetails} />
-          </Card>
+          <Container background="leaves">
+            <ConfirmationMsg email={email} name={name} />
+            <Card card="booking">
+              <BookingDetails {...bookingDetails} />
+            </Card>
+          </Container>
         </Box>
       </main>
     );
