@@ -21,11 +21,9 @@ const loadSection = async ({ componentName, ...sectionData }) => {
   return <SectionContent {...sectionData} />;
 };
 
-//
 // Component
-//
 
-const LazySection = ({ sectionData, isLastSection, isFirst }) => {
+const LazySection = ({ sectionData }) => {
   const [section, setSection] = useState(null);
 
   const { pathname } = useLocation();
@@ -33,12 +31,10 @@ const LazySection = ({ sectionData, isLastSection, isFirst }) => {
     distance: '200px',
   });
 
-  // Set the arguments/props of section according if it withLink, that mean that section can be linked .
+  // Set the arguments to section as props.
 
   useEffect(() => {
-    const args = sectionData.withLink
-      ? { ...sectionData, isNearScreen: isNearScreen }
-      : { ...sectionData };
+    const args = { ...sectionData };
 
     loadSection({
       ...args,
@@ -58,12 +54,10 @@ const LazySection = ({ sectionData, isLastSection, isFirst }) => {
           sectionData.backgroundType === 'full' &&
           'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)',
         display: sectionData.backgroundType === 'full' ? 'flex' : undefined,
-        minHeight: isNearScreen ? '100%' : '100vh',
+        minHeight: isNearScreen ? '100% ' : '100vh',
       }}
     >
-      <Suspense fallback={<Loading />}>
-        {(isNearScreen || isFirst) && section}
-      </Suspense>
+      <Suspense fallback={<Loading />}>{isNearScreen && section}</Suspense>
     </Box>
   );
 };
