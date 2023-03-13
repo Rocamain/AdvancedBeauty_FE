@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material';
-import { Image } from 'components/shared/styled';
+import Image from 'components/shared/Image.jsx';
 
 export default function GridAPhoto({
   url,
@@ -35,7 +35,6 @@ export default function GridAPhoto({
                 : undefined,
           },
           margin: { xs: '2em auto 0 auto', sm: 0 },
-
           width: {
             sm: !shadowRight ? '100%' : undefined,
             md: !shadowRight ? '100%' : undefined,
@@ -44,14 +43,12 @@ export default function GridAPhoto({
       >
         <Image
           width="100%"
+          height={[340, 540, 340, 380, 450, 490]}
           url={url}
           alt={alternativeText}
           formats={formats}
           componentType="gridA"
           shadowRight={shadowRight}
-          sx={{
-            height: [340, 540, 340, 380, 450, 490],
-          }}
         />
       </Box>
     </Grid>

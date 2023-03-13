@@ -18,7 +18,12 @@ export default function GridAText({
           p:
             background === 'none' || background === 'leaves'
               ? '0em 2em 0em 2em'
-              : '2.5em 2em 3.5em 2em',
+              : {
+                  xs: background.includes('right')
+                    ? '2.5em 2em 3.5em 0em'
+                    : '2.5em 2em 3.5em 2em',
+                  sm: '2.5em 2em 3.5em 2em',
+                },
           display: { xs: 'flex', sm: 'block' },
           flexDirection: 'column',
         }}
