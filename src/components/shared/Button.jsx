@@ -11,7 +11,7 @@ export default function Button({
   value,
   ...props
 }) {
-  console.log(props);
+  
   const { pathname } = useLocation();
   const isExternalLink = linkTo.type === 'external';
   const isPromoContactEnquire =
@@ -41,6 +41,7 @@ export default function Button({
         }
         target={isExternalLink ? '_blank' : undefined}
         rel={isExternalLink ? 'noopener noreferrer' : undefined}
+        {...props}
       >
         {linkText}
       </PrimaryButton>
