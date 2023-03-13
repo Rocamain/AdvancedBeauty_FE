@@ -211,22 +211,20 @@ const Image = styled(
 )(({ theme }) => ({
   maxWidth: '100%',
   boxShadow: 'rgba(56, 21, 11, 0.19) 0px 50px 80px 0px',
-
-  objectPosition: 'left top',
+  objectPosition: 'center top',
   borderRadius: '5px',
 }));
 
-const PrimaryButton = styled(({ type, onClick, ...props }) => {
+const PrimaryButton = styled(({ type, ...props }) => {
   return (
     <MuiButton
       variant="contained"
       color="primary"
       endIcon={<SendIcon />}
-      component="a"
+      component={LinkRouter}
       disableFocusRipple
       disableRipple
       type={type}
-      onClick={type === 'submit' ? null : onClick}
       {...props}
     />
   );

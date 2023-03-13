@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { PrimaryButton } from 'components/shared/styled';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function Button({
   linkTo,
@@ -11,32 +11,23 @@ export default function Button({
   value,
   ...props
 }) {
-  const navigate = useNavigate();
+  console.log(props);
   const { pathname } = useLocation();
-
   const isExternalLink = linkTo.type === 'external';
+  const isPromoContactEnquire =
+    linkTo.URL === '/contact' &&
+    pathname.includes('/services_and_fares/promotions');
 
-  const handleClick = (to) => {
-    if (
-      to === '/contact' &&
-      pathname.includes('/services_and_fares/promotions')
-    ) {
-      const contactMessage = value;
-
-      const message = `Dear AB team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
-
-      navigate(to, {
-        state: { contactMessage: message },
-      });
-    } else {
-      navigate(to);
-    }
+  const setContactMsg = () => {
+    const contactMessage = value;
+    const message = `Dear AB team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
+    return { contactMessage: message };
   };
 
-  return isExternalLink ? (
+  return (
     <Box
       sx={{
-        width: width && width,
+        width: width ? width : undefined,
       }}
     >
       <PrimaryButton
@@ -44,25 +35,12 @@ export default function Button({
         type={type}
         title={value}
         id={value}
-        href={linkTo.URL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {linkText}
-      </PrimaryButton>
-    </Box>
-  ) : (
-    <Box
-      sx={{
-        width: width && width,
-      }}
-    >
-      <PrimaryButton
-        disabled={disabled}
-        type={type}
-        title={value}
-        id={value}
-        onClick={() => handleClick(linkTo.URL)}
+        to={linkTo.URL}
+        state={
+          !isExternalLink && isPromoContactEnquire ? setContactMsg() : undefined
+        }
+        target={isExternalLink ? '_blank' : undefined}
+        rel={isExternalLink ? 'noopener noreferrer' : undefined}
       >
         {linkText}
       </PrimaryButton>
