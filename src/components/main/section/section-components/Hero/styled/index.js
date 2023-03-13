@@ -9,7 +9,9 @@ const HeroContainer = styled(Box)(({ theme, cover, content }) => {
     justifyContent: 'flex-start',
     flexDirection: 'column',
     paddingTop: '2em',
-    backgroundImage: `linear-gradient(1deg,#ffffff 11%,rgba(255,255,255,0) 68%),url(${cover.url})!important`,
+    backgroundImage: `linear-gradient(1deg,#ffffff 11%,rgba(255,255,255,0) 68%),url(${
+      cover.url || cover
+    })!important`,
     backgroundSize: 'cover, cover',
     backgroundColor: '#FFFFFF',
     backgroundRepeat: 'no-repeat',
