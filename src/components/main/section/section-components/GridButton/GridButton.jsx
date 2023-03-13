@@ -1,4 +1,5 @@
 import { Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import SectionTitle from 'components/shared/SectionTitle.jsx';
 
 export default function GridButton({ buttons, title }) {
@@ -26,14 +27,14 @@ export default function GridButton({ buttons, title }) {
           return (
             <Button
               key={index}
-              component="a"
+              component={Link}
               disableFocusRipple
               disableRipple
               variant="contained"
               children={linkText}
-              href={linkTo?.URL}
-              target={isExternal ? '_blank' : null}
-              rel={isExternal ? 'no-opener' : null}
+              to={linkTo?.URL}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'no-opener' : undefined}
               sx={{
                 boxSizing: 'border-box',
                 width: ['200px'],
