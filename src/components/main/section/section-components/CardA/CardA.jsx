@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { Card, Container } from './styled/index.js';
-import { Wrapper, Image } from 'components/shared/styled';
+import { Wrapper } from 'components/shared/styled';
+import Image from 'components/shared/Image.jsx';
 import SectionTitle from 'components/shared/SectionTitle';
 import Button from 'components/shared/Button.jsx';
 import Markdown from 'components/shared/MarkDown';
