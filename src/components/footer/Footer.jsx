@@ -12,14 +12,15 @@ function Footer() {
         <Grid
           container
           columnSpacing={[0, 0, 4]}
-          padding="5vh"
+          padding={{ xs: '5vh 0 10vh', sm: '5vh' }}
           justifyContent="center"
           alignItems="center"
+          sx={{ width: { xs: '80vw', sm: 'auto' }, marginInline: 'auto' }}
           gap={['5em', '5em', 0]}
         >
           {shops.map(({ city, shopName, street, postcode, phone }) => {
             return (
-              <Grid key={shopName} item xs={10} md={4} lg={3}>
+              <Grid key={shopName} item xs={12} md={4} lg={3}>
                 <Box marginBottom="2em">
                   <Box marginBottom="2em">
                     <Typography variant="footerTitle" component="h5">
@@ -61,15 +62,17 @@ function Footer() {
                     Whatsapp
                   </SecondaryButton>
                 </Box>
-                <iframe
-                  title={shopName}
-                  loading="lazy"
-                  src={SHOPS[shopName].googleMapAddress}
-                  width="90%"
-                  height="250"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                />
+                <Box sx={{ display: 'block', width: '100%' }}>
+                  <iframe
+                    title={shopName}
+                    loading="lazy"
+                    src={SHOPS[shopName].googleMapAddress}
+                    height="250px"
+                    width="100%"
+                    allowFullScreen
+                    styles={{ border: 0 }}
+                  />
+                </Box>
               </Grid>
             );
           })}
