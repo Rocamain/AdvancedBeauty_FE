@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
-import { SummaryContainer as SummaryCard } from 'components/main/booking/Modal/styled';
-import Form from 'components/main/booking/Modal/Form';
-import Price from 'components/main/booking/Modal/Price';
-import AppointmentInfo from 'components/main/booking/Modal/AppointmentInfo';
+import { SummaryContainer as SummaryCard } from 'components/main/booking/Modal/styled/index.jsx';
+import Form from 'components/main/booking/Modal/Form.jsx';
+import Price from 'components/main/booking/Modal/Price.jsx';
+import AppointmentInfo from 'components/main/booking/Modal/AppointmentInfo.jsx';
 import { Box, Divider, useMediaQuery } from '@mui/material';
 import { keyframes } from '@emotion/react';
 
@@ -16,7 +16,7 @@ export default forwardRef(({ fadeOut, ...props }, ref) => {
       opacity: 1;
     }
   `;
-  
+
   return (
     <Box
       style={{ opacity: 0 }}
@@ -45,7 +45,7 @@ const Summary = () => {
             <Form mobile={mobile} />
           </Box>
           <Divider
-            orientation="vertical"
+            orientation='vertical'
             sx={{ backgroundColor: 'orange' }}
             flexItem
           />

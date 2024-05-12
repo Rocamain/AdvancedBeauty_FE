@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { BookingContext } from 'context/BookingContext';
+import { BookingContext } from 'context/BookingContext.js';
 import { Button, Box, useMediaQuery } from '@mui/material';
-import useButtonSelected from 'hooks/useButtonSelected';
-import TimePicker from 'components/main/booking/Calendar/TimePicker';
+import useButtonSelected from 'hooks/useButtonSelected.js';
+import TimePicker from 'components/main/booking/Calendar/TimePicker.jsx';
 
 export default function TimeSelector() {
   const { booking } = useContext(BookingContext);
@@ -17,7 +17,7 @@ export default function TimeSelector() {
 
   return (
     <Box
-      mb="0"
+      mb='0'
       sx={{
         pt: '10px',
         maxWidth: '95%',
@@ -25,7 +25,7 @@ export default function TimeSelector() {
         minHeight: { sm: '180px' },
       }}
     >
-      <Box gap={[1, 4, 1]} display="flex" justifyContent="center" mb="2em">
+      <Box gap={[1, 4, 1]} display='flex' justifyContent='center' mb='2em'>
         <Button
           onClick={handleClick}
           variant={

@@ -36,7 +36,7 @@ export default function Header({ navigationLinks }) {
 
   return (
     <>
-      <HeaderContainer id="header" ref={ref}>
+      <HeaderContainer id='header' ref={ref}>
         <Wrapper>
           <Box
             sx={{
@@ -46,11 +46,15 @@ export default function Header({ navigationLinks }) {
             {logo && (
               <Logo
                 height={[60, 90, 95, 120, 130]}
-                width="auto"
-                url={logo.formats.thumbnail.url}
-                formats={logo.formats}
+                width='auto'
+                url={
+                  logo?.formats?.thumbnail?.url
+                    ? logo.formats.thumbnail.url
+                    : logo.url
+                }
+                formats={logo?.formats && logo.formats}
                 alt={logo.alternativeText}
-                componentType="logo"
+                componentType='logo'
               />
             )}
           </Box>
@@ -64,7 +68,7 @@ export default function Header({ navigationLinks }) {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleOpen}
               >
-                <MenuIcon fontSize="large" sx={{ fontSize: '2.5rem' }} />
+                <MenuIcon fontSize='large' sx={{ fontSize: '2.5rem' }} />
               </BurgerButton>
             </Box>
           )}

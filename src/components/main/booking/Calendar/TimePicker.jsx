@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { BookingContext } from 'context/BookingContext';
 import { Box } from '@mui/material';
-import { TimeAvailableBtn } from 'components/main/booking/Calendar/styled';
+import { TimeAvailableBtn } from 'components/main/booking/Calendar/styled/index.jsx';
 import { filterHoursByTimeFrame } from 'components/main/booking/Calendar/utils';
 import useFetchBookingDb from 'hooks/useFetchBookingDb';
 import dayjs from 'dayjs';
@@ -19,7 +19,7 @@ dayjs.tz.setDefault('Europe/Madrid');
 export default function TimePicker({ timeFrame }) {
   const { setBooking, booking } = useContext(BookingContext);
   const { serviceName, date, bookingAPI } = booking;
-  
+
   const bookings = useFetchBookingDb(serviceName, bookingAPI, date);
 
   useEffect(() => {
@@ -55,10 +55,10 @@ export default function TimePicker({ timeFrame }) {
   return (
     bookings && (
       <Box
-        display="grid"
+        display='grid'
         gap={1}
-        justifyContent="center"
-        gridTemplateColumns="repeat(auto-fill, minmax(min(4em, 100%), 1fr))"
+        justifyContent='center'
+        gridTemplateColumns='repeat(auto-fill, minmax(min(4em, 100%), 1fr))'
       >
         {availableTimes &&
           filterHoursByTimeFrame({

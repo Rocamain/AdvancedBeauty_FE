@@ -6,12 +6,11 @@ import {
   Input,
   Form as MuiForm,
   Checkbox,
-} from 'components/main/booking/Modal/styled';
+} from 'components/main/booking/Modal/styled/';
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import { Box, Typography, Divider } from '@mui/material/';
 import { isOk, hasNoError } from 'components/main/booking/Modal/utils';
-
-const PATH = process.env.REACT_APP_BOOKING;
+const { VITE_APP_BOOKING } = import.meta.env;
 
 export default function Form({ mobile }) {
   const { booking, setBooking } = useContext(BookingContext);
@@ -73,7 +72,7 @@ export default function Form({ mobile }) {
       }),
     };
 
-    fetch(`${PATH}/api/bookings`, requestOptions)
+    fetch(`${VITE_APP_BOOKING}/api/bookings`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         if (data.booking) {
@@ -96,14 +95,14 @@ export default function Form({ mobile }) {
 
   return (
     <MuiForm
-      id="booking-form"
+      id='booking-form'
       onSubmit={handleSubmit}
       smallphone={mobile ? 'true' : null}
     >
-      <Box display="flex" sx={{ gap: '1em', flexDirection: 'column' }}>
+      <Box display='flex' sx={{ gap: '1em', flexDirection: 'column' }}>
         <Input
-          id="name"
-          placeholder="name"
+          id='name'
+          placeholder='name'
           smallphone={mobile ? 'true' : null}
           value={name}
           error={nameError}
@@ -111,9 +110,9 @@ export default function Form({ mobile }) {
           icon={<PersonOutlineRoundedIcon />}
         />
         <Input
-          id="email"
+          id='email'
           smallphone={mobile ? 'true' : null}
-          placeholder="email"
+          placeholder='email'
           value={email}
           error={emailError}
           onChange={handleChange}
@@ -123,8 +122,8 @@ export default function Form({ mobile }) {
 
       {!mobile && (
         <Divider
-          orientation="vertical"
-          variant="middle"
+          orientation='vertical'
+          variant='middle'
           sx={{ backgroundColor: 'orange' }}
           flexItem
         />
@@ -132,16 +131,16 @@ export default function Form({ mobile }) {
 
       <Box>
         <Typography
-          component="p"
-          variant="conditions"
+          component='p'
+          variant='conditions'
           sx={{ paddingLeft: mobile && '1em' }}
         >
           <Checkbox
-            id="checkbox authorization"
+            id='checkbox authorization'
             onChange={handleChangeCheckBox}
             sx={{ marginLeft: '-4px' }}
           />
-          <Typography variant="span" sx={{ fontWeight: 900 }}>
+          <Typography variant='span' sx={{ fontWeight: 900 }}>
             {` By clicking the box will authorized us to use and store the email
           solely for learning purposes. Also will allow us to send you a the
           confirmation once the booking is done.`}
