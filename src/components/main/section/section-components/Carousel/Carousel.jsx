@@ -6,8 +6,8 @@ import {
   SlideContainer,
   CarouselHero,
   ChevronButton,
-} from 'components/main/section/section-components/Carousel/styled';
-import Card from 'components/main/section/section-components/Carousel/Card';
+} from 'components/main/section/section-components/Carousel/styled/index.jsx';
+import Card from 'components/main/section/section-components/Carousel/Card.jsx';
 
 export default function Carousel({ background, title, subtitle, slides }) {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -105,16 +105,16 @@ export default function Carousel({ background, title, subtitle, slides }) {
       {matchesBigScreens && (
         <CarouselHero>
           <Typography
-            component="h1"
-            variant="carouselTitle"
+            component='h1'
+            variant='carouselTitle'
             sx={{ mb: '15px' }}
           >
             {title}
           </Typography>
           {subtitle && (
             <Typography
-              component="h2"
-              variant="carouselSubtitle"
+              component='h2'
+              variant='carouselSubtitle'
               sx={{ textAlign: 'right' }}
             >
               {subtitle}
@@ -131,8 +131,8 @@ export default function Carousel({ background, title, subtitle, slides }) {
       >
         <SlideContainer sx={{ height: '300px' }} />
         <Box
-          display="flex"
-          height="300px"
+          display='flex'
+          height='300px'
           sx={{
             position: 'relative',
             top: '-300px',
@@ -140,8 +140,8 @@ export default function Carousel({ background, title, subtitle, slides }) {
           }}
         >
           <ChevronButton
-            className="ChevronButton ChevronButton-left"
-            value="left"
+            className='ChevronButton ChevronButton-left'
+            value='left'
             onClick={handleClick}
             disableRipple
           />
@@ -152,8 +152,8 @@ export default function Carousel({ background, title, subtitle, slides }) {
             exitAnimationEnd={exitAnimationEnd}
           />
           <ChevronButton
-            className="ChevronButton ChevronButton-right"
-            value="right"
+            className='ChevronButton ChevronButton-right'
+            value='right'
             onClick={(e) => handleClick(e)}
             disableRipple
           />

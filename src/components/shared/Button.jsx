@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { PrimaryButton } from 'components/shared/styled';
+import { PrimaryButton } from 'components/shared/styled/index.jsx';
 import { useLocation } from 'react-router-dom';
 
 export default function Button({
@@ -9,9 +9,9 @@ export default function Button({
   disabled,
   type,
   value,
+  marginTop,
   ...props
 }) {
-  
   const { pathname } = useLocation();
   const isExternalLink = linkTo.type === 'external';
   const isPromoContactEnquire =
@@ -28,6 +28,7 @@ export default function Button({
     <Box
       sx={{
         width: width ? width : undefined,
+        marginTop,
       }}
     >
       <PrimaryButton

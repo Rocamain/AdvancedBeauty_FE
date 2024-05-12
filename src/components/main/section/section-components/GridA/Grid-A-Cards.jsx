@@ -1,5 +1,5 @@
 import { Typography, Grid, Box } from '@mui/material';
-import { Card } from 'components/shared/styled/index.js';
+import { Card } from 'components/shared/styled/index.jsx';
 import Icon from 'components/shared/Icon.jsx';
 
 const GridACards = ({ cards }) => {
@@ -12,8 +12,8 @@ const GridACards = ({ cards }) => {
       xs={10}
       sm={10}
       lg={6}
-      display="flex"
-      gap="2em"
+      display='flex'
+      gap='2em'
       sx={(theme) => ({
         margin: '0 auto',
         boxSizing: 'border-box',
@@ -26,9 +26,9 @@ const GridACards = ({ cards }) => {
     >
       {/* FIRST COLUMN */}
       <Box
-        display="flex"
-        gap="2em"
-        flexDirection="column"
+        display='flex'
+        gap='2em'
+        flexDirection='column'
         sx={{ width: { sm: '50%' } }}
       >
         {cardsFirstColumn.map(
@@ -40,8 +40,8 @@ const GridACards = ({ cards }) => {
               <Card key={title} first={isFirstCard ? 'true' : null} to={url}>
                 <Icon icon={photo} />
                 <Typography
-                  component="h4"
-                  variant="h4"
+                  component='h4'
+                  variant='h4'
                   children={title}
                   sx={{
                     marginBottom: '0.7em',
@@ -51,8 +51,8 @@ const GridACards = ({ cards }) => {
                   }}
                 />
                 <Typography
-                  component="p"
-                  variant="p"
+                  component='p'
+                  variant='p'
                   children={content}
                   color={isFirstCard && 'white !important'}
                 />
@@ -65,9 +65,9 @@ const GridACards = ({ cards }) => {
       {/* SECOND COLUMN */}
 
       <Box
-        display="flex"
-        gap="2em"
-        flexDirection="column"
+        display='flex'
+        gap='2em'
+        flexDirection='column'
         sx={{ width: { sm: '50%' } }}
       >
         {cardsSecondColumn.map(
@@ -77,15 +77,15 @@ const GridACards = ({ cards }) => {
               <Card key={title} to={url}>
                 <Icon icon={photo} />
                 <Typography
-                  component="h4"
-                  variant="h4"
+                  component='h4'
+                  variant='h4'
                   children={title}
                   sx={{
                     marginBottom: '0.7em',
                     color: '#8f5f25 !important',
                   }}
                 />
-                <Typography component="p" variant="p" children={content} />
+                <Typography component='p' variant='p' children={content} />
               </Card>
             );
           }

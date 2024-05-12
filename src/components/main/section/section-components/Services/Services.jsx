@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { Typography, Box } from '@mui/material';
-import SectionTitle from 'components/shared/SectionTitle';
+import SectionTitle from 'components/shared/SectionTitle.jsx';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-} from 'components/main/section/section-components/Services/styled/index';
-import { sortTreatments } from 'components/main/section/section-components/Services/utils/index';
-import Modal from 'components/main/booking/Modal/Modal';
+} from 'components/main/section/section-components/Services/styled/index.jsx';
+import { sortTreatments } from 'components/main/section/section-components/Services/utils/index.js';
+import Modal from 'components/main/booking/Modal/Modal.jsx';
 
 export default function Services({ shopName, bookingAPI }) {
   const { services } = useLoaderData();
-  
+
   const [sectionExpanded, setSectionExpanded] = useState(null);
   const [serviceSelected, setServiceSelected] = useState(false);
   const [servicePrice, setServicePrice] = useState(null);
@@ -49,7 +49,7 @@ export default function Services({ shopName, bookingAPI }) {
               aria-controls={`panel-${name}-content`}
               id={`panel-${name}-header`}
             >
-              <Typography component="h4" variant="h5" sx={{ color: 'white' }}>
+              <Typography component='h4' variant='h5' sx={{ color: 'white' }}>
                 {name}
               </Typography>
             </AccordionSummary>
@@ -61,34 +61,34 @@ export default function Services({ shopName, bookingAPI }) {
                       key={index}
                       id={serviceName}
                       onClick={() => handleOpenModal(serviceName, price)}
-                      display="flex"
-                      component="li"
+                      display='flex'
+                      component='li'
                     >
                       <Box
-                        display="flex"
-                        variant="p"
-                        component="p"
+                        display='flex'
+                        variant='p'
+                        component='p'
                         sx={{
                           width: '100%',
                           justifyContent: 'space-between',
                           gap: '0.5em',
                         }}
                       >
-                        <Typography className="text" variant="p">
+                        <Typography className='text' variant='p'>
                           {serviceName}
                         </Typography>
 
                         <Typography
-                          className="text"
+                          className='text'
                           value={price}
-                          variant="p"
+                          variant='p'
                           sx={{
                             whiteSpace: 'nowrap',
                             display: 'inline-flex',
                           }}
                         >
                           {`${price},00`} &#x20AC;
-                          <Typography className="book" variant="p">
+                          <Typography className='book' variant='p'>
                             Book
                           </Typography>
                         </Typography>

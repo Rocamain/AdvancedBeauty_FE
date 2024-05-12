@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material';
 
-const FlexContainer = styled((props) => <Box component="div" {...props} />)(
+const FlexContainer = styled((props) => <Box component='div' {...props} />)(
   ({ theme }) => {
     return {
       display: 'flex',

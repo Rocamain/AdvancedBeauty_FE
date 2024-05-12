@@ -7,7 +7,7 @@ import {
   HeroHeaderWrapper,
   HeroContentWrapper,
   CoffeeMug,
-} from 'components/main/section/section-components/Hero/styled';
+} from 'components/main/section/section-components/Hero/styled/';
 import { Divider } from 'components/shared/styled/';
 import { Link } from 'react-router-dom';
 
@@ -25,16 +25,16 @@ export default function Hero({
 
   return (
     <HeroContainer
-      className="container"
+      className='container'
       cover={cover}
       content={showContent.toString()}
     >
       <HeroHeader>
         <HeroHeaderWrapper content={isWithContent.toString()}>
-          <Typography component="h1" variant="heroTitle">
+          <Typography component='h1' variant='heroTitle'>
             {title}
           </Typography>
-          <Typography component="h3" variant="heroSubtitle">
+          <Typography component='h3' variant='heroSubtitle'>
             {subtitle}
           </Typography>
           {!isWithContent && <Divider />}
@@ -51,8 +51,8 @@ export default function Hero({
             }}
           >
             <Typography
-              component="p"
-              variant="heroContent"
+              component='p'
+              variant='heroContent'
               sx={{ fontWeight: [700, 800] }}
             >
               {content}
@@ -65,7 +65,7 @@ export default function Hero({
               component={Link}
               disableFocusRipple
               disableRipple
-              variant="contained"
+              variant='contained'
               children={button.linkText}
               to={button.linkTo?.URL}
               target={isExternal ? '_blank' : null}
@@ -86,7 +86,7 @@ export default function Hero({
           </Box>
         )}
       </HeroContentWrapper>
-      <WavesBackground className="waves" />
+      <WavesBackground className='waves' />
     </HeroContainer>
   );
 }

@@ -3,35 +3,38 @@ import fetchBookingDb from 'services/booking/fetchBookingDb';
 
 const fetchData = async ({ apiRoute, signal }) => {
   try {
-    const data = await fetchStrapiComponentsData({
-      apiRoute: apiRoute,
-      signal: signal,
-    });
-    const shopsDbData = await fetchBookingDb({
-      apiRoute: 'shops',
+    const strapiResponse = await fetchStrapiComponentsData({
+      apiRoute,
       signal,
     });
 
-    if (data) {
-      if (apiRoute === 'logo') {
-        return { logo: data.data.photo, shops: shopsDbData.shops };
-      }
-      if (apiRoute === 'palma' || apiRoute === 'turo' || apiRoute === 'illa') {
-        const bookingDbData = await fetchBookingDb({
+    const { data: componentsData } = strapiResponse;
+
+    const { shops } = await fetchBookingDb({ apiRoute: 'shops', signal });
+
+    if (!strapiResponse) return;
+
+    switch (apiRoute) {
+      case 'logo':
+        return { logo: componentsData.photo };
+      case 'palma':
+      case 'turo':
+      case 'illa':
+        const { services } = await fetchBookingDb({
           apiRoute: 'services',
           signal,
         });
 
         return {
-          components: data.data,
-          services: bookingDbData.services,
-          shops: shopsDbData.shops,
+          components: componentsData?.components || componentsData,
+          services,
+          shops,
         };
-      }
-      return {
-        components: data.data,
-        shops: shopsDbData.shops,
-      };
+      default:
+        return {
+          components: componentsData?.components || componentsData,
+          shops,
+        };
     }
   } catch (err) {
     throw err;

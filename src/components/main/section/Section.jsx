@@ -1,51 +1,70 @@
+// Import necessary modules
 import { lazy, Suspense, useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
 import { useLocation } from 'react-router';
-import useNearScreen from 'hooks/useNearScreen.js';
+import useNearScreen from 'hooks/useNearScreen';
+import { convertToCamelCase } from 'components/main/section/utils';
 
-// Dynamic import
-
-const LoadableDynamicSection = (componentName) => {
+// Dynamic import function
+const LoadableDynamicSection = async (componentName) => {
   return lazy(() =>
-    import(
-      `components/main/section/section-components/${componentName}/${componentName}.jsx`
-    ).catch(() => console.log(`Error in importing ${componentName}`))
+    import(`./section-components/${componentName}/${componentName}.jsx`).catch(
+      (error) => {
+        console.log(`Error in importing ${componentName}`, { error });
+        // Return a fallback component in case of error
+        return { default: () => <div>Error: Component not found</div> };
+      }
+    )
   );
 };
 
-//  Loads the arguments of the  as props in the section Component
+// Function to load section dynamically
+const loadSection = async ({ __component, ...sectionData }) => {
+  try {
+    // Dynamically import the section component
 
-const loadSection = async ({ componentName, ...sectionData }) => {
-  const SectionContent = await LoadableDynamicSection(componentName);
-  return <SectionContent {...sectionData} />;
+    const componentName = convertToCamelCase(__component);
+
+    const SectionComponent = await LoadableDynamicSection(componentName);
+    // Return the dynamically loaded component with section data as props
+
+    return <SectionComponent {...sectionData} />;
+  } catch (error) {
+    console.error('Error loading section:', error);
+    // Return a fallback component in case of error
+    return <div>Error: Failed to load section</div>;
+  }
 };
 
-// Component
-
+// LazySection component
 const LazySection = ({ sectionData }) => {
+  // State to hold the loaded section component
   const [section, setSection] = useState(null);
-
+  // Get current pathname using useLocation hook
   const { pathname } = useLocation();
+  // Check if the section is near the screen using custom hook
   const { fromRef, isNearScreen } = useNearScreen({
     distance: '200px',
   });
 
-  // Set the arguments to section as props.
-
+  // Load section on component mount and when pathname changes
   useEffect(() => {
+    // Create arguments object with section data
     const args = { ...sectionData };
+    // Load section dynamically
+    loadSection(args)
+      .then((SectionComponent) => {
+        // Set the loaded section component to state
 
-    loadSection({
-      ...args,
-    }).then((section) => {
-      return setSection(section);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+        setSection(SectionComponent);
+      })
+      .catch((error) => {
+        console.error('Error loading section:', error);
+      });
+  }, [pathname, sectionData]);
 
-  //  this effect, is used to alow to render the footer when we reach the last section
-
+  // Render LazySection component
   return (
     <Box
       ref={fromRef}
@@ -54,12 +73,14 @@ const LazySection = ({ sectionData }) => {
           sectionData.backgroundType === 'full' &&
           'linear-gradient(90deg,#75c9cc 0%,#00bccc 100%)',
         display: sectionData.backgroundType === 'full' ? 'flex' : undefined,
-        minHeight: isNearScreen ? '100% ' : '100vh',
+        minHeight: isNearScreen ? '100%' : '100vh',
       }}
     >
+      {/* Render the loaded section component within Suspense */}
       <Suspense fallback={<Loading />}>{isNearScreen && section}</Suspense>
     </Box>
   );
 };
 
+// Export LazySection component
 export default LazySection;

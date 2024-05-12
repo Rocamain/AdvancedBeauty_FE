@@ -53,4 +53,15 @@ const getId = (url) => {
   const id = url.split('#')[1];
   return id;
 };
-export { getPaddingBottom, getPaddingTop, getId };
+let convertToCamelCase = (string) => {
+  let parts = string.split('.');
+  let lastPart = parts[1];
+  let subParts = lastPart.split('-');
+  let firstPart = subParts[0].charAt(0).toUpperCase() + subParts[0].slice(1); // Capitalize the first letter of the first part
+  subParts[0] = firstPart;
+  for (let i = 1; i < subParts.length; i++) {
+    subParts[i] = subParts[i].charAt(0).toUpperCase() + subParts[i].slice(1);
+  }
+  return subParts.join('');
+};
+export { getPaddingBottom, getPaddingTop, getId, convertToCamelCase };

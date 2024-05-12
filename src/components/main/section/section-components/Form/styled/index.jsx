@@ -21,7 +21,7 @@ const Wrapper = styled((props) => <Box {...props} />)(({ theme }) => ({
 const FlexContainer = styled((props) => (
   <Box
     {...props}
-    component="div"
+    component='div'
     sx={{
       width: ['85vw', '80vw', '80vw', '65vw'],
       margin: '0 auto',
@@ -38,8 +38,8 @@ const FlexContainer = styled((props) => (
 const Form = styled((props) => (
   <FormControl
     {...props}
-    component="form"
-    autoComplete="off"
+    component='form'
+    autoComplete='off'
     sx={{ padding: { xs: '2em', xl: '2.5em' }, mb: { xs: '6em', md: 0 } }}
   />
 ))(({ theme }) => ({

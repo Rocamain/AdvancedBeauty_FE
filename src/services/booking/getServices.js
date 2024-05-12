@@ -1,4 +1,4 @@
-const PATH = process.env.REACT_APP_BOOKING;
+const PATH = process.env.VITE_APP_BOOKING;
 
 const getServices = () => {
   const queryString = `${PATH}/api/services?orderBy=type`;

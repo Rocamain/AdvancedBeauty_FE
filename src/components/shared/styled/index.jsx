@@ -9,11 +9,11 @@ import { Link as LinkRouter } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import leavesBackground from 'assets/leaves-background.jpg';
 import circles from 'assets/circles.jpg';
-import { COMPONENT_SIZES, COMPONENT_SCR_SET } from 'constants/index.js';
+import { COMPONENT_SIZES, COMPONENT_SCR_SET } from 'constants/index';
 
 const SecondaryButton = styled((props) => (
   <MuiButton
-    variant="outlined"
+    variant='outlined'
     disableRipple
     endIcon={<SendIcon />}
     {...props}
@@ -53,7 +53,7 @@ const SecondaryButton = styled((props) => (
   };
 });
 
-const Divider = styled((props) => <MuiDivider component="hr" {...props} />)(
+const Divider = styled((props) => <MuiDivider component='hr' {...props} />)(
   ({ theme, grid }) => {
     return {
       margin:
@@ -125,7 +125,7 @@ const Wrapper = styled((props) => <Box {...props} />)(({ theme }) => {
 });
 
 const Card = styled(({ buttonTo, page, sectionTitle, ...props }) => (
-  <LinkRouter component="a" variant="div" {...props} />
+  <LinkRouter component='a' variant='div' {...props} />
 ))(({ theme, first }) => {
   return {
     textDecoration: 'none',
@@ -181,7 +181,7 @@ const Image = styled(
     if (componentType === 'logo') {
       return (
         <img
-          loading="lazy"
+          loading='lazy'
           src={url}
           alt={alt}
           {...props}
@@ -194,14 +194,17 @@ const Image = styled(
 
     return (
       <img
-        loading="lazy"
+        loading='lazy'
         className={className}
         src={url}
         alt={alt}
         title={alt}
-        srcSet={`${formats?.large?.url ? formats?.large?.url : url} ${lg}, ${
-          formats.medium.url
-        } ${md}, ${formats.small.url} ${sm}`}
+        srcSet={
+          formats &&
+          `${formats?.large?.url ? formats?.large?.url : url} ${lg}, ${
+            formats.medium.url
+          } ${md}, ${formats.small.url} ${sm}`
+        }
         sizes={sizes}
         style={{ objectFit: 'cover' }}
         {...props}
@@ -218,8 +221,8 @@ const Image = styled(
 const PrimaryButton = styled(({ type, ...props }) => {
   return (
     <MuiButton
-      variant="contained"
-      color="primary"
+      variant='contained'
+      color='primary'
       endIcon={<SendIcon />}
       component={LinkRouter}
       disableFocusRipple
@@ -229,20 +232,16 @@ const PrimaryButton = styled(({ type, ...props }) => {
     />
   );
 })(({ theme }) => ({
-  fontWeight: 600,
-  zIndex: 100,
-  fontSize: '1rem',
-  textAlign: 'center',
+  // textAlign: 'center',
   '.MuiButton-endIcon': {
     display: 'none',
   },
   ':hover': {
-    backgroundColor: 'rgba(0, 0, 0, 0.14)',
-    color: 'orange',
+    backgroundColor: 'rgba(0, 0, 0, 0.04)',
   },
   [theme.breakpoints.up('md')]: {
-    borderLeft: '15px solid transparent',
-    borderRight: '0.5em solid transparent',
+    borderLeft: '0.5em solid transparent',
+    borderRight: '0.3em solid transparent',
     padding: '0.5em',
     transition: 'background-color 0.65s !important',
     '.MuiButton-endIcon': {
@@ -252,13 +251,16 @@ const PrimaryButton = styled(({ type, ...props }) => {
       opacity: 0,
       transition: 'transform 0.6s, width 0.5s, opacity 0.3s ease',
       '>:nth-of-type(1)': {
-        fontSize: '2rem',
+        fontSize: '1.5rem',
         fontWeight: 800,
       },
     },
     ':hover': {
       borderRight: 0,
       paddingRight: '2em',
+      span: {
+        color: 'orange',
+      },
       '.MuiButton-endIcon': {
         opacity: 1,
         transform: 'translate(0)',

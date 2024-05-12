@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { Loading } from 'components/shared/index';
 import useNearScreen from 'hooks/useNearScreen.js';
 
-const FooterContent = React.lazy(() => import('components/footer/Footer.jsx'));
+const FooterContent = React.lazy(() => import('./Footer.jsx'));
 
 const LazyFooter = ({ data }) => {
   const { fromRef, isNearScreen } = useNearScreen({
@@ -13,7 +13,7 @@ const LazyFooter = ({ data }) => {
   return (
     <Box
       ref={fromRef}
-      component="footer"
+      component='footer'
       sx={{
         minHeight: isNearScreen ? '100%' : '50vh',
       }}

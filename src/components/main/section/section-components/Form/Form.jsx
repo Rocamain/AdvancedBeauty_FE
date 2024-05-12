@@ -7,7 +7,7 @@ import {
   Wrapper,
   FlexContainer,
   Form,
-} from 'components/main/section/section-components/Form/styled/index.js';
+} from 'components/main/section/section-components/Form/styled/';
 import IconButton from 'components/main/section/section-components/Form/IconButton.jsx';
 import Input from 'components/main/section/section-components/Form/Input.jsx';
 import { INPUTS } from 'constants/index.js';
@@ -19,7 +19,7 @@ import {
 import shop from 'assets/shop.jpg';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-const { REACT_APP_BOOKING } = process.env;
+const { VITE_APP_BOOKING } = import.meta.env;
 
 export default function ContactForm() {
   const { shops } = useLoaderData();
@@ -87,7 +87,7 @@ export default function ContactForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
     };
-    fetch(`${REACT_APP_BOOKING}/api/contact`, requestOptions)
+    fetch(`${VITE_APP_BOOKING}/api/contact`, requestOptions)
       .then((response) => {
         if (response.status !== 200) {
           navigate('/error');
@@ -111,10 +111,10 @@ export default function ContactForm() {
       <FlexContainer>
         <Wrapper>
           <Header>
-            <SectionTitle title="Contact us" grid />
+            <SectionTitle title='Contact us' grid />
             <Typography
-              variant="form"
-              component="p"
+              variant='form'
+              component='p'
               sx={{ marginBottom: '1em' }}
             >
               This website is build with React , Strapi and back end server as a
@@ -132,18 +132,18 @@ export default function ContactForm() {
               }}
             >
               <IconButton
-                href="https://www.linkedin.com/in/francisco-javier-roca-vazquez/"
-                target="_blank"
-                rel="noopener"
+                href='https://www.linkedin.com/in/francisco-javier-roca-vazquez/'
+                target='_blank'
+                rel='noopener'
                 children={<LinkedInIcon />}
               />
               <IconButton
-                href="mailto:fjrocavazquez@gmail.com?subject=Mail from Advance beauty website"
+                href='mailto:fjrocavazquez@gmail.com?subject=Mail from Advance beauty website'
                 children={<EmailIcon />}
               />
             </Box>
           </Header>
-          <Form id="contact-form" onSubmit={handleSubmit}>
+          <Form id='contact-form' onSubmit={handleSubmit}>
             <Grid container spacing={3} sx={{ marginBottom: '1.5em' }}>
               {INPUTS.map(({ id, ...rest }, index) => {
                 return (
@@ -187,7 +187,7 @@ export default function ContactForm() {
                       disableRipple
                       onChange={handleCheck}
                       inputProps={{ 'aria-label': 'checkbox send approval' }}
-                      type="checkbox"
+                      type='checkbox'
                       checked={values.checked}
                       sx={{ padding: 0, backgroundColor: '#eee' }}
                     />
@@ -211,9 +211,9 @@ export default function ContactForm() {
                     {numbers.first} + {numbers.second} =
                   </Typography>
                   <Input
-                    id="result"
+                    id='result'
                     value={values.result}
-                    size="small"
+                    size='small'
                     onChange={handleChange}
                   />
                 </Box>
@@ -230,10 +230,10 @@ export default function ContactForm() {
             >
               <Button
                 disabled={disabled}
-                type="submit"
-                value="submit"
-                variant="contained"
-                size="large"
+                type='submit'
+                value='submit'
+                variant='contained'
+                size='large'
               >
                 SUBMIT
               </Button>
@@ -247,7 +247,7 @@ export default function ContactForm() {
           }}
         >
           <Box
-            component="img"
+            component='img'
             src={shop}
             sx={{
               maxWidth: '100%',

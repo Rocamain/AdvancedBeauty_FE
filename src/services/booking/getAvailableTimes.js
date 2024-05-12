@@ -1,10 +1,10 @@
-const PATH = process.env.REACT_APP_BOOKING;
+const { VITE_APP_BOOKING } = import.meta.env;
 
 const getAvailableTimes = ({ shopName, serviceName, date }) => {
   if (shopName && serviceName && date) {
     const day = date.format('DD/MM/YYYY');
 
-    const queryString = `${PATH}/api/bookings/available?shopName=${shopName}&serviceName=${serviceName}&date=${day}`;
+    const queryString = `${VITE_APP_BOOKING}/api/bookings/available?shopName=${shopName}&serviceName=${serviceName}&date=${day}`;
 
     return queryString;
   }

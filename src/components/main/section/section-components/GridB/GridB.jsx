@@ -6,8 +6,8 @@ import {
   Card,
   Title,
   SubTitle,
-} from 'components/main/section/section-components/GridB/styled';
-import Markdown from 'components/shared/MarkDown';
+} from 'components/main/section/section-components/GridB/styled/index.jsx';
+import Markdown from 'components/shared/MarkDown.jsx';
 
 export default function GridB({ title, size, cards }) {
   return (

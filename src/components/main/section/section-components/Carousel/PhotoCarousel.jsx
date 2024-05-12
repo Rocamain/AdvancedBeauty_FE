@@ -1,9 +1,9 @@
 import {
   Photo,
   CardPhotoContainer,
-} from 'components/main/section/section-components/Carousel/styled';
+} from 'components/main/section/section-components/Carousel/styled/';
 import clsx from 'clsx';
-import { slidePhoto } from 'components/main/section/section-components/Carousel/styles';
+import { slidePhoto } from 'components/main/section/section-components/Carousel/styles/';
 
 export default function PhotoCarousel({ alt, src, exit, enter }) {
   const photoAnimationStyles = slidePhoto();

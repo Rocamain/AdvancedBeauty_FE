@@ -1,9 +1,9 @@
 import { useMediaQuery, Typography, Box, useTheme } from '@mui/material';
 import clsx from 'clsx';
 import Button from 'components/shared/Button';
-import { CardWrapper } from 'components/main/section/section-components/Carousel/styled';
+import { CardWrapper } from 'components/main/section/section-components/Carousel/styled/index.jsx';
 import PhotoCarousel from 'components/main/section/section-components/Carousel/PhotoCarousel.jsx';
-import Markdown from 'components/shared/MarkDown';
+import Markdown from 'components/shared/MarkDown.jsx';
 import { slideCard } from 'components/main/section/section-components/Carousel/styles';
 
 const Card = ({ card, exitAnimationEnd, enter, exit }) => {
@@ -42,8 +42,8 @@ const Card = ({ card, exitAnimationEnd, enter, exit }) => {
       >
         <Box sx={{ marginBottom: '1.7em' }}>
           <Typography
-            component="h4"
-            variant="carouselCardTitle"
+            component='h4'
+            variant='carouselCardTitle'
             sx={{
               paddingBottom: '1.1em',
               px: '1em',

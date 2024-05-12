@@ -1,6 +1,6 @@
-import { Container, Grid } from 'components/shared/styled/index.js';
+import { Container, Grid } from 'components/shared/styled/index';
 import GridCards from 'components/main/section/section-components/GridA/Grid-A-Cards';
-import GridText from 'components/main/section//section-components/GridA/Grid-A-Text';
+import GridText from 'components/main/section/section-components/GridA/Grid-A-Text.jsx';
 import GridPhoto from 'components/main/section//section-components/GridA/Grid-A-Photo';
 
 export default function GridA({

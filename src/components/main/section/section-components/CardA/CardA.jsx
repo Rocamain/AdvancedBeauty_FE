@@ -1,10 +1,13 @@
 import { Box } from '@mui/material';
-import { Card, Container } from './styled/index.js';
-import { Wrapper } from 'components/shared/styled';
+import {
+  Card,
+  Container,
+} from 'components/main/section/section-components/CardA/styled/index.jsx';
+import { Wrapper } from 'components/shared/styled/index.jsx';
 import Image from 'components/shared/Image.jsx';
-import SectionTitle from 'components/shared/SectionTitle';
+import SectionTitle from 'components/shared/SectionTitle.jsx';
 import Button from 'components/shared/Button.jsx';
-import Markdown from 'components/shared/MarkDown';
+import Markdown from 'components/shared/MarkDown.jsx';
 
 function CardA({ content, title, button, photo, backgroundType = 'none' }) {
   return (
@@ -20,7 +23,7 @@ function CardA({ content, title, button, photo, backgroundType = 'none' }) {
           {title && <SectionTitle title={title} grid cardA />}
           <Card>
             <Markdown content={content} />
-            {button && <Button value={title} {...button} marginTop="0.5em" />}
+            {button && <Button value={title} {...button} marginTop='0.5em' />}
           </Card>
         </Box>
         {photo && (
@@ -31,11 +34,11 @@ function CardA({ content, title, button, photo, backgroundType = 'none' }) {
           >
             <Image
               height={[290, 500, 340, 380, 'auto']}
-              width="100%"
+              width='100%'
               url={photo.url}
               alt={photo.alternativeText}
               formats={photo.formats}
-              componentType="cardA"
+              componentType='cardA'
             />
           </Box>
         )}

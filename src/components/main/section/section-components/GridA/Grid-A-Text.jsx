@@ -1,7 +1,7 @@
 import { Grid, Box } from '@mui/material';
-import Button from 'components/shared/Button';
-import SectionTitle from 'components/shared/SectionTitle';
-import Markdown from 'components/shared/MarkDown';
+import Button from 'components/shared/Button.jsx';
+import SectionTitle from 'components/shared/SectionTitle.jsx';
+import Markdown from 'components/shared/MarkDown.jsx';
 
 export default function GridAText({
   title,

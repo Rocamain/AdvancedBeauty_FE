@@ -24,7 +24,7 @@ export default function SectionMargin({ section, children }) {
 
   return (
     <Box
-      component="section"
+      component='section'
       id={section?.withLink?.URL ? getId(section?.withLink?.URL) : null}
       sx={{
         marginBottom:

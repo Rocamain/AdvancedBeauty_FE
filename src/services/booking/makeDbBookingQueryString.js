@@ -1,9 +1,9 @@
-const { REACT_APP_BOOKING } = process.env;
+const { VITE_APP_BOOKING } = import.meta.env;
 
 const makeDbBookingString = (path) => {
   // apiPath = path.includes('Services in') && 'services';
 
-  const queryString = `${REACT_APP_BOOKING}/api/${path}${
+  const queryString = `${VITE_APP_BOOKING}/api/${path}${
     path === 'services' ? '?orderBy=type' : ''
   }`;
 

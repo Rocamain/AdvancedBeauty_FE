@@ -1,37 +1,38 @@
 import { useState, useEffect } from 'react';
-const { REACT_APP_STRAPI_URL } = process.env;
+const VITE_APP_STRAPI_URL = import.meta.env.VITE_APP_STRAPI_URL;
 
 const useNavigation = () => {
-  const [data, setData] = useState({ navigationLinks: null });
+  const [routes, setRoutes] = useState(null);
 
   useEffect(() => {
     let controller = new AbortController();
-    const fetchData = async () => {
+    const fetchRoutesData = async () => {
       try {
-        const links = await fetch(
-          `${REACT_APP_STRAPI_URL}/api/navigation/render/main-navigation?type=TREE`,
+        const routesResponse = await fetch(
+          `${VITE_APP_STRAPI_URL}/api/navigation/render/main-navigation?type=TREE`,
           { signal: controller.signal }
         );
 
-        const linksParsed = await links.json();
+        const navroutes = await routesResponse.json();
 
-        setData({ navigationLinks: linksParsed });
+        setRoutes(navroutes);
         controller = null;
       } catch (err) {
         console.log({ err });
       }
     };
 
-    if (data.navigationLinks === null) {
-      fetchData();
+    if (routes == null) {
+      fetchRoutesData();
+    } else {
+      return () => {
+        controller?.abort();
+      };
     }
-    return () => {
-      controller?.abort();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return data;
+  if (routes) return routes;
 };
 
 export default useNavigation;

@@ -1,7 +1,7 @@
-const PATH = process.env.REACT_APP_BOOKING;
+const { VITE_APP_BOOKING } = import.meta.env;
 
 const getShops = () => {
-  const queryString = `${PATH}/api/shops`;
+  const queryString = `${VITE_APP_BOOKING}/api/shops`;
 
   return queryString;
 };

@@ -58,8 +58,8 @@ const Wrapper = styled(Box)(({ theme }) => ({
 const BurgerButton = styled((props) => {
   return (
     <IconButton
-      aria-haspopup="true"
-      aria-label="menu burger button"
+      aria-haspopup='true'
+      aria-label='menu burger button'
       {...props}
     />
   );
@@ -183,8 +183,8 @@ const MenuLink = styled(({ mainLink, to, replace, title, ...props }) => {
     <MenuItem disableGutters dense {...props}>
       <Link to={to}>
         <Typography
-          component="h3"
-          variant="h6"
+          component='h3'
+          variant='h6'
           sx={{ fontFamily: 'Open Sans' }}
         >
           {title}

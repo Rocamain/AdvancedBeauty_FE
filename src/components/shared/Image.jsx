@@ -1,4 +1,4 @@
-import { Image as StyledImg } from 'components/shared/styled/index.js';
+import { Image as StyledImg } from 'components/shared/styled/index.jsx';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 

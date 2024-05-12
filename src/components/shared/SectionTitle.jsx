@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { Divider } from 'components/shared/styled/index.js';
+import { Divider } from 'components/shared/styled/index.jsx';
 
 export default function SectionTitle({ title, gridA, left }) {
   return (
@@ -9,8 +9,8 @@ export default function SectionTitle({ title, gridA, left }) {
       }}
     >
       <Typography
-        component="h2"
-        variant="sectionTitle"
+        component='h2'
+        variant='sectionTitle'
         sx={{
           textAlign: gridA || left ? 'left' : 'center',
         }}

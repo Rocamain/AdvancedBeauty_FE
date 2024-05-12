@@ -108,15 +108,15 @@ const ExitBtn = styled((props) => {
 const Input = styled(({ icon, error, ...props }) => {
   return (
     <TextField
-      autoComplete="off"
-      variant="standard"
-      color="primary"
+      autoComplete='off'
+      variant='standard'
+      color='primary'
       multiline
       maxRows={2}
       InputProps={{
         startAdornment: (
           <InputAdornment
-            position="start"
+            position='start'
             sx={{ color: error ? '#ef5350' : 'orange' }}
           >
             {icon}
@@ -167,7 +167,7 @@ const Input = styled(({ icon, error, ...props }) => {
 });
 
 const Form = styled(({ ...props }) => {
-  return <Box noValidate component="form" {...props} />;
+  return <Box noValidate component='form' {...props} />;
 })(({ theme, smallphone }) => {
   return {
     gap: '1em',
@@ -178,7 +178,7 @@ const Form = styled(({ ...props }) => {
 });
 
 const Checkbox = styled(({ ...props }) => {
-  return <MuiCheckbox disableRipple color="secondary" {...props} />;
+  return <MuiCheckbox disableRipple color='secondary' {...props} />;
 })(({ theme, props }) => {
   return {
     display: 'inline-block',
@@ -189,6 +189,53 @@ const Checkbox = styled(({ ...props }) => {
     color: 'orange',
   };
 });
+
+const StepTwo = styled(({ nextStep, ...props }) => <Box {...props} />)(
+  ({ theme, props }) => {
+    return {
+      backgroundColor: '#D3D3D3',
+      width: '4em',
+      height: '10px',
+      borderRadius: '5px',
+    };
+  }
+);
+const Gap = styled((props) => {
+  return <Box {...props} />;
+})(({ theme, props }) => ({
+  zIndex: 200,
+  border: 'none',
+  backgroundColor: 'white',
+  width: '2em',
+  height: '10px',
+}));
+
+const StepOne = styled((props) => {
+  return <Box {...props} />;
+})(({ theme }) => {
+  return {
+    backgroundColor: '#BCF0F0',
+    width: '4em',
+    height: '10px',
+    borderRadius: '5px',
+  };
+});
+
+const Slider = styled(({ ...props }) => {
+  return <Box {...props} />;
+})(({ theme, step }) => {
+  const isActive = step > 1;
+  return {
+    position: 'relative',
+    backgroundColor: theme.palette.primary.main,
+    width: '4em',
+    height: '10px',
+    borderRadius: '5px',
+    transition: isActive && 'transform 1s',
+    transform: isActive ? 'translateX(6em)' : 'translateX(0)',
+  };
+});
+
 export {
   Dialog,
   ModalWrapper,
@@ -197,4 +244,8 @@ export {
   Input,
   Form,
   Checkbox,
+  StepTwo,
+  StepOne,
+  Slider,
+  Gap,
 };

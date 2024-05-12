@@ -1,4 +1,5 @@
 import { COUNTY_CODE } from 'constants/index.js';
+const { VITE_APP_HOLS_API } = import.meta.env;
 
 const getShopBankHolidays = ({ bankHolidays, shop }) => {
   const shopCountyCode = COUNTY_CODE(shop);
@@ -15,7 +16,7 @@ const getShopBankHolidays = ({ bankHolidays, shop }) => {
 };
 
 const getBankHolidaysUrlString = (year) => {
-  const queryString = `${process.env.REACT_APP_HOLS_API}/${year}/ES`;
+  const queryString = `${VITE_APP_HOLS_API}/${year}/ES`;
 
   return queryString;
 };

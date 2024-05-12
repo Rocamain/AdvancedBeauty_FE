@@ -1,19 +1,16 @@
-import { createTheme, responsiveFontSizes } from '@mui/material';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { createBreakpoints } from '@mui/system';
-import OpenSans from '@fontsource/open-sans';
-import Abel from '@fontsource/abel';
+// import OpenSans from '@fontsource/open-sans';
+// import Abel from '@fontsource/abel';
+
+const BREAKPOINTS = { xs: 0, sm: 500, md: 900, lg: 1300, xl: 1600, xxl: 2100 };
 
 let theme = createTheme();
-const BREAKPOINTS = { xs: 0, sm: 500, md: 900, lg: 1300, xl: 1600, xxl: 2100 };
-const breakpointsValues = {
+
+theme = createTheme(theme, {
   breakpoints: createBreakpoints({
     values: BREAKPOINTS,
   }),
-};
-
-theme = createTheme(theme, { ...breakpointsValues });
-
-theme = createTheme(theme, {
   palette: {
     primary: {
       main: '#00BCCC',
@@ -85,7 +82,7 @@ theme = createTheme(theme, {
       fontSize: '1.4rem',
       lineHeight: 1.1,
       fontFamily: ['Abel', 'Open Sans'].join(','),
-      letterSpacing: '0.06em',
+      letterSpacing: '0.03em',
     },
     p: {
       color: '#888',
@@ -93,7 +90,7 @@ theme = createTheme(theme, {
       fontSize: '1rem',
       lineHeight: 1.2,
       fontFamily: ['Open Sans', 'Abel'].join(','),
-      letterSpacing: '0.08em',
+      letterSpacing: '0.03em',
     },
 
     //  Variants
@@ -430,26 +427,26 @@ theme = createTheme(theme, {
   },
   // Components override.
   components: {
-    MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: 'Abel';
-          font-style: normal;
-          font-display: swap;
-          font-weight: 500;
-          src: local('Abel'), local('Abel-Regular'), url(${Abel}) format('Abel');
-          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-        }
-        @font-face {
-          font-family: 'Open sans';
-          font-style: normal;
-          font-display: swap;
-          font-weight: 500;
-          src: local('Open sans'), local('Open sans-Regular'), url(${OpenSans}) format('Open sans');
-          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-        }
-      `,
-    },
+    // MuiCssBaseline: {
+    //   styleOverrides: `
+    //     @font-face {
+    //       font-family: 'Abel';
+    //       font-style: normal;
+    //       font-display: swap;
+    //       font-weight: 500;
+    //       src: local('Abel'), local('Abel-Regular'), url(${Abel}) format('Abel');
+    //       unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+    //     }
+    //     @font-face {
+    //       font-family: 'Open sans';
+    //       font-style: normal;
+    //       font-display: swap;
+    //       font-weight: 500;
+    //       src: local('Open sans'), local('Open sans-Regular'), url(${OpenSans}) format('Open sans');
+    //       unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+    //     }
+    //   `,
+    // },
     MuiButton: {
       styleOverrides: {
         root: {
