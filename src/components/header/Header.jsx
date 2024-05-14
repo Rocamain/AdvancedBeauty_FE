@@ -16,7 +16,7 @@ import Logo from 'components/shared/Image.jsx';
 
 export default function Header({ navigationLinks }) {
   const { logo } = useLoaderData();
-  console.log({ logo });
+
   const { selectedLinks } = useMenuLinkSelected();
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
