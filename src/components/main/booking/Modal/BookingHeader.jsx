@@ -1,12 +1,11 @@
-import { styled } from '@mui/material';
-import { Box, Typography } from '@mui/material/';
+import { styled, Box, Typography } from '@mui/material';
 
 export default function BookingHeader({ title, subtitle, className }) {
   return (
     <Container className={className}>
       <Typography
-        component="h2"
-        variant="h2"
+        component='h2'
+        variant='h2'
         sx={{
           textAlign: 'center',
           color: 'primary.main',
@@ -17,8 +16,8 @@ export default function BookingHeader({ title, subtitle, className }) {
         {title}
       </Typography>
       <Typography
-        component="h3"
-        variant="h5"
+        component='h3'
+        variant='h5'
         sx={{
           textAlign: 'center',
           color: '#666666',

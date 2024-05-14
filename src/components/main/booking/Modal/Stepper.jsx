@@ -4,10 +4,10 @@ import {
   StepTwo,
   Gap,
   Slider,
-} from 'components/main/booking/Modal/styled/stepper';
+} from 'components/main/booking/Modal/styled/index.jsx';
 export default function Stepper({ step }) {
   return (
-    <Box display="flex" justifyContent="center" sx={{ margin: '2em 0' }}>
+    <Box display='flex' justifyContent='center' sx={{ margin: '2em 0' }}>
       <StepOne>
         <Slider step={step} />
       </StepOne>

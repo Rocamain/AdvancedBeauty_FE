@@ -7,8 +7,8 @@ import {
   Box,
   Button as MuiButton,
 } from '@mui/material/';
-import Stepper from 'components/main/booking/Modal/Stepper';
-import Summary from 'components/main/booking/Modal/Summary';
+import Stepper from 'components/main/booking/Modal/Stepper.jsx';
+import Summary from 'components/main/booking/Modal/Summary.jsx';
 import Calendar from 'components/main/booking/Calendar/Calendar.jsx';
 import Header from 'components/main/booking/Modal/BookingHeader.jsx';
 import {
@@ -16,7 +16,7 @@ import {
   Dialog,
   ModalWrapper,
   ExitBtn,
-} from 'components/main/booking/Modal/styled';
+} from 'components/main/booking/Modal/styled/index.jsx';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -46,6 +46,7 @@ export default function Modal({
     price,
     date: dayjs.tz(),
   });
+
   const fadeOut = useRef(booking.bookingStep === 'initial');
   const { bookingStep, year } = booking;
   const bankHolidays = useFetchBankHolidays(year, shopName);
@@ -72,9 +73,9 @@ export default function Modal({
         <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="booking calendar"
-          aria-describedby="booking calendar, choose a date"
-          scroll="paper"
+          aria-labelledby='booking calendar'
+          aria-describedby='booking calendar, choose a date'
+          scroll='paper'
         >
           <Stepper step={bookingStep} />
           <ExitBtn onClick={handleExitBtn} />

@@ -1,7 +1,8 @@
 import { useLoaderData } from 'react-router-dom';
-import { Loading } from 'components/shared/index';
-import Section from 'components/main/section/Section';
+import { Loading } from 'components/shared';
+import SectionMargin from 'components/main/section/SectionMargin';
 import SectionMargin from 'components/main/section/SectionMargin.jsx';
+
 
 function Main() {
   const { components } = useLoaderData();
@@ -15,7 +16,7 @@ function Main() {
       {components.map((componentInfo, index) => {
         return (
           <SectionMargin key={index} section={componentInfo}>
-            <Section key={index} index={index} sectionData={componentInfo} />
+            <Section sectionData={componentInfo} />
           </SectionMargin>
         );
       })}
