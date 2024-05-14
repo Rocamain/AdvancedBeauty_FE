@@ -1,5 +1,4 @@
 import { Box, Typography, Button } from '@mui/material';
-
 import {
   HeroContainer,
   WavesBackground,
