@@ -7,7 +7,7 @@ import {
   Wrapper,
   FlexContainer,
   Form,
-} from 'components/main/section/section-components/Form/styled/';
+} from 'components/main/section/section-components/Form/styled/index.jsx';
 import IconButton from 'components/main/section/section-components/Form/IconButton.jsx';
 import Input from 'components/main/section/section-components/Form/Input.jsx';
 import { INPUTS } from 'constants/index.js';
@@ -15,7 +15,7 @@ import {
   initialErrors,
   initialValues,
   validation,
-} from 'components/main/section/section-components/Form/utils';
+} from 'components/main/section/section-components/Form/utils/index.js';
 import shop from 'assets/shop.jpg';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -23,8 +23,9 @@ const { VITE_APP_BOOKING } = import.meta.env;
 
 export default function ContactForm() {
   const { shops } = useLoaderData();
-  const [values, setValues] = useState({ ...initialValues });
-  const [errors, setErrors] = useState({ ...initialErrors });
+
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(true);
   const [mailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
