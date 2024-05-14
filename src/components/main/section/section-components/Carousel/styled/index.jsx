@@ -134,7 +134,6 @@ const CardWrapper = styled(({ animation, ...props }) => {
   backgroundColor: theme.palette.primary.contrastText,
   transform: 'translateY(3.5em)',
   opacity: 0,
-  transform: 'translateY(3.5em)',
   '@keyframes cardOut': {
     '0%': {
       transform: 'translateY(0)',
