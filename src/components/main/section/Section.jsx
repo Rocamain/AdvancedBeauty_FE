@@ -11,7 +11,6 @@ const LoadableDynamicSection = async (componentName) => {
   return lazy(() =>
     import(`./section-components/${componentName}/${componentName}.jsx`).catch(
       (error) => {
-        console.log(`Error in importing ${componentName}`, { error });
         // Return a fallback component in case of error
         return { default: () => <div>Error: Component not found</div> };
       }
@@ -20,11 +19,13 @@ const LoadableDynamicSection = async (componentName) => {
 };
 
 // Function to load section dynamically
-const loadSection = async ({ __component, ...sectionData }) => {
+
+const loadSection = async ({ __component, componentName, ...sectionData }) => {
   try {
     // Dynamically import the section component
-
-    const componentName = convertToCamelCase(__component);
+    componentName = __component
+      ? convertToCamelCase(__component)
+      : componentName;
 
     const SectionComponent = await LoadableDynamicSection(componentName);
     // Return the dynamically loaded component with section data as props
