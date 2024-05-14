@@ -11,10 +11,7 @@ import Card from 'components/main/section/section-components/Carousel/Card.jsx';
 
 export default function Carousel({ background, title, subtitle, slides }) {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [animationExit, setAnimationExit] = useState(false);
-  const [animationEnter, setAnimationEnter] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
-  const [isPhotoLoaded, setPhotoLoaded] = useState(false);
+  const [animation, setAnimation] = useState('idle');
   const [card, setCard] = useState(slides[slideIndex]);
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
@@ -26,82 +23,30 @@ export default function Carousel({ background, title, subtitle, slides }) {
   useEffect(() => {
     let timer;
 
-    if (matchesBigScreens === false && initialLoad) {
+    if (animation === 'exit') {
       timer = setTimeout(() => {
-        setInitialLoad(false);
-        setAnimationEnter(true);
+        setCard(slides[slideIndex]);
+        setAnimation('enter');
       }, 1000);
     }
 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ON BIG SCREENS. Once the image is loaded On wait 1 second to start animation.
-
-  const onLoad = () => {
-    // time out will apply on initial load,
-
-    if (initialLoad) {
-      setTimeout(() => {
-        // set image as loaded
-
-        setPhotoLoaded(true);
-        setInitialLoad(false);
-      }, 1000);
-    }
-    if (!initialLoad) {
-      setPhotoLoaded(true);
-      setAnimationExit(false);
-    }
-  };
-
-  // Once the isPhotoLoaded start the animation to enter the card
-
-  useEffect(() => {
-    if (matchesBigScreens && isPhotoLoaded) {
-      setAnimationEnter(true);
-    }
-  }, [matchesBigScreens, isPhotoLoaded, card]);
+  }, [animation]);
 
   // On click set the exit the card and set a the new index.
 
   const handleClick = (e) => {
     const increment = e.currentTarget.value === 'right' ? +1 : -1;
     const newIndex = (slideIndex + increment + slides.length) % slides.length;
-
+    setAnimation((prev) => {
+      return 'exit';
+    });
     setSlideIndex(newIndex);
-    setAnimationExit(true);
-    setAnimationEnter(false);
-    setPhotoLoaded(false);
   };
 
-  // On Exit  animation End set the new card with index set on click event
-  const exitAnimationEnd = (e) => {
-    const isExitAnimation = e.target.id === 'card out';
-
-    if (isExitAnimation) {
-      if (matchesBigScreens && !initialLoad) {
-        // On big screen will check is the image is already loaded, as load event will note triggered.
-
-        const currentPhoto = card.photo.url;
-        const newPhoto = slides[slideIndex].photo.url;
-        const isAlreadyLoaded = currentPhoto === newPhoto;
-
-        if (isAlreadyLoaded) {
-          setAnimationExit(false);
-          setPhotoLoaded(true);
-        }
-      } else {
-        // on Mobile once the animation end will reverse the states on exit and enter
-        setAnimationExit(false);
-        setAnimationEnter(true);
-      }
-      setCard(slides[slideIndex]);
-    }
-  };
   return (
-    <CarouselContainer onLoad={onLoad} url={background.url}>
+    <CarouselContainer url={background.url}>
       {matchesBigScreens && (
         <CarouselHero>
           <Typography
@@ -145,12 +90,7 @@ export default function Carousel({ background, title, subtitle, slides }) {
             onClick={handleClick}
             disableRipple
           />
-          <Card
-            enter={animationEnter}
-            exit={animationExit}
-            card={card}
-            exitAnimationEnd={exitAnimationEnd}
-          />
+          <Card animation={animation} card={card} />
           <ChevronButton
             className='ChevronButton ChevronButton-right'
             value='right'

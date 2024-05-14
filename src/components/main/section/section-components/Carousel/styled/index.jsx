@@ -1,7 +1,6 @@
 import { Box, Paper, IconButton, styled } from '@mui/material';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material/';
 
-
 const CarouselContainer = styled((props) => <Paper {...props} />)(
   ({ theme, url }) => ({
     position: 'relative',
@@ -109,32 +108,72 @@ const ChevronButton = styled((props) => {
   },
 }));
 
-const CardWrapper = styled((props) => <Paper elevation={24} {...props} />)(
-  ({ theme }) => ({
-    boxSizing: 'border-box',
-    padding: theme.spacing(5, 3),
-    borderRadius: 5,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    backgroundColor: theme.palette.primary.contrastText,
-    transform: 'translateY(3.5em)',
-    opacity: 0,
-    [theme.breakpoints.up('md')]: {
-      display: 'block',
-      width: 500,
-      padding: theme.spacing(5, 4, 5, 4),
+const CardWrapper = styled(({ animation, ...props }) => {
+  const animate =
+    animation === 'idle'
+      ? `cardIn 700ms forwards 200ms`
+      : animation === 'exit'
+      ? `cardOut 600ms forwards`
+      : `cardIn 700ms forwards 200ms`;
+  return (
+    <Paper
+      elevation={24}
+      {...props}
+      sx={{
+        animation: animate,
+      }}
+    />
+  );
+})(({ theme }) => ({
+  boxSizing: 'border-box',
+  padding: theme.spacing(5, 3),
+  borderRadius: 5,
+  display: 'flex',
+  justifyContent: 'flex-start',
+  flexDirection: 'column',
+  backgroundColor: theme.palette.primary.contrastText,
+  transform: 'translateY(3.5em)',
+  opacity: 0,
+  transform: 'translateY(3.5em)',
+  '@keyframes cardOut': {
+    '0%': {
+      transform: 'translateY(0)',
+      opacity: 0.8,
     },
-    [theme.breakpoints.up('lg')]: {
-      width: 800,
-      paddingLeft: theme.spacing(10),
+    '70%': {
+      opacity: 0.4,
     },
-    [theme.breakpoints.up('xll')]: {
-      width: 1200,
-      paddingLeft: theme.spacing(10),
+    '100%': {
+      opacity: 0,
+      transform: 'translateY(3.5em)',
     },
-  })
-);
+  },
+  '@keyframes cardIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 0.5,
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateY(0)',
+    },
+  },
+  [theme.breakpoints.up('md')]: {
+    display: 'block',
+    width: 500,
+    padding: theme.spacing(5, 4, 5, 4),
+  },
+  [theme.breakpoints.up('lg')]: {
+    width: 800,
+    paddingLeft: theme.spacing(10),
+  },
+  [theme.breakpoints.up('xll')]: {
+    width: 1200,
+    paddingLeft: theme.spacing(10),
+  },
+}));
 
 const CardPhotoContainer = styled((props) => {
   return <Box elevation={24} {...props} />;
@@ -142,32 +181,68 @@ const CardPhotoContainer = styled((props) => {
   maxWidth: 300,
 }));
 
-const Photo = styled(({ ...props }) => {
-  
+const Photo = styled(({ animation, ...props }) => {
+  const animate =
+    animation === 'idle'
+      ? `photoIn 700ms forwards`
+      : animation === 'exit'
+      ? `photoOut 1000ms forwards`
+      : `photoIn 700ms forwards`;
 
   return (
     <Box
-      width="300"
-      height="600"
-      component="img"
+      width='300'
+      height='600'
+      component='img'
       {...props}
-     
+      sx={{
+        animation: animate,
+      }}
     />
   );
-})(({ theme }) => ({
-  position: 'relative',
-  zIndex: 200,
-  height: 'auto',
-  margin: '0 auto',
-  borderRadius: 5,
-  maxWidth: 'calc(100% + 10px)',
-  objectFit: 'contain',
-  transform: 'translateX(-3em)',
-  opacity: 0,
-  [theme.breakpoints.up('lg')]: {
-    maxWidth: 'calc(100% + 40px)',
-  },
-}));
+})(({ theme }) => {
+  return {
+    position: 'relative',
+    zIndex: 200,
+    height: 'auto',
+    margin: '0 auto',
+    borderRadius: 5,
+    maxWidth: 'calc(100% + 10px)',
+    objectFit: 'contain',
+    transform: 'translateX(-3em)',
+    opacity: 1,
+
+    '@keyframes photoIn': {
+      '0%': {
+        opacity: 0,
+      },
+      '50%': {
+        opacity: 0.4,
+      },
+      '100%': {
+        opacity: 1,
+        transform: 'translateX(0)',
+      },
+    },
+    '@keyframes photoOut': {
+      '0%': {
+        transform: 'translateX(0)',
+        opacity: 1,
+      },
+      '50%': {
+        opacity: 0.2,
+      },
+      '100%': {
+        opacity: 0,
+        transform: 'translateX(-5em)',
+      },
+    },
+
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: 'calc(100% + 40px)',
+    },
+  };
+});
 
 export {
   CarouselContainer,
