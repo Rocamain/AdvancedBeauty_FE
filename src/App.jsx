@@ -25,18 +25,20 @@ function App() {
 
   if (!navigationLinks) return null;
 
-  const navRoutes = navigationLinks.map(({ related, path }, index) => (
-    <Route
-      index={index === 0 && true}
-      key={index}
-      path={path}
-      loader={({ request: { signal } }) =>
-        fetchData({ apiRoute: related.__contentType.split('.')[1], signal })
-      }
-      element={<Main key={related.__contentType.split('.')[1]} />}
-      errorElement={<Navigate to='error' />}
-    />
-  ));
+  const navRoutes = navigationLinks.map(({ related, path }, index) => {
+    return (
+      <Route
+        index={index === 0 && true}
+        key={index}
+        path={path}
+        loader={({ request: { signal } }) =>
+          fetchData({ apiRoute: related.__contentType.split('.')[1], signal })
+        }
+        element={<Main key={related.__contentType.split('.')[1]} />}
+        errorElement={<Navigate to='error' />}
+      />
+    );
+  });
 
   const navSubRoutes = navigationLinks.flatMap((navRoute) =>
     navRoute.items
