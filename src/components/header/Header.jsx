@@ -9,13 +9,14 @@ import {
   Wrapper,
   PopoverMenu,
   BurgerButton,
-} from 'components/header/styled/index';
+} from 'components/header/styled/index.jsx';
 import ScreenMenu from 'components/header/ScreenMenu';
 import MobileMenu from 'components/header/MobileMenu';
 import Logo from 'components/shared/Image.jsx';
 
 export default function Header({ navigationLinks }) {
   const { logo } = useLoaderData();
+
   const { selectedLinks } = useMenuLinkSelected();
   const theme = useTheme();
   const matchesBigScreens = useMediaQuery(theme.breakpoints.up('md'), {
@@ -47,12 +48,8 @@ export default function Header({ navigationLinks }) {
               <Logo
                 height={[60, 90, 95, 120, 130]}
                 width='auto'
-                url={
-                  logo?.formats?.thumbnail?.url
-                    ? logo.formats.thumbnail.url
-                    : logo.url
-                }
-                formats={logo?.formats && logo.formats}
+                url={logo?.formats?.thumbnail?.url || logo.url}
+                formats={logo.formats}
                 alt={logo.alternativeText}
                 componentType='logo'
               />

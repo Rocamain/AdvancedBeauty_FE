@@ -1,5 +1,4 @@
 import { Box, Typography, Button } from '@mui/material';
-
 import {
   HeroContainer,
   WavesBackground,
@@ -7,8 +6,8 @@ import {
   HeroHeaderWrapper,
   HeroContentWrapper,
   CoffeeMug,
-} from 'components/main/section/section-components/Hero/styled/';
-import { Divider } from 'components/shared/styled/';
+} from 'components/main/section/section-components/Hero/styled/index.jsx';
+import { Divider } from 'components/shared/styled/index.jsx';
 import { Link } from 'react-router-dom';
 
 export default function Hero({

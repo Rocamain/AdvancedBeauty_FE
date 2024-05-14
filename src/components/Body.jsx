@@ -1,6 +1,6 @@
 import { Outlet, useLocation, ScrollRestoration } from 'react-router-dom';
-import Footer from 'components/footer/index';
-import Header from 'components/header/Header';
+import Footer from 'components/footer/index.jsx';
+import Header from 'components/header/Header.jsx';
 import HeadTitle from 'components/main/headTitle/HeadTitle';
 import useScrollTo from 'hooks/useScrollTo.js';
 
