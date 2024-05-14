@@ -7,7 +7,6 @@ import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Grid, Box } from '@mui/material';
 import {
-  CalendarPicker,
   CustomPickersDay,
   GridContainer,
 } from 'components/main/booking/Calendar/styled/index.jsx';
@@ -68,47 +67,6 @@ const Calendar = ({ bankHolidays }) => {
       date: newDate,
       ...restBooking,
     }));
-  };
-
-  const props = {
-    leftArrowIcon: { fontSize: '1.7rem' },
-    rightArrowIcon: { fontSize: '1.7rem' },
-    previousIconButton: {
-      size: '1.7rem',
-    },
-    nextIconButton: {
-      size: '1.7rem',
-    },
-    day: {
-      bankHolidays,
-    },
-    leftArrowIcon: {
-      sx: {
-        fontSize: '1.7rem',
-      },
-    },
-    '& .MuiPickersArrowSwitcher': {
-      sx: {
-        fontSize: '1.7rem',
-      },
-    },
-    calendarHeader: {
-      sx: {
-        '& .MuiPickersCalendarHeader-label': {
-          fontFamily: 'Abel, Open-sans',
-          color: 'orange',
-          fontWeight: 800,
-          fontSize: '1.7rem',
-        },
-        '.MuiSvgIcon-root': {
-          fontSize: '1.4rem',
-        },
-
-        '& .MuiDayCalendar-weekDayLabel': {
-          fontSize: '2.3rem',
-        },
-      },
-    },
   };
 
   return (
