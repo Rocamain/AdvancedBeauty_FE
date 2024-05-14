@@ -1,9 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { Loading } from 'components/shared';
 import SectionMargin from 'components/main/section/SectionMargin';
-import SectionMargin from 'components/main/section/SectionMargin.jsx';
-
-
+import Section from 'components/main/section/Section';
 function Main() {
   const { components } = useLoaderData();
 
