@@ -16,8 +16,8 @@ export default function Button({
   const isExternalLink = linkTo.type === 'external';
   const isPromoContactEnquire =
     linkTo.URL === '/contact' &&
-    pathname.includes('/services_and_fares/promotions');
-
+    pathname.includes('/services-and-fares/promotions');
+  console.log(linkTo.URL);
   const setContactMsg = () => {
     const contactMessage = value;
     const message = `Dear AB team,\n\nI am interested to claim one or more of the ${contactMessage}, please contact me as soon as possible.\n\nKind regards,`;
@@ -44,7 +44,7 @@ export default function Button({
         rel={isExternalLink ? 'noopener noreferrer' : undefined}
         {...props}
       >
-        {linkText}
+        <span>{linkText}</span>
       </PrimaryButton>
     </Box>
   );

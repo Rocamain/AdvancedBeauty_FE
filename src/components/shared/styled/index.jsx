@@ -23,6 +23,8 @@ const SecondaryButton = styled((props) => (
     width: 'inherit',
     border: `2px solid ${theme.palette.primary.main}`,
     justifyContent: 'flex-start',
+    padding: '10px 15px',
+    paddingBottom: '5px',
     'span,svg, p': {
       fontWeight: '500',
       display: 'none',
@@ -47,6 +49,7 @@ const SecondaryButton = styled((props) => (
           color: 'orange',
           marginLeft: '0.1em',
           opacity: '1',
+          marginBottom: '0.11rem',
         },
       },
     },
@@ -232,7 +235,10 @@ const PrimaryButton = styled(({ type, ...props }) => {
     />
   );
 })(({ theme }) => ({
-  // textAlign: 'center',
+  fontWeight: 800,
+  fontSize: '1.1rem',
+  padding: '0.5em',
+  paddingBottom: '0.3em',
   '.MuiButton-endIcon': {
     display: 'none',
   },
@@ -242,13 +248,13 @@ const PrimaryButton = styled(({ type, ...props }) => {
   [theme.breakpoints.up('md')]: {
     borderLeft: '0.5em solid transparent',
     borderRight: '0.3em solid transparent',
-    padding: '0.5em',
     transition: 'background-color 0.65s !important',
     '.MuiButton-endIcon': {
       display: 'inline-flex',
       transform: 'translate(-30px)',
       width: 0,
       opacity: 0,
+      marginBottom: '0.2rem',
       transition: 'transform 0.6s, width 0.5s, opacity 0.3s ease',
       '>:nth-of-type(1)': {
         fontSize: '1.5rem',

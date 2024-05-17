@@ -23,7 +23,6 @@ const { VITE_APP_BOOKING } = import.meta.env;
 
 export default function ContactForm() {
   const { shops } = useLoaderData();
-
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(true);

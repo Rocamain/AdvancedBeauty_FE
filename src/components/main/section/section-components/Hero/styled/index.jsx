@@ -123,12 +123,12 @@ const CoffeeMug = styled((props) => (
 
 const CoffeeImg = styled((props) => (
   <Box
-    component="img"
+    component='img'
     src={coffee}
-    title="shop"
-    alt="shop"
+    title='coffee mug'
+    alt='coffee mug'
     srcSet={`${coffee} 1200w, ${coffee} 980w, ${coffee} 900w`}
-    sizes="(min-width: 600px) and (max-width: 1200px) 95vw, (min-width: 1700px) 90vw, 100vw"
+    sizes='(min-width: 600px) and (max-width: 1200px) 95vw, (min-width: 1700px) 90vw, 100vw'
     sx={{
       display: { xs: 'none', sm: 'block' },
       maxWidth: { sm: '120px', md: '150px', lg: '290px', xl: '321px' },

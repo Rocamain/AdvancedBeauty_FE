@@ -36,7 +36,12 @@ export default function GridAText({
         <Box sx={{ marginBottom: button && '1em' }}>
           <Markdown content={content} />
         </Box>
-        {button && <Button {...button} value={title} />}
+
+        {button && (
+          <Box sx={{ marginTop: '2rem' }}>
+            <Button {...button} value={title} />
+          </Box>
+        )}
       </Box>
     </Grid>
   );

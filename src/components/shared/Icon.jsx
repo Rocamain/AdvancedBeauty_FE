@@ -1,21 +1,5 @@
 import useNearScreen from 'hooks/useNearScreen.js';
-import { keyframes } from '@emotion/react';
 import { Box } from '@mui/material';
-
-const fadeOutAnimation = keyframes`
-    0% {
-      opacity: 0;
-      height: 0;
-    }
-    50% {
-      opacity: 0.2;
-      height: auto;
-    }
-    100% {
-      opacity: 1;
-      height: auto;
-    }
-  `;
 
 export default function Icon({ showTitle, isSizeBig, icon }) {
   const { fromRef, isNearScreen } = useNearScreen({
@@ -45,7 +29,7 @@ export default function Icon({ showTitle, isSizeBig, icon }) {
         <Box
           width={isSizeBig ? '280px' : '150px'}
           height={isSizeBig ? '140px' : '90px'}
-          loading="lazy"
+          loading='lazy'
           alt={icon.alternativeText}
           sx={{
             display: 'block',
@@ -55,7 +39,20 @@ export default function Icon({ showTitle, isSizeBig, icon }) {
             maxWidth: '100%',
             margin: '0 auto',
             animation:
-              isNearScreen && `${fadeOutAnimation} 0.7s linear forwards 0.2s`,
+              isNearScreen && `fadeOutAnimation 0.7s linear forwards 0.2s`,
+            '@keyframes fadeOutAnimation': {
+              '0%': {
+                opacity: 0,
+                height: 0,
+              },
+              '50%': {
+                opacity: 0.2,
+                height: 'auto',
+              },
+              '100%': {
+                opacity: 1,
+              },
+            },
 
             objectFit: 'contain',
 
