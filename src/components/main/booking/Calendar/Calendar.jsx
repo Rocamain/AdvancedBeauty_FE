@@ -1,6 +1,5 @@
 import { forwardRef, useContext } from 'react';
 import { BookingContext } from 'context/BookingContext.js';
-import { keyframes } from '@emotion/react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
@@ -10,12 +9,11 @@ import {
   CustomPickersDay,
   GridContainer,
 } from 'components/main/booking/Calendar/styled/index.jsx';
-
 import TimeSelector from 'components/main/booking/Calendar/TimeSelector.jsx';
 import {
   isSunday,
   isBankHoliday,
-} from 'components/main/booking/Calendar//utils/index.js';
+} from 'components/main/booking/Calendar/utils/index.js';
 import gb from 'dayjs/locale/en-gb.js';
 
 const PickersDay = ({ day, bankHolidays, disabled, ...pickersProps }) => {
@@ -31,7 +29,7 @@ const PickersDay = ({ day, bankHolidays, disabled, ...pickersProps }) => {
   );
 };
 
-const slotProps = {
+const slotProps = (bankHolidays) => ({
   day: {
     bankHolidays,
   },
@@ -52,7 +50,7 @@ const slotProps = {
       },
     },
   },
-};
+});
 
 const Calendar = ({ bankHolidays }) => {
   const { setBooking, booking } = useContext(BookingContext);
@@ -82,11 +80,10 @@ const Calendar = ({ bankHolidays }) => {
             minDate={dayjs()}
             maxDate={dayjs().add(1, 'year')}
             slots={{ day: PickersDay }}
-            slotProps={slotProps}
+            slotProps={slotProps(bankHolidays)}
             onChange={handleChange}
             onMonthChange={handleMonthChange}
             dayOfWeekFormatter={(day) => `${day.format('dd')}.`}
-            sx={{}}
           />
         </LocalizationProvider>
       </Grid>
@@ -103,20 +100,19 @@ const Calendar = ({ bankHolidays }) => {
 };
 
 export default forwardRef(({ fadeIn, ...props }, ref) => {
-  const fadeInAnimation = keyframes`
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  `;
-
   return (
     <Box
       sx={(theme) => {
         return {
-          animation: fadeIn && `${fadeInAnimation} 0.7s linear forwards 0.2s`,
+          animation: fadeIn && `fadeIn 0.7s linear forwards 0.2s`,
+          '@keyframes fadeIn': {
+            '0%': {
+              opacity: 0,
+            },
+            '100%': {
+              opacity: 1,
+            },
+          },
         };
       }}
       ref={ref}

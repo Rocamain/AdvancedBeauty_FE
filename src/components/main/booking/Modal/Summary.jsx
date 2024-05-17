@@ -4,25 +4,25 @@ import Form from 'components/main/booking/Modal/Form.jsx';
 import Price from 'components/main/booking/Modal/Price.jsx';
 import AppointmentInfo from 'components/main/booking/Modal/AppointmentInfo.jsx';
 import { Box, Divider, useMediaQuery } from '@mui/material';
-import { keyframes } from '@emotion/react';
 
 export default forwardRef(({ fadeOut, ...props }, ref) => {
-  const fadeOutAnimation = keyframes`
-    0% {
-      opacity: 0;    
-      visibility: 'visible',
-    }
-    100% {   
-      opacity: 1;
-    }
-  `;
-
   return (
     <Box
       style={{ opacity: 0 }}
       sx={(theme) => {
         return {
-          animation: fadeOut && `${fadeOutAnimation} 2.7s linear forwards 0.2s`,
+          animation: fadeOut && `fadeOut 2.7s linear forwards 0.2s`,
+          '@keyframes fadeOut': {
+            '0%': {
+              opacity: 0,
+            },
+            '50%': {
+              opacity: 0.4,
+            },
+            '100%': {
+              opacity: 1,
+            },
+          },
         };
       }}
       ref={ref}

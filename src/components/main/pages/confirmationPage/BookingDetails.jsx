@@ -12,9 +12,9 @@ export default function BookingDetails({
     <>
       <Box>
         <Typography
-          color="primary"
-          variant="h2"
-          component="h3"
+          color='primary'
+          variant='h2'
+          component='h3'
           sx={{ textAlign: 'center', mb: '0.5em', fontWeight: 900 }}
         >
           Booking Details
@@ -37,66 +37,66 @@ export default function BookingDetails({
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography
-                component="h6"
-                variant="confirmationText"
-                color="orange"
-                minWidth="100px"
+                component='h6'
+                variant='confirmationText'
+                color='orange'
+                minWidth='100px'
               >
                 Service:
               </Typography>
-              <Typography component="p" variant="confirmationText">
+              <Typography component='p' variant='confirmationText'>
                 {serviceName}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography
-                component="h6"
-                variant="confirmationText"
-                color="orange"
-                minWidth="100px"
+                component='h6'
+                variant='confirmationText'
+                color='orange'
+                minWidth='100px'
               >
                 Shop:
               </Typography>
-              <Typography component="p" variant="confirmationText">
+              <Typography component='p' variant='confirmationText'>
                 {shopName}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography
-                component="h6"
-                variant="confirmationText"
-                color="orange"
-                minWidth="100px"
+                component='h6'
+                variant='confirmationText'
+                color='orange'
+                minWidth='100px'
               >
                 Date:
               </Typography>
-              <Typography component="p" variant="confirmationText">
+              <Typography component='p' variant='confirmationText'>
                 {dateString}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography
-                component="h6"
-                variant="confirmationText"
-                color="orange"
-                minWidth="100px"
+                component='h6'
+                variant='confirmationText'
+                color='orange'
+                minWidth='100px'
               >
                 Time:
               </Typography>
-              <Typography component="p" variant="confirmationText">
+              <Typography component='p' variant='confirmationText'>
                 {time}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography
-                component="h6"
-                variant="confirmationText"
-                color="orange"
-                minWidth="100px"
+                component='h6'
+                variant='confirmationText'
+                color='orange'
+                minWidth='100px'
               >
                 Price:
               </Typography>
-              <Typography component="p" variant="confirmationText">
+              <Typography component='p' variant='confirmationText'>
                 {price} &#x20AC;
               </Typography>
             </Box>

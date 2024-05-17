@@ -427,26 +427,13 @@ theme = createTheme(theme, {
   },
   // Components override.
   components: {
-    // MuiCssBaseline: {
-    //   styleOverrides: `
-    //     @font-face {
-    //       font-family: 'Abel';
-    //       font-style: normal;
-    //       font-display: swap;
-    //       font-weight: 500;
-    //       src: local('Abel'), local('Abel-Regular'), url(${Abel}) format('Abel');
-    //       unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-    //     }
-    //     @font-face {
-    //       font-family: 'Open sans';
-    //       font-style: normal;
-    //       font-display: swap;
-    //       font-weight: 500;
-    //       src: local('Open sans'), local('Open sans-Regular'), url(${OpenSans}) format('Open sans');
-    //       unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-    //     }
-    //   `,
-    // },
+    MuiDayCalendar: {
+      styleOverrides: {
+        weekDayLabel: {
+          fontSize: '1.2rem',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

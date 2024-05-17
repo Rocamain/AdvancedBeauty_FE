@@ -11,7 +11,6 @@ import {
 
 import NorthWestSharpIcon from '@mui/icons-material/NorthWestSharp';
 import circles from 'assets/circles.jpg';
-import { keyframes } from '@emotion/react';
 
 const Dialog = styled((props) => {
   return <MuiDialog {...props} />;
@@ -47,24 +46,22 @@ const Dialog = styled((props) => {
 
 const ModalWrapper = styled(({ children, ...props }) => {
   return <Box {...props} children={children} />;
-})(({ theme, fade_out }) => {
-  const fadeInAnimation = keyframes`
-  0% {
-     opacity: 0;
-  }
-  100% {
-    opacity: 1;
-
-  }`;
-
-  let animation = `${fadeInAnimation} 0.7s linear forwards 0.7s`;
-
+})(({ theme, animate }) => {
   return {
     flex: 1,
     opacity: 0,
-    animation: fade_out ? animation : undefined,
+    animation: animate ? `in 0.7s linear forwards 0.7s` : undefined,
     margin: '0 auto',
     width: '90%',
+    '@keyframes in': {
+      '0%': {
+        opacity: 0,
+      },
+
+      '100%': {
+        opacity: 1,
+      },
+    },
     [theme.breakpoints.up('sm')]: {
       maxWidth: 600,
     },

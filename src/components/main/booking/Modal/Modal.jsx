@@ -2,17 +2,12 @@ import { useState, useRef } from 'react';
 import useFetchBankHolidays from 'hooks/useFetchBankHolidays';
 import { BookingContext } from 'context/BookingContext';
 import useShowSummary from 'hooks/useShowSummary';
-import {
-  // Modal as MuiModal,
-  Box,
-  Button as MuiButton,
-} from '@mui/material/';
+import { Box, Button as MuiButton } from '@mui/material/';
 import Stepper from 'components/main/booking/Modal/Stepper.jsx';
 import Summary from 'components/main/booking/Modal/Summary.jsx';
 import Calendar from 'components/main/booking/Calendar/Calendar.jsx';
 import Header from 'components/main/booking/Modal/BookingHeader.jsx';
 import {
-  // DialogContent,
   Dialog,
   ModalWrapper,
   ExitBtn,
@@ -79,7 +74,7 @@ export default function Modal({
         >
           <Stepper step={bookingStep} />
           <ExitBtn onClick={handleExitBtn} />
-          <ModalWrapper fade_out={fadeOut.current ? 'fadeout' : undefined}>
+          <ModalWrapper animate={fadeOut.current ? 'fadeout' : undefined}>
             <Header title={serviceType} subtitle={serviceName} />
             {showSummary ? (
               <Summary ref={summaryRef} fadeOut={showSummary} />
