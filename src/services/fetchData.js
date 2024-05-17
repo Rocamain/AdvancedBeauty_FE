@@ -7,12 +7,11 @@ const fetchData = async ({ apiRoute, signal }) => {
       apiRoute,
       signal,
     });
-
+    const { shops } = await fetchBookingDb({ apiRoute: 'shops', signal });
     const { data: componentsData } = strapiResponse;
 
     switch (apiRoute) {
       case 'logo':
-        const { shops } = await fetchBookingDb({ apiRoute: 'shops', signal });
         return { logo: componentsData.photo, shops };
       case 'palma':
       case 'turo':
@@ -29,6 +28,7 @@ const fetchData = async ({ apiRoute, signal }) => {
       default:
         return {
           components: componentsData?.components || componentsData,
+          shops,
         };
     }
   } catch (err) {
